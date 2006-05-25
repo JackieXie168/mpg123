@@ -1,0 +1,75 @@
+Return-Path: <deller@gmx.de>
+X-Spam-Checker-Version: SpamAssassin 3.1.0 (2005-09-13) on 
+	futris01.futris01.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00 autolearn=ham 
+	version=3.1.0
+X-Original-To: f0166p1@futris01.futris01.de
+Delivered-To: f0166p1@futris01.futris01.de
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by futris01.futris01.de (Postfix) with ESMTP id E0B57101795B
+	for <f0166p1@futris01.futris01.de>; Fri, 10 Mar 2006 08:46:55 +0100 (CET)
+Received: from futris01.futris01.de ([127.0.0.1])
+	by localhost (futris01 [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 14683-06 for <f0166p1@futris01.futris01.de>;
+	Fri, 10 Mar 2006 08:46:55 +0100 (CET)
+Received: from mail.gmx.net (mail.gmx.net [213.165.64.20])
+	by futris01.futris01.de (Postfix) with SMTP id C90A2100B6AD
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 08:46:55 +0100 (CET)
+Received: (qmail invoked by alias); 10 Mar 2006 07:47:00 -0000
+Received: from p54AD4606.dip0.t-ipconnect.de (EHLO p100.box) [84.173.70.6]
+  by mail.gmx.net (mp041) with SMTP; 10 Mar 2006 08:47:00 +0100
+X-Authenticated: #1045983
+From: Helge Deller <deller@gmx.de>
+To: Thomas Orgis <thomas@orgis.org>
+Subject: Re: To all mpg123 contributors: upcoming release under LGPL.
+Date: Fri, 10 Mar 2006 08:46:59 +0100
+User-Agent: KMail/1.9.1
+References: <20060310035114.7f8c90f0@thorvas.local>
+In-Reply-To: <20060310035114.7f8c90f0@thorvas.local>
+X-Face: *4/{KL3=jWs!v\UO#3e7~Vb1~CL@oP'~|*/M$!9`tb2[;fY@)WscF2iV7`,a$141g'o,=?utf-8?q?7X=0A=09=3FBt1Wb=3AL7K6z-?=<?-+-13|S_ixrq58*E`)ZkSe~NSI?u=89G'J<n]7\?[)LCCBZc}~[j(=?utf-8?q?e=7D=0A=09=60-QV=7B=23=25=26=5B=3F=5EfAke6t8QbP=3Bb=27XB?=,ZU84HeThMrO(@/K.`jxq9P({V(AzezCKMxk\F2^p^+"=?utf-8?q?=0A=09=5B?="ppalbA!zy-l)^Qa3*u/Z-1W3,o?2fes2_d\u=1\E9N+~Qo
+MIME-Version: 1.0
+Content-Type: text/plain;
+  charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Message-Id: <200603100846.59749.deller@gmx.de>
+X-Y-GMX-Trusted: 0
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at futris.de
+X-UIDL: BgP"!'=e"!%_>"!AAC"!
+
+Hello Thomas,
+
+I'm fine with the LGPL license change, although I forgot which kind of code-contriution I did once...
+
+Regards,
+Helge
+
+On Friday 10 March 2006 03:51, Thomas Orgis wrote:
+> Greetings to you who have contributed to the mpg123 project in some way and who I was able to get the eMail address from!
+> 
+> I, Thomas Orgis, am taking over active maintainership of the project from Michael Hipp.
+> To successfully sustain this project outside the hands of the caring original author, I feel urged to have a clear license statement.
+> I also want to regain some "territory" like the free software section of a distribution for mpg123 that it lost/never had because of it's freeness being unclear in certain terms.
+> 
+> Michael already announced to release mpg123 under the GPL and the extracted mpglib under LPGL (what he then did).
+> 
+> It is desirable to have _one_ license for all of mpg123 to make further development and restructuring possible.
+> Thus, meeting both the requirements of freeness and sustainability of current uses of mpglib the decision was made to use the GNU Lesser General Public License, Version 2.1, for the whole package.
+> 
+> I plan to release an updated version with the LGPL license statements in the following weeks and kindly ask everyone who has contributed code and is not agreeing with this to contact me to settle the issue.
+> 
+> Replies indicating that there are _no_ issues with a LPGL release are highly appreciated!
+> 
+> 
+> 
+> Sincerely yours,
+> 
+> Thomas Orgis.
+> 
+> 
+> -- 
+> Thomas Orgis - GPG public key: http://thomas.orgis.org/public_key
+> OrgisNetzOrganisation ---)=- http://orgis.org
+> 
+

@@ -1,0 +1,34 @@
+Return-Path: <guardia@step.polymtl.ca>
+Delivered-To: thomas@orgis.org
+Received: from simmts8-srv.bellnexxia.net ([206.47.199.166]:51663)
+	by nesselzelle.de with [XMail 1.22 SSL Ext 0.0.3a ESMTP Server]
+	id <S8B9> for <thomas@orgis.org> from <guardia@step.polymtl.ca>;
+	Fri, 28 Apr 2006 07:43:44 +0200
+Received: from [192.168.2.14] ([70.48.111.120])
+          by simmts8-srv.bellnexxia.net
+          (InterMail vM.5.01.06.13 201-253-122-130-113-20050324) with ESMTP
+          id <20060428053957.IUMD2202.simmts8-srv.bellnexxia.net@[192.168.2.14]>
+          for <thomas@orgis.org>; Fri, 28 Apr 2006 01:39:57 -0400
+Subject: Re: to all mpg123 contributors - new release under LGPL
+From: Samuel Audet <guardia@step.polymtl.ca>
+To: Thomas Orgis <thomas@orgis.org>
+In-Reply-To: <20060427202253.5e30527a@thorvas.local>
+References: <20060427202253.5e30527a@thorvas.local>
+Content-Type: text/plain
+Date: Fri, 28 Apr 2006 01:39:56 -0400
+Message-Id: <1146202797.14850.18.camel@localhost.localdomain>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.4.2 (2.4.2-2) 
+Content-Transfer-Encoding: 7bit
+
+Hello,
+
+On Thu, 2006-04-27 at 20:22 +0200, Thomas Orgis wrote:
+> I plan to release an updated version with the LGPL license statements in the following weeks and kindly ask everyone who has contributed code to give me permission to do so.
+> Please respond to this email even if you don't remember your contribution anymore.
+
+Yes it's fine. I have no problem with this. Thanks for contacting me!
+
+Regards,
+Samuel Audet
+

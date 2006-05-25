@@ -1,0 +1,84 @@
+Return-Path: <doconnor@gsoft.com.au>
+X-Spam-Checker-Version: SpamAssassin 3.1.0 (2005-09-13) on 
+	futris01.futris01.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,SPF_HELO_PASS 
+	autolearn=ham version=3.1.0
+X-Original-To: f0166p1@futris01.futris01.de
+Delivered-To: f0166p1@futris01.futris01.de
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by futris01.futris01.de (Postfix) with ESMTP id CE5091017933
+	for <f0166p1@futris01.futris01.de>; Fri, 10 Mar 2006 04:05:30 +0100 (CET)
+Received: from futris01.futris01.de ([127.0.0.1])
+	by localhost (futris01 [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 03527-06 for <f0166p1@futris01.futris01.de>;
+	Fri, 10 Mar 2006 04:05:30 +0100 (CET)
+Received: from cain.gsoft.com.au (cain.gsoft.com.au [203.31.81.10])
+	by futris01.futris01.de (Postfix) with ESMTP id C6D701017950
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 04:05:28 +0100 (CET)
+Received: from inchoate.gsoft.com.au (inchoate.gsoft.com.au [203.31.81.21])
+	(authenticated bits=0)
+	by cain.gsoft.com.au (8.13.5/8.13.4) with ESMTP id k2A35LBH017181
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Fri, 10 Mar 2006 13:35:27 +1030 (CST)
+	(envelope-from doconnor@gsoft.com.au)
+From: "Daniel O'Connor" <doconnor@gsoft.com.au>
+To: Thomas Orgis <thomas@orgis.org>
+Subject: Re: To all mpg123 contributors: upcoming release under LGPL.
+Date: Fri, 10 Mar 2006 13:35:07 +1030
+User-Agent: KMail/1.9.1
+Cc: michael.hipp@uni-tuebingen.de
+References: <20060310035114.7f8c90f0@thorvas.local>
+In-Reply-To: <20060310035114.7f8c90f0@thorvas.local>
+MIME-Version: 1.0
+Content-Type: multipart/signed;
+  boundary="nextPart1600486.dAHnEJHrL7";
+  protocol="application/pgp-signature";
+  micalg=pgp-sha1
+Content-Transfer-Encoding: 7bit
+Message-Id: <200603101335.14792.doconnor@gsoft.com.au>
+X-Scanned-By: MIMEDefang 2.56 on 203.31.81.10
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at futris.de
+X-UIDL: :n<!!Y$V"!D4@"!NV&"!
+
+--nextPart1600486.dAHnEJHrL7
+Content-Type: text/plain;
+  charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+On Friday 10 March 2006 13:21, Thomas Orgis wrote:
+> I plan to release an updated version with the LGPL license statements in
+> the following weeks and kindly ask everyone who has contributed code and =
+is
+> not agreeing with this to contact me to settle the issue.
+>
+> Replies indicating that there are _no_ issues with a LPGL release are
+> highly appreciated!
+
+I can't remember what I contributed, but in any case I have no issue with t=
+he=20
+license changing to LGPL.
+
+(I even think it's a good idea :)
+=2D-=20
+Daniel O'Connor software and network engineer
+for Genesis Software - http://www.gsoft.com.au
+"The nice thing about standards is that there
+are so many of them to choose from."
+  -- Andrew Tanenbaum
+GPG Fingerprint - 5596 B766 97C0 0E94 4347 295E E593 DC20 7B3F CE8C
+
+--nextPart1600486.dAHnEJHrL7
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.2.1 (FreeBSD)
+
+iD8DBQBEEOzq5ZPcIHs/zowRAuF7AKChmonxpiaNEYyIFLeSngFMQfiv+wCeLeHc
+5mY1NjX7DrxQZ49W+G+YZOg=
+=LP7Q
+-----END PGP SIGNATURE-----
+
+--nextPart1600486.dAHnEJHrL7--
+

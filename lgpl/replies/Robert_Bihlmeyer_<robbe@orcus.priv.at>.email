@@ -1,0 +1,72 @@
+Return-Path: <robbe@orcus.priv.at>
+X-Spam-Checker-Version: SpamAssassin 3.1.0 (2005-09-13) on 
+	futris01.futris01.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_00,FORGED_RCVD_HELO 
+	autolearn=ham version=3.1.0
+X-Original-To: f0166p1@futris01.futris01.de
+Delivered-To: f0166p1@futris01.futris01.de
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by futris01.futris01.de (Postfix) with ESMTP id CE40010178F5
+	for <f0166p1@futris01.futris01.de>; Fri, 10 Mar 2006 16:43:27 +0100 (CET)
+Received: from futris01.futris01.de ([127.0.0.1])
+	by localhost (futris01 [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 06264-05 for <f0166p1@futris01.futris01.de>;
+	Fri, 10 Mar 2006 16:43:27 +0100 (CET)
+Received: from hoss.orcus.priv.at (vie-062-116-122-142.dsl.sil.at [62.116.122.142])
+	by futris01.futris01.de (Postfix) with ESMTP id A0371100B6AD
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 16:43:27 +0100 (CET)
+Received: by hoss.orcus.priv.at (Postfix, from userid 1000)
+	id 539A287BD1; Fri, 10 Mar 2006 16:43:32 +0100 (CET)
+To: Thomas Orgis <thomas@orgis.org>
+Subject: Re: To all mpg123 contributors: upcoming release under LGPL.
+X-Attribution: Robbe
+References: <20060310035114.7f8c90f0@thorvas.local>
+From: Robert Bihlmeyer <robbe@orcus.priv.at>
+Date: Fri, 10 Mar 2006 16:36:08 +0100
+In-Reply-To: <20060310035114.7f8c90f0@thorvas.local> (Thomas Orgis's message of "Fri, 10 Mar 2006 03:51:14 +0100")
+Message-ID: <87fylq2txz.fsf@orcus.priv.at>
+User-Agent: Gnus/5.1007 (Gnus v5.10.7) XEmacs/21.4.19 (linux)
+MIME-Version: 1.0
+content-Type: multipart/signed; boundary="----------=_1142005022-2983-0"; micalg="pgp-sha1"; protocol="application/pgp-signature"
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at futris.de
+X-UIDL: @#9"!*JI"!7R#"!]fN!!
+
+This is a multi-part message in MIME format.
+It has been signed conforming to RFC3156.
+You need GPG or PGP to check the signature.
+
+------------=_1142005022-2983-0
+Content-Type: text/plain; charset=iso-8859-1
+content-transfer-encoding: quoted-printable
+
+Thomas Orgis <thomas@orgis.org> writes:=0A=
+=0A=
+> Greetings to you who have contributed to the mpg123 project in some=0A=
+> way and who I was able to get the eMail address from!=0A=
+=0A=
+Ich kann mich zwar an nichts erinnern und pl=E4diere auf unschuldig ...=0A=
+=0A=
+> Replies indicating that there are _no_ issues with a LPGL release=0A=
+> are highly appreciated!=0A=
+=0A=
+... aber meinen Segen daf=FCr hast Du.=0A=
+=0A=
+--=20=0A=
+Robbe=0A=
+
+------------=_1142005022-2983-0
+Content-Type: application/pgp-signature
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.2 (GNU/Linux)
+
+iD8DBQFEEZ6k8g21h7wYWrMRAifIAKCSNUuJxT43gj8cQRibP8iYF3ekiACfaHyl
+9DTxstils+bSlfANt7hrIls=
+=QDnz
+-----END PGP SIGNATURE-----
+
+------------=_1142005022-2983-0--
+

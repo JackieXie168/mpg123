@@ -1,0 +1,47 @@
+Return-Path: <sms@2BSD.COM>
+X-Spam-Checker-Version: SpamAssassin 3.1.0 (2005-09-13) on 
+	futris01.futris01.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00 autolearn=ham 
+	version=3.1.0
+X-Original-To: f0166p1@futris01.futris01.de
+Delivered-To: f0166p1@futris01.futris01.de
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by futris01.futris01.de (Postfix) with ESMTP id 1EAA91017959
+	for <f0166p1@futris01.futris01.de>; Fri, 10 Mar 2006 04:38:33 +0100 (CET)
+Received: from futris01.futris01.de ([127.0.0.1])
+	by localhost (futris01 [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 07611-10 for <f0166p1@futris01.futris01.de>;
+	Fri, 10 Mar 2006 04:38:33 +0100 (CET)
+Received: from moe.2bsd.com (MOE.2BSD.COM [64.32.150.18])
+	by futris01.futris01.de (Postfix) with ESMTP id 5418E1017958
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 04:38:32 +0100 (CET)
+Received: from localhost (sms@localhost)
+	by moe.2bsd.com (8.11.6/8.11.6) with ESMTP id k2A3cH324113;
+	Thu, 9 Mar 2006 19:38:17 -0800 (PST)
+Date: Thu, 9 Mar 2006 19:38:17 -0800 (PST)
+From: "Steven M. Schultz" <sms@2BSD.COM>
+To: Thomas Orgis <thomas@orgis.org>
+Cc: michael.hipp@uni-tuebingen.de
+Subject: Re: To all mpg123 contributors: upcoming release under LGPL.
+In-Reply-To: <20060310035114.7f8c90f0@thorvas.local>
+Message-ID: <Pine.BSI.4.05L.10603091936280.24105-100000@moe.2bsd.com>
+MIME-Version: 1.0
+Content-Type: TEXT/PLAIN; CHARSET=US-ASCII
+Content-ID: <Pine.BSI.4.05L.10603091936282.24105@moe.2bsd.com>
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at futris.de
+X-UIDL: =4d"!`M_!!H\*!!0K9!!
+
+
+On Fri, 10 Mar 2006, Thomas Orgis wrote:
+
+> Greetings to you who have contributed to the mpg123 project in some way and who I was able to get the eMail address from!
+
+> Replies indicating that there are _no_ issues with a LPGL release are 
+> highly appreciated!
+
+	My contribution(s) were minor (portability to a BSD variant) but
+	I certainly have no issues with a LGPL release.  
+
+	Steven Schultz
+

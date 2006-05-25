@@ -1,0 +1,61 @@
+Return-Path: <martin.denn@arcor.de>
+X-Spam-Checker-Version: SpamAssassin 3.1.0 (2005-09-13) on 
+	futris01.futris01.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_00,FORGED_RCVD_HELO 
+	autolearn=ham version=3.1.0
+X-Original-To: f0166p1@futris01.futris01.de
+Delivered-To: f0166p1@futris01.futris01.de
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by futris01.futris01.de (Postfix) with ESMTP id 413C9101790A
+	for <f0166p1@futris01.futris01.de>; Fri, 10 Mar 2006 18:46:43 +0100 (CET)
+Received: from futris01.futris01.de ([127.0.0.1])
+	by localhost (futris01 [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 01225-01 for <f0166p1@futris01.futris01.de>;
+	Fri, 10 Mar 2006 18:46:43 +0100 (CET)
+Received: from mail-in-02.arcor-online.net (mail-in-02.arcor-online.net [151.189.21.42])
+	by futris01.futris01.de (Postfix) with ESMTP id 2E5CC10178F5
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 18:46:43 +0100 (CET)
+Received: from mail-in-05-z2.arcor-online.net (mail-in-05-z2.arcor-online.net [151.189.8.17])
+	by mail-in-02.arcor-online.net (Postfix) with ESMTP id A77E51C961F
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 18:46:47 +0100 (CET)
+Received: from mail-in-02.arcor-online.net (mail-in-02.arcor-online.net [151.189.21.42])
+	by mail-in-05-z2.arcor-online.net (Postfix) with ESMTP id 98A391A0BCF
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 18:46:47 +0100 (CET)
+Received: from schachtel2.mydomain.priv (dslb-084-058-109-165.pools.arcor-ip.net [84.58.109.165])
+	by mail-in-02.arcor-online.net (Postfix) with ESMTP id 68C6E1C96D4
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 18:46:47 +0100 (CET)
+Received: from schachtel2.mydomain.priv (localhost [127.0.0.1])
+	by schachtel2.mydomain.priv (8.13.5/8.13.5/Debian-3) with ESMTP id k2AHk1WS007245
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 18:46:01 +0100
+Received: (from mdenn@localhost)
+	by schachtel2.mydomain.priv (8.13.5/8.13.5/Submit) id k2AHk1DZ007242
+	for thomas@orgis.org; Fri, 10 Mar 2006 18:46:01 +0100
+From: Martin Denn <martin.denn@arcor.de>
+Date: Fri, 10 Mar 2006 18:46:01 +0100
+To: Thomas Orgis <thomas@orgis.org>
+Subject: Re: To all mpg123 contributors: upcoming release under LGPL.
+Message-ID: <20060310174600.GA7222@schachtel2.mydomain.priv>
+References: <20060310035114.7f8c90f0@thorvas.local>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20060310035114.7f8c90f0@thorvas.local>
+Organization: completely unorganized
+User-Agent: Mutt/1.5.11+cvs20060126
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at futris.de
+X-UIDL: 8[C!!WU#"!o%\"!=@I"!
+
+Hi Thomas,
+> 
+> Replies indicating that there are _no_ issues with a LPGL release are highly appreciated!
+> 
+I see no problems releasing my contributed code under the LGPL.
+
+Have a nice week-end,
+
+Martin.
+
+-- 
+-> Achtung, neue Adresse: martin.denn@arcor.de
+

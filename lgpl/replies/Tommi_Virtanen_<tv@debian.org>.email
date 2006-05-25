@@ -1,0 +1,72 @@
+Return-Path: <tv@debian.org>
+X-Spam-Checker-Version: SpamAssassin 3.1.0 (2005-09-13) on 
+	futris01.futris01.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_00,FORGED_RCVD_HELO 
+	autolearn=ham version=3.1.0
+X-Original-To: f0166p1@futris01.futris01.de
+Delivered-To: f0166p1@futris01.futris01.de
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by futris01.futris01.de (Postfix) with ESMTP id 772C41017936
+	for <f0166p1@futris01.futris01.de>; Thu, 16 Mar 2006 14:30:58 +0100 (CET)
+Received: from futris01.futris01.de ([127.0.0.1])
+	by localhost (futris01 [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 30444-06 for <f0166p1@futris01.futris01.de>;
+	Thu, 16 Mar 2006 14:30:58 +0100 (CET)
+Received: from mail.inoi.fi (i1.inoi.fi [194.100.97.46])
+	by futris01.futris01.de (Postfix) with ESMTP id 5CFBB101791B
+	for <thomas@orgis.org>; Thu, 16 Mar 2006 14:30:58 +0100 (CET)
+Received: from mail.inoi.fi (localhost.localdomain [127.0.0.1])
+	by mail.inoi.fi (Postfix) with ESMTP id B84D4F437A;
+	Thu, 16 Mar 2006 15:31:28 +0200 (EET)
+Received: from [10.116.119.101] (GMMDXXVII.dsl.saunalahti.fi [85.76.242.28])
+	by mail.inoi.fi (Postfix) with ESMTP id 6F64BF40D5;
+	Thu, 16 Mar 2006 15:31:28 +0200 (EET)
+Message-ID: <44196891.20805@debian.org>
+Date: Thu, 16 Mar 2006 15:30:57 +0200
+From: Tommi Virtanen <tv@debian.org>
+Organization: Debian GNU/Linux
+User-Agent: Debian Thunderbird 1.0.7 (X11/20051018)
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: Thomas Orgis <thomas@orgis.org>
+Cc: michael.hipp@uni-tuebingen.de
+Subject: Re: To all mpg123 contributors: upcoming release under LGPL.
+References: <20060310035114.7f8c90f0@thorvas.local>
+In-Reply-To: <20060310035114.7f8c90f0@thorvas.local>
+X-Enigmail-Version: 0.93.0.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: ClamAV using ClamSMTP
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at futris.de
+X-UIDL: g)K!!BO]"!e~"#!VgI!!
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Thomas Orgis wrote:
+> I plan to release an updated version with the LGPL license statements
+> in the following weeks and kindly ask everyone who has contributed code
+> and is not agreeing with this to contact me to settle the issue.
+
+Surely you are not implying that you think that getting no reply from
+someone means his code is usable under LGPL?
+
+You need to get explicit permission, or rewrite the affected bits from
+scratch (and avoid your rewrite being a derivative work).
+
+> Replies indicating that there are _no_ issues with a LPGL release are highly appreciated!
+
+Any code I may have contributed to the mpg123 project at any time in the
+past are hereby licensed to you under the GNU Lesser General Public
+License, version 2.1 or later.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.2.2 (GNU/Linux)
+
+iQCVAwUBRBlokYAGLnzk1H7BAQJC5AP/R3gu//g0Cce2XGngFF9e5sXTlt83T/A7
+6jsxZs6mz3tlo6TjsbJqlCkPznm8ueeeQU/ioGiNBFKCmGndeI/ky+61D/C7zBBD
+qRDXXfhTZhynPYXH2LLCb+qzRL+irsZTGp5+shcPbgzrqFLEdJRuZmu7kmu8Ux44
+fAaGIFq+0h0=
+=STFz
+-----END PGP SIGNATURE-----
+

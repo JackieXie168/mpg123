@@ -6,6 +6,27 @@ Meaning of symbols:
 	x lgpl granted
 	# not relevant (anymore) or just addon can can have different license
 
+The I-don't-give-up round
+=========================
+
+Searching for some more addresses (again), writing people that didn't respond again - with the clear request for response.
+Actually getting some tight substance from Michael that I can put on the website.
+
+a review on the list of ppl Daniel Kobras mentioned:
+
+% Steve Kemp <skx@debian.org>
+% Dan Olson <theoddone33@icculus.org>
+% KIMURA Takuhiro ... try new(?): kim-at-jnb.odn.ne.jp
+% Syuuhei Kashiyama...
+@ Rupert Levene <rupert.debian@hotpop.com>
+@ Andreas Dilger <adilger@turbolinux.com>
+x Erik B. Andersen <andersee@debian.org>
+x Chris Butler <chrisb@debian.org>
+% Martin Sjogren <md9ms@mdstud.chalmers.se>
+@ Chet Hosey <chosey@budapress.com>
+% Roland Rosenfeld <roland@spinnaker.de>
+
+Doesn't look _that_ good, eh?
 
 Next round:
 ===========
@@ -20,12 +41,12 @@ List of important contributors from inventory.txt (excluding Michael, Debianers,
 
 Creators (of a whole file, driver...):
 
-%% Oliver Fromme new: <olli@fromme.com> old: <oliver.fromme@heim3.tu-clausthal.de>
+x Oliver Fromme <olli@fromme.com> old: <oliver.fromme@heim3.tu-clausthal.de>
 %% Juergen Schoew <juergen.schoew@unix-ag.org> (wrote to @unix-ag.uni-siegen.de, then also to first one)
 @% Erwan Ducroquet @<ducroque@ufr-info-p7.ibp.fr> <erwan.ducroquet@free.fr> (from freshmeat)
 @? Anders Semb Hermansen <ahermans@vf.telia.no> ...asked polarparty.no
 @% Petr Stehlik @<stehlik@cas3.zlin.vutbr.cz>, <joy@sophics.cz> atari webring...
-@% Samuel Audet <guardia@cam.org> <guardia@step.polymtl.ca> ...this guy is active! nice eq 'n stuff...
+x Samuel Audet <guardia@step.polymtl.ca> ...this guy is active! nice eq 'n stuff... old: <guardia@cam.org> 
 ?? Andreas Neuhaus <?> .. asked someone from irmp3 project...
 @% Brian Foutz @<foutz@anise.ee.cornell.edu>  <bef2@cornell.edu>
 % Syuuhei Kashiyama <syukashi@bekkoame.or.jp>
@@ -39,7 +60,7 @@ Creators (of a whole file, driver...):
 
 Modders:
 
-% Tomas Oegren <stric@acc.umu.se>
+x Tomas Oegren <stric@acc.umu.se>
 % Niklas Edmundsson <nikke@ing.umu.se>
 @% Jaroslav Kysela @<perex@jcu.cz> <perex@suse.cz>
 % Ville Syrjala <syrjala@sci.fi>
@@ -85,7 +106,7 @@ x Steven Schultz <sms@moe.2bsd.com>: BSDOS 4.0 with gcc added to Makefile
 @ Bertrand Petit <elrond@phoe.netdev.net>: frontend changes
 @ Erik Mouw <J.A.K.Mouw@its.tudelft.nl>: SGI audio fix for non RAD machines
 x Daniel O'Connor <darius@guppy.dons.net.au>: freebsd-esd make-entry
-x D. Skarda <0rfelyus@atrey.karlin.mff.cuni.cz>: enhanced head_check
+x Daniel Skarda <0rfelyus@atrey.karlin.mff.cuni.cz>: enhanced head_check
 @ Wilson, Jeff D <jeff.wilson@wilcom.com>: xterm-title
 x Robert Bihlmeyer <robbe@orcus.priv.at>: esd changes
 % Hannu Napari's <Hannu.Napari@hut.fi>: SGI audio patches

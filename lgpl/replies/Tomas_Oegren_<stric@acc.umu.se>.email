@@ -1,0 +1,53 @@
+Return-Path: <stric@acc.umu.se>
+Delivered-To: thomas@orgis.org
+Received: from mail.acc.umu.se ([130.239.18.156]:40192)
+	by nesselzelle.de with [XMail 1.22 SSL Ext 0.0.3a ESMTP Server] via protocol=TLSv1/SSLv3, cipher=AES256-SHA(256)
+	id <S8AA> for <thomas@orgis.org> from <stric@acc.umu.se>;
+	Fri, 28 Apr 2006 00:29:53 +0200
+Received: from localhost (localhost [127.0.0.1])
+	by amavisd-new (Postfix) with ESMTP id 77F5B70
+	for <thomas@orgis.org>; Fri, 28 Apr 2006 00:26:17 +0200 (MEST)
+Received: from shaka.acc.umu.se (shaka.acc.umu.se [130.239.18.148])
+	by mail.acc.umu.se (Postfix) with ESMTP id 96EA56A
+	for <thomas@orgis.org>; Fri, 28 Apr 2006 00:26:16 +0200 (MEST)
+Received: by shaka.acc.umu.se (Postfix, from userid 12132)
+	id 818242B; Fri, 28 Apr 2006 00:26:16 +0200 (MEST)
+Date: Fri, 28 Apr 2006 00:26:16 +0200
+From: Tomas =?iso-8859-1?Q?=D6gren?= <stric@acc.umu.se>
+To: Thomas Orgis <thomas@orgis.org>
+Subject: Re: to all mpg123 contributors - new release under LGPL
+Message-ID: <20060427222616.GB12498@shaka.acc.umu.se>
+References: <20060427202253.5e30527a@thorvas.local>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20060427202253.5e30527a@thorvas.local>
+User-Agent: Mutt/1.5.11
+X-Virus-Scanned: amavisd-new at acc.umu.se
+
+On 27 April, 2006 - Thomas Orgis sent me these 2,0K bytes:
+
+> Greetings to you who have contributed to the mpg123 project in some way and who I was able to get the eMail address from!
+> 
+> (some email addresses result from google searches and I am not always sure of having found the right person - please be so kind and reply to me if this all here is totally irrelevant to you)
+> 
+> I, Thomas Orgis, am taking over active maintainership of the project from Michael Hipp.
+> To successfully sustain this project outside the hands of the caring original author, I feel urged to have a clear license statement.
+> I also want to regain some "territory" like the free software section of a distribution for mpg123 that it lost/never had because of it's freeness being unclear in certain terms.
+> 
+> Michael already announced to release mpg123 under the GPL and the extracted mpglib under LPGL (what he then did).
+> 
+> It is desirable to have _one_ license for all of mpg123 to make further development and restructuring possible.
+> Thus, meeting both the requirements of freeness and sustainability of current uses of mpglib the decision was made to use the GNU Lesser General Public License, Version 2.1, for the whole package.
+> 
+> I plan to release an updated version with the LGPL license statements in the following weeks and kindly ask everyone who has contributed code to give me permission to do so.
+> Please respond to this email even if you don't remember your contribution anymore.
+
+Fine by me.
+
+/Tomas
+-- 
+Tomas Ögren, stric@acc.umu.se, http://www.acc.umu.se/~stric/
+|- Student at Computing Science, University of Umeå
+`- Sysadmin at {cs,acc}.umu.se

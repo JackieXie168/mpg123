@@ -1,0 +1,58 @@
+Return-Path: <cjwatson@flatline.org.uk>
+X-Spam-Checker-Version: SpamAssassin 3.1.0 (2005-09-13) on 
+	futris01.futris01.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.2 required=5.0 tests=BAYES_40 autolearn=ham 
+	version=3.1.0
+X-Original-To: f0166p1@futris01.futris01.de
+Delivered-To: f0166p1@futris01.futris01.de
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by futris01.futris01.de (Postfix) with ESMTP id AC7F6101794F
+	for <f0166p1@futris01.futris01.de>; Fri, 10 Mar 2006 04:05:05 +0100 (CET)
+Received: from futris01.futris01.de ([127.0.0.1])
+	by localhost (futris01 [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 03527-05 for <f0166p1@futris01.futris01.de>;
+	Fri, 10 Mar 2006 04:05:05 +0100 (CET)
+Received: from ptb-relay02.plus.net (ptb-relay02.plus.net [212.159.14.213])
+	by futris01.futris01.de (Postfix) with ESMTP id 92C9E1017933
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 04:05:05 +0100 (CET)
+Received: from [83.216.156.196] (helo=riva.pelham.vpn.ucam.org)
+	 by ptb-relay02.plus.net with esmtp (Exim) id 1FHXwC-0002O7-Pe; Fri, 10 Mar 2006 03:05:08 +0000
+Received: from cjwatson by riva.pelham.vpn.ucam.org with local (Exim 3.36 #1 (Debian))
+	id 1FHXw8-0000TH-00; Fri, 10 Mar 2006 03:05:04 +0000
+Date: Fri, 10 Mar 2006 03:05:04 +0000
+From: Colin Watson <cjwatson@debian.org>
+To: Thomas Orgis <thomas@orgis.org>
+Cc: michael.hipp@uni-tuebingen.de
+Subject: Re: To all mpg123 contributors: upcoming release under LGPL.
+Message-ID: <20060310030503.GG27757@riva.ucam.org>
+References: <20060310035114.7f8c90f0@thorvas.local>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20060310035114.7f8c90f0@thorvas.local>
+User-Agent: Mutt/1.5.9i
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at futris.de
+X-UIDL: M1a"!+~A"!OVp!!7)1"!
+
+On Fri, Mar 10, 2006 at 03:51:14AM +0100, Thomas Orgis wrote:
+> Greetings to you who have contributed to the mpg123 project in some
+> way and who I was able to get the eMail address from!
+[...]
+> I plan to release an updated version with the LGPL license statements
+> in the following weeks and kindly ask everyone who has contributed
+> code and is not agreeing with this to contact me to settle the issue.
+> 
+> Replies indicating that there are _no_ issues with a LPGL release are
+> highly appreciated!
+
+I don't actually remember ever contributing code to mpg123, although I
+did do a small amount of quality assurance work on the Debian package of
+mpg123 back in 2001. In any case, you certainly have my permission to
+take any code I contributed and distribute it under the LGPL.
+
+Cheers,
+
+-- 
+Colin Watson                                       [cjwatson@debian.org]
+

@@ -1,0 +1,86 @@
+Return-Path: <sbiesche@ac.upc.edu>
+X-Spam-Checker-Version: SpamAssassin 3.1.0 (2005-09-13) on 
+	futris01.futris01.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=5.0 tests=BAYES_05,FORGED_RCVD_HELO 
+	autolearn=ham version=3.1.0
+X-Original-To: f0166p1@futris01.futris01.de
+Delivered-To: f0166p1@futris01.futris01.de
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by futris01.futris01.de (Postfix) with ESMTP id E1F531017925
+	for <f0166p1@futris01.futris01.de>; Fri, 10 Mar 2006 14:29:26 +0100 (CET)
+Received: from futris01.futris01.de ([127.0.0.1])
+	by localhost (futris01 [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 05003-08 for <f0166p1@futris01.futris01.de>;
+	Fri, 10 Mar 2006 14:29:26 +0100 (CET)
+Received: from roura.ac.upc.es (roura.ac.upc.edu [147.83.33.10])
+	by futris01.futris01.de (Postfix) with ESMTP id 7011F1017903
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 14:29:26 +0100 (CET)
+Received: from gw.ac.upc.es (gw.ac.upc.es [147.83.30.3])
+	by roura.ac.upc.es (8.13.4/8.13.4) with ESMTP id k2ADTUrT000703
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 14:29:30 +0100
+Received: from [147.83.30.231] (dync-30-231.ac.upc.es [147.83.30.231])
+	by gw.ac.upc.es (Postfix) with ESMTP id 4E6EB101FA8
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 14:29:30 +0100 (CET)
+Message-ID: <44117F3C.4080409@ac.upc.edu>
+Date: Fri, 10 Mar 2006 14:29:32 +0100
+From: Stefan Bieschewski <sbiesche@ac.upc.edu>
+Organization: Universitat =?ISO-8859-1?Q?Polit=E8cnica_de_Catalunya?=
+User-Agent: Mozilla Thunderbird 1.0.6 (Windows/20050716)
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: Thomas Orgis <thomas@orgis.org>
+Subject: Re: To all mpg123 contributors: upcoming release under LGPL.
+References: <20060310035114.7f8c90f0@thorvas.local>
+In-Reply-To: <20060310035114.7f8c90f0@thorvas.local>
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at futris.de
+X-UIDL: FGZ"!kZU"!Lho"!HL["!
+
+Hallo Thomas,
+
+   die LGPL geht f=FCr mich in Ordnung.
+
+Stefan
+
+Thomas Orgis wrote:
+> Greetings to you who have contributed to the mpg123 project in some way=
+ and who I was able to get the eMail address from!
+>=20
+> I, Thomas Orgis, am taking over active maintainership of the project fr=
+om Michael Hipp.
+> To successfully sustain this project outside the hands of the caring or=
+iginal author, I feel urged to have a clear license statement.
+> I also want to regain some "territory" like the free software section o=
+f a distribution for mpg123 that it lost/never had because of it's freene=
+ss being unclear in certain terms.
+>=20
+> Michael already announced to release mpg123 under the GPL and the extra=
+cted mpglib under LPGL (what he then did).
+>=20
+> It is desirable to have _one_ license for all of mpg123 to make further=
+ development and restructuring possible.
+> Thus, meeting both the requirements of freeness and sustainability of c=
+urrent uses of mpglib the decision was made to use the GNU Lesser General=
+ Public License, Version 2.1, for the whole package.
+>=20
+> I plan to release an updated version with the LGPL license statements i=
+n the following weeks and kindly ask everyone who has contributed code an=
+d is not agreeing with this to contact me to settle the issue.
+>=20
+> Replies indicating that there are _no_ issues with a LPGL release are h=
+ighly appreciated!
+>=20
+> Sincerely yours,
+>=20
+> Thomas Orgis.
+
+--=20
+Stefan Bieschewski
+Universitat Polit=E9cnica de Catalunya, Department d'Arquitectura de Comp=
+utadors
+Despatx C6-E208-12 Campus Nord, C/ Jordi Girona 1-3, 08034 Barcelona, Spa=
+in
+Tel: +34 93 401.16.55, Fax: +34 93 401.70.55, Email: sbiesche@ac.upc.edu
+

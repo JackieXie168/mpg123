@@ -1,0 +1,121 @@
+Return-Path: <kobras@tat.physik.uni-tuebingen.de>
+X-Spam-Checker-Version: SpamAssassin 3.1.0 (2005-09-13) on 
+	futris01.futris01.de
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=BAYES_50 autolearn=ham 
+	version=3.1.0
+X-Original-To: f0166p1@futris01.futris01.de
+Delivered-To: f0166p1@futris01.futris01.de
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by futris01.futris01.de (Postfix) with ESMTP id DC51D1017837
+	for <f0166p1@futris01.futris01.de>; Sat, 31 Dec 2005 16:50:13 +0100 (CET)
+Received: from futris01.futris01.de ([127.0.0.1])
+	by localhost (futris01 [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 11890-09 for <f0166p1@futris01.futris01.de>;
+	Sat, 31 Dec 2005 16:50:13 +0100 (CET)
+Received: from antares.tat.physik.uni-tuebingen.de (antares.tat.physik.uni-tuebingen.de [134.2.170.62])
+	by futris01.futris01.de (Postfix) with ESMTP id B825E100043A
+	for <thomas@orgis.org>; Sat, 31 Dec 2005 16:50:13 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by antares.tat.physik.uni-tuebingen.de (Postfix) with ESMTP id 7BB564AD67
+	for <thomas@orgis.org>; Sat, 31 Dec 2005 16:50:15 +0100 (CET)
+Received: from antares.tat.physik.uni-tuebingen.de ([127.0.0.1])
+	by localhost (antares.tat.physik.uni-tuebingen.de [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 30406-02 for <thomas@orgis.org>;
+	Sat, 31 Dec 2005 16:50:14 +0100 (CET)
+Received: by antares.tat.physik.uni-tuebingen.de (Postfix, from userid 1000)
+	id BDFFD4AEB6; Sat, 31 Dec 2005 16:50:14 +0100 (CET)
+Date: Sat, 31 Dec 2005 16:50:14 +0100
+From: Daniel Kobras <kobras@debian.org>
+To: Thomas Orgis <thomas@orgis.org>
+Subject: Re: new official mpg123 with your patches
+Message-ID: <20051231155014.GB12530@antares.tat.physik.uni-tuebingen.de>
+References: <20051230124606.218c7ca8@thorvas.local>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20051230124606.218c7ca8@thorvas.local>
+User-Agent: Mutt/1.5.11
+X-Virus-Scanned: Debian amavisd-new at antares.tat.physik.uni-tuebingen.de
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at futris.de
+X-UIDL: C$e"!Y+7!!A"]!!?je!!
+
+Moi!
+
+On Fri, Dec 30, 2005 at 12:46:06PM +0100, Thomas Orgis wrote:
+> I'm writing to you in your role as the Debian maintainer of the mpg123
+> package and would like to inform you that I am preparing to take over
+> the active maintainership for mpg123 from Michael Hipp.
+>
+> You may have noticed that there exist already at least two projects
+> using your Debian rXX patches to provide an improved mpg123 version,
+> namely the sourceforge project named mpg123 combining r19 with OS X
+> patches and my mpg123-thor (http://thomas.orgis.org/mpg123-thor)
+> combining r20 with enhancements in the generic control interface and
+> Alpha/Tru64 fixes.
+
+First of all, I wasn't aware of these projects, and I'm happy to hear
+that work on mpg123, including my own contribution, is continued. Now on
+to annoying legalese...
+
+> We (that are Nicholas Humfrey, the man behind the sf.net project, and
+> myself by now) intend to combine our changes and the Debian fixes
+> together with enhancements such as JACK support and patches that
+> accumulated over the past time into a new version of mpg123 that will
+> be most probably licensed under LGPL.
+
+I know that Michael has asked all major contributors in the past whether
+they'd agree if he later wanted to relicense mpg123 under the GPL. I'm
+not aware of any blanket statement regarding LGPL, so unless you're
+prepared to hunt down each and every contributor yourselves, I don't see
+how you could release a new mpg123 with an LGPL license.
+
+Furthermore, I've bugged Michael for a written statement along the lines
+of "in accordance with all major contributors, mpg123 version 0.59r and
+up shall now be licensed under the terms of the GNU General Public
+License, version 2 or later, as published by the Free Software
+Foundation in ...". I've gotten such a statement when we were talking to
+each other. But in written form, I only know about the short note on the
+homepage basically saying "hey, it's GPL".
+
+> I just thought that I should ask you:
+
+> 1. Is there a problem with including the Debian fixes (legally)? I
+> really hope not.
+
+You have permission to incorporate any of my work on mpg123 and
+distribute them under the terms of the GPL, version 2, or LGPL, version
+2.1 as distributed by the FSF. The Debian patches include work from
+several contributors, usually listed in the changelog, and I cannot
+decide on licensing of their code. Though I don't think anyone will
+oppose the license switch, you need to check with each of them
+individually. Ignoring trivial and Debian-only contributions, those
+should be
+
+Steve Kemp <skx@debian.org>
+Dan Olson <theoddone33@icculus.org>
+KIMURA Takuhiro <kim@comtec.co.jp>
+Syuuhei Kashiyama <squash@mb.kcom.ne.jp>
+Rupert Levene <rupert.debian@hotpop.com>
+Andreas Dilger <adilger@turbolinux.com>
+Erik B. Andersen <andersee@debian.org>
+Chris Butler <chrisb@debian.org>
+Martin Sjogren <md9ms@mdstud.chalmers.se>
+Chet Hosey <chosey@budapress.com>
+Roland Rosenfeld <roland@spinnaker.de>
+
+Some of them also have contributed code to Michael directly, and might
+also have given him blanket permission for a GPL switch.
+
+> 2. Would the license clarification pull the project out of non-free?
+
+Yes, and my life as mpg123 maintainer would be a lot more easy. But keep
+in mind that mpg123 and its non-freeness was very popular, so I'd expect
+a lot of people to scrutinize any chance to its license. Better be
+prepared with good evidence that each auther agrees with the new
+license.
+
+Good luck,
+
+Daniel.
+

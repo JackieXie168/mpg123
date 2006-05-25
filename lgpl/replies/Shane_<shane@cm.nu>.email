@@ -1,0 +1,73 @@
+Return-Path: <shane@cm.nu>
+X-Spam-Checker-Version: SpamAssassin 3.1.0 (2005-09-13) on 
+	futris01.futris01.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.7 required=5.0 tests=BAYES_20,SPF_HELO_PASS 
+	autolearn=ham version=3.1.0
+X-Original-To: f0166p1@futris01.futris01.de
+Delivered-To: f0166p1@futris01.futris01.de
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by futris01.futris01.de (Postfix) with ESMTP id 460D310178F1
+	for <f0166p1@futris01.futris01.de>; Fri, 10 Mar 2006 16:31:39 +0100 (CET)
+Received: from futris01.futris01.de ([127.0.0.1])
+	by localhost (futris01 [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 03087-05 for <f0166p1@futris01.futris01.de>;
+	Fri, 10 Mar 2006 16:31:39 +0100 (CET)
+Received: from continuum.cm.nu (continuum.cm.nu [216.113.193.225])
+	by futris01.futris01.de (Postfix) with ESMTP id EE8FA100B6AD
+	for <thomas@orgis.org>; Fri, 10 Mar 2006 16:31:38 +0100 (CET)
+Received: from shane by continuum.cm.nu with local (Exim 4.60)
+	(envelope-from <shane@cm.nu>)
+	id 1FHjad-0006IG-GA
+	for thomas@orgis.org; Fri, 10 Mar 2006 07:31:39 -0800
+Date: Fri, 10 Mar 2006 07:31:39 -0800
+From: Shane <shane@cm.nu>
+To: Thomas Orgis <thomas@orgis.org>
+Subject: Re: To all mpg123 contributors: upcoming release under LGPL.
+Message-ID: <20060310153139.GA24135@cm.nu>
+References: <20060310035114.7f8c90f0@thorvas.local>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20060310035114.7f8c90f0@thorvas.local>
+X-No-Archive: yes
+User-Agent: Mutt/1.5.11+cvs20060126
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at futris.de
+X-UIDL: 4aO"!)pE"!>F=!!Q)M!!
+
+Hmm, I don't recall my contribution but it was probably
+only a few lines.  Anyways, no issues here.
+
+S
+On Fri, Mar 10, 2006 at 03:51:14AM +0100, Thomas Orgis wrote:
+> Greetings to you who have contributed to the mpg123 project in some way and who I was able to get the eMail address from!
+> 
+> I, Thomas Orgis, am taking over active maintainership of the project from Michael Hipp.
+> To successfully sustain this project outside the hands of the caring original author, I feel urged to have a clear license statement.
+> I also want to regain some "territory" like the free software section of a distribution for mpg123 that it lost/never had because of it's freeness being unclear in certain terms.
+> 
+> Michael already announced to release mpg123 under the GPL and the extracted mpglib under LPGL (what he then did).
+> 
+> It is desirable to have _one_ license for all of mpg123 to make further development and restructuring possible.
+> Thus, meeting both the requirements of freeness and sustainability of current uses of mpglib the decision was made to use the GNU Lesser General Public License, Version 2.1, for the whole package.
+> 
+> I plan to release an updated version with the LGPL license statements in the following weeks and kindly ask everyone who has contributed code and is not agreeing with this to contact me to settle the issue.
+> 
+> Replies indicating that there are _no_ issues with a LPGL release are highly appreciated!
+> 
+> 
+> 
+> Sincerely yours,
+> 
+> Thomas Orgis.
+> 
+> 
+> -- 
+> Thomas Orgis - GPG public key: http://thomas.orgis.org/public_key
+> OrgisNetzOrganisation ---)=- http://orgis.org
+
+
+
+-- 
+http://www.cm.nu/~shane/
+
