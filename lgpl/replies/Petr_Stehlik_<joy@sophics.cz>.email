@@ -1,0 +1,42 @@
+Return-Path: <joy@sophics.cz>
+Delivered-To: thomas@orgis.org
+Received: from www.sophics.cz ([194.108.6.2]:37373)
+	by nesselzelle.de with [XMail 1.22 SSL Ext 0.0.3a ESMTP Server] via protocol=TLSv1/SSLv3, cipher=AES256-SHA(256)
+	id <SF17> for <thomas@orgis.org> from <joy@sophics.cz>;
+	Mon, 29 May 2006 14:02:01 +0200
+Received: from petr.sophics ([192.168.1.4])
+	by www.sophics.cz with esmtp (Exim 4.50)
+	id 1FkgOk-0006zf-NA
+	for thomas@orgis.org; Mon, 29 May 2006 13:59:02 +0200
+Message-ID: <447AE195.4000500@sophics.cz>
+Date: Mon, 29 May 2006 13:57:09 +0200
+From: Petr Stehlik <joy@sophics.cz>
+User-Agent: Debian Thunderbird 1.0.7 (X11/20051017)
+X-Accept-Language: en-us, en
+MIME-Version: 1.0
+To: Thomas Orgis <thomas@orgis.org>
+Subject: Re: to all mpg123 contributors - new release under LGPL
+References: <20060427202253.5e30527a@thorvas.local>
+In-Reply-To: <20060427202253.5e30527a@thorvas.local>
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Thomas Orgis wrote:
+> Greetings to you who have contributed to the mpg123 project in some way and who I was able to get the eMail address from!
+> 
+> (some email addresses result from google searches and I am not always sure of having found the right person - please be so kind and reply to me if this all here is totally irrelevant to you)
+> 
+> I, Thomas Orgis, am taking over active maintainership of the project from Michael Hipp.
+> To successfully sustain this project outside the hands of the caring original author, I feel urged to have a clear license statement.
+> I also want to regain some "territory" like the free software section of a distribution for mpg123 that it lost/never had because of it's freeness being unclear in certain terms.
+> 
+> Michael already announced to release mpg123 under the GPL and the extracted mpglib under LPGL (what he then did).
+> 
+> It is desirable to have _one_ license for all of mpg123 to make further development and restructuring possible.
+> Thus, meeting both the requirements of freeness and sustainability of current uses of mpglib the decision was made to use the GNU Lesser General Public License, Version 2.1, for the whole package.
+> 
+> I plan to release an updated version with the LGPL license statements in the following weeks and kindly ask everyone who has contributed code to give me permission to do so.
+
+You have my permission.
+
+Petr

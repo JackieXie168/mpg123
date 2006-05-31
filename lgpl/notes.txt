@@ -45,9 +45,9 @@ x Oliver Fromme <olli@fromme.com> old: <oliver.fromme@heim3.tu-clausthal.de>
 %% Juergen Schoew <juergen.schoew@unix-ag.org> (wrote to @unix-ag.uni-siegen.de, then also to first one)
 @% Erwan Ducroquet @<ducroque@ufr-info-p7.ibp.fr> <erwan.ducroquet@free.fr> (from freshmeat)
 @? Anders Semb Hermansen <ahermans@vf.telia.no> ...asked polarparty.no
-@% Petr Stehlik @<stehlik@cas3.zlin.vutbr.cz>, <joy@sophics.cz> atari webring...
+x Petr Stehlik @<stehlik@cas3.zlin.vutbr.cz>, <joy@sophics.cz> atari webring...
 x Samuel Audet <guardia@step.polymtl.ca> ...this guy is active! nice eq 'n stuff... old: <guardia@cam.org> 
-?? Andreas Neuhaus <?> .. asked someone from irmp3 project...
+?% Andreas Neuhaus <?> .. asked someone from irmp3 project... found student homepage <andy@stud.fh-dortmund.de>
 @% Brian Foutz @<foutz@anise.ee.cornell.edu>  <bef2@cornell.edu>
 % Syuuhei Kashiyama <syukashi@bekkoame.or.jp>
 % KIMURA Takuhiro <kim@comtec.co.jp>
@@ -188,7 +188,7 @@ perl -ne 'last if /^--END_CREDITS/; $l = $_; while($l =~ /^(.*)(<[^>]+>)(.*)/){ 
 
 
 
-failed emails so far (40):
+failed emails so far:
 
 <adilger@turbolinux.com>... User unknown (in reply to RCPT TO
 <ahermans@vf.telia.no>: [vf.telia.no]: Name or service not known
@@ -229,3 +229,4 @@ failed emails so far (40):
 <squash@mb.kcom.ne.jp>: user unknown (in reply to RCPT TO command)
 <stehlik@cas3.zlin.vutbr.cz>: [cas3.zlin.vutbr.cz]: Name or service not known
 <swetland@uiuc.edu>: host relay8.cso.uiuc.edu[128.174.5.111] said: 550 5.1.1 ... User unknown (in reply to RCPT TO command)
+<salinger@sun.felk.cvut.cz>: 550 5.7.1 ... server [sun.felk.cvut.cz] for <salinger@sun.felk.cvut.cz> rejected address saying "<salinger@sun.felk.cvut.cz>... User unknown"
