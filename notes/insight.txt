@@ -1,0 +1,59 @@
+What mpg123 does
+================
+
+Preface
+-------
+
+Well, I want to maintain mpg123. I want to fix bugs. I want to integrate functionality. It may be beneficial to have at least brief knowledge about the workings of the code.
+I know the genric control interface code.
+I know the command line option parsing.
+Actually I don't know so much about the mpeg decding and playback. I want to change this.
+
+
+1. A run through `mpg123 file.mp3`
+----------------------------------
+
+I'll try to cover the essential steps the program takes on decoding simple files, without buffering.
+
+Note an especially important (static, even) variable:
+
+static struct frame fr;
+
+The type is defined in mpg123.h and contains a pointer to al_table (must be the data...), many variables (mostly flags) and some function pointers for data processing.
+
+1.1. main() in mpg123.c
+-----------------------
+
+Enter mpg123.c, main().
+First is option parsing, general initialization and equalizer setting.
+Then, there is a loop over argv with essentially open_stream().
+
+read_frame_init()
+
+for(frameNum=0;read_frame(&fr) && leftFrames && !intflag;frameNum++) {
+
+Yeah, that looks like a main file reading loop. Starting with frame 0 and counting up until read_frame() bails out or there are no frames left or we got an interrupt.
+
+Apart from some fiddling, the important part of the loop is plainly:
+
+play_frame(init,&fr);
+
+The init variable is set to 1 before the first start and then always zero afterwards. 
+
+1.2. read_frame() in common.c
+-----------------------------
+
+Oh, I see goto labels... grrr. The reader struct is used in form of the global variable rd (from mpg123.h); containing mostly function pointers (do I see fiddled OO coding? ;-) and some stats. The mhipp tree version adds the backbuf storing some data...
+
+So, there is rd->read_head, doin clearly something interesting. If read_head() returns 0, bails out with FALSE. The next if is interesting:
+
+if(1 || oldhead != newhead || !oldhead)
+
+That can be summarized by just deleting it. if(1). It used to mean sth. or was supposed to mean sth. in future.
+Well, newer branch deletes this line - also at this very place, the id3v2 is placed. This check is what I want to backport somehow.
+
+Hm, the interesting bits of this consist of bit operations. I'll go and read some mpeg fromat spec to get a hint what which bitmask means.
+
+1.3. play_frame() in mpg123.c
+-----------------------------
+
