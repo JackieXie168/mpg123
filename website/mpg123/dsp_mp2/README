@@ -1,0 +1,62 @@
+
+DSP based MPEG Audio Player.
+Copyrights (c) 1994,1995,1996 by Michael Hipp
+email: Michael.Hipp@student.uni-tuebingen.de
+--------------------------------------------------------
+
+THERE IS NO WARRANTY!!!
+
+This programm MAY damage your hardware, anything else or
+even your hearing due to a software bug or
+for other reason. 
+
+USE THIS CODE ON YOUR OWN RISK!!!!!!!!!
+
+The code is _only_ for private use. Ask me if you wanna
+use the code in a commercial environment!
+There is also no commercial distribution allowed.
+This includes the case, that you give someone this software
+as an 'free add on' to a commercial product.
+
+Copy of the code is allowed, if you copy the whole
+package (including this README).
+It's not allowed to take a fee or other kind
+of payment for this service (or for the code).
+
+Description:
+------------
+This a MPEG Audio Layer 2 Player for PSS/ESC614 Soundcards 
+to run under Linux.  (eg for Orchid SoundWave 32).
+The chipset is based on an Analog Devices ADSP 2115 
+DSP processor with 20 MIPS.
+
+Features: 
+---------
+Layer 2 is possible in realtime. The driver uses IO-Port
+based data transfer. (No DMA, because of a bug
+in version 1 of the Echo PSS chipset)
+
+how to use:
+-----------
+
+Build the module:
+	make
+
+Load the module e.g: (possible irqs are: 10,11,12,5,7,9)
+	insmod dsp.o irq=10
+
+Create the device: (inoffical MAJOR!)
+	mknod /dev/mp2 c 62 0
+
+Play a Layer 2 file:
+	cat file.mp2 > /dev/mp2
+
+
+Known bugs:
+-----------
+Not all modes tested .. 
+I heared artifacts playing a few special layer 2 streams.
+
+
+
+

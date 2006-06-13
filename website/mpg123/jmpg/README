@@ -1,0 +1,68 @@
++--------------------------------------+
+| JMPG123 MPEG Audio Libray            |
+| copyright (c) 1998 by Michael Hipp   |
++--------------------------------------+
+
+ It's my first java project and even my first
+ real object oriented program at all, so forgive me
+ if some of the stuff is done ugly. 
+
+ Currently, only support for Layer2,Layer3 audio streams.
+ Layer3 needs some more debugging. MPEG-2 isn't tested.
+
+ Without options the output is played using the sun.audio.* package,
+ which only works with JDK 1.2 or later. The player always selects
+ 16bit,44Khz and stereo which doesn't work with all streams.
+ If you use the native part to decode, the output endian is system 
+ dependend. This will change in the future!
+ If you write to stdout (-s option) the output is BIG endian
+
+Simple performance tests: (solaris/Dual Sun Ultra 2 with 300MHz)
+  mpg123 (raw C)                 = 100%   (precision=float)
+  jmpg123 (sunwjit JIT compiler) = 622%   (precision=double)
+  jmpg123 (interpreted)          = 3436%  (precision=double)
+
+Possible Options: (no options: write audio to audio system)
+  -s : write audio to STDOUT 
+  -t : only decoding no output
+  -native: use native functions for 'SubBandSynthesis' and 'Dct64' 
+  -nativeaudio: use native audio playing instead of sun.audio.*
+  -buffer <KBytes>: If playing to sun.audio: size of playbuffer
+  -n <FrameNo>: Play only <FrameNo> frames and then exit.
+
+Native Libs:
+  in the directories jmpg/libnative.linux/ and jmpg/libnative.solaris/ 
+  you can find the precompiled libs for Linux and Solaris.
+  You must put the appropriate path in your library path environment
+  value. (eg LD_LIBRARY_PATH )
+  You may wanna build this part yourself. Check jmpg/lib/native/ and
+  jmpg/audio/native/ in this case.
+
+  You need the libaudionative.so library if you wanna play the samples
+  directly to your hardware and your JDK doesn't support the sun.audio.* package.
+  Else you must use the '-s' option and redirect the standard output 
+  to a special (system depended) audio player.
+
+Running with jmpg.jar:
+  Add the file jmpg.jar to your CLASSPATH environment. Ie:
+  (tcsh/csh): setenv CLASSPATH $CLASSPATH\:/home/myjavauser/java/jmpg.jar
+  (bash)    : export CLASSPATH=$CLASSPATH\:/home/myjavauser/java/jmpg.jar
+
+Running in a default environment:
+  Uncompress the jar-file and copy the jmpg/ directory into a directory,
+  which is part of your 
+  CLASSPATH or add the parent directory of jmpg/ to your CLASSPATH.
+
+Running:
+  Then call:
+    java jmpg.jmpg123 -t <a_test_mpeg.mp3>
+  This will decode the MPEG without playing.
+  For real playing remove the '-t' option or replace it by '-s'.
+  As mentioned above, only '-t' or '-s' is 100% pure java. Else
+  the program tries to use a non-offical sun.audio.* package
+  or loads the nativeAudio (-nativeaudio option) library to
+  play directly to the audio hardware.
+
+ 
+  
+

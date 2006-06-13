@@ -1,0 +1,333 @@
+<HTML>
+
+<HEAD>
+ <TITLE>mpg123, Fast MP3 Player for Linux and UNIX systems</TITLE>
+ <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+ <META name="Content-Language" CONTENT="en"> 
+ <META name="description" content="A fast free MP3 audio player for Linux, FreeBSD, Solaris, Hpux and near all other UNIX systems.
+Also decodes mp1 and mp2 files.">
+ <META name="keywords" content="mp3 linux player decoder mpg123 mp2 mp1 mpeg audio solaris hpux layer3 layer2 layer1 aix freebsd bsdos sgi ultrix os2 netbsd mint windows esd 3dnow pentium optimized nas alpha dec sparc alsa oss mips ppc java sunos fast free source unix cool frontend">
+ <META name="author" content="Michael Hipp">
+ <META name="copyright" content="Michael Hipp">
+ <META name="publisher" content="Michael Hipp">
+ <META NAME="robots" CONTENT="INDEX,FOLLOW">
+</HEAD>
+
+<BODY link="#0000ff" text="#000000" bgcolor="#b0e0ff" vlink="#0000ff" alink="#0000ff">
+<meta >
+
+ <TABLE BORDER=0 WIDTH="100%" HEIGHT="100%" CELLSPACING=0 CELLPADDING=0>
+  <TR>
+   <TD VALIGN=top>
+    <TABLE WIDTH=120 CELLSPACING=0 CELLPADDING=0 BORDER=0>
+
+     <TR>
+      <TD ALIGN=center COLSPAN=3><IMG ALT="" SRC="pics/mpg123.gif"></TD>
+     </TR>
+     <TR>
+      <TD VALIGN=center WIDTH=10><IMG ALT="=&gt;" WIDTH=10 HEIGHT=9 SRC="pics/redball.gif"></TD>
+      <TD WIDTH=80><FONT FACE="Helvetica,Arial" SIZE=3><B><SPAN CLASS=menu><NOBR>Home</NOBR></SPAN></B></FONT></TD>
+      <TD></TD>
+     </TR>
+
+     <TR>
+      <TD ALIGN=center COLSPAN=3 HEIGHT=1><IMG WIDTH=110 HEIGHT=1 SRC="pics/square.gif" ALT=""></TD>
+     </TR>
+
+
+     <TR>
+      <TD></TD>
+      <TD WIDTH=100>
+<!-- <A HREF="mpg123/CHANGES.CVS"
+        OnMouseOver="window.status='Changelog of the CVS version';return true;"
+        OnMouseOut="window.status='';return true;"><NOBR>
+        <FONT FACE="Helvetica,Arial" SIZE=3><B><SPAN CLASS=menu><NOBR>CVS Changes</NOBR></SPAN></B>
+        </FONT></NOBR></A> -->
+      </TD>
+      <TD></TD>
+     </TR>
+    </TABLE>
+   </TD>
+
+   <TD VALIGN=bottom WIDTH=10 ROWSPAN=2>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+   <TD VALIGN=top WIDTH="100%" ROWSPAN=2>
+
+    <TABLE WIDTH="100%" CELLSPACING=0 CELLPADDING=0 BORDER=0>
+     <TR><TD VALIGN=top ALIGN=right></TD></TR>
+     <TR><TD HEIGHT=20></TD></TR>
+     <TR><TD ALIGN=center><IMG ALT="MPG123" SRC="pics/mpg123_big.gif"></TD></TR>
+     <TR><TD HEIGHT=10></TD></TR>
+     <TR>
+      <TD ALIGN=center>
+       <TABLE WIDTH=98% BORDER=0 CELLSPACING=0 CELLPADDING=3>
+        <TR>
+         <TD VALIGN=top WIDTH=50%>
+          <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+           <TR><TD BGCOLOR="#ff8080"><FONT FACE="Helvetica,Arial"><B>Coming Soon!</TD></TR>
+           <TR><TD BGCOLOR="#ffffff"><FONT FACE="Helvetica,Arial" SIZE=-1>
+
+<b>28. Dez. 2005</b> <ul> <font color="#ff0000" size=+1">The project will continue.</font></br></br>
+Check <a href="http://mpg123.orgis.org/">mpg123.orgis.org</a> and <a
+href="http://sourceforge.net/projects/mpg123">mpg123 on sourceforge</a> for more information.
+</ul>
+             </FONT>
+	    </TD>
+	   </TR>
+
+           <TR><TD HEIGHT=10></TD></TR>
+
+           <TR><TD BGCOLOR="#a0a0f0"><FONT FACE="Helvetica,Arial"><B>Important</TD></TR>
+           <TR><TD BGCOLOR="#f0f0f0"><FONT FACE="Helvetica,Arial" SIZE=-1>
+
+<b>12. Jan. 2005</b> <ul> Yes! The project is <font color="#ff0000" size=+1">not</font> maintained at the moment
+and there are some serious <font color="#ff0000" size=+1">security problems</font> in the latest player versions. It
+is highly recommended to <font color="#ff0000" size=+1">not</font> use the source code you can download from this
+site. Check <a href="http://packages.debian.org/changelogs/pool/non-free/m/mpg123/mpg123_0.59r-18/changelog">Debian Advisory</a> 
+or <a href="http://www.gentoo.org/security/en/glsa/glsa-200501-14.xml" target="_blank">Gentoo Advisory</a> for more information. Thanx.
+</ul>
+             </FONT>
+	    </TD>
+	   </TR>
+
+           <TR><TD HEIGHT=10></TD></TR>
+
+           <TR><TD BGCOLOR="#a0a0f0"><FONT FACE="Helvetica,Arial"><B>Old News</TD></TR>
+           <TR><TD BGCOLOR="#f0f0f0"><FONT FACE="Helvetica,Arial" SIZE=-1>
+<b>2004</b><ul>FAQ: The license of the mpg123 player is GPL and the license of the mpglib/ inside the mpg123 package is LGPL. </ul>
+
+<b>16. Jan. 2003</b> <ul> Important information about the Gobble Exploit: It seems, that only the
+pre0.59s version is vulnerable. The hotfix is to increase the 
+MAX_INPUT_FRAMESIZE to a big value. Ie 4096. I will review the whole code this weekend.
+I will also try to supply an mp3 checker this weekend. So it is not necessary to remove all
+your mp3s. Just do not play them with a potentially vulnerable player and check them later.
+Thanx.
+ </ul>
+<b>18. May. 2001</b> <ul> I changed the license of the 'mpglib' part. It's now under LGPL </ul>
+<b>21. Nov. 2000</b> <ul> Propably your waiting for the next release, but
+I did not manage to apply all patches from my TODO list yet and
+added a few new bugs that I must hunt down first. Nevertheless, a lot of bugs are fixed in the
+CVS version. Please test it and report remaining bugs you find.</ul>
+<b>16. Aug. 2000</b> <ul>Just to let you know: I'm still alive and I hope to have some
+spare time in september to add some patches and test the current CVS version to make
+a new minor release.</ul>
+             </FONT>
+	    </TD>
+	   </TR>
+
+           <TR><TD HEIGHT=10></TD></TR>
+
+           <TR><TD BGCOLOR="#a0a0f0"><FONT FACE="Helvetica,Arial"><B>What is MPG123</B></FONT></TD></TR>
+           <TR><TD BGCOLOR="#f0f0f0"><FONT FACE="Helvetica,Arial" SIZE=-1>
+
+mpg123 is a
+real time MPEG Audio Player for Layer 1,2 and Layer3. (MPEG 2.0 with Layer1/2 not heavily tested)
+Tested with Linux, FreeBSD, SunOS4.1.3, Solaris 2.5, HPUX 9.x and SGI Irix.
+Plays Layer 3 in stereo on an AMD-486-120Mhz or (of course) a faster machine.
+(Just for info: mpg123 plays an average 128bps stream, with about 66%
+in full quality on my AMD 486-133MHz machine)
+
+           </FONT></TD></TR>
+
+	   <TR><TD HEIGHT=10></TD></TR>
+
+	   <TR>
+	    <TD BGCOLOR="#a0a0f0">
+	     <FONT FACE="Helvetica,Arial"><B><A HREF="mpg123/">Download</A></B> (read news first)</FONT>
+	    </TD>
+	   </TR>
+	   <TR><TD BGCOLOR="#f0f0f0"><FONT FACE="Helvetica,Arial">
+            <TABLE BORDER=0 CELLPADDING=5 CELLSPACING=0 WIDTH=80%>
+	     <TR>
+	      <TD><FONT FACE="Helvetica,Arial" SIZE=-1>Latest mpg123 version</TD> 
+	      <TD><FONT FACE="Helvetica,Arial" SIZE=-1> 
+	       <B>mpg123 0.59r</B>
+	       <A HREF="mpg123/mpg123-0.59r.tar.gz">[download]</A> (read news first)
+	      </TD>
+	     </TR>
+	     <TR>
+	      <TD><FONT FACE="Helvetica,Arial" SIZE=-1>Latest DEVELOPMENT mpg123 version</TD> 
+	      <TD><FONT FACE="Helvetica,Arial" SIZE=-1> 
+	       <B>mpg123 pre0.59s</B>
+	       <A HREF="mpg123/mpg123-pre0.59s.tar.gz">[download]</A>  (read news first)
+	      </TD>
+	     </TR>
+
+	     </TR>
+	      <TD>
+	       <FONT FACE="Helvetica,Arial" SIZE=-1>100% pure Java MP3 Player 
+	      </TD> 
+	      <TD><FONT FACE="Helvetica,Arial" SIZE=-1> 
+	       <B>Initial version 0.1</B>
+	       <A HREF="mpg123/jmpg123-0.1.tar.gz">[download]</A>
+	      </TD>
+	     </TR>
+	     <TR>
+	      <TD>
+	       <FONT FACE="Helvetica,Arial" SIZE=-1>MP2 Player for ADSP 2115
+	      </TD> 
+	      <TD><FONT FACE="Helvetica,Arial" SIZE=-1> 
+	        <B>Very old!</B> 
+		<A HREF="mpg123/dsp_mp2.tar.gz">[download]</A>
+	      </TD>
+	     </TR>
+             <TR></TR>
+	    </TABLE>
+	   </TR>
+
+	   <TR><TD HEIGHT=10></TD></TR>
+
+	   <TR><TD BGCOLOR="#a0a0f0"><FONT FACE="Helvetica,Arial"><B>The benchmarking lie?</B></FONT></TD></TR>
+	   <TR><TD BGCOLOR="#f0f0f0"><FONT FACE="Helvetica,Arial" SIZE=-1>
+Let's write a few notes about benchmarking the different mp3 decoders,
+which are available. 'top' is NOT a benchmark, it's a simple check
+on how a program performs. The sad thing with 'top' (or better the linux kernel) 
+is, that it has some problems with the measurement of threaded programs or 
+programs only requesting short chunks of processor time. One real test is
+to measure how long your machine needs to decode a stream without threads with 
+100% CPU. Using mpg123 you can do this with <BR><BR>
+<center>time mpg123 -t mp3stream.mp3</center>
+or
+<center>time mpg123 -s mp3stream.mp3  > /dev/null</center><BR>
+if you additionally want to measure the I/O time. 
+
+If you find a player, which claims to be 10 or even more times faster than the
+current players: just don't believe it. A factor of 2 MAY BE possible.
+             </FONT>
+	    </TD>
+           </TR>
+
+	   <TR><TD HEIGHT=10></TD></TR>
+
+	   <TR><TD BGCOLOR="#a0a0f0"><FONT FACE="Helvetica,Arial"><B>Links to
+	   related information (some links may be dead!)</B></FONT></TD></TR>
+	   <TR><TD BGCOLOR="#f0f0f0"><FONT FACE="Helvetica,Arial" SIZE=-1>
+
+<BR>
+Frontends and other tools for or based on mpg123
+<ul>
+<li><a href="http://kewl.campus.luth.se/~wizball/jukebox/index.html">sajber jukebox. (Broken Link?)</a> 
+<li><a href="http://www.alsa-project.org/~andy/">ALSA Player</a> 
+<li>Tk3Play. A front end for mpg123. <a href="http://www.msc.cornell.edu/~bef2/">http://www.msc.cornell.edu/~bef2/</a>
+<li><a href="http://fredrik.hubbe.net/plugger.html"> Plugger </a>
+<li><a href="http://cray.tuug.utu.fi/~phoenix/xmp3player/"> xmp3player </a>
+<li><a href="http://www.this.net/~frank/franksprojects.html"> MPP for NextStep </a>
+<li><a href="http://www.dtek.chalmers.se/~kw/jb"> curses-based frontend for mpg123, No.1  </a>
+<li><a href="http://www.personal.psu.edu/users/n/k/nkk104/cmp3/"> Cmp3, curses-based frontend for mpg123 </a>
+<li>kmp3, ncurses front-end for mpg123
+<li><a href="http://szyzyg.arm.ac.uk/~spm/mp3mixer.html">MP3 Mixer</a>
+<li><a href="http://freeweb.pdq.net/redline/fuse"> GUI frontend for the GNOME desktop project </a>
+<li><a href="http://www.tf.hut.fi/~flu/cplay/"> Front-end written in Python </a>
+<li><a href="http://www.ffem.org/gdam/"> mp3 mixing </a>
+<li><a href="http://www.geocities.com/SiliconValley/Haven/5235/mpeg-over.html"> GQmpeg </a>
+<li><a href="http://www.xmms.org/">XMMS</a>
+<li><a href="http://www.informatik.uni-freiburg.de/~nebel/rio/"> TKRio, Tcl/Tk GUI for Rio Program </a>
+<li><a href="http://www.dpotter.com/irmp3"> IRMP3 </a>
+<li><a href="http://www.anti-ms.de/soft.html">SmartGui for mpg123</a>
+<li><a href="http://moemusic.sourceforge.net/">Moe Music</a>
+<li><a href="http://rucus.ru.ac.za/~urban/playmp3list.html">mp3playlist. A ncurses-based MP3 player</a>
+<li><a href="http://osalp.sourceforge.net">OSALP</a></li>
+<li><a href="http://quarzen.de/mp3shell">MP3 Shell Number 1</a></li>
+<li><a href="http://home.swipnet.se/~w-10246/unix/index.html">MP3 Shell Number 2</a></li>
+<li><a href="http://www.pdavis.cx/projects/mvc.html">MP3VoiceControl</a></li>
+<li><a href="http://www.heerdink.quickonline.nl/">MP3Master</a></li>
+<li><a href="http://www.gentei.org/~yuuji/software/mpg123el/">Emacs Frontend No.1 </a></li>
+<li><a href="http://homepage.eircom.net/~sneakums/free-software/projects/emacs-mpg123.html">Emacs Frontend No.2: EMP</a></li>
+<li><a href="http://www.jukkis.net/grmp3/">GrMP3</a> GTK-based frontend for controlling mpg123 with Hauppauge Remote.</li>
+<li><a href="http://www.apolloplayer.org">Apollo Player</a></li>
+<li><a href="http://japhy.fnord.org/mp3sh/">mp3sh - a commandline-driven player based on Readline library.</a></li>
+<li><a href="http://www.lcws.org/plwarlock.html">PLWarlock, a text based frontend</a></li>
+</ul>
+Patches and ports for different operating systems
+<ul>
+<li><a href="http://www.inf.bme.hu/~101/BeOS/archive/">BeOS</a></li>
+<li>mp123. An OS/2 player: <a href="http://www.users.wineasy.se/nil/mpg123/">http://www.users.wineasy.se/nil/mpg123/</a></li>
+<li><a href="http://www3.tky.3web.ne.jp/~takuroho/mpg123.html"> win32 patches for mpg123</a></li>
+</ul>
+Misc. patches for mpg123
+<ul>
+<li><a href="http://www.nonsensss.de/domi/mpg123-mysql/">mpg123-MySQL</a>
+<li><a href="http://lug-owl.de/~jbglaw/mpg123-mysql/">mpg123-MySQL - patched</a>
+<li><a href="http://mpg123.newmail.ru">Patch to display ID3 Tags with russian encoding</a></li>
+</ul>
+<br>
+Misc. Programmes and Modules based on mpg123
+<br>
+<ul>
+<li><a href="http://www.geocities.co.jp/Technopolis/9674/in_mpg123.html">in_mpg123 plugin for winamp</a></li>
+<li><a href="http://xine.sourceforge.net">Xine - a Unix Video Player</a></li>
+<li><a href="http://www.rz.uni-frankfurt.de/~pesch/">A Windows DLL based on mpglib</a></li>
+<li><a href="http://www.eqrd.net/english/riscos/index.html">StupidPlayer for RISC OS</a></li>
+</ul>
+<BR>
+Car player and mobile/standalone or similar projects
+<ul>
+<li><a href="http://www.geocities.com/MotorCity/Pit/3173/mp3/mobile.html"> http://www.geocities.com/MotorCity/Pit/3173/mp3/mobile.html</a>
+<li><a href="http://www.dvz.fh-koeln.de/~bn520/mp3.html">mpMan. Build your own MP3 Player</a>
+<li><a href="http://home.htwm.de/fhackenb/projekt/moof/">Moof - a single floppy mp3 player</a></li>
+<li><a href="http://www.mermoz.fr">Network Multimedia System</a></li>
+<li><a href="http://www.janovetz.com/cantante">Cantane</a></li>
+</ul>
+Misc mp3 links 
+<ul>
+<li> <a href="ftp://ftp.tnt.uni-hannover.de/pub/MPEG/audio/mpeg2/software/technical_report">Dist10: Encoder (and decoder) demonstration packages (with source!)</a>
+<li> <a href="http://www.sulaco.org/mp3/">LAME .. 'some' patches for the dist10 package</a>
+<li> <a href="http://www.alsa-project.org">The ALSA Sound System</a>
+<li> <a href="http://www.4front-tech.com/">The Open Sound System</a>
+</ul>
+Precompiled binaries and other mpg123 packages
+<UL>
+<li> <a href="http://www.cs.ucr.edu/~sshah/mp3"> http://www.cs.ucr.edu/~sshah/mp3 </a>. I only tested the
+Solaris version from there. It's based on mpg123 0.59k.
+</ul>
+General Sound and Audio information
+<UL>
+<LI><a href="http://www.bright.net/~dlphilp/linuxsound/">Bright.net Linux-Sound</a>
+</UL>
+<BR>
+            </FONT></TD>
+           </TR>
+<!--
+	   <TR><TD HEIGHT=10></TD></TR>
+
+	   <TR>
+	     <TD BGCOLOR="#00e000"><FONT FACE="Helvetica,Arial"><B>CVS access to development versions</B></FONT>
+	     </TD>
+           </TR>
+	   <TR><TD BGCOLOR="#808080"><FONT FACE="Helvetica,Arial" SIZE=-1>
+
+There is an experimental <b>CVS access</b> to my current development version.<br>
+Login with user 'guest' and password 'guest'
+<ul>
+<li>cvs -d :pserver:guest@cvs-ti.informatik.uni-tuebingen.de:/home/hippm/cvs login</li>
+<li>cvs -z9 -d :pserver:guest@cvs-ti.informatik.uni-tuebingen.de:/home/hippm/cvs checkout mpg123</li>
+</ul>
+<b>Please remember:</b> This is just a snapshot of the current development and
+may not compile on your system. Do not report bugs unless you're sure that this
+is a 'real' bug.
+
+             </FONT>
+	    </TD>
+	   </TR>
+-->
+	   <TR><TD HEIGHT=10></TD></TR>
+
+
+          </TABLE>
+         </TD>
+        </TR>
+       </TABLE>
+      </TD>
+     </TR>
+    </TABLE>
+   </TD>
+  </TR>
+  <TR><TD WIDTH=125 ALIGN=center VALIGN=bottom>
+    <FONT SIZE=-2><p><DIV ALIGN=right>Last change: 28. Dez 2005</DIV></FONT></p><p></p>
+    
+    <DIV ALIGN=right><A HREF="mailto:mh@mpg123.de">Michael Hipp</A></DIV>
+    <DIV ALIGN=right><A HREF="http://www.oodesign.de">OODESIGN</A></DIV></TD>
+  </TR>
+ </TABLE>
+</BODY>
+</HTML>
+

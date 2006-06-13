@@ -1,0 +1,18 @@
+/CHANGES/1.1/Mon May 22 09:45:23 2000//
+/Makefile/1.2/Tue Oct 19 16:43:42 1999//
+/README/1.2/Wed May 16 16:43:37 2001//
+/TODO/1.2/Tue Oct 19 16:43:43 1999//
+/common.c/1.2/Tue Oct 19 16:43:43 1999//
+/dct64_i386.c/1.1.1.1/Mon Sep 20 14:55:04 1999//
+/decode_i386.c/1.1.1.1/Mon Sep 20 14:55:06 1999//
+/huffman.h/1.1.1.1/Mon Sep 20 14:55:06 1999//
+/interface.c/1.2/Tue Oct 19 16:43:43 1999//
+/l2tables.h/1.1/Mon May 22 09:45:23 2000//
+/layer1.c/1.1/Mon May 22 09:45:23 2000//
+/layer2.c/1.1/Mon May 22 09:45:24 2000//
+/layer3.c/1.3/Thu Jan 18 14:00:36 2001//
+/main.c/1.2/Tue Oct 19 16:43:44 1999//
+/mpg123.h/1.3/Wed Oct 25 11:05:26 2000//
+/mpglib.h/1.2/Wed Oct 25 11:05:26 2000//
+/tabinit.c/1.1.1.1/Mon Sep 20 14:55:06 1999//
+D/StrongARM////

@@ -1,0 +1,14 @@
+
+The audio stuff is from the original mpg123 package. (with minor changes)
+
+As long as there is no real audio support you must use
+a native interface and compile the library yourself. 
+I tested the audio part with Solaris and Linux. The precompiled
+libraries can be found in the libnative.* directories 
+in the root dir of this package.
+
+If you need support for another platform: compile your own lib
+
+The Makefile isn't very well designed but it may help as some
+sort of 'documentation' for your platform.
+

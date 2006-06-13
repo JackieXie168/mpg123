@@ -1,0 +1,10 @@
+
+Version 0.1:
+  100% pure Java if using JDK 1.2 or later
+  Using sun.audio.* package for audio output (works only with jdk1.2)
+  Added playbuffer 
+
+before 0.1:
+  initial mpg123 for Java with native audio 
+  
+
