@@ -17,7 +17,7 @@ I'll try to cover the essential steps the program takes on decoding simple files
 
 Note an especially important (static, even) variable:
 
-static struct frame fr;
+	static struct frame fr;
 
 The type is defined in mpg123.h and contains a pointer to al_table (must be the data...), many variables (mostly flags) and some function pointers for data processing.
 
@@ -28,7 +28,7 @@ Enter mpg123.c, main().
 First is option parsing, general initialization and equalizer setting.
 Then, there is a loop over argv with essentially open_stream().
 
-read_frame_init()
+	read_frame_init()
 
 for(frameNum=0;read_frame(&fr) && leftFrames && !intflag;frameNum++) {
 
@@ -36,7 +36,7 @@ Yeah, that looks like a main file reading loop. Starting with frame 0 and counti
 
 Apart from some fiddling, the important part of the loop is plainly:
 
-play_frame(init,&fr);
+	play_frame(init,&fr);
 
 The init variable is set to 1 before the first start and then always zero afterwards. 
 
@@ -47,13 +47,34 @@ Oh, I see goto labels... grrr. The reader struct is used in form of the global v
 
 So, there is rd->read_head, doin clearly something interesting. If read_head() returns 0, bails out with FALSE. The next if is interesting:
 
-if(1 || oldhead != newhead || !oldhead)
+	if(1 || oldhead != newhead || !oldhead)
 
 That can be summarized by just deleting it. if(1). It used to mean sth. or was supposed to mean sth. in future.
 Well, newer branch deletes this line - also at this very place, the id3v2 is placed. This check is what I want to backport somehow.
 
 Hm, the interesting bits of this consist of bit operations. I'll go and read some mpeg fromat spec to get a hint what which bitmask means.
+OK, got an idea of mpeg headers and backported the id3v2 header skip. Also changed the bit operator magic to more of my liking;-)
 
 1.3. play_frame() in mpg123.c
 -----------------------------
 
+	if(fr->header_change || init)
+
+The first block for the first (changed) frame... prints header info with varying verbosity, then gets serious about (re)init when init is set or fr->header_change > 1. Looks just like setting some settings... one may have a closer look to init_output() and reset_output().
+
+	if (fr->error_protection) {
+		getbits(16); /* skip crc */
+	}
+
+Hm, is that the treatment the crc wants?
+Anyway,
+
+	/* do the decoding */
+	clip = (fr->do_layer)(fr,param.outmode,&ai);
+
+that is _perhaps_ something important. do_layer() is one of do_layer[123](). In the MP3 case, do_layer3().
+
+1.4. do_layer3() in layer3.c
+----------------------------
+
+...
