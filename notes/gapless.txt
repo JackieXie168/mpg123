@@ -35,3 +35,17 @@ Looking at the waveform, I see a pause at the beginning of length 1105 samples: 
 Now look at the end... instead of Lame's 1245 perfect zeros, I see some low-level dirt that relaxes from the cut of the ending source signal (not smooth). I see 716 samples of that. That is the decoder delay again - this time it doesn't add silence, it _kills_ the last 529 samples of input!
 For that reason some sufficient padding seems to be desirable in all mp3s - together with the bits if info, that doesn't prevent gapless playback!
 Hm, but still... It could just be that mpg123 already takes care of its decoder delay only for output, not input... ah, I'm too tired now. Have to think about that with a waking mind.
+
+Ok, it seems to work now with taking he decoder delay into account (as additional delay at begin and to supstract from padding at end)... I still need to hook in the logic correctly so that it actually works with multiple tracks.
+
+It seems to work with the same delays for different sampling rates (tested 22.05kHz), while there also seems to be a problem with lame when one uses resampling to reach that (missing sound at end).
+
+Gapless MP2?
+------------
+
+Hm, I looked at the output of mp2 files encoded with mjpegtools' mp2enc and then decoded with... whatever. I have a delay at the beginning (less that 529 samples, as it seems), and missing sound at the end! Even with the junk at begining, the result was 483 samples short.
+What does toolame?
+
+Ok, with toolame, it looks better. The full sound is preserved, with some low-noise ramblings at beginning and end. I don't have details about endocer delay/padding from toolame, while it _could_ be modified to write a lame tag, too, I think.
+
+Should mp2 encoders at some time adopt the practice on lame to write the necessary info in the header, I will use it. For now, I'll restrict the gapless mode only to mp3, where it is doable and wanted.
