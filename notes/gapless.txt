@@ -1,0 +1,37 @@
+Gapless MP3 playback
+--------------------
+
+MP3 was not designed for gapless playback. It was designed for shrinking the data size of audio streams.
+For technical reasons, encoders and decoders have a delay of some (normally) fixed amount and also silence is padded to get frames filled.
+The latter is wuite well known while the former is not too well known (many ppl think that for gapless decoding you only need to eliminate the padding).
+
+Lame has (nowadays) an encoder delay of 576 samples. That gets added to the front.
+Lame also pads with zeros at the back. I don't know why it pads with >1152 (frame size in case of MPEG-1) samples - thus creating even new frames? - but it writes these correct values in the Lame tag.
+Lame ppl are very aware of the mpglib engine (and mpg123) having a decoder delay of 529 samples, Lame skips the first encoder_delay + 529 samples (1105, normally) for mp3 input files.
+
+Mpg123 can do that, too. But for the removal of the trailing padding, you have to consider the decoder delay again.
+I can just make it ignore output samples in audio_flush without touching the decoder... that works but has to take care of any resampling going on and I'm yet very unsure about layer 1 and 2 files (but since those files won't have the Lame tag, the procedure wouldn't be _that_ useful).
+One example:
+
+A raw stereo 16bit LE source file with 40803 samples...
+
+	$ ./lame -r -x source.raw
+	Assuming raw pcm input file : Forcing byte-swapping
+	LAME version 3.96.1 (http://lame.sourceforge.net/)
+	Using polyphase lowpass filter, transition band: 17249 Hz - 17782 Hz
+	Encoding source.raw to source.raw.mp3
+	Encoding as 44.1 kHz 128 kbps j-stereo MPEG-1 Layer III (11x) qval=3
+    	Frame          |  CPU time/estim | REAL time/estim | play/CPU |    ETA 
+    	35/37     (95%)|    0:00/    0:00|    0:00/    0:00|   1.7582x|    0:00 
+	average: 128.0 kbps                    MS: 37 (100.0%)
+
+	Writing LAME Tag...done
+	ReplayGain: -2.5dB
+	revmethod = 1
+	encoder padding: 1245
+
+Lame made 37 frames = 42624 samples out of this. Decoding with normal mpg123: I get 42624 samples.
+Looking at the waveform, I see a pause at the beginning of length 1105 samples: The 529 sampels decoder delay before anything and then the decoded 576 samples of the silence from LAME (not perfectly silent, though).
+Now look at the end... instead of Lame's 1245 perfect zeros, I see some low-level dirt that relaxes from the cut of the ending source signal (not smooth). I see 716 samples of that. That is the decoder delay again - this time it doesn't add silence, it _kills_ the last 529 samples of input!
+For that reason some sufficient padding seems to be desirable in all mp3s - together with the bits if info, that doesn't prevent gapless playback!
+Hm, but still... It could just be that mpg123 already takes care of its decoder delay only for output, not input... ah, I'm too tired now. Have to think about that with a waking mind.
