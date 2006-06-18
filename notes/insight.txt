@@ -78,3 +78,7 @@ that is _perhaps_ something important. do_layer() is one of do_layer[123](). In 
 ----------------------------
 
 ...
+decodes a frame and calls audio_flush when buffer is full.
+
+
+
