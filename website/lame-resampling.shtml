@@ -1,0 +1,63 @@
+<html>
+<head><title>lame resampling and missing samples...</title></head>
+<body>
+<h1>Question</h1>
+
+<p><em>Does lame cut off source samples when resampling from 44.1kHz to 22.05kHz?</em></p>
+<p>
+	During hacking around with mpg123 to get gapless decoding done (ignore the correct number of samples at beginning and end), I noticed that lame seems to kill source material when using --resample.<br>
+	I used this script on a raw source file with 40803 samples of 100Hz sine (<a href="lame-resampling/source.raw">download raw source</a>):
+</p>
+<pre>
+<!--#include file="lame-resampling/prepare.sh" -->
+</pre>
+
+<p>
+    The important part are the lame encoding lines at the beginning (btw.: lame-3.96.1); the rest is the decoding with lame itself (mpglib), my new mpg123 and mpg123-0.59r-thor5 plus quite some lines for nice plotting.
+</p>
+<h2>Numbers</h2>
+<pre>
+ls -l *.raw
+-rw-r-----    1 thomas   users      166076 2006-06-16 15:17 rated.lame.raw
+-rw-r-----    1 thomas   users      163212 2006-06-16 15:17 rated.newmpg123.raw
+-rw-r-----    1 thomas   users      172800 2006-06-16 15:17 rated.oldmpg123.raw
+-rw-r-----    1 thomas   users       80828 2006-06-16 15:17 resampled.lame.raw
+-rw-r-----    1 thomas   users       77500 2006-06-16 15:17 resampled.newmpg123.raw
+-rw-r-----    1 thomas   users       87552 2006-06-16 15:17 resampled.oldmpg123.raw
+-rw-r-----    1 thomas   users      163212 2006-06-16 14:45 source.raw
+</pre>
+So... that means
+
+<table>
+<tr><th>file</th><th>samples</th><th>diff to source (source/2 for resampled)</th></tr>
+<!-- ls -l source.raw rated*.raw | perl -ne '/users\s+(\d+)\s.*\s(\S+)$/; $bytes=$1; $name=$2; print "<tr><td>$name</td><td>".($bytes/4)."</td><td>".(($bytes-163212)/4)."</td></tr>\n"'
+ ls -l resampled*.raw | perl -ne '/users\s+(\d+)\s.*\s(\S+)$/; $bytes=$1; $name=$2; print "<tr><td>$name</td><td>".($bytes/4)."</td><td>".(($bytes-163212/2)/4)."</td></tr>\n"' -->
+<tr><td>source.raw</td><td>40803</td><td>0</td></tr>
+<tr><td>rated.lame.raw</td><td>41519</td><td>716</td></tr>
+<tr><td>rated.newmpg123.raw</td><td>40803</td><td>0</td></tr>
+<tr><td>rated.oldmpg123.raw</td><td>43200</td><td>2397</td></tr>
+<tr><td>resampled.lame.raw</td><td>20207</td><td>-194.5</td></tr>
+<tr><td>resampled.newmpg123.raw</td><td>19375</td><td>-1026.5</td></tr>
+<tr><td>resampled.oldmpg123.raw</td><td>21888</td><td>1486.5</td></tr>
+</table>
+
+<p>(Hm, is it significant that the input sample number is not even?)</p>
+
+<p>
+	You see that the new mpg123 gets the correct number of samples in the non-resampling case and lame's decode just has 716 (= padding - mpg123 delay) samples more.<br>
+	The decoding results from the resampled file are too short for both lame and new mpg123 decoding and still too long for old mpg123, but that's just becaus this version doesn't ignore lame's delay and padding and also adds a silence frame for the lame tag.
+	<br>
+	The new mpg123 removes even more samples that lame - that is because I started the whole thing to see if I have to change the code for different sampling rates. I probably have to, but also when removing nothing at the end (at the beginning it looks just fine...), there would still be sound missing.
+	<br>
+	So, I want to first make sure that lame does keep the signal before I try to keep it with mpg123...
+</p>
+
+<h2>Plots</h2>
+<p>enough of words... that's how the first channel it looks like:</p>
+<!-- ls *.png | perl -ne 'chomp; print "<hr><p><img src=\"$_\"></p>\n"'-->
+<hr><p><img src="lame-resampling/rated.begin.png"></p>
+<hr><p><img src="lame-resampling/rated.end.png"></p>
+<hr><p><img src="lame-resampling/resampled.begin.png"></p>
+<hr><p><img src="lame-resampling/resampled.end.png"></p>
+</body>
+</html>
