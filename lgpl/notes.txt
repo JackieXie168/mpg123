@@ -42,12 +42,12 @@ List of important contributors from inventory.txt (excluding Michael, Debianers,
 Creators (of a whole file, driver...):
 
 x Oliver Fromme <olli@fromme.com> old: <oliver.fromme@heim3.tu-clausthal.de>
-%% Juergen Schoew <juergen.schoew@unix-ag.org> (wrote to @unix-ag.uni-siegen.de, then also to first one)
+x Juergen Schoew <juergen@informatik.uni-siegen.de>
 @% Erwan Ducroquet @<ducroque@ufr-info-p7.ibp.fr> <erwan.ducroquet@free.fr> (from freshmeat)
 @? Anders Semb Hermansen <ahermans@vf.telia.no> ...asked polarparty.no
 x Petr Stehlik @<stehlik@cas3.zlin.vutbr.cz>, <joy@sophics.cz> atari webring...
 x Samuel Audet <guardia@step.polymtl.ca> ...this guy is active! nice eq 'n stuff... old: <guardia@cam.org> 
-?% Andreas Neuhaus <?> .. asked someone from irmp3 project... found student homepage <andy@stud.fh-dortmund.de>
+x Andreas Neuhaus <andy@stud.fh-dortmund.de>
 @% Brian Foutz @<foutz@anise.ee.cornell.edu>  <bef2@cornell.edu>
 % Syuuhei Kashiyama <syukashi@bekkoame.or.jp>
 % KIMURA Takuhiro <kim@comtec.co.jp>

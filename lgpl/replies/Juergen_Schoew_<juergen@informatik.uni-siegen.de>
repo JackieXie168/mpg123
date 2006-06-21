@@ -1,0 +1,78 @@
+Return-Path: <juergen@informatik.uni-siegen.de>
+Delivered-To: thomas@orgis.org
+Received: from thunder.home.unix-ag.org ([213.54.80.213]:58857)
+	by nesselzelle.de with [XMail 1.22 SSL Ext 0.0.3a ESMTP Server] via protocol=TLSv1/SSLv3, cipher=AES256-SHA(256)
+	id <S173C> for <thomas@orgis.org> from <juergen@informatik.uni-siegen.de>;
+	Tue, 20 Jun 2006 09:52:00 +0200
+Received: from thunder.home.unix-ag.org (juergen@localhost [127.0.0.1])
+	by thunder.home.unix-ag.org (8.13.7/8.13.7/Debian-1) with ESMTP id k5K7kGEa028127;
+	Tue, 20 Jun 2006 09:46:17 +0200
+Date: Tue, 20 Jun 2006 09:46:07 +0200
+From: Juergen Schoew <juergen@informatik.uni-siegen.de>
+To: Thomas Orgis <thomas@orgis.org>
+Cc: juergen@schoew.net
+Subject: Re: to all mpg123 contributors - new release under LGPL
+Message-ID: <20060620094607.6ba95659@thunder.home.unix-ag.org>
+In-Reply-To: <20060427202253.5e30527a@thorvas.local>
+References: <20060427202253.5e30527a@thorvas.local>
+Organization: University of Siegen
+X-Mailer: Sylpheed-Claws 2.1.1 (GTK+ 2.8.18; i486-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: multipart/signed; boundary=Sig_oBUS0fCoAaW12pAS862Mh8n;
+ protocol="application/pgp-signature"; micalg=PGP-SHA1
+
+--Sig_oBUS0fCoAaW12pAS862Mh8n
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+Hi Thomas,
+
+On Thu, 27 Apr 2006 20:22:53 +0200, Thomas Orgis <thomas@orgis.org> wrote:
+> Greetings to you who have contributed to the mpg123 project in some way
+> and who I was able to get the eMail address from!
+>=20
+> (some email addresses result from google searches and I am not always sure
+> of having found the right person - please be so kind and reply to me if
+> this all here is totally irrelevant to you)
+>=20
+> I, Thomas Orgis, am taking over active maintainership of the project from
+> Michael Hipp. To successfully sustain this project outside the hands of
+> the caring original author, I feel urged to have a clear license
+> statement. I also want to regain some "territory" like the free software
+> section of a distribution for mpg123 that it lost/never had because of
+> it's freeness being unclear in certain terms.
+>=20
+> Michael already announced to release mpg123 under the GPL and the
+> extracted mpglib under LPGL (what he then did).
+>=20
+> It is desirable to have _one_ license for all of mpg123 to make further
+> development and restructuring possible. Thus, meeting both the
+> requirements of freeness and sustainability of current uses of mpglib the
+> decision was made to use the GNU Lesser General Public License, Version
+> 2.1, for the whole package.
+>=20
+> I plan to release an updated version with the LGPL license statements in
+> the following weeks and kindly ask everyone who has contributed code to
+> give me permission to do so. Please respond to this email even if you
+> don't remember your contribution anymore.
+
+Sorry to answer so late. You have my permission to relicense the code,
+I have submitted to the mpg123 project, with the LGPL.
+
+Regards
+
+J=FCrgen Sch=F6w
+
+--Sig_oBUS0fCoAaW12pAS862Mh8n
+Content-Type: application/pgp-signature; name=signature.asc
+Content-Disposition: attachment; filename=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.3 (GNU/Linux)
+
+iD8DBQFEl6fGLHDixkQxc5wRAqVyAJoCYhTedrBE7V/zilEOeXeRr8AdugCfWuEB
+Chcb8SBSwNOTxhl5tTQfU3w=
+=tt9/
+-----END PGP SIGNATURE-----
+
+--Sig_oBUS0fCoAaW12pAS862Mh8n--

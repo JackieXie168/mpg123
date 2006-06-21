@@ -1,0 +1,80 @@
+Return-Path: <andy@stud.fh-dortmund.de>
+Delivered-To: thomas@orgis.org
+Received: from mail.stud.fh-dortmund.de ([193.25.19.66]:58435)
+	by nesselzelle.de with [XMail 1.22 SSL Ext 0.0.3a ESMTP Server]
+	id <S10DC> for <thomas@orgis.org> from <andy@stud.fh-dortmund.de>;
+	Mon, 5 Jun 2006 14:57:27 +0200
+Received: from mandy.andynet.apn (mandy.andynet.apn [192.168.20.12])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mail.stud.fh-dortmund.de (Postfix) with ESMTP id B6E4F92BDA
+	for <thomas@orgis.org>; Mon,  5 Jun 2006 14:52:41 +0200 (CEST)
+From: Andreas Neuhaus <andy@stud.fh-dortmund.de>
+To: Thomas Orgis <thomas@orgis.org>
+Subject: Re: mpg123 unter LGPL (habe ich den richtigen Andreas Neuhaus?)
+Date: Mon, 5 Jun 2006 14:49:57 +0200
+User-Agent: KMail/1.9.3
+References: <20060530114552.0e2f4ed3@thorvas.local>
+In-Reply-To: <20060530114552.0e2f4ed3@thorvas.local>
+MIME-Version: 1.0
+Content-Type: multipart/signed;
+  boundary="nextPart7673093.FaJMFzaGrX";
+  protocol="application/pgp-signature";
+  micalg=pgp-sha1
+Content-Transfer-Encoding: 7bit
+Message-Id: <200606051450.20044.andy@stud.fh-dortmund.de>
+
+--nextPart7673093.FaJMFzaGrX
+Content-Type: text/plain;
+  charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+Hallo Thomas,
+
+> Ich bin dabei, das mpg123-Projekt von Michael Hipp zu =C3=BCbernehmen und=
+ suche
+> nun nach Zustimmung zum Lizenzwechsel zu LGPL unter allen Mitwirkenden. I=
+ch
+> finde da auch den Namen Andreas Neuhaus in Verbindung mit
+> control_generic.c... dann finde ich den Namem im Netz in Verbindung mit
+> irmp3... Nunja, es besteht die M=C3=B6glichkeit.
+
+> Also: Habe ich den richtigen Andreas erreicht und falls ja, ist dieser mit
+> der Ver=C3=B6ffentlichung seiner Beitr=C3=A4ge zu mpg123 unter LGPL (2.1)
+> einverstanden?
+
+Ja, tats=C3=A4chlich, ich bin dieser Andreas. Ist schon ziemlich lange her,=
+ aber=20
+damals habe ich ein Programm Namens irmp3 geschrieben (ein daemon, der mp3s=
+=20
+spielt und sich per IR-Fernbedienung steuern l=C3=A4sst). Damit irmp3 den m=
+pg123=20
+Prozess besser fernsteuern konnte, waren einige =C3=84nderungen/Erweiterung=
+en am=20
+zuvor rech sp=C3=A4rlichem remote interface n=C3=B6tig.
+
+Nat=C3=BCrlich bin ich mit der Ver=C3=B6ffentlichung meiner damaligen Beitr=
+=C3=A4ge unter der=20
+(L)GPL einverstanden.
+
+PS: Bei der Gelegenheit k=C3=B6nntest du auch in der README.remote die URL =
+auf=20
+irmp3 aktualisieren :-). Ich selbst bin zwar im Projekt irmp3 nicht mehr=20
+aktiv, aber es wird auf irmp3.sourceforge.net weitergef=C3=BChrt.
+
+Gru=C3=9F,
+Andreas Neuhaus
+
+--nextPart7673093.FaJMFzaGrX
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.3 (GNU/Linux)
+
+iD8DBQBEhCiLUZ2H/XaZueoRApf8AJ4w18Vv7PexOOqgfnksOLBxyq8C1wCfXvuk
+GFskiPLOeHUD13I0gyubaB0=
+=KKLK
+-----END PGP SIGNATURE-----
+
+--nextPart7673093.FaJMFzaGrX--
