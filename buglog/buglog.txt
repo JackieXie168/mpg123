@@ -1,0 +1,3 @@
+2006-07-04: gentoo-bug133988_GLSA_200607-01.html
+	Got notice about this one, not gentoo-specific, since we also have the changes causing this (through debian, I guess).
+	Fixed it by storing and using purl_size, also changed ULONG_MAX to SIZE_MAX there...
