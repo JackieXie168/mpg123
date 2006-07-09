@@ -1,5 +1,0 @@
-Matthias Wenzel <maZZoo@gmx.de> sent me a heavily deranged File (Bluemchen - Du und Ich / technically distorted mix;-) he prepared some time ago for the purpose of making mpg123 crash.
-He succeeded, facing this conglomeration of mpeg1.0 and mpeg2.5 frames to gether with various errors (as it seems) made 0.59r and -thor6 segfault.
-I hacked a around in layer3.c a bit to get over this file gracefully - after fixing the mpeg2.5 verdict in common.c!
-mpg123 now spots one error more and doesn't just exit() on invalid sideinfo anymore.
-We may come back to this beast again...

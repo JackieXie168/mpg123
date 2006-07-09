@@ -1,5 +1,13 @@
+Fuzzing mpg123
+--------------
+
 Matthias Wenzel <maZZoo@gmx.de> sent me a heavily deranged File (Bluemchen - Du und Ich / technically distorted mix;-) he prepared some time ago for the purpose of making mpg123 crash.
-He succeeded, facing this conglomeration of mpeg1.0 and mpeg2.5 frames to gether with various errors (as it seems) made 0.59r and -thor6 segfault.
+He succeeded, facing this conglomeration of mpeg1.0 and mpeg2.5 frames together with various errors (as it seems) made 0.59r and -thor6 segfault.
 I hacked a around in layer3.c a bit to get over this file gracefully - after fixing the mpeg2.5 verdict in common.c!
 mpg123 now spots one error more and doesn't just exit() on invalid sideinfo anymore.
 We may come back to this beast again...
+
+The second round... this time the Stravinsky track (we should try to use free tracks for inclusion of test cases in svn).
+Again a segfault in dct36, traced back to the xrpnt pointer being incremented too far in dequantize and thus overwriting the block_type with some number much greater than 3.
+The xrpnt stuff - this whole function - is a hammer for newbies (everyone not having written it). I now only made a dirty hack to catch this special case - I didn't really dive to the ground there.
+I'm sure that Matthias will find another segfault...
