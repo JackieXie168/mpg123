@@ -167,6 +167,7 @@ audio_alsa09.c: Thomas Orgis
 audio_alib.c: Erwan Ducroquet
 audio_jack.c: Nichloas J. Humfrey
 audio_libao.c Nichloas J. Humfrey
+audio_macosx.c: Guillaume Outters
 audio_mint.c: Petr Stehlik
 audio_nas.c: Martin Denn
 audio_os2.c: Samuel Audet
@@ -219,7 +220,6 @@ xfermem.h
 GPLv2
 
 audio_alsa.c: by Anders Semb Hermansen, Jaroslav Kysela, Ville Syrjala
-audio_macosx.c: Guillaume Outters (question for LGPL pending)
 decode_MMX.s: higway (check LGPL - with Michael?)
 dct64_MMX.s: higway (check LGPL - with Michael?)
 tabinit_MMX.s: higway (check LGPL - with Michael?)
