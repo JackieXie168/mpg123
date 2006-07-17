@@ -155,7 +155,7 @@ decode_i486.c
 
 decode_i586.s
 
-	Fabrice Bellard
+	Stefan Bieschewski
 
 decode_ntom.c
 
