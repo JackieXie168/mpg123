@@ -1,0 +1,127 @@
+Return-Path: <njh@ecs.soton.ac.uk>
+Delivered-To: thomas@orgis.org
+Received: from pih-relay06.plus.net ([212.159.14.133]:41318)
+	by nesselzelle.de with [XMail 1.22 SSL Ext 0.0.3a ESMTP Server] via protocol=TLSv1/SSLv3, cipher=AES256-SHA(256)
+	id <S27D4> for <thomas@orgis.org> from <njh@ecs.soton.ac.uk>;
+	Mon, 17 Jul 2006 18:29:01 +0200
+Received: from [87.114.19.240] (helo=[10.13.8.25])
+	 by pih-relay06.plus.net with esmtp (Exim) id 1G2VrN-00085X-HX
+	for thomas@orgis.org; Mon, 17 Jul 2006 17:22:18 +0100
+Mime-Version: 1.0 (Apple Message framework v752.2)
+In-Reply-To: <20060717161538.08ad0697@thorvas.local>
+References: <20060717161538.08ad0697@thorvas.local>
+Content-Type: multipart/signed; micalg=sha1; boundary=Apple-Mail-1-899937088; protocol="application/pkcs7-signature"
+Message-Id: <7A20B5A0-33D7-469F-B376-A8A28D3060F6@ecs.soton.ac.uk>
+From: Nicholas J Humfrey <njh@ecs.soton.ac.uk>
+Subject: Re: LGPL for your GPL additions
+Date: Mon, 17 Jul 2006 17:21:51 +0100
+To: Thomas Orgis <thomas@orgis.org>
+X-Mailer: Apple Mail (2.752.2)
+
+
+--Apple-Mail-1-899937088
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset=US-ASCII;
+	delsp=yes;
+	format=flowed
+
+
+Yup, I wrote those files from scratch. Do I need a PGP/GPG key to  
+sign things them? :)
+
+nick.
+
+
+On 17 Jul 2006, at 15:15, Thomas Orgis wrote:
+
+> Hi!
+>
+> I'm currently (and finally) finishing the license on all the source  
+> files...  my author rule reasoning reducing the GPL-only part to a  
+> bare minimum.
+>
+> I also changed the jack and libao files you added (as the original  
+> author?) to be under LGPL:
+>
+> /*
+> 	audio_jack.c: audio output via JACK
+>
+> 	copyright 2006 by the mpg123 project - free software under the  
+> terms of the LGPL 2.1
+> 	see COPYING and AUTHORS files in distribution or http://mpg123.de
+> 	initially written by Nicholas J. Humfrey
+> */
+>
+> Is that correct? Are you the original author?
+> I really hope so.
+> I'd like to have some clear lines by you stating that your  
+> additions are under LGPL - to put into the repository as reference,  
+> even.
+> Maybe you can even add a (signed) note legal/statements/ 
+> Nicholas_J._Humfrey.asc in the repository like I did.
+>
+> Greetings,
+>
+> Thomas.
+>
+> -- 
+> Thomas Orgis - Source Mage GNU/Linux Developer (http:// 
+> www.sourcemage.org)
+> OrgisNetzOrganisation ---)=- http://orgis.org
+> GPG public key: http://thomas.orgis.org/public_key
+
+
+--Apple-Mail-1-899937088
+Content-Transfer-Encoding: base64
+Content-Type: application/pkcs7-signature;
+	name=smime.p7s
+Content-Disposition: attachment;
+	filename=smime.p7s
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExCzAJBgUrDgMCGgUAMIAGCSqGSIb3DQEHAQAAoIIGUjCCAwsw
+ggJ0oAMCAQICEBTSbpLhfouBpqdr6gWe9Q8wDQYJKoZIhvcNAQEEBQAwYjELMAkGA1UEBhMCWkEx
+JTAjBgNVBAoTHFRoYXd0ZSBDb25zdWx0aW5nIChQdHkpIEx0ZC4xLDAqBgNVBAMTI1RoYXd0ZSBQ
+ZXJzb25hbCBGcmVlbWFpbCBJc3N1aW5nIENBMB4XDTA2MDQyMzAxMTYxOFoXDTA3MDQyMzAxMTYx
+OFowcDEQMA4GA1UEBBMHSHVtZnJleTEXMBUGA1UEKhMOTmljaG9sYXMgSmFtZXMxHzAdBgNVBAMT
+Fk5pY2hvbGFzIEphbWVzIEh1bWZyZXkxIjAgBgkqhkiG9w0BCQEWE25qaEBlY3Muc290b24uYWMu
+dWswggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCiYtV6HHblMRiPLRnYL0M5vZ5pWa7T
+mbALi73hO7bnpL66tx0uS0IYMbidG94svFxQmvKdiQpv3goLzuX73v4tjZIein4xyJxQyFXrJgAK
+vTxH+c0TFc09ccDW9TJupe2Hr/GCvRbk85i/sLDrcMA730GqSq+8hIpPpNnb0erWlNKRZja1xi9q
+yxEHntc7OGYkNx/Zhm6SrN1KCqKnhJWmjLfbwtf8wPpWWYpSK5I44W35Pu4ITlkED53zRK6mGmkm
+IEKZGEH4M5odT8+rIOPOB8eoiSIBh5SWvaymD6pHm6cxk4mkP+0trP8V+X7fTOwo117C1yD5SirJ
+Vkp2BZLZAgMBAAGjMDAuMB4GA1UdEQQXMBWBE25qaEBlY3Muc290b24uYWMudWswDAYDVR0TAQH/
+BAIwADANBgkqhkiG9w0BAQQFAAOBgQBSkEu+9JxdTK+9kG1jJDLnXIXJRBkMpmXWfd8zXlEiYiTW
+kfTQ6W4f3UQaZtD6N/gJ0ieaGKOp1Lb6qHTWIKbR1/BnBJi3DyJ7J+uyPkGRrFT0MoeAonbNnIVv
+dNQpPar8dnDSDHuw5yaa/5/tnTjD30bPT4Ey4keuNboOMoGxCDCCAz8wggKooAMCAQICAQ0wDQYJ
+KoZIhvcNAQEFBQAwgdExCzAJBgNVBAYTAlpBMRUwEwYDVQQIEwxXZXN0ZXJuIENhcGUxEjAQBgNV
+BAcTCUNhcGUgVG93bjEaMBgGA1UEChMRVGhhd3RlIENvbnN1bHRpbmcxKDAmBgNVBAsTH0NlcnRp
+ZmljYXRpb24gU2VydmljZXMgRGl2aXNpb24xJDAiBgNVBAMTG1RoYXd0ZSBQZXJzb25hbCBGcmVl
+bWFpbCBDQTErMCkGCSqGSIb3DQEJARYccGVyc29uYWwtZnJlZW1haWxAdGhhd3RlLmNvbTAeFw0w
+MzA3MTcwMDAwMDBaFw0xMzA3MTYyMzU5NTlaMGIxCzAJBgNVBAYTAlpBMSUwIwYDVQQKExxUaGF3
+dGUgQ29uc3VsdGluZyAoUHR5KSBMdGQuMSwwKgYDVQQDEyNUaGF3dGUgUGVyc29uYWwgRnJlZW1h
+aWwgSXNzdWluZyBDQTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAxKY8VXNV+065yplaHmjA
+dQRwnd/p/6Me7L3N9VvyGna9fww6YfK/Uc4B1OVQCjDXAmNaLIkVcI7dyfArhVqqP3FWy688Cwfn
+8R+RNiQqE88r1fOCdz0Dviv+uxg+B79AgAJk16emu59l0cUqVIUPSAR/p7bRPGEEQB5kGXJgt/sC
+AwEAAaOBlDCBkTASBgNVHRMBAf8ECDAGAQH/AgEAMEMGA1UdHwQ8MDowOKA2oDSGMmh0dHA6Ly9j
+cmwudGhhd3RlLmNvbS9UaGF3dGVQZXJzb25hbEZyZWVtYWlsQ0EuY3JsMAsGA1UdDwQEAwIBBjAp
+BgNVHREEIjAgpB4wHDEaMBgGA1UEAxMRUHJpdmF0ZUxhYmVsMi0xMzgwDQYJKoZIhvcNAQEFBQAD
+gYEASIzRUIPqCy7MDaNmrGcPf6+svsIXoUOWlJ1/TCG4+DYfqi2fNi/A9BxQIJNwPP2t4WFiw9k6
+GX6EsZkbAMUaC4J0niVQlGLH2ydxVyWN3amcOY6MIE9lX5Xa9/eH1sYITq726jTlEBpbNU1341Yh
+eILcIRk13iSx0x1G/11fZU8xggMQMIIDDAIBATB2MGIxCzAJBgNVBAYTAlpBMSUwIwYDVQQKExxU
+aGF3dGUgQ29uc3VsdGluZyAoUHR5KSBMdGQuMSwwKgYDVQQDEyNUaGF3dGUgUGVyc29uYWwgRnJl
+ZW1haWwgSXNzdWluZyBDQQIQFNJukuF+i4Gmp2vqBZ71DzAJBgUrDgMCGgUAoIIBbzAYBgkqhkiG
+9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0wNjA3MTcxNjIxNTJaMCMGCSqGSIb3
+DQEJBDEWBBQKf98K1r46TYLP0IKX7OkhNqSL1zCBhQYJKwYBBAGCNxAEMXgwdjBiMQswCQYDVQQG
+EwJaQTElMCMGA1UEChMcVGhhd3RlIENvbnN1bHRpbmcgKFB0eSkgTHRkLjEsMCoGA1UEAxMjVGhh
+d3RlIFBlcnNvbmFsIEZyZWVtYWlsIElzc3VpbmcgQ0ECEBTSbpLhfouBpqdr6gWe9Q8wgYcGCyqG
+SIb3DQEJEAILMXigdjBiMQswCQYDVQQGEwJaQTElMCMGA1UEChMcVGhhd3RlIENvbnN1bHRpbmcg
+KFB0eSkgTHRkLjEsMCoGA1UEAxMjVGhhd3RlIFBlcnNvbmFsIEZyZWVtYWlsIElzc3VpbmcgQ0EC
+EBTSbpLhfouBpqdr6gWe9Q8wDQYJKoZIhvcNAQEBBQAEggEAmbn71VIF9dEZxXcRSXgkCRm26dMW
++cscx9/8rwLYMH90GWmm+yA59gFiIUcHSXOfSH3zG+pyG74qWE5ZwqKwLujZXcxg81npMO3bnH8+
+9VNZCHRFquiDMSXy2PEetA2zdQDZ8CiXJ0SfuZabhqd0cUiFOUDGjHFWX/VuKUhXNRB6uVGBvFcd
+5dIh952y+Pu5SrIm1i1kYLtUZaQo8wejSbjhz0TpFCcRWV6iVh+uYgUivuTc7yDTWf9I3CrPMDlh
+b20FcxlyhdPNVJ/FdJMUhNnbMjTqGz2ofLjjNtCSAGxBSDvIU7jFn33qb9hyNKr+1q3qLw3BI6SP
+zZguouyCHgAAAAAAAA==
+
+--Apple-Mail-1-899937088--
