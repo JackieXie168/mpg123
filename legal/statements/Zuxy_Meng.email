@@ -1,0 +1,94 @@
+Return-Path: <mplayer-dev-eng-bounces@mplayerhq.hu>
+Delivered-To: thomas@orgis.org
+Received: from natsuki.mplayerhq.hu ([213.144.138.186]:41810)
+	by nesselzelle.de with [XMail 1.22 SSL Ext 0.0.3a ESMTP Server]
+	id <S1A6B> for <thomas-forum@orgis.org> from <mplayer-dev-eng-bounces@mplayerhq.hu>;
+	Mon, 26 Jun 2006 16:34:12 +0200
+Received: from natsuki.mplayerhq.hu (localhost.localdomain [127.0.0.1])
+	by natsuki.mplayerhq.hu (Postfix) with ESMTP id C1FC93B336;
+	Mon, 26 Jun 2006 16:28:17 +0200 (CEST)
+X-Original-To: mplayer-dev-eng@mplayerhq.hu
+Delivered-To: mplayer-dev-eng@mplayerhq.hu
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by natsuki.mplayerhq.hu (Postfix) with ESMTP id A6C1F3B336
+	for <mplayer-dev-eng@mplayerhq.hu>;
+	Mon, 26 Jun 2006 16:28:16 +0200 (CEST)
+Received: from natsuki.mplayerhq.hu ([127.0.0.1])
+	by localhost (natsuki [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 10935-03-5 for <mplayer-dev-eng@mplayerhq.hu>;
+	Mon, 26 Jun 2006 16:28:16 +0200 (CEST)
+Received: from ug-out-1314.google.com (ug-out-1314.google.com [66.249.92.171])
+	by natsuki.mplayerhq.hu (Postfix) with ESMTP id 6F3423B334
+	for <mplayer-dev-eng@mplayerhq.hu>;
+	Mon, 26 Jun 2006 16:28:16 +0200 (CEST)
+Received: by ug-out-1314.google.com with SMTP id k3so2073761ugf
+	for <mplayer-dev-eng@mplayerhq.hu>;
+	Mon, 26 Jun 2006 07:28:17 -0700 (PDT)
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=beta; d=gmail.com;
+	h=received:message-id:date:from:to:subject:in-reply-to:mime-version:content-type:content-transfer-encoding:content-disposition:references;
+	b=HTz8LY0NmuAzlJmoS65SK0Rte3HzRB5WmuSdj18uC3p3vHVyiT/LuqbFc7KF5dOxLqKfyE9CullLzS/tP6nQWpGcC/f2gEsBLu9gcnYVN5tl88au9JE24Ji8nkvGFmicz/CeK/aQIFn6f4ItuAaZfAbhX6AVVZjcm4bjEuM2TKY=
+Received: by 10.78.157.8 with SMTP id f8mr2139051hue;
+	Mon, 26 Jun 2006 07:28:17 -0700 (PDT)
+Received: by 10.78.120.15 with HTTP; Mon, 26 Jun 2006 07:28:15 -0700 (PDT)
+Message-ID: <a18e06b40606260728k647ffa73r808e81aafc3865b7@mail.gmail.com>
+Date: Mon, 26 Jun 2006 22:28:15 +0800
+From: "Zuxy Meng" <zuxy.meng@gmail.com>
+To: mplayer-dev-eng@mplayerhq.hu
+Subject: Re: [MPlayer-dev-eng] mp3lib license; backport to mpg123
+In-Reply-To: <20060626114846.44406fa2@thorvas.local>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+References: <20060626114846.44406fa2@thorvas.local>
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at mplayerhq.hu
+X-BeenThere: mplayer-dev-eng@mplayerhq.hu
+X-Mailman-Version: 2.1.5
+Precedence: list
+Reply-To: mplayer-dev-eng@mplayerhq.hu
+List-Id: MPlayer development <mplayer-dev-eng.mplayerhq.hu>
+List-Unsubscribe: <http://lists.mplayerhq.hu/mailman/listinfo/mplayer-dev-eng>, 
+	<mailto:mplayer-dev-eng-request@mplayerhq.hu?subject=unsubscribe>
+List-Archive: <http://lists.mplayerhq.hu/pipermail/mplayer-dev-eng>
+List-Post: <mailto:mplayer-dev-eng@mplayerhq.hu>
+List-Help: <mailto:mplayer-dev-eng-request@mplayerhq.hu?subject=help>
+List-Subscribe: <http://lists.mplayerhq.hu/mailman/listinfo/mplayer-dev-eng>, 
+	<mailto:mplayer-dev-eng-request@mplayerhq.hu?subject=subscribe>
+Sender: mplayer-dev-eng-bounces@mplayerhq.hu
+Errors-To: mplayer-dev-eng-bounces@mplayerhq.hu
+
+Hi,
+
+2006/6/26, Thomas Orgis <thomas-forum@orgis.org>:
+> Hi!
+>
+> I'm working on a new release of mpg123 (yes, afer a looong time) and noted some interesting stuff in MPlayer's  mp3lib directory.
+
+Glad to hear that!
+
+> You have 3DNow!Ext, altivec assembler and SSE pending (I was notified of Zuxy's posting of such a patch here).
+>
+> I'd like to include your impovements.
+>
+> I understand that MPlayer is GPL as a whole - I want to make mpg123 as much LGPL as possible, since I want to serve mpglib and mpg123 from the same source in future (mpglib is used in many LGPL ways).
+>
+> I'd like to have some voice stating clearly that the files you added are indeed GPL and I'd be overly happy if the authors could make them LGPL for me.
+> Btw., the same holds true for some files you took from mpg123 (3DNow, MMX) since I was unable to track down the original authors.
+> I someone here has some contacts that are still alive...
+>
+> Zuxy: You are hopefully more easy to track down - Can I use your SSE patch under LGPL?
+>
+
+Yes you can. However dct64_sse is a derivative work of dct64_MMX
+(already LGPLed?) and dct64_altivec so you might have to get
+permission from Romain Dolbeau first.:-)
+
+-- 
+Zuxy
+Beauty is truth,
+While truth is beauty.
+PGP KeyID: E8555ED6
+_______________________________________________
+MPlayer-dev-eng mailing list
+MPlayer-dev-eng@mplayerhq.hu
+http://lists.mplayerhq.hu/mailman/listinfo/mplayer-dev-eng

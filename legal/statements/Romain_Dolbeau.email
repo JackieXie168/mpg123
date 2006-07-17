@@ -1,0 +1,82 @@
+Return-Path: <mplayer-dev-eng-bounces@mplayerhq.hu>
+Delivered-To: thomas@orgis.org
+Received: from natsuki.mplayerhq.hu ([213.144.138.186]:47353)
+	by nesselzelle.de with [XMail 1.22 SSL Ext 0.0.3a ESMTP Server]
+	id <S1A7B> for <thomas-forum@orgis.org> from <mplayer-dev-eng-bounces@mplayerhq.hu>;
+	Mon, 26 Jun 2006 18:16:59 +0200
+Received: from natsuki.mplayerhq.hu (localhost.localdomain [127.0.0.1])
+	by natsuki.mplayerhq.hu (Postfix) with ESMTP id 0B53B3B3BB;
+	Mon, 26 Jun 2006 18:11:04 +0200 (CEST)
+X-Original-To: mplayer-dev-eng@mplayerhq.hu
+Delivered-To: mplayer-dev-eng@mplayerhq.hu
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by natsuki.mplayerhq.hu (Postfix) with ESMTP id 989E33B3BB
+	for <mplayer-dev-eng@mplayerhq.hu>;
+	Mon, 26 Jun 2006 18:11:02 +0200 (CEST)
+Received: from natsuki.mplayerhq.hu ([127.0.0.1])
+	by localhost (natsuki [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 20799-02-2 for <mplayer-dev-eng@mplayerhq.hu>;
+	Mon, 26 Jun 2006 18:11:02 +0200 (CEST)
+Received: from gandalf.caps-entreprise.com (gandalf.caps-entreprise.com
+	[212.180.111.10])
+	by natsuki.mplayerhq.hu (Postfix) with ESMTP id 5BFD33B3BA
+	for <mplayer-dev-eng@mplayerhq.hu>;
+	Mon, 26 Jun 2006 18:11:02 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by gandalf.caps-entreprise.com (Postfix) with ESMTP id CF6BF16E35
+	for <mplayer-dev-eng@mplayerhq.hu>;
+	Mon, 26 Jun 2006 18:11:00 +0200 (CEST)
+Received: from gandalf.caps-entreprise.com ([127.0.0.1])
+	by localhost (gandalf [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 16410-09 for <mplayer-dev-eng@mplayerhq.hu>;
+	Mon, 26 Jun 2006 18:10:55 +0200 (CEST)
+Received: from [172.21.0.23] (kili.caps-entreprise.com [172.21.0.23])
+	by gandalf.caps-entreprise.com (Postfix) with ESMTP id 4B93716E2F
+	for <mplayer-dev-eng@mplayerhq.hu>;
+	Mon, 26 Jun 2006 18:10:55 +0200 (CEST)
+Message-ID: <44A0070F.5060205@dolbeau.org>
+Date: Mon, 26 Jun 2006 18:10:55 +0200
+From: Romain Dolbeau <romain@dolbeau.org>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.7.8) Gecko/20060503 Debian/1.7.8-1sarge6 Mnenhy/0.7.3.0
+X-Accept-Language: en
+MIME-Version: 1.0
+To: mplayer-dev-eng@mplayerhq.hu
+Subject: Re: [MPlayer-dev-eng] mp3lib license; backport to mpg123
+References: <20060626114846.44406fa2@thorvas.local>
+	<a18e06b40606260728k647ffa73r808e81aafc3865b7@mail.gmail.com>
+In-Reply-To: <a18e06b40606260728k647ffa73r808e81aafc3865b7@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at caps-entreprise.com
+X-Virus-Scanned: by amavisd-new-20030616-p10 (Debian) at mplayerhq.hu
+X-BeenThere: mplayer-dev-eng@mplayerhq.hu
+X-Mailman-Version: 2.1.5
+Precedence: list
+Reply-To: mplayer-dev-eng@mplayerhq.hu
+List-Id: MPlayer development <mplayer-dev-eng.mplayerhq.hu>
+List-Unsubscribe: <http://lists.mplayerhq.hu/mailman/listinfo/mplayer-dev-eng>, 
+	<mailto:mplayer-dev-eng-request@mplayerhq.hu?subject=unsubscribe>
+List-Archive: <http://lists.mplayerhq.hu/pipermail/mplayer-dev-eng>
+List-Post: <mailto:mplayer-dev-eng@mplayerhq.hu>
+List-Help: <mailto:mplayer-dev-eng-request@mplayerhq.hu?subject=help>
+List-Subscribe: <http://lists.mplayerhq.hu/mailman/listinfo/mplayer-dev-eng>, 
+	<mailto:mplayer-dev-eng-request@mplayerhq.hu?subject=subscribe>
+Sender: mplayer-dev-eng-bounces@mplayerhq.hu
+Errors-To: mplayer-dev-eng-bounces@mplayerhq.hu
+
+Zuxy Meng wrote:
+
+> Yes you can. However dct64_sse is a derivative work of dct64_MMX
+> (already LGPLed?) and dct64_altivec so you might have to get
+> permission from Romain Dolbeau first.:-)
+
+LGPL it is, for dct64_altivec.
+
+-- 
+Romain Dolbeau
+<romain@dolbeau.org>
+_______________________________________________
+MPlayer-dev-eng mailing list
+MPlayer-dev-eng@mplayerhq.hu
+http://lists.mplayerhq.hu/mailman/listinfo/mplayer-dev-eng

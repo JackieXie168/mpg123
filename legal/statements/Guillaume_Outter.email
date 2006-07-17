@@ -1,0 +1,35 @@
+Return-Path: <guillaume.outters@free.fr>
+Delivered-To: thomas@orgis.org
+Received: from smtp4-g19.free.fr ([212.27.42.30]:59861)
+	by nesselzelle.de with [XMail 1.22 SSL Ext 0.0.3a ESMTP Server]
+	id <S27A8> for <thomas@orgis.org> from <guillaume.outters@free.fr>;
+	Mon, 17 Jul 2006 10:10:02 +0200
+Received: from [IPv6:::1] (arsenic.dyndns.org [82.241.136.171])
+	by smtp4-g19.free.fr (Postfix) with ESMTP id BD45154854
+	for <thomas@orgis.org>; Mon, 17 Jul 2006 10:03:22 +0200 (CEST)
+Mime-Version: 1.0 (Apple Message framework v752.2)
+In-Reply-To: <20060717033234.52eb5aea@thorvas.local>
+References: <20060717033234.52eb5aea@thorvas.local>
+Content-Type: text/plain; charset=WINDOWS-1252; delsp=yes; format=flowed
+Message-Id: <72FF08C4-EC95-4BE4-A580-33CC7C4C529D@free.fr>
+Content-Transfer-Encoding: quoted-printable
+From: Guillaume Outters <guillaume.outters@free.fr>
+Subject: Re: macosx output for mpg123 under LGPL
+Date: Mon, 17 Jul 2006 10:03:20 +0200
+To: Thomas Orgis <thomas@orgis.org>
+X-Mailer: Apple Mail (2.752.2)
+
+Le 17 juil. 2006 =E0 03:32, Thomas Orgis a =E9crit :
+
+> I'm the new maintainer of mpg123 - together with Nicholas J. =20
+> Humfrey - and am asking if we can include your patch for MacOSX =20
+> output under the LGPL license
+> [=85]
+> So, what's your word on this?
+
+Go LGPL (and have a nice day!).
+
+--=20
+Guillaume
+
+
