@@ -1,8 +1,8 @@
-<!--include file="header.html" -->
+<!--#include file="header.html" -->
 	<title>mpg123: download</title>
 </head>
 <body>
-	<!--include file="linkbar.html" -->
+	<!--#include file="linkbar.html" -->
 	<h1>Downloads</h1>
 
 	Please see the the <a href="http://sourceforge.net/project/showfiles.php?group_id=135704">sourceforge.net files section</a> for current and past downloads including release notes etc.

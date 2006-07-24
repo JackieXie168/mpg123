@@ -1,8 +1,8 @@
-<!--include file="header.html" -->
+<!--#include file="header.html" -->
 	<title>mpg123: benchmarking</title>
 </head>
 <body>
-	<!--include file="linkbar.html" -->
+	<!--#include file="linkbar.html" -->
 	<h1>The benchmarking lie?</h1>
 	<p>
 		Let's write a few notes about benchmarking the different mp3 decoders,
