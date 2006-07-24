@@ -8,9 +8,9 @@ a:visited { color:#CA8000; text-decoration:none; font-weight:bold; }
 a:hover { color:#FFA100; text-decoration:underline; }
 a:active { color:#FFFFFF; text-decoration:none; }
 */
-h1 { font-family:arial,helvetica,sans-serif; color: #ffffff; font-size:24px; text-align:center; }
-h2 { font-family:arial,helvetica,sans-serif; color: #ffffff; font-size:18px; text-align:left; }
-h3 { font-family:arial,helvetica,sans-serif; color: #ffffff; font-size:14px; text-align:left; }
+h1 { font-family:arial,helvetica,sans-serif; color: #330000; font-size:24px; text-align:center; }
+h2 { font-family:arial,helvetica,sans-serif; color: #330000; font-size:18px; text-align:left; }
+h3 { font-family:arial,helvetica,sans-serif; color: #330000; font-size:14px; text-align:left; }
 p { width:90%; text-align:left; margin-left:5%; }
 table { width:90%; text-align:left; margin-left:5%; }
 pre { width:90%; text-align:left; margin-left:5%; }
