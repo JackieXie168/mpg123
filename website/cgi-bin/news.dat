@@ -1,0 +1,61 @@
+:date 2006-06-21
+:title A note about Lame
+:by Thomas
+.During hacking with the gapless mp3 support, I investigated the working of which with different sampling rates.
+.I guess I found a Lame bug concering the resampling it can do on request (removing audio at the end).<br>
+.The <a href="lame-resampling.shtml">page about my Lame/resampling tests</a> documents this and as a plus offers some plots showing the gapless mode working nicely.
+
+:date 2006-06-20
+:title
+:by Thomas
+.Half a year did pass not without serious work going on in the hidden.
+.The next release, 0.60, will be based on <a href="http://thomas.orgis.org/mpg123-thor">mpg123-thor</a>, thus sporting the Debian fixes together with enhanced control interface.
+.Furthermore, there will be
+.<ul>
+.<li>a clear license statement, spoken out loud for all distros to hear</li>
+.<li>incorporation of the pre-0.59s MMX assembler code</li>
+.<li>proper ignoring of "unsynched" ID3V2 data (no choke on embedden raw bitmap anymore...), as does pre-0.59s</li>
+.<li>experimental (iow: not perfect but working) gapless playback of mp3 files encoded with Lame</li>
+.</ul>
+.You can have a glimpse on current development via subversion: `svn co svn://orgis.org/mpg123/trunk mpg123-svn` (will create folder mpg123-svn with current snapshot, but you knew that already;-)
+
+:date 2005-12-28
+:title The project will continue.
+:by Michael
+.Check <a href="http://mpg123.orgis.org/">mpg123.orgis.org</a> and <a href="http://sourceforge.net/projects/mpg123">mpg123 on sourceforge</a> for more information.
+
+:date 2005-01-12
+.Yes! The project is <font color="#ff0000" size=+1">not</font> maintained at the moment
+.and there are some serious <font color="#ff0000" size=+1">security problems</font> in the latest player versions. It
+.is highly recommended to <font color="#ff0000" size=+1">not</font> use the source code you can download from this
+.site. Check <a href="http://packages.debian.org/changelogs/pool/non-free/m/mpg123/mpg123_0.59r-18/changelog">Debian Advisory</a> 
+.or <a href="http://www.gentoo.org/security/en/glsa/glsa-200501-14.xml" target="_blank">Gentoo Advisory</a> for more information. Thanx.
+
+:date 2004
+:by Michael
+.FAQ: The license of the mpg123 player is GPL and the license of the mpglib/ inside the mpg123 package is LGPL.
+
+:date 2003-01-16
+:by Michael
+.Important information about the Gobble Exploit: It seems, that only the
+.pre0.59s version is vulnerable. The hotfix is to increase the 
+.MAX_INPUT_FRAMESIZE to a big value. Ie 4096. I will review the whole code this weekend.
+.I will also try to supply an mp3 checker this weekend. So it is not necessary to remove all
+.your mp3s. Just do not play them with a potentially vulnerable player and check them later.
+.Thanx.
+
+:date 2001-05-18
+:by Michael
+.I changed the license of the 'mpglib' part. It's now under LGPL
+
+:date 2000-11-21
+:by Michael
+.Propably your waiting for the next release, but
+.I did not manage to apply all patches from my TODO list yet and
+.added a few new bugs that I must hunt down first. Nevertheless, a lot of bugs are fixed in the
+.CVS version. Please test it and report remaining bugs you find.
+
+:date 2000-08-16
+.Just to let you know: I'm still alive and I hope to have some
+.spare time in september to add some patches and test the current CVS version to make
+.a new minor release.

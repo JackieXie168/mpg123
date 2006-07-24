@@ -1,12 +1,13 @@
-/*Standard-Style 01a: verwendet u.a. von grundsatz.html*/
-body { color: #FFFFFF;background-color:#273b84; margin-top:10pt;margin-right:10pt;margin-bottom:10pt;margin-left:10pt;font-family:sans-serif; }
-.gross { font-size:200%; }
-.echtgross { font-size:300%; }
-.mitte{ text-align:center; }
+body { color: #000000;background-color:#FFFFFF; margin-top:10pt;margin-right:10pt;margin-bottom:10pt;margin-left:10pt;font-family:sans-serif; }
+.big { font-size:200%; }
+.reallybig { font-size:300%; }
+.center{ text-align:center; }
+/*
 a:link { color:#FFA100; text-decoration:none; font-weight:bold; }
 a:visited { color:#CA8000; text-decoration:none; font-weight:bold; }
 a:hover { color:#FFA100; text-decoration:underline; }
 a:active { color:#FFFFFF; text-decoration:none; }
+*/
 h1 { font-family:arial,helvetica,sans-serif; color: #ffffff; font-size:24px; text-align:center; }
 h2 { font-family:arial,helvetica,sans-serif; color: #ffffff; font-size:18px; text-align:left; }
 h3 { font-family:arial,helvetica,sans-serif; color: #ffffff; font-size:14px; text-align:left; }
@@ -14,5 +15,4 @@ p { width:90%; text-align:left; margin-left:5%; }
 table { width:90%; text-align:left; margin-left:5%; }
 pre { width:90%; text-align:left; margin-left:5%; }
 hr { width:80%; }
-.MenuPath { border-style:solid; border-color:#666666; border-width:1px; }
-.FrameURL { border-style:solid; border-color:#666666; border-width:1px; text-align:right; }
+.boxed { border-style:solid; border-color:#666666; border-width:1px; }

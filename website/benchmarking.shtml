@@ -1,0 +1,24 @@
+<!--include file="header.html" -->
+	<title>mpg123: benchmarking</title>
+</head>
+<body>
+	<!--include file="linkbar.html" -->
+	<h1>The benchmarking lie?</h1>
+	<p>
+		Let's write a few notes about benchmarking the different mp3 decoders,
+		which are available. 'top' is NOT a benchmark, it's a simple check
+		on how a program performs. The sad thing with 'top' (or better the linux kernel) 
+		is, that it has some problems with the measurement of threaded programs or 
+		programs only requesting short chunks of processor time. One real test is
+		to measure how long your machine needs to decode a stream without threads with 
+		100% CPU. Using mpg123 you can do this with
+	</p>
+	<pre>time mpg123 -t mp3stream.mp3</pre>
+	<p>or, if you additionally want to measure the I/O time:</p>
+	<pre>time mpg123 -s mp3stream.mp3  > /dev/null<pre>
+	<p>
+		If you find a player, which claims to be 10 or even more times faster than the
+		current players: just don't believe it. A factor of 2 MAY BE possible.
+	</p>
+</body>
+</html>

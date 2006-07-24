@@ -1,0 +1,32 @@
+<!--include file="header.html" -->
+	<title>mpg123: download</title>
+</head>
+<body>
+	<!--include file="linkbar.html" -->
+	<h1>Downloads</h1>
+
+	Please see the the <a href="http://sourceforge.net/project/showfiles.php?group_id=135704">sourceforge.net files section</a> for current and past downloads including release notes etc.
+	Sourceforge is providing a number of download mirrors to ensure the best availability. Please let&acute;s use this kind service.
+
+	<h2>developer version</h2>
+
+	<p>Development happens in the subversion repository on orgis.org: svn://orgis.org/mpg123/trunk; you can also browse it via the <a href="cgi-bin/viewvc.cgi">ViewVC web interface</a>. You can get snapshots from both places. </p>
+
+	<h2>Local fallback downloads</h2>
+	<ul>
+	<li><a href="mpg123-0.60-beta2.tar.bz2">mpg123 0.60-beta2</a><a href="mpg123-0.60-beta2.tar.bz2.sig">(signature)</a></li>
+	</ul>
+
+	<h2>Historic downloads from Michael&acute;s site<h2>
+	<p>
+		The old mpg123 versions contain various problems including security vulnerabilities.
+		That doesn't mean that mpg123 is insecure and bad, this is just a result of aging code that lacks active maintainership.<br />
+		So please use these downloads with care and check the news section for known issues.
+	</p>
+	<ul>
+		<li>Last stable release before 0.60: <a href="mpg123/mpg123-0.59r.tar.gz">mpg123 0.59r</a></li>
+		<li>100% pure Java MP3 Player <a href="mpg123/jmpg123-0.1.tar.gz">jmpg123</a></li>
+		<li>MP2 Player for ADSP 2115, <em>very old!</em><a href="mpg123/dsp_mp2.tar.gz">dsp_mp2</A></li>
+	</ul>
+</body>
+</html>
