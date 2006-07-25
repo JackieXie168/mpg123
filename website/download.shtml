@@ -25,6 +25,7 @@
 	</p>
 	<ul>
 		<li>Last stable release before 0.60: <a href="mpg123/mpg123-0.59r.tar.gz">mpg123 0.59r</a></li>
+		<li>Last DEVELOPMENT mpg123 release before 0.60: <a href="mpg123/mpg123-pre0.59s.tar.gz">mpg123 pre0.59s</a></li>
 		<li>100% pure Java MP3 Player <a href="mpg123/jmpg123-0.1.tar.gz">jmpg123</a></li>
 		<li>MP2 Player for ADSP 2115, <em>very old!</em><a href="mpg123/dsp_mp2.tar.gz">dsp_mp2</A></li>
 	</ul>
