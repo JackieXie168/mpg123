@@ -5,7 +5,7 @@
 </head>
 <body>
 <!--#include file="linkbar.html" -->
-<h1>mpg123 - Fast console MP3 Player</h1>
+<h1>mpg123 - Fast console MPEG Audio Player</h1>
 <p class="boxed">
 <em>mpg123</em> is a
 real time MPEG Audio Player for Layer 1,2 and Layer3. (MPEG 2.0 with Layer1/2 not heavily tested)
