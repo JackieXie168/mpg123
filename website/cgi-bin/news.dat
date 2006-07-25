@@ -17,7 +17,7 @@
 :by Thomas
 .During hacking with the gapless mp3 support, I investigated the working of which with different sampling rates.
 .I guess I found a Lame bug concering the resampling it can do on request (removing audio at the end).<br>
-.The <a href="lame-resampling.shtml">page about my Lame/resampling tests</a> documents this and as a plus offers some plots showing the gapless mode working nicely.
+.The <a href="/lame-resampling.shtml">page about my Lame/resampling tests</a> documents this and as a plus offers some plots showing the gapless mode working nicely.
 
 :date 2006-06-20
 :title
