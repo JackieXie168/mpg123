@@ -1,0 +1,18 @@
+<!--#include file="header.html" -->
+	<title>mpg123: contact/impressum</title>
+</head>
+<body>
+	<!--#include file="linkbar.html" -->
+	<h1>Contact / Impressum</h1>
+	<p>
+		This site is authored by Michael Hipp and Thomas Orgis, with various content originally written by Michael and Thomas being responsible for the current operation and presentatnion of the site as well as adding new contents.
+	</p>
+	<p>
+		If you want to get in touch with the mpg123 project, the best way is to head to the <a href="http://sourceforge.net/projects/mpg123">sourceforge project site</a> and subscribe to mailing lists, report bugs / wishes, etc.
+	</p>
+	<p>
+		Any questions regarding the website should be sent per eMail to the official mpg123 maintainer, <a href="mailto:maintainer@mpg123.org">Thomas Orgis</a>.
+		<br />Of course you can also use snail mail to: Thomas Orgis, Inselhof 8, 14478 Potsdam, Germany.
+	</p>
+</body>
+</html>
