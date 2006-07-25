@@ -1,4 +1,4 @@
-body { color: #000000;background-color:#FFFFFF; margin-top:10pt;margin-right:10pt;margin-bottom:10pt;margin-left:10pt;font-family:sans-serif; }
+body { color: #000000; background-color: #e0e0ff; margin-top:10pt;margin-right:10pt;margin-bottom:10pt;margin-left:10pt;font-family:sans-serif; }
 .big { font-size:200%; }
 .reallybig { font-size:300%; }
 .center{ text-align:center; }
@@ -16,3 +16,8 @@ table { width:90%; text-align:left; margin-left:5%; }
 pre { width:90%; text-align:left; margin-left:5%; }
 hr { width:80%; }
 .boxed { border-style:solid; border-color:#666666; border-width:1px; }
+.newsblock { background-color: #ccdddd; margin-left:1.5cm; margin-right:1.5cm; }
+.newshead { background-color: #000055; }
+.newsdate { color: #aa0000; }
+.newstitle { color: #ffffff; }
+.newsby { color: #bbbbbb; }

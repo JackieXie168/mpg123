@@ -15,7 +15,7 @@
 	</p>
 	<pre>time mpg123 -t mp3stream.mp3</pre>
 	<p>or, if you additionally want to measure the I/O time:</p>
-	<pre>time mpg123 -s mp3stream.mp3  > /dev/null<pre>
+	<pre>time mpg123 -s mp3stream.mp3  > /dev/null</pre>
 	<p>
 		If you find a player, which claims to be 10 or even more times faster than the
 		current players: just don't believe it. A factor of 2 MAY BE possible.

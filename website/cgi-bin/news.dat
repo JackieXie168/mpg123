@@ -1,3 +1,17 @@
+:date 2006-07-25
+:by Thomas
+:title 0.60-beta2 release!
+.Yes! The time has come - the new mpg123 shows its advent with the first public beta release.
+.Don't wonder why it is called beta2, just go to the <a href="/download.shtml">download section</a> and get it!
+.<br />
+.This release is the first official product resulting from the merge of the 0.59r-gpl and 0.59r-thor forks back into <em>the</em> mpg123.
+.Though tagged beta, I consider it being the best, most secure mpg123 version available now and encourage everybody to test it.
+.<br />
+.For sure there are glitches in the new/modified build system and general small issues with platforms that the current developers cannot test.
+.Please help them (us) ironing these out before the final version 0.60 .
+.<br />
+.See the documentation in the source package or on sourceforge.net (release notes, changelog) for details on what&acute;s really new.
+
 :date 2006-06-21
 :title A note about Lame
 :by Thomas
@@ -25,6 +39,7 @@
 .Check <a href="http://mpg123.orgis.org/">mpg123.orgis.org</a> and <a href="http://sourceforge.net/projects/mpg123">mpg123 on sourceforge</a> for more information.
 
 :date 2005-01-12
+:by Michael
 .Yes! The project is <font color="#ff0000" size=+1">not</font> maintained at the moment
 .and there are some serious <font color="#ff0000" size=+1">security problems</font> in the latest player versions. It
 .is highly recommended to <font color="#ff0000" size=+1">not</font> use the source code you can download from this
@@ -56,6 +71,7 @@
 .CVS version. Please test it and report remaining bugs you find.
 
 :date 2000-08-16
+:by Michael
 .Just to let you know: I'm still alive and I hope to have some
 .spare time in september to add some patches and test the current CVS version to make
 .a new minor release.
