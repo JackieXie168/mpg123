@@ -1,0 +1,19 @@
+<!--#include file="header.html" -->
+	<title>mpg123: features</title>
+</head>
+<body>
+	<!--#include file="linkbar.html" -->
+	<h1>Features</h1>
+	<p>
+		We all know that mpg123 is the fast console mpeg audio decoder/player, don&acute;t we? But here are some things that go beyond simple decoding:
+		<ul>
+			<li>support for many platforms (many Unices, MacOSX, Windows) and audio subsystems (native ones and libao, Jack)</li>
+			<li>simple but powerful control mode for fronends (commands via STDIN)</li>
+			<li>realtime control of efficient equalizer (because built into decoder)</li>
+			<li>built-in terminal control keys</li>
+			<li>experimental: support for really gapless playback of mp3 files (skipping encoder/decoder padding/junk)</li>
+			<li>many audio data settings: resampling, choose channel, mono, ...</li>
+		</ul>
+	</p>
+</body>
+</html>
