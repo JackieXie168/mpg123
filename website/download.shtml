@@ -20,7 +20,7 @@
 	<li><a href="download/mpg123-0.60-beta2.tar.bz2">mpg123 0.60-beta2</a><a href="download/mpg123-0.60-beta2.tar.bz2.sig">(signature)</a></li>
 	</ul>
 
-	<h2>Historic downloads from Michael&acute;s site<h2>
+	<h2>Historic downloads from Michael&acute;s site</h2>
 	<p>
 		The old mpg123 versions contain various problems including security vulnerabilities.
 		That doesn't mean that mpg123 is insecure and bad, this is just a result of aging code that lacks active maintainership.<br />
