@@ -3,7 +3,7 @@
 :title automatic fire - 0.60-beta3 is out!
 .Thanks for quickly taking my bold statement about the best mpg123 ever to the test and providing the reports for two bugs that have been fixed.
 .<br />
-.Also, some enhancements crept in - manily with http and playlists (where Shoutcast/Winamp PLS can now be parsed directly by mpg123).
+.Also, some enhancements crept in - mainly with http and playlists (where Shoutcast/Winamp PLS can now be parsed directly by mpg123).
 .Please head over too sourceforge and find the next bugs to kill on the way to a stable release.
 :date 2006-07-25
 :by Thomas
