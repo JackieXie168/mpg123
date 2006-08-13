@@ -1,3 +1,9 @@
+:date 2006-08-13
+:by Thomas
+:title The next beta is near!
+.We are coming more close to something to be called stable; the last important bugfix was loosening an earlier bugfix to fit some files (only those encoded with new lame??). If you have stuttery playback / unsteady speed with some files, try the upcoming beta or a svn snapshot.<br />
+.There is a new alsa output by Clemens Ladisch removing the need for libao (which is not LGPL) and the addition of RVA (relative volume adjustment) or ReplayGain support via Lame/Info tag and ID3v2 info - in theory even the ID3 tags that foobar2000 creates.
+
 :date 2006-07-29
 :by Thomas
 :title automatic fire - 0.60-beta3 is out!
