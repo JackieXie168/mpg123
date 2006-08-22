@@ -17,6 +17,8 @@
 		The sources are signed with <a href="http://thomas.orgis.org/public_key">Thomas&acute; GPG key</a>.
 	</p>
 	<ul>
+	<li><a href="download/mpg123-0.60-beta4.tar.bz2">mpg123 0.60-beta4</a> <a href="download/mpg123-0.60-beta4.tar.bz2.sig">(signature)</a></li>
+	<li><a href="download/mpg123-0.60-beta3.tar.bz2">mpg123 0.60-beta3</a> <a href="download/mpg123-0.60-beta3.tar.bz2.sig">(signature)</a></li>
 	<li><a href="download/mpg123-0.60-beta2.tar.bz2">mpg123 0.60-beta2</a> <a href="download/mpg123-0.60-beta2.tar.bz2.sig">(signature)</a></li>
 	</ul>
 
