@@ -10,26 +10,26 @@
 
 <h2>Frontends and other tools for or based on mpg123</h2>
 <ul>
-<li><a href="http://kewl.campus.luth.se/~wizball/jukebox/index.html">sajber jukebox. (Broken Link?)</a> 
-<li><a href="http://www.alsa-project.org/~andy/">ALSA Player</a> 
-<li>Tk3Play. A front end for mpg123. <a href="http://www.msc.cornell.edu/~bef2/">http://www.msc.cornell.edu/~bef2/</a>
-<li><a href="http://fredrik.hubbe.net/plugger.html"> Plugger </a>
-<li><a href="http://cray.tuug.utu.fi/~phoenix/xmp3player/"> xmp3player </a>
-<li><a href="http://www.this.net/~frank/franksprojects.html"> MPP for NextStep </a>
-<li><a href="http://www.dtek.chalmers.se/~kw/jb"> curses-based frontend for mpg123, No.1  </a>
-<li><a href="http://www.personal.psu.edu/users/n/k/nkk104/cmp3/"> Cmp3, curses-based frontend for mpg123 </a>
-<li>kmp3, ncurses front-end for mpg123
-<li><a href="http://szyzyg.arm.ac.uk/~spm/mp3mixer.html">MP3 Mixer</a>
-<li><a href="http://freeweb.pdq.net/redline/fuse"> GUI frontend for the GNOME desktop project </a>
-<li><a href="http://www.tf.hut.fi/~flu/cplay/"> Front-end written in Python </a>
-<li><a href="http://www.ffem.org/gdam/"> mp3 mixing </a>
-<li><a href="http://www.geocities.com/SiliconValley/Haven/5235/mpeg-over.html"> GQmpeg </a>
-<li><a href="http://www.xmms.org/">XMMS</a>
-<li><a href="http://www.informatik.uni-freiburg.de/~nebel/rio/"> TKRio, Tcl/Tk GUI for Rio Program </a>
-<li><a href="http://www.dpotter.com/irmp3"> IRMP3 </a>
-<li><a href="http://www.anti-ms.de/soft.html">SmartGui for mpg123</a>
-<li><a href="http://moemusic.sourceforge.net/">Moe Music</a>
-<li><a href="http://rucus.ru.ac.za/~urban/playmp3list.html">mp3playlist. A ncurses-based MP3 player</a>
+<li><a href="http://kewl.campus.luth.se/~wizball/jukebox/index.html">sajber jukebox. (Broken Link?)</a> </li>
+<li><a href="http://www.alsa-project.org/~andy/">ALSA Player</a></li>
+<li>Tk3Play. A front end for mpg123. <a href="http://www.msc.cornell.edu/~bef2/">http://www.msc.cornell.edu/~bef2/</a></li>
+<li><a href="http://fredrik.hubbe.net/plugger.html"> Plugger </a></li>
+<li><a href="http://cray.tuug.utu.fi/~phoenix/xmp3player/"> xmp3player </a></li>
+<li><a href="http://www.this.net/~frank/franksprojects.html"> MPP for NextStep </a></li>
+<li><a href="http://www.dtek.chalmers.se/~kw/jb"> curses-based frontend for mpg123, No.1  </a></li>
+<li><a href="http://www.personal.psu.edu/users/n/k/nkk104/cmp3/"> Cmp3, curses-based frontend for mpg123 </a></li>
+<li>kmp3, ncurses front-end for mpg123</li>
+<li><a href="http://szyzyg.arm.ac.uk/~spm/mp3mixer.html">MP3 Mixer</a></li>
+<li><a href="http://freeweb.pdq.net/redline/fuse"> GUI frontend for the GNOME desktop project </a></li>
+<li><a href="http://www.tf.hut.fi/~flu/cplay/"> Front-end written in Python </a></li>
+<li><a href="http://www.ffem.org/gdam/"> mp3 mixing </a></li>
+<li><a href="http://www.geocities.com/SiliconValley/Haven/5235/mpeg-over.html"> GQmpeg </a></li>
+<li><a href="http://www.xmms.org/">XMMS</a></li>
+<li><a href="http://www.informatik.uni-freiburg.de/~nebel/rio/"> TKRio, Tcl/Tk GUI for Rio Program </a></li>
+<li><a href="http://www.dpotter.com/irmp3"> IRMP3 </a></li>
+<li><a href="http://www.anti-ms.de/soft.html">SmartGui for mpg123</a></li>
+<li><a href="http://moemusic.sourceforge.net/">Moe Music</a></li>
+<li><a href="http://rucus.ru.ac.za/~urban/playmp3list.html">mp3playlist. A ncurses-based MP3 player</a></li>
 <li><a href="http://osalp.sourceforge.net">OSALP</a></li>
 <li><a href="http://quarzen.de/mp3shell">MP3 Shell Number 1</a></li>
 <li><a href="http://home.swipnet.se/~w-10246/unix/index.html">MP3 Shell Number 2</a></li>
@@ -50,43 +50,43 @@
 </ul>
 <h2>Misc. patches for mpg123</h2>
 <ul>
-<li><a href="http://www.nonsensss.de/domi/mpg123-mysql/">mpg123-MySQL</a>
-<li><a href="http://lug-owl.de/~jbglaw/mpg123-mysql/">mpg123-MySQL - patched</a>
+<li><a href="http://www.nonsensss.de/domi/mpg123-mysql/">mpg123-MySQL</a></li>
+<li><a href="http://lug-owl.de/~jbglaw/mpg123-mysql/">mpg123-MySQL - patched</a></li>
 <li><a href="http://mpg123.newmail.ru">Patch to display ID3 Tags with russian encoding</a></li>
 </ul>
-<br>
+<br />
 <h2>Misc. Programmes and Modules based on mpg123</h2>
-<br>
+<br />
 <ul>
 <li><a href="http://www.geocities.co.jp/Technopolis/9674/in_mpg123.html">in_mpg123 plugin for winamp</a></li>
 <li><a href="http://xine.sourceforge.net">Xine - a Unix Video Player</a></li>
 <li><a href="http://www.rz.uni-frankfurt.de/~pesch/">A Windows DLL based on mpglib</a></li>
 <li><a href="http://www.eqrd.net/english/riscos/index.html">StupidPlayer for RISC OS</a></li>
 </ul>
-<BR>
+<br />
 <h2>Car player and mobile/standalone or similar projects</h2>
 <ul>
-<li><a href="http://www.geocities.com/MotorCity/Pit/3173/mp3/mobile.html"> http://www.geocities.com/MotorCity/Pit/3173/mp3/mobile.html</a>
-<li><a href="http://www.dvz.fh-koeln.de/~bn520/mp3.html">mpMan. Build your own MP3 Player</a>
+<li><a href="http://www.geocities.com/MotorCity/Pit/3173/mp3/mobile.html"> http://www.geocities.com/MotorCity/Pit/3173/mp3/mobile.html</a></li>
+<li><a href="http://www.dvz.fh-koeln.de/~bn520/mp3.html">mpMan. Build your own MP3 Player</a></li>
 <li><a href="http://home.htwm.de/fhackenb/projekt/moof/">Moof - a single floppy mp3 player</a></li>
 <li><a href="http://www.mermoz.fr">Network Multimedia System</a></li>
 <li><a href="http://www.janovetz.com/cantante">Cantane</a></li>
 </ul>
 <h2>Misc mp3 links</h2>
 <ul>
-<li> <a href="ftp://ftp.tnt.uni-hannover.de/pub/MPEG/audio/mpeg2/software/technical_report">Dist10: Encoder (and decoder) demonstration packages (with source!)</a>
-<li> <a href="http://www.sulaco.org/mp3/">LAME .. 'some' patches for the dist10 package</a>
-<li> <a href="http://www.alsa-project.org">The ALSA Sound System</a>
-<li> <a href="http://www.4front-tech.com/">The Open Sound System</a>
+<li> <a href="ftp://ftp.tnt.uni-hannover.de/pub/MPEG/audio/mpeg2/software/technical_report">Dist10: Encoder (and decoder) demonstration packages (with source!)</a></li>
+<li> <a href="http://www.sulaco.org/mp3/">LAME .. 'some' patches for the dist10 package</a></li>
+<li> <a href="http://www.alsa-project.org">The ALSA Sound System</a></li>
+<li> <a href="http://www.4front-tech.com/">The Open Sound System</a></li>
 </ul>
 <h2>Precompiled binaries and other mpg123 packages</h2>
-<UL>
+<ul>
 <li> <a href="http://www.cs.ucr.edu/~sshah/mp3"> http://www.cs.ucr.edu/~sshah/mp3 </a>. I only tested the
-Solaris version from there. It's based on mpg123 0.59k.
+Solaris version from there. It's based on mpg123 0.59k.</li>
 </ul>
 <h2>General Sound and Audio information</h2>
-<UL>
-<LI><a href="http://www.bright.net/~dlphilp/linuxsound/">Bright.net Linux-Sound</a>
-</UL>
+<ul>
+<li><a href="http://www.bright.net/~dlphilp/linuxsound/">Bright.net Linux-Sound</a></li>
+</ul>
 </body>
 </html>

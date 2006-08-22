@@ -1,7 +1,7 @@
 :date 2006-08-22
 :by Thomas
 :title 0.60-beta4 is finally there!
-.It was about time, we spent so much time coding on this that I now don&acute;t have the time for big words;-)<br>
+.It was about time, we spent so much time coding on this that I now don&acute;t have the time for big words;-)<br />
 .Important news include:
 .<ul>
 .<li>proper seeking, also for VBR streams</li>

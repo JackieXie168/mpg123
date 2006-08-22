@@ -6,6 +6,8 @@
 	<h1>Features</h1>
 	<p>
 		We all know that mpg123 is the fast console mpeg audio decoder/player, don&acute;t we? But here are some things that go beyond simple decoding:
+	</p>
+	<div>
 		<ul>
 			<li>support for many platforms (many Unices, MacOSX, Windows) and audio subsystems (native ones and libao, Jack)</li>
 			<li>simple but powerful control mode for frontends (commands via STDIN)</li>
@@ -15,6 +17,6 @@
 			<li>many audio data settings: resampling, choose channel, mono, ...</li>
 			<li><em>really</em> efficient with a growing number of assembler optimizations (MMX, AltiVec, ...)</li>
 		</ul>
-	</p>
+	</div>
 </body>
 </html>
