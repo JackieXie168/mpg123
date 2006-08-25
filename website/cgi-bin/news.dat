@@ -1,3 +1,16 @@
+:date 2006-08-25
+:by Thomas
+:title 0.60-beta5 - playlist update
+.The freshest mpg123 now is the beta5 of the upcoming 0.60 release. It fixes a bug that prevented
+.<pre>
+.cat list.m3u | mpg123 -@ -
+.</pre>
+.from working and enhances the playlist code by making the line reading buffer dynamic.
+.<br />
+.Also, the playlist code is now much cleaner and self-contained in an extra unit (well, what does the user care, eh? ;-).
+.<br />
+.Hurry up, buggers - we do not really plan to release another beta! 
+
 :date 2006-08-22
 :by Thomas
 :title 0.60-beta4 is finally there!
