@@ -5,6 +5,7 @@
 .It is the night of the 29th August 2006 and the time the new stable mpg123 is slipping through my fingers into the net.<br />
 .For those who didn't follow the development, here's the news:
 .</p>
+.
 .<ul>
 .<li>LGPL license</li>
 .<li>compilation via ./configure && make (i.e. GNU autoconf...)</li>
@@ -22,6 +23,9 @@
 .</p>
 .<p>
 .Long story short: Head over to <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&amp;package_id=148937&amp;release_id=443356">sourceforge</a> and get it!
+.</p>
+.<p>
+.Note for old school fellas: This official end user release only works with the new autoconf make system. The MakeLegacy.sh script for using the old-style Makefile needs a src/config.h.legacy file mimicking settings from the autoconf&acute;ed config.h . You can find an example that works on my linux laptop in the svn tree.
 .</p>
 
 :date 2006-08-27
