@@ -1,6 +1,6 @@
 <!--#include file="header.html" -->
 	<title>mpg123: features</title>
-</head>
+li</head>
 <body>
 	<!--#include file="linkbar.html" -->
 	<h1>Features</h1>
@@ -9,13 +9,14 @@
 	</p>
 	<div>
 		<ul>
-			<li>support for many platforms (many Unices, MacOSX, Windows) and audio subsystems (native ones and libao, Jack)</li>
+			<li>support for many platforms (many Unices, MacOSX, Windows) and audio subsystems (native ones and things like portaudio, NAS, Jack)</li>
 			<li>simple but powerful control mode for frontends (commands via STDIN)</li>
 			<li>realtime control of efficient equalizer (because built into decoder)</li>
 			<li>built-in terminal control keys</li>
-			<li>experimental: support for really gapless playback of mp3 files (skipping encoder/decoder padding/junk)</li>
+			<li>support for gapless playback of mp3 files (skipping encoder/decoder padding/junk)</li>
 			<li>many audio data settings: resampling, choose channel, mono, ...</li>
-			<li><em>really</em> efficient with a growing number of assembler optimizations (MMX, AltiVec, ...)</li>
+			<li><em>really</em> efficient with a growing number of assembler optimizations (pentium, MMX, AltiVec, ...)</li>
+			<li>support for Relative Volume Adjustment / ReplayGain</li>
 		</ul>
 	</div>
 </body>
