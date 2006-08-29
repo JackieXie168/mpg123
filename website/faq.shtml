@@ -1,0 +1,16 @@
+<!--#include file="header.html" -->
+	<title>mpg123: Frequently Asked Questions</title>
+</head>
+<body>
+	<!--#include file="linkbar.html" -->
+	<h1>Frequently Asked Questions</h1>
+
+	<h2>I want to compile with Alsa but configure fails - what do I need?</h2>
+	<p>Most likely, you are missing the header files for the alsa library (libasound) or even the library itself. </p>
+	
+	<table>
+		<tr><th>Distro</th><th>Needed packages</th></tr>
+		<tr><td>Debian / Ubuntu</td><td>libasound2, libasound2-dev</td></tr>
+	</table>
+</body>
+</html>
