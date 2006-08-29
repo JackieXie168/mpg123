@@ -5,8 +5,21 @@
 	<!--#include file="linkbar.html" -->
 	<h1>Downloads</h1>
 
-	Please see the the <a href="http://sourceforge.net/project/showfiles.php?group_id=135704">sourceforge.net files section</a> for current and past downloads including release notes etc.
-	Sourceforge is providing a number of download mirrors to ensure the best availability. Please let&acute;s use this kind service.
+	<p>Please see the the</p>
+	<div style="text-align:center">
+	    <a href="http://sourceforge.net/project/showfiles.php?group_id=135704">sourceforge.net files section</a>
+	</div>
+	<p>
+	    for current and past downloads including release notes etc.
+	    Sourceforge is providing a number of download mirrors to ensure the best availability. Please let&acute;s use this kind service.
+	</p>
+	
+	<h2>Current release</h2>
+
+	<div style="text-align:center">
+	    <a href="download/mpg123-0.60.tar.bz2">mpg123 0.60</a> <a href="download/mpg123-0.60.tar.bz2.sig">(signature)</a>
+	</div>
+	
 
 	<h2>Developer version</h2>
 
