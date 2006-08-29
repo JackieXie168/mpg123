@@ -1,3 +1,29 @@
+:date 2006-08-29 (UTC)
+:by Thomas
+:title Finally the final release - get mpg123 version 0.60!
+.<p>
+.It is the night of the 29th August 2006 and the time the new stable mpg123 is slipping through my fingers into the net.<br />
+.For those who didn't follow the development, here's the news:
+.</p>
+.<ul>
+.<li>LGPL license</li>
+.<li>compilation via ./configure && make (i.e. GNU autoconf...)</li>
+.<li>many bugfixes</li>
+.<li>more audio outputs, updated Alsa</li>
+.<li>more robust playback</li>
+.<li>MMX and AltiVec optimizations</li>
+.<li>RVA/ReplayGain</li>
+.<li>basic ID3v2</li>
+.<li>improved http and playlist operation</li>
+.<li>...just see yourself!</li>
+.</ul>
+.<p>
+.This version is the result of merging 0.59r by Michael Hipp and parts of his development tree with the 0.59r-gpl from sourceforge and mpg123-thor (both including patchsets from Debian) as well as continued work on the source of both Nicholas and myself as well as enthusiastic testers who gave us a purpose (thanks for being with us after that long time!).
+.</p>
+.<p>
+.Long story short: Head over to <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&amp;package_id=148937&amp;release_id=443356">sourceforge</a> and get it!
+.</p>
+
 :date 2006-08-27
 :by Thomas
 :title no more betas... please! 0.60-beta6 is out
