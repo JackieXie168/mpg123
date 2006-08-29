@@ -5,8 +5,7 @@
 .It is the night of the 29th August 2006 and the time the new stable mpg123 is slipping through my fingers into the net.<br />
 .For those who didn't follow the development, here's the news:
 .</p>
-.
-.<ul>
+.<ul style="margin-left:1cm">
 .<li>LGPL license</li>
 .<li>compilation via ./configure && make (i.e. GNU autoconf...)</li>
 .<li>many bugfixes</li>
