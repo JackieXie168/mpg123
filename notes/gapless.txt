@@ -49,3 +49,39 @@ What does toolame?
 Ok, with toolame, it looks better. The full sound is preserved, with some low-noise ramblings at beginning and end. I don't have details about endocer delay/padding from toolame, while it _could_ be modified to write a lame tag, too, I think.
 
 Should mp2 encoders at some time adopt the practice on lame to write the necessary info in the header, I will use it. For now, I'll restrict the gapless mode only to mp3, where it is doable and wanted.
+
+Sound from the grave
+--------------------
+
+Play, pause, seek, un-pause. That sounds bad! Old data is heard.
+I make a strong guess that this is because of overlapping frame data from old position being used.
+It is not totally clear how much data is "wrong".
+A test waveform from pause-jump_to_2-unpause shows old sound (1 frame) then silence and soft beginning of new sound.
+For the jump to the beginning, the gapless code seems to catch the situation pretty well.
+But for a jump to somehere, the encoder padding does not apply.
+
+So, what is the real solution to that? For a quick hack, I can try seeking to one frame _before_ the wanted one and skip it's output.
+I'm wondering if I should care for the re-entry not being too aprupt (click).
+
+And what keeps this nasty effect from happening on changing tracks? I guess the padding.
+
+The relation between current decoded frame together with previous frames to the current output has to be cleared up.
+There are long range effects.
+
+Hm, best would be to reinit the decoder like on start of first track and just ignore decoder delay.
+But it seems like such a reinit is not in the code at all currently.
+
+So, the first dirty solution (in control_generic / layer3.c):
+
+	- Every jump while paused is made to two frames _before_ the wanted one.
+	- On restart of playback, two frames worth of samples are ignored.
+	- Jumping to 0 works already nicely in practice through normal gapless code.
+	- Jumping to 1, well, can only skip one frame...
+
+That is not clean, but it is for sure better than what happened before in the concerned situation. I am still unsure about the role of the decoder delay in this case...
+But for now, I'll have this code in control_generic and will add it to terminal mode. Note that for realtime user experience a softer fade-in of seeked-to sound may be desired as well as there is a dependency on the audio output to have its buffer cleared on pause/seek.
+I'll make this depend on the --gapless parameter since it shares ideas and code. Without --gapless, it should behave as it did all the time...
+
+A sidenote on what others seem to do: xmms does not have sound from the grave, but it swallos quite a lot of sound even when just doing pause/unpause.
+
+Hm, the terminal mode has to wait a bit. It's more complicated there because state handling and playback is separated between term.c and mpg123.c .
