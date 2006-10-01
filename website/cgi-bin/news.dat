@@ -20,7 +20,7 @@
 .<ul style="margin-left:1cm">
 .<li>LGPL license</li>
 .<li>compilation via ./configure && make (i.e. GNU autoconf...)</li>
-.<li>many bugfixes</li><
+.<li>many bugfixes</li>
 .<li>more audio outputs, updated Alsa</li>
 .<li>more robust playback</li>
 .<li>MMX and AltiVec optimizations</li>
