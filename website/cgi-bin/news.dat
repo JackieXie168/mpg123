@@ -1,3 +1,15 @@
+:date 2006-30-01 (UTC)
+:by Thomas
+:title one month off
+.<p>Well, the 0.60 version is just a month out there, about 10000 downloads were made (sf.net and here... there could be more weight on sf.net though), the homepage design got some resfreshment from Stefan Graubner (thanks for that first real mpg123 logo!) and </p>
+.<div style="text-align:center;font-weight:bold">mpg123 is among Debian's <em>free</em> software now!</div>
+.<p>
+.The development didn't stop in the past months and there were bugfixes and enhancements all around.
+.Nearly all audio outputs got changes in error handling (allowing restoration of terminal instead of just crashing out on error), thus I hereby kindly ask any interested folks to test if the fresh <a href="http://mpg123.de/download/mpg123-svn-r491.tar.gz">mpg123 svn snapshot</a> breaks anything - we cannot test every audio output since we don't have every platform available...
+.</p>
+.<p>
+.The next release will come.
+.</p>
 :date 2006-08-29 (UTC)
 :by Thomas
 :title Finally the final release - get mpg123 version 0.60!
@@ -8,7 +20,7 @@
 .<ul style="margin-left:1cm">
 .<li>LGPL license</li>
 .<li>compilation via ./configure && make (i.e. GNU autoconf...)</li>
-.<li>many bugfixes</li>
+.<li>many bugfixes</li><
 .<li>more audio outputs, updated Alsa</li>
 .<li>more robust playback</li>
 .<li>MMX and AltiVec optimizations</li>
