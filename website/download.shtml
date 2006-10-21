@@ -5,6 +5,12 @@
 	<!--#include file="linkbar.html" -->
 	<h1>Downloads</h1>
 
+	<p>
+		The sources are signed with <a href="http://thomas.orgis.org/public_key">Thomas&acute; GPG key</a>.
+	</p>
+
+	<h2>Current Release</h2>
+
 	<p>Please see the the</p>
 	<div style="text-align:center">
 	    <a href="http://sourceforge.net/project/showfiles.php?group_id=135704">sourceforge.net files section</a>
@@ -14,28 +20,24 @@
 	    Sourceforge is providing a number of download mirrors to ensure the best availability. Please let&acute;s use this kind service.
 	</p>
 	
-	<h2>Current release</h2>
+	<h3>Local Fallback<h3>
 
 	<div style="text-align:center">
-	    <a href="download/mpg123-0.60.tar.bz2">mpg123 0.60</a> <a href="download/mpg123-0.60.tar.bz2.sig">(signature)</a>
+	    <a href="download/mpg123-0.61.tar.bz2">mpg123 0.61</a> <a href="download/mpg123-0.61.tar.bz2.sig">(signature)</a>
 	</div>
 	
 
-	<h2>Developer version</h2>
+	<h2>Developer Version</h2>
 
 	<p>Development happens in the subversion repository on orgis.org: svn://orgis.org/mpg123/trunk; you can also browse it via the <a href="cgi-bin/viewvc.cgi">ViewVC web interface</a>. You can get snapshots from both places. </p>
 
-	<h2>Local fallback downloads</h2>
+	<h2>Archived Downloads</h2>
+
 	<p>
-		The sources are signed with <a href="http://thomas.orgis.org/public_key">Thomas&acute; GPG key</a>.
+		Old downloads as well as gzipped variants of the bzipped tarballs are to be found either on the
+		<a href="http://sourceforge.net/project/showfiles.php?group_id=135704">sourceforge.net files section</a>
+		or in the local <a href="download">download directory</a>.
 	</p>
-	<ul>
-	<li><a href="download/mpg123-0.60-beta6.tar.bz2">mpg123 0.60-beta6</a> <a href="download/mpg123-0.60-beta6.tar.bz2.sig">(signature)</a></li>
-	<li><a href="download/mpg123-0.60-beta5.tar.bz2">mpg123 0.60-beta5</a> <a href="download/mpg123-0.60-beta5.tar.bz2.sig">(signature)</a></li>
-	<li><a href="download/mpg123-0.60-beta4.tar.bz2">mpg123 0.60-beta4</a> <a href="download/mpg123-0.60-beta4.tar.bz2.sig">(signature)</a></li>
-	<li><a href="download/mpg123-0.60-beta3.tar.bz2">mpg123 0.60-beta3</a> <a href="download/mpg123-0.60-beta3.tar.bz2.sig">(signature)</a></li>
-	<li><a href="download/mpg123-0.60-beta2.tar.bz2">mpg123 0.60-beta2</a> <a href="download/mpg123-0.60-beta2.tar.bz2.sig">(signature)</a></li>
-	</ul>
 
 	<h2>Historic downloads from Michael&acute;s site</h2>
 	<p>

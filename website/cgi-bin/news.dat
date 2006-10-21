@@ -1,3 +1,17 @@
+:date 2006-10-21
+:by Thomas
+:title Behold the freshness - mpg123 0.61 is here!
+.<p>
+.It's time: The next regular release after the first "new" mpg123.
+.There are bug fixes along with some improvements in error
+.handling and playback as well as enhanced AltiVec code and
+.even bits for good old i486.
+.<br />
+.The build system got some issues ironed out, mpg123 should
+.now also build out of the box on cygwin (though not with
+.assembler opts).
+.</p>
+
 :date 2006-10-19
 :by Thomas
 :title Moved!
