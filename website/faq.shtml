@@ -12,5 +12,7 @@
 		<tr><th>Distro</th><th>Needed packages</th></tr>
 		<tr><td>Debian / Ubuntu</td><td>libasound2, libasound2-dev</td></tr>
 	</table>
+	<h2>No sound on my AMD64 / x86_64 machine!<h2>
+	<p>See bug <http://sourceforge.net/tracker/index.php?func=detail&aid=1547470&group_id=135704&atid=733194>1547470</a>. There is an issue with alsa-lib < 1.0.13 that breaks mpg123 when compiled with 64bits (on this platform only?).</p>
 </body>
 </html>
