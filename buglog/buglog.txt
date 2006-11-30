@@ -1,3 +1,17 @@
+2006-11-26: pasky noticing missing mime types
+	03:19 < pasky> http://www2.rozhlas.cz/stream/00470014.mp3 is the pls
+	03:19 < pasky> http://media.rozhlas.cz/_audio/00468472.mp3 is the audio
+
+	That is application/pls for the first one:
+	[playlist]
+
+	NumberOfEntries=1
+	File1=http://media.rozhlas.cz/_audio/00470014.mp3
+
+	A PLS playlist just like shoutcast, just with a more generic type.
+
+	second one is audio/x-mpeg ... hm, how many types should one add?
+
 2006-07-04: gentoo-bug133988_GLSA_200607-01.html
 	Got notice about this one, not gentoo-specific, since we also have the changes causing this (through debian, I guess).
 	Fixed it by storing and using purl_size, also changed ULONG_MAX to SIZE_MAX there...
