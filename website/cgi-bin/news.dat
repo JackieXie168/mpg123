@@ -1,3 +1,25 @@
+:date 2006-12-24
+:by Thomas
+:title Merry Christmas! -- And here is my present for you: mpg123-0.62
+.<p>
+.It was time for the next release. It includes some nice enhancements and fixes:
+.</p>
+.<ul>
+.<li>JUMP command in generic frontend accepts offsets/positions in seconds (JUMP 4s vs. JUMP 4)</li>
+.<li>initial support for ICY meta data in SHOUTcast streams</li>
+.<li>a bit of fixing with rva code, added rva and general volume control to generic frontend</li>
+.<li>accepting more MIME types for http streaming (application/pls and audio/x-mpeg)</li>
+.<li>ID3v2 info output taking less space per default - more resembling the old ID3v1 view for short tags, full view with always one line per item via extra --long-tag switch</li>
+.<li>generally less verbosity (i.e. noise on console) per default</li>
+.<li>ID3v2 now having some kind of support for unicode; trying to print what's latin1-compatible and prevent messing up of terminal with unknown bytes.</li>
+.<li>several bug fixes and small improvements</li>
+.</ul>
+.<p>
+.You don't find this release on sourceforge yet as I am plainly unable to find the magic door to the new file release system. If anyone knows how to get a new file release out on sf.net, please let me know! I must have grown stupid and blind over night... (of course I blame the changed sf.net interface instead;-)
+.<br />
+.Well, now go on to the download section and get it!
+.</p>
+
 :date 2006-10-21
 :by Thomas
 :title Behold the freshness - mpg123 0.61 is here!

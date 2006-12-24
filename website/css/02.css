@@ -31,6 +31,7 @@ a:active { color:#FFFFFF; text-decoration:none; }
 h1, h2, h3 {font-family: inherit; color: #330000 }
 
 p { width:90%; text-align:left; margin-left:5%; }
+ul { width:80%; text-align:left; margin-left:10%; }
 
 /* 
 table { width:90%; text-align:left; margin-left:5%; }
