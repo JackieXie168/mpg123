@@ -1,3 +1,10 @@
+:date 2007-01-15
+:by Thomas
+:title a short live for 0.63 - here is a hot update version 0.64
+.<p>
+.I got the report on a denial of service (mpg123 stuck in endless loop) possibility with a web server closing the connection prematurely, wiped up a fix for that and that warrants a quick release in my opinion.
+.</p>
+
 :date 2007-01-14
 :by Thomas
 :title build fix update mpg123-0.63 now available
