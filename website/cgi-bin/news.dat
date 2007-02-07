@@ -1,3 +1,11 @@
+:date 2007-02-07
+:by Thomas
+:title mpg123 version 0.65 - go, get some bugfixes to play more files!
+.<p>
+.This release parses id3v2.3 (more) correctly and allows CRC bits to vary which fixes some files by old LAMEs and some streams that are cat'ed together.
+.Also, attempts to make the build more friendly to non-GCC environments were undertaken.
+.</p>
+
 :date 2007-01-15
 :by Thomas
 :title a short live for 0.63 - here is a hot update version 0.64
