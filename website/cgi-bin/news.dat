@@ -1,3 +1,22 @@
+:date 2007-02-26
+:by Thomas
+:title Opt, opt, opt! ... and some old gear.
+.<p>
+.In svn, there happened some new backport of MPlayer's mp3lib goodies: SSE and extended 3DNow! Now we are on par with the other fastest mp3 player also on current CPUs;-)
+.Connected to the backporting is the first attempt to create an universal x86 binary that contains all the optimizations and enables choice at runtime; "all the optimizations" meaning all x86 floating point targets except i486, that doesn't fit the common scheme (yet).
+</p>
+.<p>
+.Working on the performance front, I finally managed to build up a test box with a 486DX4-100 and put a Slackware 9 install on it. After verifying that mpg321 doesn't get you anywhere there, I built a i486 optimized mpg123 and took it out for a spin to pump some music into the headphones through the legendary AWE32 BigBoard.
+.<br />
+.It's just fine for 128kbit/s layer 3 stereo, user cpu load being around 66%, and the buffer catches hickups that occur with some high quality vbr (around 200kbit/s), load being more up to 70%.
+.Mono playback (which doesn't use special i486 opts) is able to push the load down to around 50%, so indeed a 486DX2-66 or DX50 could be able to achieve something.
+.<br />
+.Seeing the still not fully used CPU, I also tried how <a href="http://dermixd.de">DerMixD</a> performs with two mpg123 input channels - one being played actively and the other buffered in background for possible crossfading later. It's nearly ok, but stuttering especially while buffering the second track. I suspect that it's not the cpu here but the i/o with the hard disk behind the CMD640 and/or the threading/context switching pushing system load. I'm gonna try how it is with a 2.6 kernel (NPTL) and also what newer compilers say - this slack has gcc-3.2 and gcc-4.1 improved considerably on performance!
+.</p>
+.<p>
+.Oh, and also I extended the terminal control to include volume and RVA control / display as well added verbosity switch key for enabling/disabling messages / progress indication at runtime. You see: We need to tag a version on that and get it out!
+.</p>
+
 :date 2007-02-07
 :by Thomas
 :title mpg123 version 0.65 - go, get some bugfixes to play more files!
