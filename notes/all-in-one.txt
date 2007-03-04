@@ -1,0 +1,464 @@
+Unify the processor opts!
+We want possible processor opts for one arch built into one binary and be able to choose ...
+some function pointers needed... also, let's wrap the dynamic cpu opt selection into a macro so that one still can build the no-frills one-opt minimal binary and not even wonder about any theoretical loss in speed or security or whatever through the machinery.
+Even if this is total blunder... well, whatever.
+
+
+Look at Makefile.am... Here we have the non-trivial sets of non-exclusivly used sources for the different opts.
+
+
+# Processor dependent decoder code
+EXTRA_LIBRARIES = \
+	libcpu_generic.a \
+	libcpu_generic_fpu.a \
+	libcpu_generic_nofpu.a \
+	libcpu_altivec.a \
+	libcpu_i386.a \
+	libcpu_i386_fpu.a \
+	libcpu_i386_nofpu.a \
+	libcpu_i486.a \
+	libcpu_i586.a \
+	libcpu_i586_dither.a \
+	libcpu_3dnow.a \
+	libcpu_mmx.a
+
+libcpu_generic_a_SOURCES = \
+	decode.c \
+	dct64.c
+
+libcpu_generic_fpu_a_SOURCES = \
+	decode.c \
+	dct64.c
+
+libcpu_generic_nofpu_a_SOURCES = \
+	decode.c \
+	dct64.c
+
+libcpu_altivec_a_SOURCES = \
+	decode_altivec.c \
+	dct64_altivec.c
+
+libcpu_i386_a_SOURCES = \
+	decode_i386.c \
+	dct64_i386.c
+
+libcpu_i386_fpu_a_SOURCES = \
+	decode_i386.c \
+	dct64_i386.c
+
+libcpu_i386_nofpu_a_SOURCES = \
+	decode_i386.c \
+	dct64_i386.c
+
+libcpu_i486_a_SOURCES = \
+	decode_i386.c \
+	dct64_i386.c \
+	decode_i486.c \
+	dct64_i486.c
+
+libcpu_i586_a_SOURCES = \
+	decode_i386.c \
+	dct64_i386.c \
+	decode_i586.s
+
+libcpu_i586_dither_a_SOURCES = \
+	decode_i386.c \
+	dct64_i386.c \
+	decode_i586_dither.s
+
+libcpu_3dnow_a_SOURCES = \
+	decode_i386.c \
+	decode_3dnow.s \
+	decode_i586.s \
+	dct64_i386.c \
+	dct64_3dnow.s \
+	dct36_3dnow.s \
+	equalizer_3dnow.s \
+	getcpuflags.s
+
+libcpu_mmx_a_SOURCES = \
+	decode_i386.c \
+	dct64_mmx.s \
+	tabinit_mmx.s \
+	decode_mmx.s
+
+Then, we have the extra flags for cpus:
+
+dnl CPU specific compiler flags
+case $cpu_type in
+  generic)
+    CFLAGS="$CFLAGS -DREAL_IS_FLOAT"
+  ;;
+  generic_fpu)
+    CFLAGS="$CFLAGS -DREAL_IS_FLOAT"
+  ;;
+  generic_nofpu)
+    CFLAGS="$CFLAGS -DREAL_IS_FIXED"
+  ;;
+  altivec)
+    CFLAGS="$CFLAGS -maltivec -faltivec -DREAL_IS_FLOAT -DUSE_ALTIVEC"
+  ;;
+  i386) 
+    CFLAGS="$CFLAGS -march=i386 -DI386_ASSEM -DREAL_IS_FLOAT"
+  ;;
+  i386_fpu) 
+    CFLAGS="$CFLAGS -march=i386 -DI386_ASSEM -DREAL_IS_FLOAT"
+  ;;
+  i386_nofpu) 
+    CFLAGS="$CFLAGS -march=i386 -DI386_ASSEM -DREAL_IS_FIXED"
+  ;;
+  i486) 
+    CFLAGS="$CFLAGS -march=i486 -DI386_ASSEM -DI486_OPT -DREAL_IS_FLOAT"
+  ;;
+  i586) 
+    CFLAGS="$CFLAGS -DI386_ASSEM -DPENTIUM_OPT -DREAL_IS_FLOAT"
+  ;;
+  i586_dither) 
+    CFLAGS="$CFLAGS -DI386_ASSEM -DPENTIUM_OPT -DREAL_IS_FLOAT"
+  ;;
+  3dnow) 
+    CFLAGS="$CFLAGS -DUSE_3DNOW -DI386_ASSEM -DPENTIUM_OPT -DREAL_IS_FLOAT"
+  ;;
+  mmx) 
+    CFLAGS="$CFLAGS -DUSE_MMX -DI386_ASSEM -DPENTIUM_OPT -DREAL_IS_FLOAT"
+  ;;
+  *)
+  	AC_MSG_ERROR([Unknown CPU type '$cpu_type'])
+  ;;
+esac
+
+CPU_TYPE_LIB="libcpu_$cpu_type.a"
+AC_SUBST( CPU_TYPE_LIB )
+
+That could be the trickier part... the code that is influenced by these flags may have to undergo some dissection.
+Also, one has to draw the line somewhere... I suggest these groups:
+
+x86 (with fpu): generic_fpu i386_fpu i486 i586 i586_dither 3dnow mmx
+x86 (no fpu, so i386 w/o fpu and and i486sx): generic_nofpu i386_nofpu
+ppc: generic_fpu altivec (only macos!)
+alpha, x86_64, ... : generic_fpu
+arm, ...: generic_nofpu (though arm works with emulated floats, too)
+
+I wonder how difficult it is to adapt the 3dnow or i586(_dither) code to x86_64... is that actually specified for 64bit mode?
+The chips can do it in 32bit mode.
+
+choose distinct function names... create a struct holding a set of function pointers like in readers.c ... mask the function calls with macros
+sounds like a plan. But actually, I should rather do this with the audio outputs first. It's the same autotool magic, it's the same basic idea - only that the code is already nicely separated.
+What I'm not sure about is the question of dynamic linking... when debian wants a mpg123 binary with all possible audio outputs, they either need to install all possible libs, too (or link statically), or mpg123 needs plugin code to load the output modules on demand with the attached libs.
+I'm not sure if I want this. This can be a portability issue... dealing with some linker ... arg.
+That's a point where the cpu opts are simpler. No linking involved.
+Well, make up your mind, you little hacker! What to attack first?
+
+I wonder if this libcpu_*.a stuff will keep making sense.  Also... the gore is already done with the function pointers in frame struct!
+3DNow support is the model... autodetection, optional forcing ... we just need to extend that!
+Nearly all opts are just replacing of functions, so this really should be easy.
+The i486 opts are a bit hacked into layer3.c, but one can wrap that, too.
+
+Well, let me work on that. First, get the i486 stuff sorted out... hm...
+Analyse.
+
+Uh, how easy is code unification for mmx and the others? MMX has something fixed going on...
+The nesting of all that code is nasty. I'm hesitating to dissect that all... don't wanna make it worse.
+REAL_IS_FIXED only is used for arm in Makefile.legacy. MMX fixed hacks are special.
+
+I think I'll have to sleep a bit over that.
+Hm... or not?
+
+The affected functions ... on the surface
+
+
+		{ synth_1to1,
+		  synth_2to1,
+		  synth_4to1,
+		  synth_ntom } ,
+		{ synth_1to1_8bit,
+		  synth_2to1_8bit,
+		  synth_4to1_8bit,
+		  synth_ntom_8bit } 
+
+		{ { synth_1to1_mono2stereo ,
+		    synth_2to1_mono2stereo ,
+		    synth_4to1_mono2stereo ,
+		    synth_ntom_mono2stereo } ,
+		  { synth_1to1_8bit_mono2stereo ,
+		    synth_2to1_8bit_mono2stereo ,
+		    synth_4to1_8bit_mono2stereo ,
+		    synth_ntom_8bit_mono2stereo } } ,
+		{ { synth_1to1_mono ,
+		    synth_2to1_mono ,
+		    synth_4to1_mono ,
+		    synth_ntom_mono } ,
+		  { synth_1to1_8bit_mono ,
+		    synth_2to1_8bit_mono ,
+		    synth_4to1_8bit_mono ,
+		    synth_ntom_8bit_mono } }
+
+Then there's dct36 used in layer3.c:III_hybrid only, and of course the famous dct64, which is behind the special stuff.
+the synth functions hide in the decode*.c files ... the optimizations picking some out.
+
+It's only synth_1to1 that's optimized... the other modes are rather unaffected.
+
+So, I split out the i586 and mmx functions hidden in the i386 synth_1to1 ... let's define a macro for the synth_1to1 call that maps to a global function pointer (I consider this a global setting and don't want to add struct pointers to all the functions ... one could localize this later) or is defined to the direct function if only one optimization was chosen.
+Any special dct64 is already wrapped by special synth function, so that does not need a global thing.
+The i486 opts make it hard because the synth_1to1 differs there in the interface: It works on a bumber of blocks where the others do only one.
+That results in more logic around the function call but less actual calls and perhaps what Fabrice described as "increasing locality".
+I hesitate to press this into the same scheme... well, then I should not do it: let it alone!
+So we will continue to have a special i486 build and the i386 and i586+ stuff joined in one build. Heck, I can live with that for the moment.
+Oh, the i386+ build also should include the generic code to ease some benchmarking of all.
+And always bear in mind to offer the minimal one-opt-only build for minimal memory footprint (though that should be only really relevant to i486 systems...).
+
+Hacking away... hm, what's the deal with 3dnow? 
+
+libcpu_3dnow_a_SOURCES = \
+	decode_i386.c \
+	decode_3dnow.s \
+	decode_i586.s \
+	dct64_i386.c \
+	dct64_3dnow.s \
+	dct36_3dnow.s \
+	equalizer_3dnow.s \
+	getcpuflags.s
+
+That's a fricking list of sources. What does it use? There's synth_1to1_3dnow. This one uses a special do_equalizer, even, and of course the special dct64.
+The special dct36 being another one.
+But the rest of code seems to be the penitum/i386 stuff. So for decode_1to1_mono, the pentium optimized synth_1to1 is used.
+Is there a definite reason not to use the 3dnow one?
+Well, wait with changing that until after I changed the structure of things. Or, wait. My envisioned structure demands _one_ opt_synth_1to1. If it's the 3dnow one, it's the 3dnow one.
+I have to check if downmixing to mono / 8bit really works with it. otherwise I'll have to think of another mod.
+
+i586 uses the dct_i386... blablabla, I did some coding meanwhile... It looks like it could work out, but there's some grief left with MMX.
+The custom tabinit_mmx.s introduces some yet unhandled conflicts with tabinit.c
+
+There's
+real *pnts[5];
+real decwin[512+32];
+
+
+And there is in dct64_mmx this strange dct64
+	.align 32
+.globl dct64
+dct64:
+
+	xorl %ecx,%ecx
+.globl dct64_MMX
+dct64_MMX:
+
+Dammit, if I only could read assembler. I tend to believe this means that mmx replaces the standard dct64 function.
+Expecially because it doesn't include the default one anymore.
+i586 uses i386 dct64, 3dnow has its own, but still includes the i386 dct (need to see if that's really needed).
+OK, this entry seems to have the sole purpose to translate the dct64 call (its parameter types).
+Well, then, let's handle dct64... done. The first dct64 is indeed the wrapper and now is called dct64_mmx.
+decwin is now embedded into the opts structure as a pointer when needed, creating a decwin_mmx inside tabinit_mmx.s and (redundantly...) one decwin in tabinit.c in case there is a multi-opt build including MMX.
+pnts is only needed for non-mmx code, so it is safe to include it in multi build.
+
+Hey ... that looks like I have the basics covered here and can proceed to trial-and-error with building this thing!
+Hm... erasing last stray #ifdef USE_ stuff ... adapting configure.ac to the new flags...
+
+An MMX build worked fine! Resulting binary is 202 bytes larger than 0.65 (gcc 4.1, CFLAGS=-march=pentium-m -O3).
+Let's strip them: Identical size! That's housekeeping...
+I also cannot see a performance difference. Let's try the other builds for x86 ... then think about doing the combined build for once.
+
+Decoding whole of Master of Puppets, user time.
+
+opt	old/s	new/s
+mmx	22.5	22.5
+generic	26.7	26.8
+i386	20.6	20.9
+i586	26.7	26.8
+i486	33.3	25.1
+i586_dither	28.0	28.2
+
+eh, with the i386 build, there's something wrong... it's bigger. Oh... and it's faster than mmx???
+That's interesting.
+i586 being even slower just like generic???
+Uh, I'm going to compare that with different cpu / different compiler...
+
+i486 code is also differing in size and hugely differing in speed. I have to double-check what I produced there. Hah! I got myself fooled with changing the configure.ac CFLAGS settings!
+The old one sets -march=i486 ... I now compiled the same stuff with -march=pentium-m in effect.
+But that should also have shown a change with i386 ...? Strange. 
+
+Also... the measurements are to be taken careful... mpg123 -t on a loaded machine (desktop, other apps running); but still it's a bit disturbing to see a tendency for the old code bein slightly faster than the one-opt build now.
+Well, I made some stuff non-static which has been static before... should that indeed show (in the 0.5% range)?
+
+Hm, made a bit of fixup in Makefile.legacy abd built linux-mmx ... that now needed around 21s for master of puppets ... slower that i386...
+Indeed... reassuring that the i386 code optimized by gcc 4.1 is faster.
+
+thomas@neuling:/data/mpg123-neu/svn-trunk$ for i in src/mpg123.legacy.*; do echo $i; time $i -q -t /data/thorma/var/music/metallica/master_of_puppets/*.mp3; done
+src/mpg123.legacy.i386
+
+real	0m22.224s
+user	0m20.685s
+sys	0m0.272s
+src/mpg123.legacy.i386.gcc33
+
+real	0m28.897s
+user	0m27.814s
+sys	0m0.280s
+src/mpg123.legacy.i386.gcc34
+
+real	0m29.176s
+user	0m28.074s
+sys	0m0.344s
+src/mpg123.legacy.mmx
+
+real	0m22.129s
+user	0m21.293s
+sys	0m0.280s
+src/mpg123.legacy.mmx.gcc33
+
+real	0m23.035s
+user	0m22.009s
+sys	0m0.344s
+
+
+Indeed. GCC 4.1 produces faster binary on the pentium-m by it's own optimization on the i386 code instead of using the sse.
+And it's also of better quality (it should). That means 2 things:
+1. I shall test how this depends on the actual processor (how specific it is to Pentium-M line).
+2. I shall add the sse opts from mplayer.
+
+Speaking of which...
+
+thomas@neuling:/data/mpg123-neu/svn-trunk$ time src/mpg123.sse -q -t /data/thorma/var/music/metallica/master_of_puppets/*.mp3
+
+real	0m20.840s
+user	0m19.149s
+sys	0m0.272s
+
+Yay! With some really crude hacking and very lucky guessing I got the sse from mplayer working!
+And it beats the accelerated i386 code ... not by too much, but by about 4% ...
+Unbelievable that it indeed works. It's not clean since there's some macro flexibility from MPlayer's build circumvenced.
+Also, there is essentially some doubled code with mmx.
+I'll see if I keep that or just translate the stuff back to standalone asm to better fit with the the rest. But this example also shows that it should be possible to port the enhanced 3dnow code (K7), too.
+
+Hm, an attempt to compare with mplayer:
+
+thomas@neuling:/data/mpg123-neu$ time mplayer -ao pcm:file=/dev/null:fast /data/thorma/var/music/metallica/master_of_puppets/*.mp3 > /dev/null
+
+real	0m24.760s
+user	0m21.473s
+sys	0m0.348s
+thomas@neuling:/data/mpg123-neu$ time svn-trunk/src/mpg123.sse -q -s /data/thorma/var/music/metallica/master_of_puppets/*.mp3 > /dev/null
+
+real	0m20.872s
+user	0m19.177s
+sys	0m0.276s
+
+It's not entirely fair since I didn't disable the console output of mplayer but only dumped it to /dev/null ... hm..
+
+thomas@neuling:/data/mpg123-neu$ time svn-trunk/src/mpg123.sse -v -s /data/thorma/var/music/metallica/master_of_puppets/*.mp3 1>/dev/null 2>/dev/null
+
+real	0m21.207s
+user	0m19.061s
+sys	0m0.364s
+
+OK, that doesn't seem to matter much. I therefore claim: mpg123 is the fastest unix mpeg audio player! ;-)
+Downsampling doesn't seem to work, though. Wonder why. Perhaps we have to switch to mmx code for that part ... or see where MPlayer code disabled something ... or find the stupid mistake I did now.
+Anyway, that was a fruitful weekend. The production of the actually merged build being the final fruit to come.
+
+Looking at the merged build again, I see that it in fact works, but the i386 code doesn't anymore. That's also the reason why it's so fast with gcc-4.1: it produces rubbish! The fancy WRITE_SAMPLE macro is not gcc's friend anymore... with the old macro:
+
+thomas@neuling:/data/mpg123-neu/svn-trunk$ time src/mpg123 -q -t /data/thorma/var/music/metallica/master_of_puppets/*.mp3
+
+real	0m27.498s
+user	0m26.398s
+sys	0m0.324s
+
+(with ondemand cpufreq, but still, that number looks saner)
+
+gcc says that the fancy macro breaks strict aliasing when converting the double address to an int pointer....
+Fixing the macro to replace the inplace pointer thing with a memcpy yields 26.5s on the test. Simply replacing that cruft with the plain old macro gives 26.4s .
+So what do the old compilers say? Is it a bigger difference for them (searching for a reason for this weird macro)?
+
+mpg123.i386_newwritesample.gcc34
+
+real	0m28.474s
+user	0m27.470s
+sys	0m0.312s
+mpg123.i386_oldwritesample.gcc34
+
+real	0m28.103s
+user	0m27.170s
+sys	0m0.300s
+
+Doesn't seem to be the bringer here... let's just disable the bogus hack for now, letting the code there to think about it...
+
+Hacked away... got cpu detection up and remotely tested on an Athlon 64:
+
+src/mpg123 --test-cpu
+CPU supports: i586 MMX 3DNow! 3DNow!Ext SSE SSE2 SSE3
+
+for i in sse 3dnow mmx i586_dither i586 i386 generic; do time src/mpg123 -q -t --cpu $i ../03-for_whom_the_bell_tolls.mp3 ; done
+decoder: SSE
+
+real    0m0.944s
+user    0m0.928s
+sys     0m0.016s
+decoder: 3DNow! ... I hope it works with replacing the synth_1to1 in the *_i386 functions
+
+real    0m1.277s
+user    0m1.256s
+sys     0m0.020s
+decoder: MMX
+
+real    0m0.988s
+user    0m0.976s
+sys     0m0.008s
+decoder: dithered i586/pentium
+
+real    0m1.418s
+user    0m1.404s
+sys     0m0.016s
+decoder: i586/pentium
+
+real    0m1.342s
+user    0m1.308s
+sys     0m0.032s
+decoder: i386
+
+real    0m1.897s
+user    0m1.884s
+sys     0m0.012s
+decoder: generic
+
+real    0m1.941s
+user    0m1.924s
+sys     0m0.016s
+
+Hm, 3DNow doesn't look that fast ... should compare ... and look at 3DNowExt ...
+OK, 3DNowExt is there... didn't hear it yet; just remote decoding speed tests. Catches up on SSE on the Athlon64, seems to be a bit slower on the K6-3+ .
+It's not too easy to decide.
+But heck, we got an assload of optimization options now and the possibility to pack them all into one binary!
+
+Had a run with 3DNowExt on my K6-3+ server. First thing: It sound all right, but also only with the special dct64 for 1to1, not 2to1 & Co. (like SSE, 3DNow...).
+Speed:
+
+thomas@knecht:~/mpg123-svn$ time src/mpg123 -q -t /home/data/thorma/var/music/outkast/2003_the_love_below/*            
+decoder: 3DNowExt
+
+real	2m23.575s
+user	2m21.080s
+sys	0m1.400s
+thomas@knecht:~/mpg123-svn$ time src/mpg123 --cpu mmx -q -t /home/data/thorma/var/music/outkast/2003_the_love_below/*
+decoder: MMX
+
+real	2m59.161s
+user	2m57.330s
+sys	0m1.420s
+thomas@knecht:~/mpg123-svn$ time src/mpg123 --cpu 3dnow -q -t /home/data/thorma/var/music/outkast/2003_the_love_below/*
+decoder: 3DNow
+
+real	2m8.520s
+user	2m6.690s
+sys	0m1.610s
+
+thomas@knecht:~/mpg123-svn$ time src/mpg123 -q -t /home/data/thorma/var/music/outkast/2003_the_love_below/*
+decoder: 3DNowExt
+
+real	2m21.548s
+user	2m20.040s
+sys	0m1.270s
+
+So the 3DNowExt that has been slammed into the K6 core for the K6-3+ doesn't outpace the regular 3DNow, but clearly is in the same class, leaving MMX behind.
+
+
+The setup seems to work nicely. Going to do some testing on slow boxen on the influence of added complexity of the merged build... and also, finally going to set up a i486DX to see what it can do. May even test the 386DX40 with 387 fpu.

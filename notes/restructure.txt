@@ -1,0 +1,56 @@
+We want new mpglib, sharing a codebase with mpg123, to prevent code skew.
+We also prodded the wish to let mpg123 use the new mpglib. I'm now a bit in doubt on that one.
+A new mpglib not only should have improved decoder but also should be cleaner and p.ex. allow multiple decoding instances.
+What now puts doubt in my reasoning is the question if the added cleanness can lessen the performance of the simple player app.
+mpg123 doesn't want to decode many files - so it is perfectly fine to have a static buffer for some parts instead of the struct pointed to by a handle.
+But perhaps this is all mumbo jumbo - many functions already work with a struct frame pointer.
+There are some static buffers, especially in layer3.c and some decoder special stuff (mmx, sse).
+I have quite some unsorted stuff in common.c, that can go into a handle structure.
+
+So, let's have a view on the possibly performance relevant parts.
+Decoding takes place in the layer*.c and decode*.c; supported by dct*.c .
+
+Let's look at the files, then. Hm, there's stuff that is supposed to be common to all instances (static tables), but part of that stuff may still be specific - p.ex. the decode tables that carry out the volume setting... the equalizer...
+
+The decoding functions commonly access the output buffer (pcm_sample, pcm_point) and 
+	src/common.h:extern struct bitstream_info bsi;
+through getbits().
+
+
+layer1.c
+
+void I_step_one(unsigned int balloc[], unsigned int scale_index[2][SBLIMIT],struct frame *fr)
+void I_step_two(real fraction[2][SBLIMIT],unsigned int balloc[2*SBLIMIT], unsigned int scale_index[2][SBLIMIT],struct frame *fr)
+int do_layer1(struct frame *fr,int outmode,struct audio_info_struct *ai)
+
+Nothing special here... no file globals or anything.
+
+
+layer2.c
+
+static int grp_3tab[32 * 3] = { 0, };   /* used: 27 */
+static int grp_5tab[128 * 3] = { 0, };  /* used: 125 */
+static int grp_9tab[1024 * 3] = { 0, }; /* used: 729 */
+
+real muls[27][64];	/* also used by layer 1 */
+
+void init_layer2(void)
+	static double mulmul[27] = { 
+	static int base[3][9] = {
+	static int tablen[3] = { 3 , 5 , 9 };
+	static int *itable,*tables[3] = { grp_3tab , grp_5tab , grp_9tab };
+real* init_layer2_table(real *table, double m)
+real* init_layer2_table_mmx(real *table, double m)
+void II_step_one(unsigned int *bit_alloc,int *scale,struct frame *fr)
+	static unsigned int scfsi_buf[64];
+void II_step_two(unsigned int *bit_alloc,real fraction[2][4][SBLIMIT],int *scale,struct frame *fr,int x1)
+		static int *table[] = { 0,0,0,grp_3tab,0,grp_5tab,0,0,0,grp_9tab };
+		static int *table[] = { 0,0,0,grp_3tab,0,grp_5tab,0,0,0,grp_9tab };
+static void II_select_table(struct frame *fr)
+	static int translate[3][2][16] =
+	static struct al_table *tables[5] = { alloc_0, alloc_1, alloc_2, alloc_3 , alloc_4 };
+	static int sblims[5] = { 27 , 30 , 8, 12 , 30 };
+int do_layer2(struct frame *fr,int outmode,struct audio_info_struct *ai)
+
+
+Many of these statics are actually consts, too. Intialized on
