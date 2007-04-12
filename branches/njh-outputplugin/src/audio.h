@@ -48,7 +48,7 @@ typedef struct audio_output_struct
 	/* Callbacks */
 	int (*open)(struct audio_output_struct *);
 	int (*get_formats)(struct audio_output_struct *);
-	int (*output_samples)(struct audio_output_struct *, unsigned char *,int);
+	int (*write)(struct audio_output_struct *, unsigned char *,int);
 	void (*flush)(struct audio_output_struct *);
 	int (*close)(struct audio_output_struct *);
 	
@@ -69,7 +69,7 @@ struct audio_format_name {
 
 /* ------ Declarations from "audio.c" ------ */
 
-extern audio_output_t alloc_audio_output();
+extern audio_output_t* alloc_audio_output();
 extern void audio_info_struct_dump(audio_output_t *ao);
 extern void audio_capabilities(audio_output_t *ao);
 extern int audio_fit_capabilities(audio_output_t *ao,int c,int r);

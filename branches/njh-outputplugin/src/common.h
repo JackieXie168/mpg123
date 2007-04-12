@@ -61,7 +61,7 @@ extern struct bitstream_info bsi;
 #define DECODER_DELAY 529
 
 #ifdef GAPLESS
-unsigned long samples_to_bytes(unsigned long s, struct frame *fr , struct audio_info_struct* ai);
+unsigned long samples_to_bytes(unsigned long s, struct frame *fr, audio_output_t *ao);
 /* samples per frame ...
 Layer I
 Layer II
@@ -88,7 +88,7 @@ MPEG 2.5
 extern const char* remote_header_help;
 void make_remote_header(struct frame* fr, char *target);
 
-int position_info(struct frame* fr, unsigned long no, long buffsize, struct audio_info_struct* ai,
+int position_info(struct frame* fr, unsigned long no, long buffsize, audio_output_t *ao,
                    unsigned long* frames_left, double* current_seconds, double* seconds_left);
 
 int read_frame_recover(struct frame* fr);
@@ -98,7 +98,7 @@ void print_frame_index(FILE* out);
 
 #endif
 
-void print_stat(struct frame *fr,unsigned long no,long buffsize,struct audio_info_struct *ai);
+void print_stat(struct frame *fr,unsigned long no,long buffsize,audio_output_t *ao);
 void clear_stat();
 
 /* rva data, used in common.c, set in id3.c */

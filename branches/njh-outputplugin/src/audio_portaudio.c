@@ -35,8 +35,8 @@ static int paCallback( void *inputBuffer, void *outputBuffer,
 			 unsigned long framesPerBuffer,
 			 PaTimestamp outTime, void *userData )
 {
-	struct audio_info_struct *ai = userData;
-	unsigned long bytes = framesPerBuffer * SAMPLE_SIZE * ai->channels;
+	audio_output_t *ao = userData;
+	unsigned long bytes = framesPerBuffer * SAMPLE_SIZE * ao->channels;
 	
 	if (sfifo_used(&fifo)<bytes) {
 		error("ringbuffer for PortAudio is empty");
@@ -48,7 +48,7 @@ static int paCallback( void *inputBuffer, void *outputBuffer,
 }
 
 
-int audio_open(struct audio_info_struct *ai)
+int audio_open(audio_output_t *ao)
 {
 	PaError err;
 	
@@ -66,14 +66,14 @@ int audio_open(struct audio_info_struct *ai)
 	
 
 	/* Open an audio I/O stream. */
-	if (ai->rate > 0 && ai->channels >0 ) {
+	if (ao->rate > 0 && ao->channels >0 ) {
 	
 		err = Pa_OpenDefaultStream(
 					&pa_stream,
 					0,          	/* no input channels */
-					ai->channels,	/* number of output channels */
+					ao->channels,	/* number of output channels */
 					paInt16,		/* signed 16-bit samples */
-					ai->rate,		/* sample rate */
+					ao->rate,		/* sample rate */
 					FRAMES_PER_BUFFER,	/* frames per buffer */
 					0,				/* number of buffers, if zero then use default minimum */
 					paCallback,		/* no callback - use blocking IO */
@@ -85,7 +85,7 @@ int audio_open(struct audio_info_struct *ai)
 		}
 		
 		/* Initialise FIFO */
-		sfifo_init( &fifo, ai->rate * FIFO_DURATION * SAMPLE_SIZE *ai->channels );
+		sfifo_init( &fifo, ao->rate * FIFO_DURATION * SAMPLE_SIZE *ao->channels );
 									   
 	}
 	
@@ -93,14 +93,14 @@ int audio_open(struct audio_info_struct *ai)
 }
 
 
-int audio_get_formats(struct audio_info_struct *ai)
+int audio_get_formats(audio_output_t *ao)
 {
 	/* Only implemented Signed 16-bit audio for now */
 	return AUDIO_FORMAT_SIGNED_16;
 }
 
 
-int audio_play_samples(struct audio_info_struct *ai, unsigned char *buf, int len)
+int audio_play_samples(audio_output_t *ao, unsigned char *buf, int len)
 {
 	PaError err;
 	int written;
@@ -129,7 +129,7 @@ int audio_play_samples(struct audio_info_struct *ai, unsigned char *buf, int len
 	return written;
 }
 
-int audio_close(struct audio_info_struct *ai)
+int audio_close(audio_output_t *ao)
 {
 	PaError err;
 	
@@ -159,7 +159,7 @@ int audio_close(struct audio_info_struct *ai)
 	return 0;
 }
 
-void audio_queueflush(struct audio_info_struct *ai)
+void audio_queueflush(audio_output_t *ao)
 {
 	PaError err;
 	

@@ -108,7 +108,7 @@ static OSStatus convertProc(void *inRefCon, AudioUnitRenderActionFlags *inAction
 }
 
 
-int audio_open(struct audio_info_struct *ai)
+int audio_open(audio_output_t *ao)
 {
 	UInt32 size;
 	ComponentDescription desc;
@@ -171,9 +171,9 @@ int audio_open(struct audio_info_struct *ai)
 	}
 	
 	/* Specify the input PCM format */
-	env->channels = ai->channels;
-	inFormat.mSampleRate = ai->rate;
-	inFormat.mChannelsPerFrame = ai->channels;
+	env->channels = ao->channels;
+	inFormat.mSampleRate = ao->rate;
+	inFormat.mChannelsPerFrame = ao->channels;
 	inFormat.mBitsPerChannel = 16;
 	inFormat.mBytesPerPacket = 2*inFormat.mChannelsPerFrame;
 	inFormat.mFramesPerPacket = 1;
@@ -197,14 +197,14 @@ int audio_open(struct audio_info_struct *ai)
 	
 	
 	/* Open an audio I/O stream and create converter */
-	if (ai->rate > 0 && ai->channels >0 ) {
+	if (ao->rate > 0 && ao->channels >0 ) {
 		int ringbuffer_len;
 
 		if(AudioConverterNew(&inFormat, &outFormat, &(env->converter))) {
 			error("AudioConverterNew failed");
 			return(-1);
 		}
-		if(ai->channels == 1) {
+		if(ao->channels == 1) {
 			SInt32 channelMap[2] = { 0, 0 };
 			if(AudioConverterSetProperty(env->converter, kAudioConverterChannelMap, sizeof(channelMap), channelMap)) {
 				error("AudioConverterSetProperty(kAudioConverterChannelMap) failed");
@@ -213,7 +213,7 @@ int audio_open(struct audio_info_struct *ai)
 		}
 		
 		/* Initialise FIFO */
-		ringbuffer_len = ai->rate * FIFO_DURATION * sizeof(short) *ai->channels;
+		ringbuffer_len = ao->rate * FIFO_DURATION * sizeof(short) *ao->channels;
 		debug2( "Allocating %d byte ring-buffer (%f seconds)", ringbuffer_len, (float)FIFO_DURATION);
 		sfifo_init( &env->fifo, ringbuffer_len );
 									   
@@ -223,14 +223,14 @@ int audio_open(struct audio_info_struct *ai)
 }
 
 
-int audio_get_formats(struct audio_info_struct *ai)
+int audio_get_formats(audio_output_t *ao)
 {
 	/* Only support Signed 16-bit output */
 	return AUDIO_FORMAT_SIGNED_16;
 }
 
 
-int audio_play_samples(struct audio_info_struct *ai, unsigned char *buf, int len)
+int audio_play_samples(audio_output_t *ao, unsigned char *buf, int len)
 {
 	int written;
 
@@ -259,7 +259,7 @@ int audio_play_samples(struct audio_info_struct *ai, unsigned char *buf, int len
 	return len;
 }
 
-int audio_close(struct audio_info_struct *ai)
+int audio_close(audio_output_t *ao)
 {
 	if (env) {
 		env->decode_done = 1;
@@ -285,7 +285,7 @@ int audio_close(struct audio_info_struct *ai)
 	return 0;
 }
 
-void audio_queueflush(struct audio_info_struct *ai)
+void audio_queueflush(audio_output_t *ao)
 {
 
 	/* Stop playback */

@@ -58,12 +58,12 @@ static void CALLBACK wave_callback(HWAVE hWave, UINT uMsg, DWORD dwInstance, DWO
    }
 }
 
-int audio_open(struct audio_info_struct *ai)
+int audio_open(audio_output_t *ao)
 {
    MMRESULT res;
    WAVEFORMATEX outFormatex;
 
-   if(ai->rate == -1)
+   if(ao->rate == -1)
        return(0);
 
    if(!waveOutGetNumDevs())
@@ -75,11 +75,11 @@ int audio_open(struct audio_info_struct *ai)
    outFormatex.wFormatTag      = WAVE_FORMAT_PCM;
    outFormatex.wBitsPerSample  = 16;
    outFormatex.nChannels       = 2;
-   outFormatex.nSamplesPerSec  = ai->rate;
+   outFormatex.nSamplesPerSec  = ao->rate;
    outFormatex.nAvgBytesPerSec = outFormatex.nSamplesPerSec * outFormatex.nChannels * outFormatex.wBitsPerSample/8;
    outFormatex.nBlockAlign     = outFormatex.nChannels * outFormatex.wBitsPerSample/8;
 
-   res = waveOutOpen(&dev, (UINT)ai->device, &outFormatex, (DWORD)wave_callback, 0, CALLBACK_FUNCTION);
+   res = waveOutOpen(&dev, (UINT)ao->device, &outFormatex, (DWORD)wave_callback, 0, CALLBACK_FUNCTION);
 
    if(res != MMSYSERR_NOERROR)
    {
@@ -116,12 +116,12 @@ int audio_open(struct audio_info_struct *ai)
    return 0;
 }
 
-int audio_get_formats(struct audio_info_struct *ai)
+int audio_get_formats(audio_output_t *ao)
 {
   return AUDIO_FORMAT_SIGNED_16;
 }
 
-int audio_play_samples(struct audio_info_struct *ai,unsigned char *buf,int len)
+int audio_play_samples(audio_output_t *ao,unsigned char *buf,int len)
 {
    HGLOBAL hg, hg2;
    LPWAVEHDR wh;
@@ -191,7 +191,7 @@ int audio_play_samples(struct audio_info_struct *ai,unsigned char *buf,int len)
    return(len);
 }
 
-int audio_close(struct audio_info_struct *ai)
+int audio_close(audio_output_t *ao)
 {
    if(dev)
    {
@@ -208,7 +208,7 @@ int audio_close(struct audio_info_struct *ai)
    return(0);
 }
 
-void audio_queueflush(struct audio_info_struct *ai)
+void audio_queueflush(audio_output_t *ao)
 {
 }
 

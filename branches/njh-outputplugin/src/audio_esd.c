@@ -21,7 +21,7 @@
 static unsigned esd_rate = 0, esd_format = 0, esd_channels = 0;
 static char *esdserver = NULL;
 
-int audio_open(struct audio_info_struct *ai)
+int audio_open(audio_output_t *ao)
 {
   esd_format_t format = ESD_STREAM | ESD_PLAY;
 
@@ -50,79 +50,79 @@ int audio_open(struct audio_info_struct *ai)
     esd_channels = fmt & ESD_MASK_CHAN;
   }
 
-  if (ai->format == -1)
-    ai->format = esd_format;
-  else if (!(ai->format & esd_format))
+  if (ao->format == -1)
+    ao->format = esd_format;
+  else if (!(ao->format & esd_format))
   {
-    fprintf(stderr, "audio: Unsupported audio format: %d\n", ai->format);
+    fprintf(stderr, "audio: Unsupported audio format: %d\n", ao->format);
     errno = EINVAL;
     return -1;
   }
-  if (ai->format & AUDIO_FORMAT_SIGNED_16)
+  if (ao->format & AUDIO_FORMAT_SIGNED_16)
     format |= ESD_BITS16;
-  else if (ai->format & AUDIO_FORMAT_UNSIGNED_8)
+  else if (ao->format & AUDIO_FORMAT_UNSIGNED_8)
     format |= ESD_BITS8;
   else
     assert(0);
 
-  if (ai->channels == -1)
-    ai->channels = 2;
-  else if (ai->channels <= 0 || ai->channels > esd_channels)
+  if (ao->channels == -1)
+    ao->channels = 2;
+  else if (ao->channels <= 0 || ao->channels > esd_channels)
   {
-    fprintf(stderr, "audio: Unsupported no of channels: %d\n", ai->channels);
+    fprintf(stderr, "audio: Unsupported no of channels: %d\n", ao->channels);
     errno = EINVAL;
     return -1;
   }
-  if (ai->channels == 1)
+  if (ao->channels == 1)
     format |= ESD_MONO;
-  else if (ai->channels == 2)
+  else if (ao->channels == 2)
     format |= ESD_STEREO;
   else
     assert(0);
   
-  if (ai->rate == -1)
-    ai->rate = esd_rate;
-  else if (ai->rate > esd_rate)
+  if (ao->rate == -1)
+    ao->rate = esd_rate;
+  else if (ao->rate > esd_rate)
     return -1;
 
-  ai->fn = esd_play_stream_fallback(format, ai->rate, ai->device, "mpg123");
-  return (ai->fn);
+  ao->fn = esd_play_stream_fallback(format, ao->rate, ao->device, "mpg123");
+  return (ao->fn);
 }
 
-int audio_get_formats(struct audio_info_struct *ai)
+int audio_get_formats(audio_output_t *ao)
 {
-  if (0 < ai->channels && ai->channels <= esd_channels
-      && 0 < ai->rate && ai->rate <= esd_rate)
+  if (0 < ao->channels && ao->channels <= esd_channels
+      && 0 < ao->rate && ao->rate <= esd_rate)
     return esd_format;
   else
     return -1;
 }
 
-int audio_play_samples(struct audio_info_struct *ai,unsigned char *buf,int len)
+int audio_play_samples(audio_output_t *ao,unsigned char *buf,int len)
 {
-  return write(ai->fn,buf,len);
+  return write(ao->fn,buf,len);
 }
 
-int audio_close(struct audio_info_struct *ai)
+int audio_close(audio_output_t *ao)
 {
-  close (ai->fn);
+  close (ao->fn);
   return 0;
 }
 
 #ifdef SOLARIS
-void audio_queueflush (struct audio_info_struct *ai)
+void audio_queueflush (audio_output_t *ao)
 {
-        ioctl (ai->fn, I_FLUSH, FLUSHRW);
+        ioctl (ao->fn, I_FLUSH, FLUSHRW);
 }
 #else
 #ifdef NETBSD
-void audio_queueflush (struct audio_info_struct *ai)
+void audio_queueflush (audio_output_t *ao)
 {
-        ioctl (ai->fn, AUDIO_FLUSH, 0);
+        ioctl (ao->fn, AUDIO_FLUSH, 0);
 }
 #else
 /* Dunno what to do on Linux and Cygwin, but the func must be at least defined! */
-void audio_queueflush (struct audio_info_struct *ai)
+void audio_queueflush (audio_output_t *ao)
 {
 }
 #endif

@@ -33,7 +33,7 @@ static void audio_shutdown()
 }
 
 
-int audio_open(struct audio_info_struct *ai)
+int audio_open(audio_output_t *ao)
 {
 	ao_device *device = NULL;
 	ao_sample_format format;
@@ -44,13 +44,13 @@ int audio_open(struct audio_info_struct *ai)
 	if(!ai) return -1;
 
 	/* Return if already open */
-	if (ai->handle) {
+	if (ao->handle) {
 		fprintf(stderr, "audio_open(): error, already open\n");
 		return -1;
 	}
 
 	/* Work out the sample size	 */
-	switch (ai->format) {
+	switch (ao->format) {
 		case AUDIO_FORMAT_SIGNED_16:
 			format.bits = 16;
 		break;
@@ -66,29 +66,29 @@ int audio_open(struct audio_info_struct *ai)
 		break;
 		
 		default:
-			fprintf(stderr, "audio_open(): Unsupported Audio Format: %d\n", ai->format);
+			fprintf(stderr, "audio_open(): Unsupported Audio Format: %d\n", ao->format);
 			return -1;
 		break;
 	}
 		
 
 	/* Set the reset of the format */
-	format.channels = ai->channels;
-	format.rate = ai->rate;
+	format.channels = ao->channels;
+	format.rate = ao->rate;
 	format.byte_format = AO_FMT_NATIVE;
 
 	/* Initialize libao */
 	audio_initialize();
 	
 	/* Choose the driver to use */
-	if (ai->device) {
+	if (ao->device) {
 		/* parse device:filename; remember to free stuff before bailing out */ 
 		char* search_ptr;
-		if( (search_ptr = strchr(ai->device, ':')) != NULL )
+		if( (search_ptr = strchr(ao->device, ':')) != NULL )
 		{
 			/* going to split up the info in new memory to preserve the original string */
-			size_t devlen = search_ptr-ai->device+1;
-			size_t filelen = strlen(ai->device)-devlen+1;
+			size_t devlen = search_ptr-ao->device+1;
+			size_t filelen = strlen(ao->device)-devlen+1;
 			debug("going to allocate %lu:%lu bytes", (unsigned long)devlen, (unsigned long)filelen);
 			char* devicename = malloc(devlen*sizeof(char));
 			devicename[devlen-1] = 0;
@@ -96,7 +96,7 @@ int audio_open(struct audio_info_struct *ai)
 			filename[filelen-1] = 0;
 			if((devicename != NULL) && (filename != NULL))
 			{
-				strncpy(devicename, ai->device, devlen-1);
+				strncpy(devicename, ao->device, devlen-1);
 				strncpy(filename, search_ptr+1, filelen-1);
 				if(filename[0] == 0){ free(filename); filename = NULL; }
 			}
@@ -110,7 +110,7 @@ int audio_open(struct audio_info_struct *ai)
 			driver = ao_driver_id( devicename );
 			if(devicename != NULL) free(devicename);
 		}
-		else driver = ao_driver_id( ai->device );
+		else driver = ao_driver_id( ao->device );
 	} else {
 		driver = ao_default_driver_id();
 	}
@@ -161,7 +161,7 @@ int audio_open(struct audio_info_struct *ai)
 	if(!err)
 	{
 		/* Store it for later */
-		ai->handle = (void*)device;
+		ao->handle = (void*)device;
 	}
 	/* always do this here! */
 	if(filename != NULL) free(filename);
@@ -171,15 +171,15 @@ int audio_open(struct audio_info_struct *ai)
 
 
 /* The two formats we support */
-int audio_get_formats(struct audio_info_struct *ai)
+int audio_get_formats(audio_output_t *ao)
 {
 	return AUDIO_FORMAT_SIGNED_16 | AUDIO_FORMAT_SIGNED_8;
 }
 
-int audio_play_samples(struct audio_info_struct *ai,unsigned char *buf,int len)
+int audio_play_samples(audio_output_t *ao,unsigned char *buf,int len)
 {
 	int res = 0;
-	ao_device *device = (ao_device*)ai->handle;
+	ao_device *device = (ao_device*)ao->handle;
 	
 	res = ao_play(device, (char*)buf, len);
 	if (res==0) {
@@ -190,14 +190,14 @@ int audio_play_samples(struct audio_info_struct *ai,unsigned char *buf,int len)
 	return len;
 }
 
-int audio_close(struct audio_info_struct *ai)
+int audio_close(audio_output_t *ao)
 {
-	ao_device *device = (ao_device*)ai->handle;
+	ao_device *device = (ao_device*)ao->handle;
 
 	/* Close and shutdown */
 	if (device) {
 		ao_close(device);
-		ai->handle = NULL;
+		ao->handle = NULL;
     }
     
 	audio_shutdown();
@@ -205,7 +205,7 @@ int audio_close(struct audio_info_struct *ai)
 	return 0;
 }
 
-void audio_queueflush(struct audio_info_struct *ai)
+void audio_queueflush(audio_output_t *ao)
 {
 }
 

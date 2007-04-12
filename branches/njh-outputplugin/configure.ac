@@ -376,7 +376,8 @@ AC_SUBST( CPU_TYPE_LIB )
 
 dnl ############## Create list of plugins/modules to build
 
-MODULE_LIST=`echo "$output_plugins" | $AWK 'BEGIN{RS=" "}{printf("output_%s.la ",$1)}'`
+#MODULE_LIST=`echo "$output_plugins" | $AWK 'BEGIN{RS=" "}{printf("output_%s.la ",$1)}'`
+MODULE_LIST="output_dummy.la"
 AC_SUBST(MODULE_LIST)
 
 

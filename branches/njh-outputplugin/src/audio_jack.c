@@ -163,7 +163,7 @@ static int connect_jack_ports( jack_handle_t* handle, const char *dev )
 }
 
 
-static int open_jack(struct audio_info_struct *ai)
+static int open_jack(audio_output_t *ao)
 {
 	char client_name[255];
 	jack_handle_t *handle=NULL;
@@ -172,14 +172,14 @@ static int open_jack(struct audio_info_struct *ai)
 	if(!ai) return -1;
 
 	/* Return if already open*/
-	if (ai->handle) {
+	if (ao->handle) {
 		fprintf(stderr, "audio_open(): error, already open\n");
 		return -1;
 	}
 
 	/* For some reason we get called with format=-1 initially*/
 	/* Just prentend that it didn't happen*/
-	if (ai->format==-1) {
+	if (ao->format==-1) {
 		return 0;
 	}
 
@@ -188,7 +188,7 @@ static int open_jack(struct audio_info_struct *ai)
 	/* Create some storage for ourselves*/
 	if((handle = alloc_jack_handle()) == NULL) return -1;
 
-	ai->handle = (void*)handle;
+	ao->handle = (void*)handle;
 
 	/* Register with Jack*/
 	snprintf(client_name, 255, "mpg123-%d", getpid());
@@ -201,7 +201,7 @@ static int open_jack(struct audio_info_struct *ai)
 
 
 	/* Check the sample rate is correct*/
-	if (jack_get_sample_rate( handle->client ) != (jack_nframes_t)ai->rate) {
+	if (jack_get_sample_rate( handle->client ) != (jack_nframes_t)ao->rate) {
 		error("JACK Sample Rate is different to sample rate of file.");
 		audio_close(ai);
 		return -1;
@@ -209,7 +209,7 @@ static int open_jack(struct audio_info_struct *ai)
 
 	
 	/* Register ports with Jack*/
-	handle->channels = ai->channels;
+	handle->channels = ao->channels;
 	if (handle->channels == 1) {
 		if (!(handle->ports[0] = jack_port_register(handle->client, "mono", JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0)))
 		{
@@ -252,7 +252,7 @@ static int open_jack(struct audio_info_struct *ai)
 	}
 
 	/* Connect up the portsm, return */
-	if(!connect_jack_ports( handle, ai->device ))
+	if(!connect_jack_ports( handle, ao->device ))
 	{
 		/* deregistering of ports will not work but should just fail, then, and let the rest clean up */
 		audio_close(ai);
@@ -265,18 +265,18 @@ static int open_jack(struct audio_info_struct *ai)
 
 /* Jack is in fact 32-bit floats only */
 static int
-get_formats_jack(struct audio_info_struct *ai)
+get_formats_jack(audio_output_t *ao)
 {
 	return AUDIO_FORMAT_SIGNED_16;
 }
 
 
 static int
-play_samples_jack(struct audio_info_struct *ai, unsigned char *buf, int len)
+play_samples_jack(audio_output_t *ao, unsigned char *buf, int len)
 {
 	int c,n = 0;
 	short* src = (short*)buf;
-	jack_handle_t *handle = (jack_handle_t*)ai->handle;
+	jack_handle_t *handle = (jack_handle_t*)ao->handle;
 	jack_nframes_t samples = len / 2 / handle->channels;
 	size_t tmp_size = samples * sizeof( jack_default_audio_sample_t );
 	
@@ -325,25 +325,25 @@ play_samples_jack(struct audio_info_struct *ai, unsigned char *buf, int len)
 }
 
 static int
-close_jack(struct audio_info_struct *ai)
+close_jack(audio_output_t *ao)
 {
-	jack_handle_t *handle = (jack_handle_t*)ai->handle;
+	jack_handle_t *handle = (jack_handle_t*)ao->handle;
 	
 	/*fprintf(stderr, "audio_close().\n");*/
 
 	/* Close and shutdown*/
 	if (handle) {
 		free_jack_handle( handle );
-		ai->handle = NULL;
+		ao->handle = NULL;
     }
     
 	return 0;
 }
 
 static void
-flush_jack(struct audio_info_struct *ai)
+flush_jack(audio_output_t *ao)
 {
-	jack_handle_t *handle = (jack_handle_t*)ai->handle;
+	jack_handle_t *handle = (jack_handle_t*)ao->handle;
 	int c;
 
 	/* Reset the ring buffers*/

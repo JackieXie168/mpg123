@@ -34,20 +34,20 @@ static const struct {
 };
 #define NUM_FORMATS (sizeof format_map / sizeof format_map[0])
 
-static int initialize_device(struct audio_info_struct *ai);
+static int initialize_device(audio_output_t *ao);
 
-int audio_open(struct audio_info_struct *ai)
+int audio_open(audio_output_t *ao)
 {
 	const char *pcm_name;
 	snd_pcm_t *pcm;
 
-	pcm_name = ai->device ? ai->device : "default";
+	pcm_name = ao->device ? ao->device : "default";
 	if (snd_pcm_open(&pcm, pcm_name, SND_PCM_STREAM_PLAYBACK, 0) < 0) {
 		fprintf(stderr, "audio_open(): cannot open device %s\n", pcm_name);
 		return -1;
 	}
-	ai->handle = pcm;
-	if (ai->format != -1) {
+	ao->handle = pcm;
+	if (ao->format != -1) {
 		/* we're going to play: initalize sample format */
 		return initialize_device(ai);
 	} else {
@@ -62,7 +62,7 @@ static int rates_match(long int desired, unsigned int actual)
 	       actual * 100 < desired * (100 + AUDIO_RATE_TOLERANCE);
 }
 
-static int initialize_device(struct audio_info_struct *ai)
+static int initialize_device(audio_output_t *ao)
 {
 	snd_pcm_hw_params_t *hw;
 	int i;
@@ -74,65 +74,65 @@ static int initialize_device(struct audio_info_struct *ai)
 	snd_pcm_uframes_t boundary;
 
 	snd_pcm_hw_params_alloca(&hw);
-	if (snd_pcm_hw_params_any(ai->handle, hw) < 0) {
+	if (snd_pcm_hw_params_any(ao->handle, hw) < 0) {
 		fprintf(stderr, "initialize_device(): no configuration available\n");
 		return -1;
 	}
-	if (snd_pcm_hw_params_set_access(ai->handle, hw, SND_PCM_ACCESS_RW_INTERLEAVED) < 0) {
+	if (snd_pcm_hw_params_set_access(ao->handle, hw, SND_PCM_ACCESS_RW_INTERLEAVED) < 0) {
 		fprintf(stderr, "initialize_device(): device does not support interleaved access\n");
 		return -1;
 	}
 	format = SND_PCM_FORMAT_UNKNOWN;
 	for (i = 0; i < NUM_FORMATS; ++i) {
-		if (ai->format == format_map[i].mpg123) {
+		if (ao->format == format_map[i].mpg123) {
 			format = format_map[i].alsa;
 			break;
 		}
 	}
 	if (format == SND_PCM_FORMAT_UNKNOWN) {
-		fprintf(stderr, "initialize_device(): invalid sample format %d\n", ai->format);
+		fprintf(stderr, "initialize_device(): invalid sample format %d\n", ao->format);
 		errno = EINVAL;
 		return -1;
 	}
-	if (snd_pcm_hw_params_set_format(ai->handle, hw, format) < 0) {
+	if (snd_pcm_hw_params_set_format(ao->handle, hw, format) < 0) {
 		fprintf(stderr, "initialize_device(): cannot set format %s\n", snd_pcm_format_name(format));
 		return -1;
 	}
-	if (snd_pcm_hw_params_set_channels(ai->handle, hw, ai->channels) < 0) {
-		fprintf(stderr, "initialize_device(): cannot set %d channels\n", ai->channels);
+	if (snd_pcm_hw_params_set_channels(ao->handle, hw, ao->channels) < 0) {
+		fprintf(stderr, "initialize_device(): cannot set %d channels\n", ao->channels);
 		return -1;
 	}
-	rate = ai->rate;
-	if (snd_pcm_hw_params_set_rate_near(ai->handle, hw, &rate, NULL) < 0) {
+	rate = ao->rate;
+	if (snd_pcm_hw_params_set_rate_near(ao->handle, hw, &rate, NULL) < 0) {
 		fprintf(stderr, "initialize_device(): cannot set rate %u\n", rate);
 		return -1;
 	}
-	if (!rates_match(ai->rate, rate)) {
-		fprintf(stderr, "initialize_device(): rate %ld not available, using %u\n", ai->rate, rate);
+	if (!rates_match(ao->rate, rate)) {
+		fprintf(stderr, "initialize_device(): rate %ld not available, using %u\n", ao->rate, rate);
 		/* return -1; */
 	}
 	buffer_size = rate * BUFFER_LENGTH;
-	if (snd_pcm_hw_params_set_buffer_size_near(ai->handle, hw, &buffer_size) < 0) {
+	if (snd_pcm_hw_params_set_buffer_size_near(ao->handle, hw, &buffer_size) < 0) {
 		fprintf(stderr, "initialize_device(): cannot set buffer size\n");
 		return -1;
 	}
 	period_size = buffer_size / 4;
-	if (snd_pcm_hw_params_set_period_size_near(ai->handle, hw, &period_size, NULL) < 0) {
+	if (snd_pcm_hw_params_set_period_size_near(ao->handle, hw, &period_size, NULL) < 0) {
 		fprintf(stderr, "initialize_device(): cannot set period size\n");
 		return -1;
 	}
-	if (snd_pcm_hw_params(ai->handle, hw) < 0) {
+	if (snd_pcm_hw_params(ao->handle, hw) < 0) {
 		fprintf(stderr, "initialize_device(): cannot set hw params\n");
 		return -1;
 	}
 
 	snd_pcm_sw_params_alloca(&sw);
-	if (snd_pcm_sw_params_current(ai->handle, sw) < 0) {
+	if (snd_pcm_sw_params_current(ao->handle, sw) < 0) {
 		fprintf(stderr, "initialize_device(): cannot get sw params\n");
 		return -1;
 	}
 	/* start playing after the first write */
-	if (snd_pcm_sw_params_set_start_threshold(ai->handle, sw, 1) < 0) {
+	if (snd_pcm_sw_params_set_start_threshold(ao->handle, sw, 1) < 0) {
 		fprintf(stderr, "initialize_device(): cannot set start threshold\n");
 		return -1;
 	}
@@ -148,93 +148,93 @@ static int initialize_device(struct audio_info_struct *ai)
 	}
 	#endif
 	/* never stop on underruns */
-	if (snd_pcm_sw_params_set_stop_threshold(ai->handle, sw, boundary) < 0) {
+	if (snd_pcm_sw_params_set_stop_threshold(ao->handle, sw, boundary) < 0) {
 		fprintf(stderr, "initialize_device(): cannot set stop threshold\n");
 		return -1;
 	}
 	/* wake up on every interrupt */
-	if (snd_pcm_sw_params_set_avail_min(ai->handle, sw, 1) < 0) {
+	if (snd_pcm_sw_params_set_avail_min(ao->handle, sw, 1) < 0) {
 		fprintf(stderr, "initialize_device(): cannot set min avail\n");
 		return -1;
 	}
 	/* always write as many frames as possible */
-	if (snd_pcm_sw_params_set_xfer_align(ai->handle, sw, 1) < 0) {
+	if (snd_pcm_sw_params_set_xfer_align(ao->handle, sw, 1) < 0) {
 		fprintf(stderr, "initialize_device(): cannot set transfer alignment\n");
 		return -1;
 	}
 	/* play silence when there is an underrun */
-	if (snd_pcm_sw_params_set_silence_size(ai->handle, sw, boundary) < 0) {
+	if (snd_pcm_sw_params_set_silence_size(ao->handle, sw, boundary) < 0) {
 		fprintf(stderr, "initialize_device(): cannot set silence size\n");
 		return -1;
 	}
-	if (snd_pcm_sw_params(ai->handle, sw) < 0) {
+	if (snd_pcm_sw_params(ao->handle, sw) < 0) {
 		fprintf(stderr, "initialize_device(): cannot set sw params\n");
 		return -1;
 	}
 	return 0;
 }
 
-int audio_get_formats(struct audio_info_struct *ai)
+int audio_get_formats(audio_output_t *ao)
 {
 	snd_pcm_hw_params_t *hw;
 	unsigned int rate;
 	int supported_formats, i;
 
 	snd_pcm_hw_params_alloca(&hw);
-	if (snd_pcm_hw_params_any(ai->handle, hw) < 0) {
+	if (snd_pcm_hw_params_any(ao->handle, hw) < 0) {
 		fprintf(stderr, "audio_get_formats(): no configuration available\n");
 		return -1;
 	}
-	if (snd_pcm_hw_params_set_access(ai->handle, hw, SND_PCM_ACCESS_RW_INTERLEAVED) < 0)
+	if (snd_pcm_hw_params_set_access(ao->handle, hw, SND_PCM_ACCESS_RW_INTERLEAVED) < 0)
 		return -1;
-	if (snd_pcm_hw_params_set_channels(ai->handle, hw, ai->channels) < 0)
+	if (snd_pcm_hw_params_set_channels(ao->handle, hw, ao->channels) < 0)
 		return 0;
-	rate = ai->rate;
-	if (snd_pcm_hw_params_set_rate_near(ai->handle, hw, &rate, NULL) < 0)
+	rate = ao->rate;
+	if (snd_pcm_hw_params_set_rate_near(ao->handle, hw, &rate, NULL) < 0)
 		return -1;
-	if (!rates_match(ai->rate, rate))
+	if (!rates_match(ao->rate, rate))
 		return 0;
 	supported_formats = 0;
 	for (i = 0; i < NUM_FORMATS; ++i) {
-		if (snd_pcm_hw_params_test_format(ai->handle, hw, format_map[i].alsa) == 0)
+		if (snd_pcm_hw_params_test_format(ao->handle, hw, format_map[i].alsa) == 0)
 			supported_formats |= format_map[i].mpg123;
 	}
 	return supported_formats;
 }
 
-int audio_play_samples(struct audio_info_struct *ai, unsigned char *buf, int bytes)
+int audio_play_samples(audio_output_t *ao, unsigned char *buf, int bytes)
 {
 	snd_pcm_uframes_t frames;
 	snd_pcm_sframes_t written;
 
 #if SND_LIB_VERSION >= 0x000901
 	snd_pcm_sframes_t delay;
-	if (snd_pcm_delay(ai->handle, &delay) >= 0 && delay < 0)
+	if (snd_pcm_delay(ao->handle, &delay) >= 0 && delay < 0)
 		/* underrun - move the application pointer forward to catch up */
-		snd_pcm_forward(ai->handle, -delay);
+		snd_pcm_forward(ao->handle, -delay);
 #endif
-	frames = snd_pcm_bytes_to_frames(ai->handle, bytes);
-	written = snd_pcm_writei(ai->handle, buf, frames);
+	frames = snd_pcm_bytes_to_frames(ao->handle, bytes);
+	written = snd_pcm_writei(ao->handle, buf, frames);
 	if (written >= 0)
-		return snd_pcm_frames_to_bytes(ai->handle, written);
+		return snd_pcm_frames_to_bytes(ao->handle, written);
 	else
 		return written;
 }
 
-void audio_queueflush(struct audio_info_struct *ai)
+void audio_queueflush(audio_output_t *ao)
 {
 	/* is this the optimal solution? - we should figure out what we really whant from this function */
-	snd_pcm_drop(ai->handle);
-	snd_pcm_prepare(ai->handle);
+	snd_pcm_drop(ao->handle);
+	snd_pcm_prepare(ao->handle);
 }
 
-int audio_close(struct audio_info_struct *ai)
+int audio_close(audio_output_t *ao)
 {
-	if(ai->handle != NULL) /* be really generous for being called without any device opening */
+	if(ao->handle != NULL) /* be really generous for being called without any device opening */
 	{
-		if (snd_pcm_state(ai->handle) == SND_PCM_STATE_RUNNING)
-			snd_pcm_drain(ai->handle);
-		return snd_pcm_close(ai->handle);
+		if (snd_pcm_state(ao->handle) == SND_PCM_STATE_RUNNING)
+			snd_pcm_drain(ao->handle);
+		return snd_pcm_close(ao->handle);
 	}
 	else return 0;
 }

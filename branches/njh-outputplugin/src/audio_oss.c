@@ -48,56 +48,56 @@
 extern int outburst;
 
 
-static int audio_rate_best_match(struct audio_info_struct *ai)
+static int audio_rate_best_match(audio_output_t *ao)
 {
   int ret,dsp_rate;
 
-  if(!ai || ai->fn < 0 || ai->rate < 0)
+  if(!ai || ao->fn < 0 || ao->rate < 0)
     return -1;
-  dsp_rate = ai->rate;
-  ret = ioctl(ai->fn, SNDCTL_DSP_SPEED,&dsp_rate);
+  dsp_rate = ao->rate;
+  ret = ioctl(ao->fn, SNDCTL_DSP_SPEED,&dsp_rate);
   if(ret < 0)
     return ret;
-  ai->rate = dsp_rate;
+  ao->rate = dsp_rate;
   return 0;
 }
 
-static int audio_set_rate(struct audio_info_struct *ai)
+static int audio_set_rate(audio_output_t *ao)
 {
   int dsp_rate;
   int ret = 0;
 
-  if(ai->rate >= 0) {
-    dsp_rate = ai->rate;
-    ret = ioctl(ai->fn, SNDCTL_DSP_SPEED,&dsp_rate);
+  if(ao->rate >= 0) {
+    dsp_rate = ao->rate;
+    ret = ioctl(ao->fn, SNDCTL_DSP_SPEED,&dsp_rate);
   }
   return ret;
 }
 
-static int audio_set_channels(struct audio_info_struct *ai)
+static int audio_set_channels(audio_output_t *ao)
 {
-  int chan = ai->channels - 1;
+  int chan = ao->channels - 1;
   int ret;
 
-  if(ai->channels < 0)
+  if(ao->channels < 0)
     return 0;
 
-  ret = ioctl(ai->fn, SNDCTL_DSP_STEREO, &chan);
-  if(chan != (ai->channels-1)) {
+  ret = ioctl(ao->fn, SNDCTL_DSP_STEREO, &chan);
+  if(chan != (ao->channels-1)) {
     return -1;
   }
   return ret;
 }
 
-static int audio_set_format(struct audio_info_struct *ai)
+static int audio_set_format(audio_output_t *ao)
 {
   int sample_size,fmts;
   int sf,ret;
 
-  if(ai->format == -1)
+  if(ao->format == -1)
     return 0;
 
-  switch(ai->format) {
+  switch(ao->format) {
     case AUDIO_FORMAT_SIGNED_16:
     default:
       fmts = AFMT_S16_NE;
@@ -124,11 +124,11 @@ static int audio_set_format(struct audio_info_struct *ai)
       break;
   }
 #if 0
-  if(ioctl(ai->fn, SNDCTL_DSP_SAMPLESIZE,&sample_size) < 0)
+  if(ioctl(ao->fn, SNDCTL_DSP_SAMPLESIZE,&sample_size) < 0)
     return -1;
 #endif
   sf = fmts;
-  ret = ioctl(ai->fn, SNDCTL_DSP_SETFMT, &fmts);
+  ret = ioctl(ao->fn, SNDCTL_DSP_SETFMT, &fmts);
   if(sf != fmts) {
     return -1;
   }
@@ -136,10 +136,10 @@ static int audio_set_format(struct audio_info_struct *ai)
 }
 
 
-static int audio_reset_parameters(struct audio_info_struct *ai)
+static int audio_reset_parameters(audio_output_t *ao)
 {
   int ret;
-  ret = ioctl(ai->fn, SNDCTL_DSP_RESET, NULL);
+  ret = ioctl(ao->fn, SNDCTL_DSP_RESET, NULL);
   if(ret < 0)
     error("Can't reset audio!");
   ret = audio_set_format(ai);
@@ -156,7 +156,7 @@ static int audio_reset_parameters(struct audio_info_struct *ai)
    * set above, so we must issue SNDCTL_DSP_RESET before we're allowed to
    * change it again. [dk]
    */
-  if (ioctl(ai->fn, SNDCTL_DSP_GETBLKSIZE, &outburst) == -1 ||
+  if (ioctl(ao->fn, SNDCTL_DSP_GETBLKSIZE, &outburst) == -1 ||
       outburst > MAXOUTBURST)
     outburst = MAXOUTBURST;
 
@@ -165,60 +165,60 @@ err:
 }
 
 
-int audio_open(struct audio_info_struct *ai)
+int audio_open(audio_output_t *ao)
 {
   char usingdefdev = 0;
 
   if(!ai)
     return -1;
 
-  if(!ai->device) {
-    ai->device = "/dev/dsp";
+  if(!ao->device) {
+    ao->device = "/dev/dsp";
     usingdefdev = 1;
   }
 
-  ai->fn = open(ai->device,O_WRONLY);  
+  ao->fn = open(ao->device,O_WRONLY);  
 
-  if(ai->fn < 0)
+  if(ao->fn < 0)
   {
     if(usingdefdev) {
-      ai->device = "/dev/sound/dsp";
-      ai->fn = open(ai->device,O_WRONLY);
-      if(ai->fn < 0) {
+      ao->device = "/dev/sound/dsp";
+      ao->fn = open(ao->device,O_WRONLY);
+      if(ao->fn < 0) {
       error("Can't open default sound device!");
       return -1;
       }
     } else {
-      error1("Can't open %s!",ai->device);
+      error1("Can't open %s!",ao->device);
       return -1;
     }
   }
 
   if(audio_reset_parameters(ai) < 0) {
-    close(ai->fn);
+    close(ao->fn);
     return -1;
   }
 
-  if(ai->gain >= 0) {
+  if(ao->gain >= 0) {
     int e,mask;
-    e = ioctl(ai->fn , SOUND_MIXER_READ_DEVMASK ,&mask);
+    e = ioctl(ao->fn , SOUND_MIXER_READ_DEVMASK ,&mask);
     if(e < 0) {
       error("audio/gain: Can't get audio device features list.");
     }
     else if(mask & SOUND_MASK_PCM) {
-      int gain = (ai->gain<<8)|(ai->gain);
-      e = ioctl(ai->fn, SOUND_MIXER_WRITE_PCM , &gain);
+      int gain = (ao->gain<<8)|(ao->gain);
+      e = ioctl(ao->fn, SOUND_MIXER_WRITE_PCM , &gain);
     }
     else if(!(mask & SOUND_MASK_VOLUME)) {
       error1("audio/gain: setable Volume/PCM-Level not supported by your audio device: %#04x",mask);
     }
     else { 
-      int gain = (ai->gain<<8)|(ai->gain);
-      e = ioctl(ai->fn, SOUND_MIXER_WRITE_VOLUME , &gain);
+      int gain = (ao->gain<<8)|(ao->gain);
+      e = ioctl(ao->fn, SOUND_MIXER_WRITE_VOLUME , &gain);
     }
   }
 
-  return ai->fn;
+  return ao->fn;
 }
 
 
@@ -226,11 +226,11 @@ int audio_open(struct audio_info_struct *ai)
 /*
  * get formats for specific channel/rate parameters
  */
-int audio_get_formats(struct audio_info_struct *ai)
+int audio_get_formats(audio_output_t *ao)
 {
   int fmt = 0;
-  int r = ai->rate;
-  int c = ai->channels;
+  int r = ao->rate;
+  int c = ao->channels;
   int i;
 
   static int fmts[] = { 
@@ -239,29 +239,29 @@ int audio_get_formats(struct audio_info_struct *ai)
 	AUDIO_FORMAT_UNSIGNED_16 , AUDIO_FORMAT_ALAW_8 };
 	
   /* Reset is required before we're allowed to set the new formats. [dk] */
-  ioctl(ai->fn, SNDCTL_DSP_RESET, NULL);
+  ioctl(ao->fn, SNDCTL_DSP_RESET, NULL);
 
   for(i=0;i<6;i++) {
-	ai->format = fmts[i];
+	ao->format = fmts[i];
 	if(audio_set_format(ai) < 0) {
 		continue;
         }
-	ai->channels = c;
+	ao->channels = c;
 	if(audio_set_channels(ai) < 0) {
 		continue;
 	}
-	ai->rate = r;
+	ao->rate = r;
 	if(audio_rate_best_match(ai) < 0) {
 		continue;
 	}
-	if( (ai->rate*100 > r*(100-AUDIO_RATE_TOLERANCE)) && (ai->rate*100 < r*(100+AUDIO_RATE_TOLERANCE)) ) {
+	if( (ao->rate*100 > r*(100-AUDIO_RATE_TOLERANCE)) && (ao->rate*100 < r*(100+AUDIO_RATE_TOLERANCE)) ) {
 		fmt |= fmts[i];
 	}
   }
 
 
 #if 0
-  if(ioctl(ai->fn,SNDCTL_DSP_GETFMTS,&fmts) < 0) {
+  if(ioctl(ao->fn,SNDCTL_DSP_GETFMTS,&fmts) < 0) {
 fprintf(stderr,"No");
     return -1;
   }
@@ -283,17 +283,17 @@ fprintf(stderr,"No");
   return fmt;
 }
 
-int audio_play_samples(struct audio_info_struct *ai,unsigned char *buf,int len)
+int audio_play_samples(audio_output_t *ao,unsigned char *buf,int len)
 {
-  return write(ai->fn,buf,len);
+  return write(ao->fn,buf,len);
 }
 
-int audio_close(struct audio_info_struct *ai)
+int audio_close(audio_output_t *ao)
 {
-  close (ai->fn);
+  close (ao->fn);
   return 0;
 }
 
-void audio_queueflush(struct audio_info_struct *ai)
+void audio_queueflush(audio_output_t *ao)
 {
 }

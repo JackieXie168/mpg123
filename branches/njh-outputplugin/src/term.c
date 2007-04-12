@@ -22,6 +22,7 @@
 #include "common.h"
 
 extern int buffer_pid;
+extern audio_output_t ao;
 
 static int term_enable = 0;
 static struct termios old_tio;
@@ -78,7 +79,7 @@ static int stopped = 0;
 static int paused = 0;
 static int pause_cycle;
 
-long term_control(struct frame *fr, struct audio_info_struct *ai)
+long term_control(struct frame *fr, audio_output_t *ao)
 {
 	long offset = 0;
 
@@ -107,7 +108,7 @@ long term_control(struct frame *fr, struct audio_info_struct *ai)
 		offset += term_handle_input(fr, stopped);
 		if((offset < 0) && (-offset > fr->num)) offset = - fr->num;
 		if(param.verbose && offset != 0)
-		print_stat(fr,fr->num+offset,0,ai);
+		print_stat(fr,fr->num+offset,0,ao);
 	} while (stopped);
 
 	return offset;
@@ -117,7 +118,6 @@ static long term_handle_input(struct frame *fr, int do_delay)
 {
   int n = 1;
   long offset = 0;
-  extern struct audio_info_struct ai;
   
   while(n > 0) {
     fd_set r;
@@ -136,7 +136,7 @@ static long term_handle_input(struct frame *fr, int do_delay)
 
       switch(tolower(val)) {
 	case BACK_KEY:
-        if(!param.usebuffer) audio_queueflush(&ai);
+        if(!param.usebuffer) ao.flush(&ao);
 	  /*
 	   * NOTE: rd->rewind() calls buffer_resync() that blocks until
 	   * buffer process returns ACK. If buffer process is stopped, we
@@ -157,7 +157,7 @@ static long term_handle_input(struct frame *fr, int do_delay)
           fr->num=0;
           break;
 	case NEXT_KEY:
-		if(!param.usebuffer) audio_queueflush(&ai);
+		if(!param.usebuffer) ao.flush(&ao);
 	  if (buffer_pid)
 		  kill(buffer_pid, SIGINT);
 	  next_track();
@@ -183,7 +183,7 @@ static long term_handle_input(struct frame *fr, int do_delay)
 	case STOP_KEY:
 	case ' ':
 		/* when seeking while stopped and then resuming, I want to prevent the chirp from the past */
-		if(!param.usebuffer) audio_queueflush(&ai);
+		if(!param.usebuffer) ao.flush(&ao);
 	  stopped=1-stopped;
 	  if(paused) {
 		  paused=0;

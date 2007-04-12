@@ -58,14 +58,14 @@
  * 
  * used :
  * 
- * int audio_open(struct audio_info_struct *ai);
- * int audio_play_samples(struct audio_info_struct *ai,unsigned char *buf,int len);
- * int audio_close(struct audio_info_struct *ai);
+ * int audio_open(audio_output_t *ao);
+ * int audio_play_samples(audio_output_t *ao,unsigned char *buf,int len);
+ * int audio_close(audio_output_t *ao);
  * 
  * unused :
  * 
- * int audio_set_rate(struct audio_info_struct *ai);
- * int audio_set_channels(struct audio_info_struct *ai);
+ * int audio_set_rate(audio_output_t *ao);
+ * int audio_set_channels(audio_output_t *ao);
  * 
  */
 
@@ -95,12 +95,12 @@ static long myHandler(Audio *audio,AErrorEvent *err_event) {
 
 /*
  * Set the fn element of ai
- * Use ai->rate and ai->channels
+ * Use ao->rate and ao->channels
  * Doesn't set any volume
  */
 
 /* return on error leaves stuff dirty here... */
-int audio_open(struct audio_info_struct *ai) {
+int audio_open(audio_output_t *ao) {
   AudioAttributes Attribs;
   AudioAttrMask   AttribsMask;
   AGainEntry      gainEntry[4];
@@ -121,13 +121,13 @@ int audio_open(struct audio_info_struct *ai) {
   if(audioServer==NULL)
     {error("Error: could not open audio\n"); return -1; }
 
-  ai->fn = socket( AF_INET, SOCK_STREAM, 0 );
-  if(ai->fn<0)
+  ao->fn = socket( AF_INET, SOCK_STREAM, 0 );
+  if(ao->fn<0)
     {error("Socket creation failed"); return -1; }
 
   Attribs.type = ATSampled;
-  Attribs.attr.sampled_attr.sampling_rate = ai->rate;
-  Attribs.attr.sampled_attr.channels	  = ai->channels;
+  Attribs.attr.sampled_attr.sampling_rate = ao->rate;
+  Attribs.attr.sampled_attr.channels	  = ao->channels;
   Attribs.attr.sampled_attr.data_format	  = ADFLin16;
   AttribsMask = ASSamplingRateMask | ASChannelsMask  | ASDataFormatMask;
 
@@ -145,23 +145,23 @@ int audio_open(struct audio_info_struct *ai) {
   xid=APlaySStream(audioServer,AttribsMask,&Attribs,
 		   &playParams,&audioStream,NULL);
 
-  status=connect(ai->fn,
+  status=connect(ao->fn,
 		 (struct sockaddr *) &audioStream.tcp_sockaddr,
 		 sizeof(struct sockaddr_in) );
   if(status<0){error("Connect failed"); return -1;}
 
   i=-1;
   tcpProtocolEntry=getprotobyname("tcp");
-  setsockopt(ai->fn,tcpProtocolEntry->p_proto,TCP_NODELAY,&i,sizeof(i));
+  setsockopt(ao->fn,tcpProtocolEntry->p_proto,TCP_NODELAY,&i,sizeof(i));
 
-  return ai->fn;
+  return ao->fn;
 }
 
 /**************************************************************************/
 
-int audio_close(struct audio_info_struct *ai)
+int audio_close(audio_output_t *ao)
 {
-  close(ai->fn);
+  close(ao->fn);
   ASetCloseDownMode( audioServer, AKeepTransactions, NULL );
   ACloseAudio( audioServer, NULL );
   audioServer = (Audio *) NULL;
@@ -175,19 +175,19 @@ int audio_close(struct audio_info_struct *ai)
  * deserv to be inline
  */
 
-inline int audio_play_samples(struct audio_info_struct *ai,unsigned char *buf,int len)
+inline int audio_play_samples(audio_output_t *ao,unsigned char *buf,int len)
 {
-  return write(ai->fn,buf,len*2);
+  return write(ao->fn,buf,len*2);
 }
 
 /**************************************************************************/
 
-int audio_get_formats(struct audio_info_struct *ai)
+int audio_get_formats(audio_output_t *ao)
 {
   return AUDIO_FORMAT_SIGNED_16;
 }
 
-void audio_queueflush(struct audio_info_struct *ai)
+void audio_queueflush(audio_output_t *ao)
 {
 }
 

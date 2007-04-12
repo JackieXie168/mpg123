@@ -26,13 +26,13 @@
 #include "debug.h"
 #ifdef GAPLESS
 #include "layer3.h"
-struct audio_info_struct pre_ai;
+extern audio_output_t pre_ao;	/* FIXME: hm, should this really be a global? */
 #endif
 #define MODE_STOPPED 0
 #define MODE_PLAYING 1
 #define MODE_PAUSED 2
 
-extern struct audio_info_struct ai;
+extern audio_output_t ao;	/* FIXME: hm, should this really be a global? */
 extern int buffer_pid;
 
 FILE *outstream;
@@ -51,7 +51,7 @@ void generic_sendstat (struct frame *fr)
 {
 	unsigned long frames_left;
 	double current_seconds, seconds_left;
-	if(!position_info(fr, fr->num, xfermem_get_usedspace(buffermem), &ai, &frames_left, &current_seconds, &seconds_left))
+	if(!position_info(fr, fr->num, xfermem_get_usedspace(buffermem), &ao, &frames_left, &current_seconds, &seconds_left))
 	generic_sendmsg("F %li %lu %3.2f %3.2f", fr->num, frames_left, current_seconds, seconds_left);
 }
 
@@ -119,7 +119,7 @@ int control_generic (struct frame *fr)
 			if (n == 0) {
 				if (!read_frame(fr)) {
 					mode = MODE_STOPPED;
-					audio_flush(param.outmode, &ai);
+					audio_flush(param.outmode, &ao);
 					rd->close(rd);
 					generic_sendmsg("P 0");
 					continue;
@@ -127,7 +127,7 @@ int control_generic (struct frame *fr)
 				if(!play_frame(init,fr))
 				{
 					generic_sendmsg("E play_frame failed");
-					audio_flush(param.outmode, &ai);
+					audio_flush(param.outmode, &ao);
 					rd->close(rd);
 					mode = MODE_STOPPED;
 					generic_sendmsg("P 0");
@@ -220,7 +220,7 @@ int control_generic (struct frame *fr)
 					{	
 						if (mode == MODE_PLAYING) {
 							mode = MODE_PAUSED;
-							audio_flush(param.outmode, &ai);
+							audio_flush(param.outmode, &ao);
 							if (param.usebuffer)
 								kill(buffer_pid, SIGSTOP);
 							generic_sendmsg("P 1");
@@ -237,7 +237,7 @@ int control_generic (struct frame *fr)
 				/* STOP */
 				if (!strcasecmp(comstr, "S") || !strcasecmp(comstr, "STOP")) {
 					if (mode != MODE_STOPPED) {
-						audio_flush(param.outmode, &ai);
+						audio_flush(param.outmode, &ao);
 						rd->close(rd);
 						mode = MODE_STOPPED;
 						generic_sendmsg("P 0");
@@ -335,7 +335,7 @@ int control_generic (struct frame *fr)
 						char *spos;
 						long offset;
 						double secs;
-						audio_flush(param.outmode, &ai);
+						audio_flush(param.outmode, &ao);
 
 						spos = arg;
 						if (!spos)
@@ -379,9 +379,9 @@ int control_generic (struct frame *fr)
 						#ifdef GAPLESS
 						if(param.gapless && (fr->lay == 3))
 						{
-							prepare_audioinfo(fr, &pre_ai);
-							layer3_gapless_set_position(fr->num, fr, &pre_ai);
-							layer3_gapless_set_ignore(frame_before, fr, &pre_ai);
+							prepare_audioinfo(fr, &pre_ao);
+							layer3_gapless_set_position(fr->num, fr, &pre_ao);
+							layer3_gapless_set_ignore(frame_before, fr, &pre_ao);
 						}
 						#endif
 
@@ -481,11 +481,11 @@ int control_generic (struct frame *fr)
 		waitpid(buffer_pid, NULL, 0);
 		xfermem_done(buffermem);
 	} else {
-		audio_flush(param.outmode, &ai);
+		audio_flush(param.outmode, &ao);
 		free(pcm_sample);
 	}
 	if (param.outmode == DECODE_AUDIO)
-		audio_close(&ai);
+		ao.close(&ao);
 	if (param.outmode == DECODE_WAV)
 		wav_close();
 	return 0;

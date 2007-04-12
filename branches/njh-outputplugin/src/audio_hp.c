@@ -19,25 +19,25 @@
 
 
 
-static int audio_set_rate(struct audio_info_struct *ai)
+static int audio_set_rate(audio_output_t *ao)
 {
-  if(ai->rate >= 0)
-    return ioctl(ai->fn,AUDIO_SET_SAMPLE_RATE,ai->rate);
+  if(ao->rate >= 0)
+    return ioctl(ao->fn,AUDIO_SET_SAMPLE_RATE,ao->rate);
   return 0;
 }
 
-static int audio_set_channels(struct audio_info_struct *ai)
+static int audio_set_channels(audio_output_t *ao)
 {
-  if(ai->channels<0)
+  if(ao->channels<0)
     return 0;
-  return ioctl(ai->fn,AUDIO_SET_CHANNELS,ai->channels);
+  return ioctl(ao->fn,AUDIO_SET_CHANNELS,ao->channels);
 }
 
-static int audio_set_format(struct audio_info_struct *ai)
+static int audio_set_format(audio_output_t *ao)
 {
   int fmt;
 
-  switch(ai->format) {
+  switch(ao->format) {
     case -1:
     case AUDIO_FORMAT_SIGNED_16:
     default: 
@@ -56,15 +56,15 @@ static int audio_set_format(struct audio_info_struct *ai)
       fmt = AUDIO_FORMAT_ULAW;
       break;
   }
-  return ioctl(ai->fn,AUDIO_SET_DATA_FORMAT,fmt);
+  return ioctl(ao->fn,AUDIO_SET_DATA_FORMAT,fmt);
 }
 
-static int audio_get_formats(struct audio_info_struct *ai)
+static int audio_get_formats(audio_output_t *ao)
 {
   return AUDIO_FORMAT_SIGNED_16;
 }
 
-static int audio_reset_parameters(struct audio_info_struct *ai)
+static int audio_reset_parameters(audio_output_t *ao)
 {
   int ret;
   ret = audio_set_format(ai);
@@ -76,84 +76,84 @@ static int audio_reset_parameters(struct audio_info_struct *ai)
 }
 
 
-int audio_open(struct audio_info_struct *ai)
+int audio_open(audio_output_t *ao)
 {
   struct audio_describe ades;
   struct audio_gain again;
   int i,audio;
 
-  ai->fn = open("/dev/audio",O_RDWR);
+  ao->fn = open("/dev/audio",O_RDWR);
 
-  if(ai->fn < 0)
+  if(ao->fn < 0)
     return -1;
 
 
-  ioctl(ai->fn,AUDIO_DESCRIBE,&ades);
+  ioctl(ao->fn,AUDIO_DESCRIBE,&ades);
 
-  if(ai->gain != -1)
+  if(ao->gain != -1)
   {
-     if(ai->gain > ades.max_transmit_gain)
+     if(ao->gain > ades.max_transmit_gain)
      {
        fprintf(stderr,"your gainvalue was to high -> set to maximum.\n");
-       ai->gain = ades.max_transmit_gain;
+       ao->gain = ades.max_transmit_gain;
      }
-     if(ai->gain < ades.min_transmit_gain)
+     if(ao->gain < ades.min_transmit_gain)
      {
        fprintf(stderr,"your gainvalue was to low -> set to minimum.\n");
-       ai->gain = ades.min_transmit_gain;
+       ao->gain = ades.min_transmit_gain;
      }
      again.channel_mask = AUDIO_CHANNEL_0 | AUDIO_CHANNEL_1;
-     ioctl(ai->fn,AUDIO_GET_GAINS,&again);
-     again.cgain[0].transmit_gain = ai->gain;
-     again.cgain[1].transmit_gain = ai->gain;
+     ioctl(ao->fn,AUDIO_GET_GAINS,&again);
+     again.cgain[0].transmit_gain = ao->gain;
+     again.cgain[1].transmit_gain = ao->gain;
      again.channel_mask = AUDIO_CHANNEL_0 | AUDIO_CHANNEL_1;
-     ioctl(ai->fn,AUDIO_SET_GAINS,&again);
+     ioctl(ao->fn,AUDIO_SET_GAINS,&again);
   }
   
-  if(ai->output != -1)
+  if(ao->output != -1)
   {
-     if(ai->output & AUDIO_OUT_INTERNAL_SPEAKER)
-       ioctl(ai->fn,AUDIO_SET_OUTPUT,AUDIO_OUT_SPEAKER);
-     else if(ai->output & AUDIO_OUT_HEADPHONES)
-       ioctl(ai->fn,AUDIO_SET_OUTPUT,AUDIO_OUT_HEADPHONE);
-     else if(ai->output & AUDIO_OUT_LINE_OUT)
-       ioctl(ai->fn,AUDIO_SET_OUTPUT,AUDIO_OUT_LINE);
+     if(ao->output & AUDIO_OUT_INTERNAL_SPEAKER)
+       ioctl(ao->fn,AUDIO_SET_OUTPUT,AUDIO_OUT_SPEAKER);
+     else if(ao->output & AUDIO_OUT_HEADPHONES)
+       ioctl(ao->fn,AUDIO_SET_OUTPUT,AUDIO_OUT_HEADPHONE);
+     else if(ao->output & AUDIO_OUT_LINE_OUT)
+       ioctl(ao->fn,AUDIO_SET_OUTPUT,AUDIO_OUT_LINE);
   }
   
-  if(ai->rate == -1)
-    ai->rate = 44100;
+  if(ao->rate == -1)
+    ao->rate = 44100;
 
   for(i=0;i<ades.nrates;i++)
   {
-    if(ai->rate == ades.sample_rate[i])
+    if(ao->rate == ades.sample_rate[i])
       break;
   }
   if(i == ades.nrates)
   {
-    fprintf(stderr,"Can't set sample-rate to %ld.\n",ai->rate);
+    fprintf(stderr,"Can't set sample-rate to %ld.\n",ao->rate);
     i = 0;
   }
 
   if(audio_reset_parameters(ai) < 0)
     return -1;
  
-  return ai->fn;
+  return ao->fn;
 }
 
 
 
-int audio_play_samples(struct audio_info_struct *ai,unsigned char *buf,int len)
+int audio_play_samples(audio_output_t *ao,unsigned char *buf,int len)
 {
-  return write(ai->fn,buf,len);
+  return write(ao->fn,buf,len);
 }
 
-int audio_close(struct audio_info_struct *ai)
+int audio_close(audio_output_t *ao)
 {
-  close (ai->fn);
+  close (ao->fn);
   return 0;
 }
 
-void audio_queueflush(struct audio_info_struct *ai)
+void audio_queueflush(audio_output_t *ao)
 {
 }
 

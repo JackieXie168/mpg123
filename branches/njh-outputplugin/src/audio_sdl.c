@@ -35,7 +35,7 @@ static sfifo_t fifo;
 static void
 audio_callback_sdl(void *udata, Uint8 *stream, int len)
 {
-	/* struct audio_info_struct *ai = udata; */
+	/* audio_output_t *ao = udata; */
 	int read;
 
 	/* Only play if we have data left */
@@ -54,7 +54,7 @@ audio_callback_sdl(void *udata, Uint8 *stream, int len)
 } 
 
 
-int audio_open(struct audio_info_struct *ai)
+int audio_open(audio_output_t *ao)
 {
 	
 	/* Initalise SDL */
@@ -69,7 +69,7 @@ int audio_open(struct audio_info_struct *ai)
 	
 
 	/* Open an audio I/O stream. */
-	if (ai->rate > 0 && ai->channels >0 ) {
+	if (ao->rate > 0 && ao->channels >0 ) {
 		SDL_AudioSpec wanted;
 		size_t ringbuffer_len;
 	
@@ -79,8 +79,8 @@ int audio_open(struct audio_info_struct *ai)
 		wanted.samples = 1024;  /* Good low-latency value for callback */ 
 		wanted.callback = audio_callback_sdl; 
 		wanted.userdata = ai; 
-		wanted.channels = ai->channels; 
-		wanted.freq = ai->rate; 
+		wanted.channels = ao->channels; 
+		wanted.freq = ao->rate; 
 	
 		/* Open the audio device, forcing the desired format */
 		if ( SDL_OpenAudio(&wanted, NULL) ) {
@@ -89,7 +89,7 @@ int audio_open(struct audio_info_struct *ai)
 		}
 	
 		/* Initialise FIFO */
-		ringbuffer_len = ai->rate * FIFO_DURATION * SAMPLE_SIZE *ai->channels;
+		ringbuffer_len = ao->rate * FIFO_DURATION * SAMPLE_SIZE *ao->channels;
 		debug2( "Allocating %d byte ring-buffer (%f seconds)", (int)ringbuffer_len, (float)FIFO_DURATION);
 		sfifo_init( &fifo, ringbuffer_len );
 									   
@@ -99,14 +99,14 @@ int audio_open(struct audio_info_struct *ai)
 }
 
 
-int audio_get_formats(struct audio_info_struct *ai)
+int audio_get_formats(audio_output_t *ao)
 {
 	/* Only implemented Signed 16-bit audio for now */
 	return AUDIO_FORMAT_SIGNED_16;
 }
 
 
-int audio_play_samples(struct audio_info_struct *ai, unsigned char *buf, int len)
+int audio_play_samples(audio_output_t *ao, unsigned char *buf, int len)
 {
 
 	/* Sleep for half the length of the FIFO */
@@ -129,7 +129,7 @@ int audio_play_samples(struct audio_info_struct *ai, unsigned char *buf, int len
 	return len;
 }
 
-int audio_close(struct audio_info_struct *ai)
+int audio_close(audio_output_t *ao)
 {
 	SDL_CloseAudio();
 	
@@ -138,7 +138,7 @@ int audio_close(struct audio_info_struct *ai)
 	return 0;
 }
 
-void audio_queueflush(struct audio_info_struct *ai)
+void audio_queueflush(audio_output_t *ao)
 {
 	SDL_PauseAudio(1);
 	

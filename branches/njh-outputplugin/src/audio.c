@@ -12,29 +12,28 @@
 #include "debug.h"
 
 audio_output_t*
-alloc_audio_output(void)
+alloc_audio_output()
 {
 	audio_output_t* ao = malloc( sizeof( audio_output_t ) );
 	if (ao==NULL) error( "Failed to allocate memory for audio_output_t." );
 
-	// Initialise variables
+	/* Initialise variables */
 	ao->fn = -1;
 	ao->rate = -1;
 	ao->gain = -1;
-	ao->output = -1;
 	ao->handle = NULL;
 	ao->device = NULL;
 	ao->channels = -1;
 	ao->format = -1;
 	
-	// Set the callbacks to NULL
+	/* Set the callbacks to NULL */
 	ao->open = NULL;
 	ao->get_formats = NULL;
-	ao->output_samples = NULL;
+	ao->write = NULL;
 	ao->flush = NULL;
 	ao->close = NULL;
 	
-	return ao
+	return ao;
 }
 
 
@@ -43,8 +42,7 @@ void audio_output_struct_dump(audio_output_t *ao)
 	fprintf(stderr, "ao->fn=%d\n", ao->fn);
 	fprintf(stderr, "ao->handle=%p\n", ao->handle);
 	fprintf(stderr, "ao->rate=%ld\n", ao->rate);
-	fprintf(stderr, "ao->gaon=%ld\n", ao->gaon);
-	fprintf(stderr, "ao->output=%d\n", ao->output);
+	fprintf(stderr, "ao->gain=%ld\n", ao->gain);
 	fprintf(stderr, "ao->device='%s'\n", ao->device);
 	fprintf(stderr, "ao->channels=%d\n", ao->channels);
 	fprintf(stderr, "ao->format=%d\n", ao->format);
@@ -65,26 +63,22 @@ struct audio_format_name audio_val2name[NUM_ENCODINGS+1] = {
  { -1 , NULL }
 };
 
-#if 0
-static char *channel_name[NUM_CHANNELS] = 
- { "mono" , "stereo" };
-#endif
 
 static int channels[NUM_CHANNELS] = { 1 , 2 };
 static int rates[NUM_RATES] = { 
-	 8000, 11025, 12000, 
+	8000, 11025, 12000, 
 	16000, 22050, 24000,
 	32000, 44100, 48000,
 	8000	/* 8000 = dummy for user forced */
 
 };
 static int encodings[NUM_ENCODINGS] = {
- AUDIO_FORMAT_SIGNED_16, 
- AUDIO_FORMAT_UNSIGNED_16,
- AUDIO_FORMAT_UNSIGNED_8,
- AUDIO_FORMAT_SIGNED_8,
- AUDIO_FORMAT_ULAW_8,
- AUDIO_FORMAT_ALAW_8
+	AUDIO_FORMAT_SIGNED_16, 
+	AUDIO_FORMAT_UNSIGNED_16,
+	AUDIO_FORMAT_UNSIGNED_8,
+	AUDIO_FORMAT_SIGNED_8,
+	AUDIO_FORMAT_ULAW_8,
+	AUDIO_FORMAT_ALAW_8
 };
 
 static char capabilities[NUM_CHANNELS][NUM_ENCODINGS][NUM_RATES];
@@ -93,9 +87,9 @@ void audio_capabilities(audio_output_t *ao)
 {
 	int fmts;
 	int i,j,k,k1=NUM_RATES-1;
-	struct audio_info_struct ao1 = *ao;
+	audio_output_t ao1 = *ao;
 
-        if (param.outmode != DECODE_AUDIO) {
+	if (param.outmode != DECODE_AUDIO) {
 		memset(capabilities,1,sizeof(capabilities));
 		return;
 	}
@@ -107,7 +101,7 @@ void audio_capabilities(audio_output_t *ao)
 	}
 
 	/* if audio_open faols, the device is just not capable of anything... */
-	if(audio_open(&ao1) < 0) {
+	if(ao1.open(&ao1) < 0) {
 		perror("audio");
 	}
 	else
@@ -116,7 +110,7 @@ void audio_capabilities(audio_output_t *ao)
 			for(j=0;j<NUM_RATES;j++) {
 				ao1.channels = channels[i];
 				ao1.rate = rates[j];
-				fmts = audio_get_formats(&ao1);
+				fmts = ao1.get_formats(&ao1);
 				if(fmts < 0)
 					continue;
 				for(k=0;k<NUM_ENCODINGS;k++) {
@@ -125,7 +119,7 @@ void audio_capabilities(audio_output_t *ao)
 				}
 			}
 		}
-		audio_close(&ao1);
+		ao1.close(&ao1);
 	}
 
 	if(param.verbose > 1) {
@@ -164,22 +158,22 @@ static int rate2num(int r)
 }
 
 
-static int audio_fit_cap_helper(struct audio_info_struct *ao,int rn,int f0,int f2,int c)
+static int audio_fit_cap_helper(audio_output_t *ao,int rn,int f0,int f2,int c)
 {
 	int i;
-
-        if(rn >= 0) {
-                for(i=f0;i<f2;i++) {
-                        if(capabilities[c][i][rn]) {
-                                ao->rate = rates[rn];
-                                ao->format = encodings[i];
-                                ao->channels = channels[c];
+	
+	if(rn >= 0) {
+		for(i=f0;i<f2;i++) {
+			if(capabilities[c][i][rn]) {
+				ao->rate = rates[rn];
+				ao->format = encodings[i];
+				ao->channels = channels[c];
 				return 1;
-                        }
-                }
-        }
+			}
+		}
+	}
 	return 0;
-
+	
 }
 
 /*
@@ -187,7 +181,7 @@ static int audio_fit_cap_helper(struct audio_info_struct *ao,int rn,int f0,int f
  * r=rate of stream
  * return 0 on error
  */
-int audio_fit_capabilities(struct audio_info_struct *ao,int c,int r)
+int audio_fit_capabilities(audio_output_t *ao,int c,int r)
 {
 	int rn;
 	int f0=0;

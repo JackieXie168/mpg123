@@ -187,12 +187,14 @@ struct parameter {
   int shuffle;	/* shuffle/random play */
   int remote;	/* remote operation */
   int remote_err;	/* remote operation to stderr */
-  int outmode;	/* where to out the decoded sampels */
+  int outmode;	/* FIXME: replace this */
   int quiet;	/* shut up! */
   int xterm_title;	/* Change xterm title to song names? */
   long usebuffer;	/* second level buffer size */
   int tryresync;  /* resync stream after error */
   int verbose;    /* verbose level */
+  char* output_plugin;	/* audio output plugin to use */
+  char* output_device;	/* audio output device to use */
 #ifdef HAVE_TERMIOS
   int term_ctrl;
 #endif
@@ -335,7 +337,7 @@ extern int open_stream(char *,int fd);
 extern void read_frame_init (struct frame* fr);
 extern int read_frame(struct frame *fr);
 /* why extern? */
-void prepare_audioinfo(struct frame *fr, audio_output_t *);
+extern void prepare_audioinfo(struct frame *fr, audio_output_t *ao);
 extern int play_frame(int init,struct frame *fr);
 extern int do_layer3(struct frame *fr,int,audio_output_t *);
 extern int do_layer2(struct frame *fr,int,audio_output_t *);
