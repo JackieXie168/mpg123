@@ -4,7 +4,7 @@
 ## see COPYING and AUTHORS files in distribution or http://mpg123.de
 ## initially written by Nicholas J. Humfrey
 
-mpg123_LDADD = @CPU_TYPE_LIB@
+mpg123_LDADD = -lltdl @CPU_TYPE_LIB@
 mpg123_DEPENDENCIES = @CPU_TYPE_LIB@
 
 EXTRA_DIST = Makefile.legacy config.h.legacy
@@ -64,74 +64,6 @@ mpg123_SOURCES = \
 	wav.c \
 	xfermem.c \
 	xfermem.h
-
-
-## Plugins
-
-lib_LTLIBRARIES = @MODULE_LIST@
-
-EXTRA_LTLIBRARIES = \
-	output_alsa.la \
-	output_coreaudio.la \
-	output_dummy.la \
-	output_esound.la \
-	output_jack.la \
-	output_portaudio.la \
-	output_sdl.la
-
-
-## Output Plugins
-
-output_alsa_la_SOURCES = audio_alsa.c
-output_alsa_la_LDFLAGS = -module
-output_alsa_la_LIBADD = -lasound
-
-output_coreaudio_la_SOURCES = audio_coreaudio.c
-output_coreaudio_la_LDFLAGS = -module -framework AudioToolbox -framework AudioUnit -framework CoreServices
-
-output_dummy_la_SOURCES = audio_dummy.c
-output_dummy_la_LDFLAGS = -module
-
-output_esound_la_SOURCES = audio_esd.c
-output_esound_la_CFLAGS = @ESOUND_CFLAGS@
-output_esound_la_LDFLAGS = -module @ESOUND_LDFLAGS@
-output_esound_la_LIBADD = @ESOUND_LIBS@
-
-output_jack_la_SOURCES = audio_jack.c
-output_jack_la_CFLAGS = @JACK_CFLAGS@
-output_jack_la_LDFLAGS = -module @JACK_LDFLAGS@
-output_jack_la_LIBADD = @JACK_LIBS@
-
-output_portaudio_la_SOURCES = audio_portaudio.c
-output_portaudio_la_LDFLAGS = -module -lportaudio
-
-output_sdl_la_SOURCES = audio_sdl.c
-output_sdl_la_CFLAGS = @SDL_CFLAGS@
-output_sdl_la_LDFLAGS = -module @SDL_LDFLAGS@
-output_sdl_la_LIBADD = @SDL_LIBS@
-
-
-
-
-#EXTRA_mpg123_SOURCES = \
-#	audio_aix.c \
-#	audio_alib.c \
-#	audio_alsa.c \
-#	audio_dummy.c \
-#	audio_esd.c \
-#	audio_hp.c \
-#	audio_jack.c \
-#	audio_macosx.c \
-#	audio_mint.c \
-#	audio_nas.c \
-#	audio_os2.c \
-#	audio_oss.c \
-#	audio_portaudio.c \
-#	audio_sdl.c \
-#	audio_sgi.c \
-#	audio_sun.c \
-#	audio_win32.c \
-#	getcpuflags.h
 
 
 EXTRA_mpg123_SOURCES = getcpuflags.h

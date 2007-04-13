@@ -6,7 +6,7 @@
 
 dist_man_MANS = mpg123.1
 
-SUBDIRS = src
+SUBDIRS = src modules
 
 EXTRA_DIST = \
 	MakeLegacy.sh \
