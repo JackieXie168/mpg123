@@ -5,11 +5,11 @@
 	<!--#include file="linkbar.html" -->
 	<h1>Features</h1>
 	<p>
-		We all know that mpg123 is the fast console mpeg audio decoder/player, don&acute;t we? But here are some things that go beyond simple decoding:
+		We all know that mpg123 is the fast console mpeg audio decoder/player, don't we? But here are some things that go beyond simple decoding:
 	</p>
 	<div>
 		<ul>
-			<li>support for many platforms (many Unices, MacOSX, Windows) and audio subsystems (native ones and things like portaudio, NAS, Jack)</li>
+			<li>support for many platforms (many Unices, MacOSX, Windows) and audio subsystems</li>
 			<li>simple but powerful control mode for frontends (commands via STDIN)</li>
 			<li>realtime control of efficient equalizer (because built into decoder)</li>
 			<li>built-in terminal control keys</li>
@@ -19,5 +19,22 @@
 			<li>support for Relative Volume Adjustment / ReplayGain</li>
 		</ul>
 	</div>
+	
+	<p>
+		mpg123 supports a wide range of audio interfaces, including:
+	</p>
+	<ul>
+		<li><a href="http://www.alsa-project.org/">ALSA</a> (Advanced Linux Sound Architecture)</li>
+		<li><a href="http://www.apple.com/macosx/features/coreaudio/">CoreAudio</a> (Mac OS X)</li>
+		<li><a href="http://www.tux.org/~ricdude/EsounD.html">EsounD</a> (The Enlightened Sound Daemon)</li>
+		<li><a href="http://www.jackaudio.org/">JACK</a> (Jack Audio Connection Kit)</li>
+		<li><a href="http://www.radscan.com/nas.html">NAS</a> (Network Audio System)</li>
+		<li><a href="http://www.opensound.com/">OSS</a> (Open Sound System)</li>
+		<li><a href="http://www.portaudio.com/">PortAudio</a> (Portable cross-platform Audio API)</li>
+		<li><a href="http://www.pulseaudio.org/">PulseAudio</a> (sound server for POSIX and Win32)</li>
+		<li><a href="http://www.libsdl.org/">SDL</a> (Simple DirectMedia Layer)</li>
+		<li>Sun Audio (/dev/audio)</li>
+		<li>Win32 (Windows WaveOut)</li>
+	</ul>
 </body>
 </html>
