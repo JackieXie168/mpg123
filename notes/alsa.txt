@@ -1,0 +1,192 @@
+A little survey on what ALSA really adds wrt. computing power
+I am in the lucky position to have an audio chip that is supported both by ALSA and OSS in linux 2.6.20.7
+It can do stereo only, but supports a nice range of native rates:
+
+Audio capabilities:
+        |  s16  |  u16  |  u8   |  s8   | ulaw  | alaw  |
+ --------------------------------------------------------
+  8000  |   S   |       |       |       |       |       |
+ 11025  |   S   |       |       |       |       |       |
+ 12000  |   S   |       |       |       |       |       |
+ 16000  |   S   |       |       |       |       |       |
+ 22050  |   S   |       |       |       |       |       |
+ 24000  |   S   |       |       |       |       |       |
+ 32000  |   S   |       |       |       |       |       |
+ 44100  |   S   |       |       |       |       |       |
+ 48000  |   S   |       |       |       |       |       |
+
+So to play back 44100Hz stereo files, no software conversion is necessary (also no endianess swap).
+But mono files will have to be converted to stereo. That can be done either by mpg123 via --stereo or implicitly by the alsa library when using the default device.
+
+I use the time command to measure the performance, but not looking at the "real" time as that contains a lot of waiting -- instead the user and sys times are interesting.
+The PentiumM (Banias) is fixed to the lowest clock of 600MHz.
+
+First, compare plain default OSS to default ALSA:
+
+OSS
+thomas@neuling:/data/mpg123-neu/svn/trunk$ time src/mpg123  /data/thorma/var/music/phantoms_of_future/call_of_the_wild/01-crackin_up.mp3 
+decoder: SSE
+
+real	4m7.224s
+user	0m3.012s
+sys	0m0.112s
+
+real	4m7.224s
+user	0m3.048s
+sys	0m0.100s
+
+ALSA
+thomas@neuling:/data/mpg123-neu/svn/trunk$ time src/mpg123.alsa /data/thorma/var/music/phantoms_of_future/call_of_the_wild/01-crackin_up.mp3
+decoder: SSE
+
+real	4m8.019s
+user	0m5.268s
+sys	0m0.112s
+
+
+real	4m7.508s
+user	0m5.244s
+sys	0m0.108s
+
+While sys time is about the same, you see a considerable amount of time spent in alsa library: 5.2s vs. 3.0s of total user time.
+That is increase of over 66% -- and mind you: user time includes such unimportant things like actually decoding the mp3!
+Fortunately, you can tell alsa not to do conversions by using the "hw" device:
+
+thomas@neuling:/data/mpg123-neu/svn/trunk$ time src/mpg123 -a hw /data/thorma/var/music/phantoms_of_future/call_of_the_wild/01-crackin_up.mp3
+decoder: SSE
+
+real	4m7.272s
+user	0m3.104s
+sys	0m0.080s
+
+real	4m7.272s
+user	0m3.020s
+sys	0m0.096s
+
+OK, let's say that plain "hw" ALSA is as efficient as the plain OSS kernel driver.
+Though one question is dangling there: What is ALSA doing with the "default" device?
+The audio format is s16le@441000Hz - there is no conversion needed for the hardware and yet ALSA spends a big deal of time doing something there.
+Doing what?
+That question aside, I tried comparing an actually needed transformation of a mono file to stereo, first using mpg123's internal mechanism
+
+thomas@neuling:/data/mpg123-neu/svn/trunk$ time src/mpg123 -a hw --stereo /data/thorma/var/music/thomasonic/2005_anfang_-_die_chronik/03-falling_\(mod03\).mp3 
+decoder: SSE
+MPEG 1.0 layer III, VBR, 44100 Hz mono
+
+real	3m35.599s
+user	0m1.544s
+sys	0m0.096s
+
+and then using ALSA
+
+thomas@neuling:/data/mpg123-neu/svn/trunk$ time src/mpg123 -a default  /data/thorma/var/music/thomasonic/2005_anfang_-_die_chronik/03-falling_\(mod03\).mp3 
+decoder: SSE
+MPEG 1.0 layer III, VBR, 44100 Hz mono
+
+[3:35] Decoding of 03-falling_(mod03).mp3 finished.
+
+real	3m35.466s
+user	0m3.256s
+sys	0m0.072s
+
+So ALSA more than _doubles_ the needed computing power (reminder: we still do that mp3 decoding, that could be forgotten somehow).
+
+thomas@neuling:/data/mpg123-neu/svn/trunk$ time src/mpg123 -a default --stereo /data/thorma/var/music/thomasonic/2005_anfang_-_die_chronik/03-falling_\(mod03\).mp3 
+decoder: SSE
+MPEG 1.0 layer III, VBR, 44100 Hz mono
+
+real	3m35.445s
+user	0m3.724s
+sys	0m0.076s
+
+Also when already doing the (suposedly more efficient) stereo upmix in mpg123 and then giving it to the smart ALSA, we get 0.5s more of cpu time -- doing what?.
+Could it be that ALSA resamples to 48kHz because the hardware can take that?
+Well, when mpg123 does the resampling to 48Khz...
+
+thomas@neuling:/data/mpg123-neu/svn/trunk$ time src/mpg123 -a hw --stereo -r 48000 /data/thorma/var/music/thomasonic/2005_anfang_-_die_chronik/03-falling_\(mod03\).mp3 
+decoder: i586/pentium
+MPEG 1.0 layer III, VBR, 44100 Hz mono
+Warning, flexible rate not heavily tested!
+
+real	3m35.236s
+user	0m2.260s
+sys	0m0.120s
+
+It takes time, but not that much time. Oh, and to be fair: Better compare the time increase with the i586 decoding time without resampling (flexible rate does not work with SSE or MMX in mpg123).
+
+thomas@neuling:/data/mpg123-neu/svn/trunk$ time src/mpg123 --cpu i586 -a hw --stereo /data/thorma/var/music/thomasonic/2005_anfang_-_die_chronik/03-falling_\(mod03\).mp3 
+decoder: i586/pentium
+MPEG 1.0 layer III, VBR, 44100 Hz mono
+
+real	3m35.225s
+user	0m2.024s
+sys	0m0.056s
+
+Again with ALSA:
+
+thomas@neuling:/data/mpg123-neu/svn/trunk$ time src/mpg123 --cpu i586 -a default --stereo /data/thorma/var/music/thomasonic/2005_anfang_-_die_chronik/03-falling_\(mod03\).mp3 
+decoder: i586/pentium
+MPEG 1.0 layer III, VBR, 44100 Hz mono
+
+real	3m35.446s
+user	0m4.128s
+sys	0m0.064s
+
+real	3m35.444s
+user	0m4.216s
+sys	0m0.060s
+
+I have to find out what ALSA actually does. I can understand when the resampling takes more time; it could be smoother than what mpg123 does or less optimized - but I don't understand it when there are transformations going on on audio that could be fed directly to the device without problem.
+Perhaps some .asoundrc hacking can give me a clue... is dmix active?
+Hm, I didn't enable it, but perhaps it's just the default ... yes...
+Yes, I can open the "default" device multiple times... so dmix must be active.
+I remember wondering about dmix _before_ writing DerMixD, even. Back then one had to set it up somehow.
+And back then I had a laptop with hardware mixing.
+Hm, I could just have done the DerMixD in Perl, controlling two mpg123 instances with the lately added vol command;-)
+Actually, I could hack this into ThOrMA's mixplayer as simple alternative.
+This would be something to benchmark DerMixD against;-)
+
+But anyway... it really seems to be the mixing (of one stream!) that takes a lot of cpu. Hm. Can I compare with dermixd?
+Let's try. Using the alsa binary ... SSE decoder...
+
+time ./dermixd -c default_outfile=hw
+cat | dermixd-control
+load 0 /data/thorma/var/music/phantoms_of_future/call_of_the_wild/01-crackin_up.mp3
+script 0 -1 shutdown
+start 0
+
+real	4m8.153s
+user	0m4.348s
+sys	0m0.388s
+
+real	4m8.160s
+user	0m4.128s
+sys	0m0.416s
+
+That includes mpg123 process with decoder, dermixd process with several threads, mixer ... output to "hw".
+Let's combine user and sys to roughly 4.5s (that includes . Compare to mpg123 with alsa "hw", 3.1s, and with "default", 5.3s.
+So dermixd adds overhead - surprise! Of course it does. Quide considerably, even.
+But that is a multithreaded server process... why does it still need less cpu than library operations without threads / within the same process, even?
+I really need to check what the "default" device does by default. Can't be just dmix, can it?
+And I could start optimizing DerMixD - it's quite generic ISO C++ that basically just works, atm;-)
+
+One longer comparison:
+
+time ./dermixd -c buffer=11025 default_outfile=hw
+for i in /data/thorma/var/music/underworld/a_hundred_days_off/*.mp3 ; do echo "play 0 $i
+wait 0 -1" | dermixd-control; done; dermixd-control s
+
+real	61m59.604s
+user	1m6.048s
+sys	0m5.184s
+
+time mpg123 -a hw -q /data/thorma/var/music/underworld/a_hundred_days_off/*.mp3
+
+real	61m55.953s
+user	0m44.503s
+sys	0m1.752s
+
+The "real" time is longer for dermixd also because there's waiting time for client communication.
+So focus on the "user" and "sys".
+That's 71.2s on DerMixD+mpg123 versus 46.3s with mpg123 alone. About 54% increased cpu load.
+Well, even with all the thread switching, I guess I could improve that number.
