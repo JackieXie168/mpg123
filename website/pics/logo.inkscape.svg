@@ -13,9 +13,11 @@
    height="297mm"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.44.1"
-   sodipodi:docbase="/data/mpg123-neu/svn-website/pics"
-   sodipodi:docname="logo.inkscape.svg">
+   inkscape:version="0.45"
+   sodipodi:docbase="/data/mpg123-neu/svn/website/pics"
+   sodipodi:docname="logo.inkscape.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:modified="TRUE">
   <defs
      id="defs4">
     <linearGradient
@@ -705,7 +707,7 @@
        inkscape:export-ydpi="90" />
     <g
        id="g19231"
-       inkscape:export-filename="/data/mpg123-neu/svn-website/pics/logo-0.64.png"
+       inkscape:export-filename="/data/mpg123-neu/svn-website/pics/logo-0.66.png"
        inkscape:export-xdpi="56.071758"
        inkscape:export-ydpi="56.071758">
       <path
@@ -823,7 +825,7 @@
              id="tspan2968"
              sodipodi:role="line"
              x="676.26617"
-             y="169.35446">0.65</tspan></text>
+             y="169.35446">0.66</tspan></text>
       </g>
     </g>
     <path
