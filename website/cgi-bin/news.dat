@@ -1,3 +1,22 @@
+:date 2007-06-04
+:by Thomas
+:title Bigg-o-release version 0.66!
+.<p>
+.Been some months, big stuff happened.
+.This release finally adds the SSE and 3DNowExt optmized decoders as well as combined builds with runtime decoder selection.
+.Also, the assembler codes now work on Cygwin and with MinGW32/Msys, the latter being added as supported environment including the resurrected Win32 audio output.
+.</p>
+.<p>
+.Besides bug fixes and additions like named pipe / FIFO support for the generic control interface and more terminal control, the general portability with the new build system has been improved; also with less hardcoded decisions based on operating system type.
+.</p>
+.<p>
+.A perhaps useful hack is also a new build (./configure --with-cpu=generic_float) that produces 32bit float samples on raw or WAV file writing.
+.</p>
+.<p>
+.This is an important release, also it is hopefully the last release with monolithic audio output (plugin system is nearly there).
+.The extracted libmpg123 will become reality in the not too distant future, too.
+.Well, for now, go and get version 0.66 from the usual places (see <a href="download.shtml">download</a> page)!
+.</p>
 :date 2007-02-26
 :by Thomas
 :title Opt, opt, opt! ... and some old gear.
