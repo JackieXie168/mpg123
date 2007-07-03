@@ -1,0 +1,161 @@
+This is bothering me:
+	/* +1024 for NtoM rounding problems */
+    xfermem_init (&buffermem, bufferbytes ,0,1024);
+
+Also in the libmpg123's frame.c:
+
+	int fullsize = AUDIOBUFSIZE* 2 + 1024;
+
+I want to see the math behind that. I want to see if it is safe or even just wasted memory.
+
+First, ntom code computes a step and has this NTOM_MUL:
+
+#define NTOM_MUL (32768)
+
+	long m,n;
+	m = frame_freq(fr);
+	n = fr->af.rate;
+
+	/* ratio 1.0 -> NTOM_MUL, that way it's integer arithmetic... */
+	fr->ntom_step = (unsigned long) (NTOM_MUL*n)/ m;
+
+	/* the ntom value starts at 0.5 */
+	fr->ntom_val[0] = fr->ntom_val[1] = NTOM_MUL>>1;
+
+Then, the synth does the usual dct64, resulting in 32 input samples... normal code would make 32 output samples; here it's a bit different.
+Without the code not touching the number of samples:
+
+	static const int step = 2;
+	register int j;
+	int ntom;
+	sample_t *samples = (sample_t *) (fr->buffer.data + fr->buffer.fill);
+
+	if(!channel) /* channel 0 */
+	{
+		ntom = fr->ntom_val[1] = fr->ntom_val[0];
+	}
+	else /* channel 1 */
+	{
+		samples++;
+		ntom = fr->ntom_val[1];
+	}
+
+	for (j=16;j;j--,window+=0x10) /* 16 input samples ... */
+	{
+		real sum;
+
+		ntom += fr->ntom_step; /* advance for one input sample */
+		if(ntom < NTOM_MUL) /* if we still have not reached one output sample */
+		{
+			window += 16;
+			b0 += 16;
+			continue; /* do not write a sample yet, decode next one */
+		}
+		/* now, if we are over the "one output sample" threshold
+		   write ntom/NTOM_MUL samples (integer division) */
+		while(ntom >= NTOM_MUL)
+		{
+			WRITE_SAMPLE(samples,sum,clip);
+			samples += step;
+			ntom -= NTOM_MUL;
+		}
+	}
+
+	/* one sample around here... */
+	ntom += fr->ntom_step;
+	if(ntom >= NTOM_MUL)
+	{
+		real sum;
+
+		while(ntom >= NTOM_MUL)
+		{
+			WRITE_SAMPLE(samples,sum,clip);
+			samples += step;
+			ntom -= NTOM_MUL;
+		}
+	}
+
+	for (j=15;j;j--,b0-=0x20,window-=0x10) /* 15 input samples...? */
+	{
+		real sum;
+
+		ntom += fr->ntom_step;
+		if(ntom < NTOM_MUL)
+		{
+			window -= 16;
+			b0 += 16;
+			continue;
+		}
+
+		while(ntom >= NTOM_MUL)
+		{
+			WRITE_SAMPLE(samples,sum,clip);
+			samples += step;
+			ntom -= NTOM_MUL;
+		}
+	}
+	/* OK, 32 input samples passed... */
+
+	fr->ntom_val[channel] = ntom; /* stored for next ... hm... actually, only the value for channel 0 will survive. */
+
+So, that code makes it look more complicated than it is.
+It's really just about the y output samples for x input samples with limited accuracy.
+There's no magic involved and I don't see reason for "+1024 for NtoM rounding problems" without any thought.
+That is what happens:
+
+- Define accuracy of conversion with NTOM_MUL.
+- Define the step for one output sample: ntom_step = floor((NTOM_MUL*n)/ m) .
+- Initialize the accumulator to half of the step (not fundamentally important): ntom = floor(NTOM_MUL/2)
+
+Then, the process happening over the 32 samples of one block can as well be described for the whole number of samples in the input file or just one frame. As the accumulator is kept over adjacent blocks, even frames, it is one big loop / sum.
+
+Now for a given frame of 1152 samples (maximum for MPEG), we can start with the accumulator ntom=NTOM_MUL-1 as worst case and end up with that number of samples (written for floating point arithmetic):
+
+floor(( NTOM_MUL - 1 + 1152*floor(NTOM_MUL*n/m))/NTOM_MUL)
+
+Now there is a traditional limit of n/m<=8, with that and NTOM_MUL=32768 I get
+
+rechne 'int((32768 - 1 + 1152*int( 32768*8 ))/32768)'
+9216
+
+Not surprisingly, this is the same as 1152*8. I only get a difference for non-integer frequency relations:
+
+rechne 'int(( ntom_mul - 1 + 1152*int(ntom_mul*n/m))/ntom_mul)' 32768 97234 32562
+3441
+rechne 97234/32562*1152
+3440.00884466556
+
+Well, simple up-rounding...
+
+So, when I define some maximal value for the rate ratio, I have a maximum number of decoded samples per frame.
+Currently, it's 8. The minimal MPEG rate is 8000Hz. That can then be at max be converted to 64000Hz.
+Is there a need to support 96kHz hardware output rate with 8000Hz files?
+Well, it's trivial to add support for a flexible limit on sample rate conversion. But then, mpg123 does not attempt to do smooth resampling, so with high-end requirements (from 8000Hz files...) you should consider a more careful resampler anyway.
+An optimized high-quality resampler working with audio from mpg123's native sample rate decoding may even be faster than mpg123's ntom because you get the optimized decoder in that case.
+
+Anyhow, I now have a lower limit for frame buffer size (with seemingly bloated computation):
+
+/* actually, it should be size_t or such */
+int max_frame_output(int maxfact)
+{
+	return sizeof(sample_t)*2*(int)(( NTOM_MUL - 1 + (unsigned long)1152*(NTOM_MUL*maxfact))/NTOM_MUL);
+}
+
+Or just, since the maximum allowed conversion is integer:
+
+int max_frame_output(int maxfact)
+{
+	return sizeof(sample_t)*2**1152*maxfact;
+}
+
+
+Hm, thinking again about the extra space in the buffer for ntom... it could make sense with the old was of calling audio_flush in the decoder after exceeding the buffer size.
+That's not strictly for ntom: One decoding block is maximum 64 samples with usually 2 byte each, 128 byte.
+The maximum block size with NtoM would be 8*128 = 1024 bytes!
+This marks the smallest possible frame output buffer with the old method.
+Now I simplify the code but increase that number to 36864 bytes. That's no big deal for PCs, but for DSPs with very limited memory it is.
+I'll have to do cuts in other places, too, though, if I want to support these.
+Also, integer decoding should be fixed (I guess some simple 32/64bit integer math for generic code).
+
+I'm going the safe route now. Hacks for specific (low-memory) requirements come late.
+
