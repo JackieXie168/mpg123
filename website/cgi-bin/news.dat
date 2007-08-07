@@ -15,8 +15,8 @@
 .<li>UTF8 filtering to ASCII finally works thanks to Mika Tiainen, see bug 1745847</li>
 .<li>corrected frame offset; -k was off by one</li>
 	This means now that -k disagrees with mpg123 0.59r on many files because the old version does play a frame of silence when encountering LAME tag instead of dropping it for audio.
-.<li>added --timeout <n>: Possibility to end playback on a stream that doesn't give data for <n> seconds.</li>
-.<li>added --loop <n>: for ... well... looping playback of a track; motivation was persistent internet streaming with unreliable connection (together with --timeout)</li>
+.<li>added --timeout <i>n</i>: Possibility to end playback on a stream that doesn't give data for <i>n</i> seconds.</li>
+.<li>added --loop <i>n</i>: for ... well... looping playback of a track; motivation was persistent internet streaming with unreliable connection (together with --timeout)</li>
 .<li>build fixes</li>
 .<li>use movap instruction in SSE assembly when compiler supports the needed alignment (idea from MPlayer)</li>
 .<li>show decoder options in their priority order in --list-cpu/--test-cpu</li>
