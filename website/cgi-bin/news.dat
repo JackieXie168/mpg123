@@ -1,3 +1,33 @@
+:date 2007-08-07
+:by Thomas
+:title Me got something there: mpg123 version 0.67
+.<p>
+.Yes, it is time again; the list of changes has grown and a release was overdue.
+.Also, the SVN branch that forms a new mpglib (libmpg123) and shapes the mpg123 application around it is lurking in the background, eager to take over the scene.<br />
+.It is possible that 0.67 will be the last release of the old codebase, the next one being based on libmpg123.
+.</p>
+.<p>
+.But that is future, what we have now in release 0.67 is this:
+.</p>
+.<ul>
+.<li>verified that it builds on SGI IRIX 6.5 for MIPS32 and MIPS64</li>
+.<li>enable flexible rate for stdout decoding, too</li>
+.<li>UTF8 filtering to ASCII finally works thanks to Mika Tiainen, see bug 1745847</li>
+.<li>corrected frame offset; -k was off by one</li>
+	This means now that -k disagrees with mpg123 0.59r on many files because the old version does play a frame of silence when encountering LAME tag instead of dropping it for audio.
+.<li>added --timeout <n>: Possibility to end playback on a stream that doesn't give data for <n> seconds.</li>
+.<li>added --loop <n>: for ... well... looping playback of a track; motivation was persistent internet streaming with unreliable connection (together with --timeout)</li>
+.<li>build fixes</li>
+.<li>use movap instruction in SSE assembly when compiler supports the needed alignment (idea from MPlayer)</li>
+.<li>show decoder options in their priority order in --list-cpu/--test-cpu</li>
+.<li>added Perl script to benchmark each of mpg123's CPU optimisations</li>
+.<li>portability enhancements and cleanups along with testing on SunOS 4.1.2 with gcc-2.7.0</li>
+.<li>workaround for ugly flexible rate for MMX/SSE/3DNowExt code:
+.  --with-cpu=mmx also includes i586 code as fallback; similar with the others</li>
+.</ul>
+.<p>So, head over to <a href="https://sourceforge.net/project/showfiles.php?group_id=135704">sf.net</a> or our download page and get the new stuff!</p>
+.<p>Thanks go out to Serge Simon and the R.O.M. 106.5 FM Team for their support, both in form of a monetary donation and a bottle of wine from Luxembourg:-)</p>
+
 :date 2007-06-04
 :by Thomas
 :title Bigg-o-release version 0.66!
