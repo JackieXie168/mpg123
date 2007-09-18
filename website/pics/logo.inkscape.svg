@@ -17,7 +17,7 @@
    sodipodi:docbase="/data/mpg123-neu/svn/website/pics"
    sodipodi:docname="logo.inkscape.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   sodipodi:modified="TRUE">
+   sodipodi:modified="true">
   <defs
      id="defs4">
     <linearGradient
@@ -592,13 +592,13 @@
      inkscape:cx="376.30451"
      inkscape:cy="614.34991"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g13191"
      showguides="false"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1276"
-     inkscape:window-height="988"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-width="1024"
+     inkscape:window-height="768"
+     inkscape:window-x="-2"
+     inkscape:window-y="-15"
      showgrid="false">
     <sodipodi:guide
        orientation="vertical"
@@ -825,7 +825,7 @@
              id="tspan2968"
              sodipodi:role="line"
              x="676.26617"
-             y="169.35446">0.66</tspan></text>
+             y="169.35446">0.67</tspan></text>
       </g>
     </g>
     <path
