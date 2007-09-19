@@ -1,0 +1,37 @@
+<!--#include file="header.html" -->
+	<title>mpg123: tesing</title>
+</head>
+<body>
+	<!--#include file="linkbar.html" -->
+	<h1>Testing</h1>
+	<p>
+	mpg123 runs on a very large number of platforms and supports a wide 
+	range of audio output APIs. As a result there a quite a few combinations
+	of platforms and APIs to test. We have compiled a list of systems and 
+	those responsible for testing them. If you would like help with testing 
+	please get in <a href="./contact.shtml">contact</a>.
+	</p>
+
+	<table>
+	<tr><th>Platform</th><th>Default Output</th><th>Tester</th></tr>
+	<tr><td>linux</td><td>alsa</td><td>Thomas Orgis</td></tr>
+	<tr><td>linux-alpha</td><td>alsa</td><td>Thomas Orgis</td></tr>
+	<tr><td>linux-ppc</td><td>alsa</td><td>Nicholas J Humfrey</td></tr>
+	<tr><td>macosx</td><td>coreaudio</td><td>Nicholas J Humfrey</td></tr>
+	<tr><td>freebsd</td><td>oss?</td><td></td></tr>
+	<tr><td>netbsd</td><td>oss?</td><td></td></tr>
+	<tr><td>solaris</td><td>sun?</td><td>Thomas Orgis</td></tr>
+	<tr><td>sunos</td><td>sun</td><td></td></tr>
+	<tr><td>hpux</td><td>hp</td><td></td></tr>
+	<tr><td>hpux/alib</td><td>alib</td><td></td></tr>
+	<tr><td>sgi</td><td>sgi</td><td></td></tr>
+	<tr><td>dec</td><td>oss?</td><td>Thomas Orgis</td></tr>
+	<tr><td>aix</td><td>aix</td><td></td></tr>
+	<tr><td>os2</td><td>os2</td><td>Thomas Orgis?</td></tr>
+	<tr><td>bsdos</td><td>?</td><td></td></tr>
+	<tr><td>mint</td><td>mint</td><td></td></tr>
+	<tr><td>win32</td><td>miwin32nt</td><td>Thomas Orgis?</td></tr>
+	</table>
+	
+</body>
+</html>

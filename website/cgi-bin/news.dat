@@ -1,3 +1,17 @@
+:date 2007-09-20
+:by Nick
+:title Looking for testers
+.<p>
+.mpg123 runs on a very large number of platforms and supports a wide 
+.range of audio output APIs.
+.however we the testers don't have access to all the systems that are 
+.supported by mpg123. We are looking for official testers for various
+.platforms to make sure that they still work before we make releases.
+.</p>
+.<p>
+.Take a look at the <a href="testing.shtml">testing</a> page for details.
+.</p>
+
 :date 2007-08-07
 :by Thomas
 :title Me got something there: mpg123 version 0.67
