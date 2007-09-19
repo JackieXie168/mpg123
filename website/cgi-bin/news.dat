@@ -4,7 +4,7 @@
 .<p>
 .mpg123 runs on a very large number of platforms and supports a wide 
 .range of audio output APIs.
-.however we the testers don't have access to all the systems that are 
+.However we the maintainers don't have access to all the systems that are 
 .supported by mpg123. We are looking for official testers for various
 .platforms to make sure that they still work before we make releases.
 .</p>
