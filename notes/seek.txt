@@ -1,0 +1,188 @@
+libmpg123 with (sample-accurate) seeking
+
+These notes start with the basically working mpg123lib branch and document the process of adding proper seeking to that one.
+
+The basic unit of MPEG audio is a frame, consisting of a certain number of mono/stereo samples (a stereo sample being what sometimes is referred to as a frame in digital audio).
+For the sake of seeking and bearing any practical purpose, I consider mpeg streams that have a fixed number of samples per frame.
+The seek to a specific sample position s thus means first seek to the frame n that contains s:
+
+n = s/spf(fr)
+
+Then just ignore the i leading samples from that frame:
+
+i = s-n*spf(fr)
+
+An optimization is of course to detect whether we actually have to go to a different than the current frame...
+But focus on the general thing here.
+For layer 3 the samples for one frame also depend on the frame before. I will just run the leading frame through the parser/decoder to have everything straight - adding to the ignore sample count:
+
+n_2 = n-1
+i_2 = s-(n-1)*spf(fr)
+
+That simple computation works without thinking about gapless decoding, where a certain number of samples at the beginning (and end) is to be discarded anyway.
+The sample addresses of interest are the addresses after the padding/delay samples have been ignored - gapless audio shall be transparent (for layer3...).
+So from padding/delay info there are the overall samples to ignore from the beginning (g_i) and to the end (g_e).
+We have to distinguish the "real file" sample position p_r and the output sample position p_o...
+
+p_o = p_r - g_i
+
+
+seek(p_o)
+
+That means:
+
+1. Go to one frame before (for layer 3 at least) the one containing the "real" sample p_r = p_o + g_i; which is n_2 = p_r / spf(fr) - 1
+2. Figure out how many samples to ignore from beginning of that frame:
+	Since we calculated the gapless ignores already into the difference of internal and external sample position, one does not have to recall both now; just the offset to p_r counts:
+	i_r = p_r - n_2*spf(fr)
+3. Start decoding, ignoring samples via the gapless code.
+	Also mpg123_decode_frame should not return simply after decoding one frame, but after decoding a frame with some unignored samples.
+
+
+And when there is no gapless option built in?
+
+Then we just ditch the sample-accurate seeking and go back to fast frame-accurate seeking.
+But I should still add the twist of seeking a frame further back and decode/ignore it.
+At least for layer3...
+
+
+About Positions
+
+Currently, there are some values stored for position info in the frame structure:
+
+	off_t num; /* the nth frame in some stream... */
+
+	off_t position; /* position in raw decoder bytestream */
+	off_t begin_s;  /* in samples */
+	off_t end_s;
+	off_t begin; /* first byte to play == number to skip */
+	off_t end; /* last byte to play */
+	off_t ignore; /* forcedly ignore stuff in between */
+
+
+fr.num is the last decoded frame offset ... at least just after do_layer has been called.
+If fr.to_decode == TRUE, then fr.num-1 is the last decoded offset.
+
+Ahywho... the detailed output position currently is advanced in the gapless buffercheck function.:
+
+fr.position += fr.buffer.fill
+
+So at a certain moment with a filled buffer, there are bytes fr.position-fr.buffer.fill till fr.position-1 available.
+Hm. But do I really need that byte offset stuff?
+For seeking I'll rather use segmented memory access: Go to a frame, then do an offset in there.
+But does that remove the need for byte position tracking for gapless playback?
+The tricky part here is the removal of padding samples at the _end_.
+But actually, with the requirement of a consistent stream, the end of audio is defined via a frame number and offset in that last frame until which to play.
+Tracking of frame numver should be enough.
+
+fr.firstframe = fr.begin_s/spf(fr)
+fr.firstoff   = fr.begin_s - fr.firstframe*spf(fr)
+fr.lastframe  = fr.end_s/spf(fr)
+fr.lastoff    = fr.end_s - fr.lastframe*spf(fr)
+
+So just parse until we reach firstframe, ignore fr.firstoff samples (we know current audio format now!).
+Then return the data.
+if we reached the last frame, ignore anything _after_ fr.lastoff.
+That just means adjusting the read pointer and fill of the buffer.
+
+Now for seeking, this gets input stream hurled to somewhere before desired positon and sets a different fr.firstframe and fr.firstoff.
+For layer3 we need to spin the decoder clear, thus actually decode a leading frame before discarding it.
+
+
+Think about fr.num!
+
+This one needs to be set correctly on seeks. Initially, it is -1. The parser increments this when the next valid frame is read.
+When I seek to frame x, I have to set fr.num = x-1.
+
+Now what is the accurate sample position that mpg123_tell() should return?
+If fr.num <= fr.firstframe, then
+
+fr.firstframe*spf(fr)+fr.firstoff-fr.begin_s
+
+should be returned.
+
+Else, fr.num could be already served or it will be served when fr.to_decode is set.
+So, if fr.to_decode is set; next sample will be
+
+fr.num*spf(fr)-fr.buffer.fill-fr.begin_s
+
+... all samples up to this frame, minus what's still left in buffer.
+If to_decode is not set, I have to assume that this frame has been played already: next sample is
+
+(fr.num+1)*spf(fr)-fr.buffer.fill-fr.begin_s
+
+Again, the assumption of spf(fr) being a constant for the stream helps.
+
+Arrg! spf(fr) is the _input_ sample number! I have to separate this from output sample number!
+The library does resampling...
+Also, I need to get rid of float calculation for samples/bytes conversion, I think.
+Though, ntom rate conversion can play tricks.
+
+Simple 2to1 or 4to1 is no problem... It keeps a constant sample number per frame.
+The flexible mode is a problem, though.
+It's a two-fold problem, even. First, there is the varying number of samples per frame, second, there is the need to set a correct ntom_val for a frame we made a seek to.
+Without a correct ntom_val, there will be different samples chosen for output.
+
+So, ntom_val starts at NTOM_MUL>>1 and is incremented by ntom_step for every input sample.
+Then, if ntom_val>=NTOM_MUL, it is decremented by NTOM_MUL until it is smaller.
+So, for x input sample offset...
+
+ntom_val  = NTOM_MUL>>1 + x*ntom_step
+ntom_val -= (ntom_val/NTOM_MUL)*NTOM_MUL
+
+I have to keep an eye on integer limits here... computation has to happen at least with off_t.
+But, is it possible to do it in a quick calculation without powering up the multiplication?
+Hm... actually, what is ntom_step?
+
+ntom_step = (NTOM_MUL*fr->af.rate)/frame_freq(fr)
+
+Worst case by force is NTOM_MAX*NTOM_MUL, currently
+
+8*32768=262144
+
+Well, it is a number... and the multiple of some sample offset by this is possibly over the limit for the data type.
+To help that, I'd have to imitate the (big!) loop that is actually working this out on decoding.
+One compromise would be to make it with frames (as decoding will always restart a frame border).
+
+ntom_val  = NTOM_MUL>>1;
+for(f=0; f<offset; ++f)
+{
+	ntom_val += spf(fr)*ntom_step;
+	ntom_val -= (ntom_val/NTOM_MUL)*NTOM_MUL;
+}
+
+I'm not settled on that yet...
+OK, I got ntom_val ... what I need for seeking is a safe computation of sample offset for frame offset.
+
+if(fr->down_sample < 3) soff = (spf(fr)>>fr->down_sample) * fr->num;
+else
+{
+	soff = 0;
+	ntom_val = ntom_val(fr,0);
+	for(f=0; f<fr->num; ++f)
+	{
+		ntom_val += spf(fr)*fr->ntom_step;
+		soff     += ntom_val/NTOM_MUL;
+		ntom_val -= (ntom_val/NTOM_MUL)*NTOM_MUL;
+	}
+}
+
+The quick and dirty formula for ntom is
+
+soff = (ntom_val(fr,0) + fr->num*spf(fr)*fr->ntom_step)/NTOM_MUL;
+
+Likewise, I need the function the other way round. A sample offset to frame offset and output sample offset in the frame.
+
+   soff*NTOM_MUL = ntom_val(fr,0)+isoff*fr->ntom_step
+=> isoff = (soff*NTOM_MUL-ntom_val(fr,0))/fr->ntom_step
+
+That gives me the first input sample that's needed for that offset.
+Now I need an input frame from that:
+
+firstframe = isoff/spf(fr)
+
+What is still missing, is the correct number of samples to skip in the output. Since I cannot just convert a number of input samples to a number of output samples (the incremental/recursive nature of the ntom algorithm), I calculate back from the frame to an output sample offset and take a difference:
+
+firstoff = soff - out_sampleoff(firstframe)
+
+
