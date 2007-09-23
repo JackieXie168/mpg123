@@ -2,29 +2,17 @@
 #include <stdio.h>
 #include <math.h>
 
-static int *limit;
-
 static double square(double d)
 {
 	return d*d;
 }
 
-static void init_rando(int n)
-{
-	int i;
-	limit = malloc(n*sizeof(int));
-	for(i=0;i<n;++i)
-	{
-		limit[i] = RAND_MAX;
-		while( (limit[i] % (i+1)) != i ) --limit[i];
-	}
-}
-
 static int rando(int n)
 {
 	int ran;
-	while( (ran = rand()%n) > limit[n-1] ){};
-	return ran;
+	int limit = RAND_MAX - (RAND_MAX % n);
+	do{ ran = rand(); }while( ran >= limit );
+	return ran%n;
 }
 
 static void init(int* l, int n)
@@ -61,7 +49,6 @@ int main(int argc, char **argv)
 	int i,j;
 	int *l = calloc(n,sizeof(int));
 	int *e = calloc(n*n,sizeof(int)); /* all zero */
-	init_rando(n);
 	for(i=0;i<r;++i)
 	{
 		init(l,n);
