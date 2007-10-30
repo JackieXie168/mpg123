@@ -18,7 +18,7 @@
 	<tr><td>linux-alpha</td><td>alsa</td><td>Thomas Orgis</td><td></td></tr>
 	<tr><td>linux-ppc</td><td>alsa</td><td>Nicholas J Humfrey</td><td></td></tr>
 	<tr><td>macosx</td><td>coreaudio</td><td>Nicholas J Humfrey</td><td></td></tr>
-	<tr><td>freebsd</td><td>oss?</td><td>Martin Schuette</td><td>Build test(s) ongoing.</td></tr>
+	<tr><td>freebsd</td><td>oss?</td><td>Martin Schütte</td><td>Build test(s) ongoing.</td></tr>
 	<tr><td>netbsd</td><td>oss?</td><td></td><td></td></tr>
 	<tr><td>solaris/sunos</td><td>sun</td><td>Thomas Orgis</td><td>Works with legacy and autotool on Solaris 9 with native compiler, also modules; u8 (eh... shouldn't LINEAR8 be signed, perhaps? test.) format is accepted by device but does not work (bad sound) - omitted from possible formats list (being now: s16, ulaw, alaw).</td></tr>
 	<tr><td>hpux</td><td>hp</td><td></td><td></td></tr>
