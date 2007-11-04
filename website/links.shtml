@@ -9,6 +9,13 @@
 </p>
 
 <h2>Frontends and other tools for or based on mpg123</h2>
+<h3>A tad fresher links:</h3>
+<ul>
+<li><a href="http://mplayerhq.hu">MPlayer</a>, the famous open source media player, using a modified mpglib (which has been a source of improvements to mainline mpg123, too)</li>
+<li><a href="http://glass.ptv.ru/software/english/pm123.html">pm123</a>, an OS/2 audio player</a>
+</ul>
+
+<h3>Old stuff:</h3>
 <ul>
 <li><a href="http://kewl.campus.luth.se/~wizball/jukebox/index.html">sajber jukebox. (Broken Link?)</a> </li>
 <li><a href="http://www.alsa-project.org/~andy/">ALSA Player</a></li>
