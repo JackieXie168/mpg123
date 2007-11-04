@@ -16,7 +16,7 @@
 <li><a href="http://lug-owl.de/~jbglaw/mpg123-mysql/">mpg123-MySQL - patched</a></li>
 </ul>
 <br />
-<h2>Misc. programs and podules based on mpg123</h2>
+<h2>Misc. programs and modules based on mpg123</h2>
 <br />
 <ul>
 <li><a href="http://mplayerhq.hu">MPlayer</a>, the famous open source media player, using a modified mpglib (which has been a source of improvements to mainline mpg123, too)</li>
