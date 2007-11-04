@@ -3,22 +3,56 @@
 </head>
 <body>
 <!--#include file="linkbar.html" -->
-<h1>Links </h1>
-<p>
-	This is a very old list and perhaps mostly valuable for historic purposes.
-</p>
 
-<h2>Frontends and other tools for or based on mpg123</h2>
-<h3>A tad fresher links:</h3>
+<h1>Links </h1>
+
+<h2>Patches and ports for different operating systems</h2>
+<ul>
+<li><a href="http://www.bebits.com/app/462">BeOS</a>(on BeBits)</li>
+</ul>
+<h2>Misc. patches for mpg123</h2>
+<ul>
+<li><a href="http://www.nonsensss.de/domi/mpg123-mysql/">mpg123-MySQL</a></li>
+<li><a href="http://lug-owl.de/~jbglaw/mpg123-mysql/">mpg123-MySQL - patched</a></li>
+<li><a href="http://mpg123.newmail.ru">Patch to display ID3 Tags with russian encoding</a></li>
+</ul>
+<br />
+<h2>Misc. programs and podules based on mpg123</h2>
+<br />
 <ul>
 <li><a href="http://mplayerhq.hu">MPlayer</a>, the famous open source media player, using a modified mpglib (which has been a source of improvements to mainline mpg123, too)</li>
 <li><a href="http://glass.ptv.ru/software/english/pm123.html">pm123</a>, an OS/2 audio player</a>
+<li><a href="http://www.geocities.co.jp/Technopolis/9674/in_mpg123.html">in_mpg123 plugin for winamp</a></li>
+<li><a href="http://xine.sourceforge.net">Xine - a Unix Video Player</a></li>
+<li><a href="http://www.alsaplayer.org/">ALSA Player</a></li>
+<li><a href="http://mpesch3.de1.cc/">mpesch3 audio tools</a>features the mpglib.dll and 1by1 player</li>
+<li><a href="http://www.eqrd.net/english/riscos/index.html">StupidPlayer for RISC OS</a></li>
 </ul>
-
-<h3>Old stuff:</h3>
+<br />
+<h2>Car player and mobile/standalone or similar projects</h2>
+<p>(all dead... search?)</p>
+<ul>
+<li><a href="http://www.geocities.com/MotorCity/Pit/3173/mp3/mobile.html"> http://www.geocities.com/MotorCity/Pit/3173/mp3/mobile.html</a></li>
+<li><a href="http://www.dvz.fh-koeln.de/~bn520/mp3.html">mpMan. Build your own MP3 Player</a></li>
+<li><a href="http://home.htwm.de/fhackenb/projekt/moof/">Moof - a single floppy mp3 player</a></li>
+<li><a href="http://www.mermoz.fr">Network Multimedia System</a></li>
+<li><a href="http://www.janovetz.com/cantante">Cantane</a></li>
+</ul>
+<h2>MPEG audio resources</h2>
+<ul>
+<li><a href="ftp://ftp.tnt.uni-hannover.de/pub/MPEG/audio/mpeg2/software/technical_report">Dist10: Encoder (and decoder) demonstration packages (with source!)</a></li>
+<li><a href="http://lame.sf.net">LAME .. 'some' patches for the dist10 package</a></li>
+<li><a href="http://www.mp3-tech.org/">MP3-Tech</a></li>
+<li><a href="http://mp3licensing.com/">Fraunhofer/Thomson licensing</a></li>
+</ul>
+<h2>Misc audio links</h2>
+<ul>
+<li> <a href="http://www.alsa-project.org">The ALSA Sound System</a></li>
+<li> <a href="http://www.4front-tech.com/">The Open Sound System</a></li>
+</ul>
+<h2>Mostly old stuff:</h2>
 <ul>
 <li><a href="http://kewl.campus.luth.se/~wizball/jukebox/index.html">sajber jukebox. (Broken Link?)</a> </li>
-<li><a href="http://www.alsa-project.org/~andy/">ALSA Player</a></li>
 <li>Tk3Play. A front end for mpg123. <a href="http://www.msc.cornell.edu/~bef2/">http://www.msc.cornell.edu/~bef2/</a></li>
 <li><a href="http://fredrik.hubbe.net/plugger.html"> Plugger </a></li>
 <li><a href="http://cray.tuug.utu.fi/~phoenix/xmp3player/"> xmp3player </a></li>
@@ -48,52 +82,6 @@
 <li><a href="http://www.apolloplayer.org">Apollo Player</a></li>
 <li><a href="http://japhy.fnord.org/mp3sh/">mp3sh - a commandline-driven player based on Readline library.</a></li>
 <li><a href="http://www.lcws.org/plwarlock.html">PLWarlock, a text based frontend</a></li>
-</ul>
-<h2>Patches and ports for different operating systems</h2>
-<ul>
-<li><a href="http://www.inf.bme.hu/~101/BeOS/archive/">BeOS</a></li>
-<li>mp123. An OS/2 player: <a href="http://www.users.wineasy.se/nil/mpg123/">http://www.users.wineasy.se/nil/mpg123/</a></li>
-<li><a href="http://www3.tky.3web.ne.jp/~takuroho/mpg123.html"> win32 patches for mpg123</a></li>
-</ul>
-<h2>Misc. patches for mpg123</h2>
-<ul>
-<li><a href="http://www.nonsensss.de/domi/mpg123-mysql/">mpg123-MySQL</a></li>
-<li><a href="http://lug-owl.de/~jbglaw/mpg123-mysql/">mpg123-MySQL - patched</a></li>
-<li><a href="http://mpg123.newmail.ru">Patch to display ID3 Tags with russian encoding</a></li>
-</ul>
-<br />
-<h2>Misc. Programmes and Modules based on mpg123</h2>
-<br />
-<ul>
-<li><a href="http://www.geocities.co.jp/Technopolis/9674/in_mpg123.html">in_mpg123 plugin for winamp</a></li>
-<li><a href="http://xine.sourceforge.net">Xine - a Unix Video Player</a></li>
-<li><a href="http://www.rz.uni-frankfurt.de/~pesch/">A Windows DLL based on mpglib</a></li>
-<li><a href="http://www.eqrd.net/english/riscos/index.html">StupidPlayer for RISC OS</a></li>
-</ul>
-<br />
-<h2>Car player and mobile/standalone or similar projects</h2>
-<ul>
-<li><a href="http://www.geocities.com/MotorCity/Pit/3173/mp3/mobile.html"> http://www.geocities.com/MotorCity/Pit/3173/mp3/mobile.html</a></li>
-<li><a href="http://www.dvz.fh-koeln.de/~bn520/mp3.html">mpMan. Build your own MP3 Player</a></li>
-<li><a href="http://home.htwm.de/fhackenb/projekt/moof/">Moof - a single floppy mp3 player</a></li>
-<li><a href="http://www.mermoz.fr">Network Multimedia System</a></li>
-<li><a href="http://www.janovetz.com/cantante">Cantane</a></li>
-</ul>
-<h2>Misc mp3 links</h2>
-<ul>
-<li> <a href="ftp://ftp.tnt.uni-hannover.de/pub/MPEG/audio/mpeg2/software/technical_report">Dist10: Encoder (and decoder) demonstration packages (with source!)</a></li>
-<li> <a href="http://www.sulaco.org/mp3/">LAME .. 'some' patches for the dist10 package</a></li>
-<li> <a href="http://www.alsa-project.org">The ALSA Sound System</a></li>
-<li> <a href="http://www.4front-tech.com/">The Open Sound System</a></li>
-</ul>
-<h2>Precompiled binaries and other mpg123 packages</h2>
-<ul>
-<li> <a href="http://www.cs.ucr.edu/~sshah/mp3"> http://www.cs.ucr.edu/~sshah/mp3 </a>. I only tested the
-Solaris version from there. It's based on mpg123 0.59k.</li>
-</ul>
-<h2>General Sound and Audio information</h2>
-<ul>
-<li><a href="http://www.bright.net/~dlphilp/linuxsound/">Bright.net Linux-Sound</a></li>
 </ul>
 </body>
 </html>
