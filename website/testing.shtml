@@ -24,12 +24,12 @@
 	<tr><td>hpux</td><td>hp</td><td></td><td></td></tr>
 	<tr><td>hpux/alib</td><td>alib</td><td></td><td></td></tr>
 	<tr><td>sgi</td><td>sgi</td><td></td><td></td></tr>
-	<tr><td>dec</td><td>oss?</td><td>Thomas Orgis</td><td></td></tr>
+	<tr><td>dec</td><td>oss?</td><td>Thomas Orgis</td><td>Doubt that I'll make it to get the test done. No access to the box currently.</td></tr>
 	<tr><td>aix</td><td>aix</td><td></td><td></td></tr>
-	<tr><td>os2</td><td>os2</td><td>Thomas Orgis?</td><td></td></tr>
+	<tr><td>os2</td><td>os2</td><td>Thomas Orgis</td><td>Getting there to get an OS/2 system running... whatever it brings, it should be no showstopper for 1.0 as OS/2 isn't that well tested with 0.6x either.</td></tr>
 	<tr><td>bsdos</td><td>?</td><td></td><td></td></tr>
 	<tr><td>mint</td><td>mint</td><td></td><td></td></tr>
-	<tr><td>win32</td><td>win32</td><td>Thomas Orgis?</td><td></td></tr>
+	<tr><td>win32</td><td>win32</td><td>Thomas Orgis</td><td>We got a reworked win32 output sent in; Basic build works with static output, but dynamic modules do not - there's also more wrong than the obviously braindead idea of hardcoding /usr/local/lib/mpg123/output_win32.a in the .la file on Windows...</td></tr>
 	</table>
 
 	<p></p>
