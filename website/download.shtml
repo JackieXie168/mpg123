@@ -30,6 +30,14 @@
 	<h2>Developer Version</h2>
 
 	<p>Development happens in the subversion repository on orgis.org: svn://orgis.org/mpg123/trunk; you can also browse it via the <a href="cgi-bin/viewvc.cgi">ViewVC web interface</a>. You can get snapshots from both places. </p>
+	<p>A nightly tarball with the the autotool stuff prepared is at <a href="/mpg123-svn-snapshot.tar.bz2">http://mpg123.org/mpg123-svn-snapshot.tar.bz2</a>.</a>
+	<p>
+		Windows folks may check out the testing zip archive of the <a href="/download/libmpg123-win32dll.zip>libmpg123 Win32 DLL</a>.
+		In the archive you find a version with all the optimized decoders to choose at runtime and one just using the generic C code. The .dll file along with .def, .lib and of course the mpg123.h header file you need to get going with your beloved MSVC++.
+		The library is built using the MinGW32/MSYS environment, which you can also use to build the complete mpg123.
+		We only support building of mpg123 code itself under Windows using MinGW32 or Cygwin, while you should be fine with using the prepared .dll with any other compiler... no warranty on that, of course;-)
+	</p>
+
 
 	<h2>Archived Downloads</h2>
 
