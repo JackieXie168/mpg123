@@ -1,3 +1,12 @@
+:date 2007-11-30
+:by Thomas
+:title Traces of 1.0
+.<p>As you know (if you cared;-), we are feverishly working on the big-o-1.0 release of mpg123 featuring output plugins and a new decoder library.
+.Besides the <a href=mpg123-svn-snapshot.tar.bz2>nightly snapshots</a> we now have a preview of the <a href="api/">libmpg123 API documentation</a>, thanks to Nick introducing doxygen. We think it looks nice already:-)</p>
+.<p>
+.Also, I came around producing preview builds of libmpg123 as Win32 DLL using MinGW, by popular demand. See the <a href="download.shtml">download section</a> for that.
+.</p>
+
 :date 2007-11-04
 :by Thomas
 :title Bugfix release 0.68
