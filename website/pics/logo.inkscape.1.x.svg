@@ -17,7 +17,7 @@
    sodipodi:docbase="/data/mpg123-neu/svn/website/pics"
    sodipodi:docname="logo.inkscape.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   sodipodi:modified="true">
+   sodipodi:modified="TRUE">
   <defs
      id="defs4">
     <linearGradient
@@ -590,7 +590,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1"
      inkscape:cx="376.30451"
-     inkscape:cy="614.34991"
+     inkscape:cy="834.80613"
      inkscape:document-units="px"
      inkscape:current-layer="g13191"
      showguides="false"
@@ -707,7 +707,7 @@
        inkscape:export-ydpi="90" />
     <g
        id="g19231"
-       inkscape:export-filename="/data/mpg123-neu/svn-website/pics/logo-0.66.png"
+       inkscape:export-filename="/data/mpg123-neu/svn-website/pics/logo-0.68.png"
        inkscape:export-xdpi="56.071758"
        inkscape:export-ydpi="56.071758">
       <path
@@ -818,19 +818,19 @@
            xml:space="preserve"
            style="font-size:28.277174px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#204a87;fill-opacity:1;stroke:none;stroke-width:1.08492506;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:DejaVu Sans Condensed"
            x="676.26617"
-           y="169.35446"
+           y="173.77217"
            id="text8415"
            sodipodi:linespacing="125%"><tspan
-             style="font-size:28.277174px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#204a87;stroke:none;stroke-width:1.08492506;font-family:DejaVu Sans Condensed"
+             style="font-size:40px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#204a87;stroke:none;stroke-width:1.08492506;font-family:DejaVu Sans Condensed"
              id="tspan2968"
              sodipodi:role="line"
              x="676.26617"
-             y="169.35446">0.68</tspan></text>
+             y="173.77217">1.0</tspan></text>
       </g>
     </g>
     <path
        style="fill:#d3d7cf;fill-rule:evenodd;stroke:#d3d7cf;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 431.42823,43.008416 L 431.42823,801.03175"
+       d="M 496.42823,57.008416 L 496.42823,815.03175"
        id="path17977"
        inkscape:export-filename="/tmp/mpg123-logo.png"
        inkscape:export-xdpi="90"
