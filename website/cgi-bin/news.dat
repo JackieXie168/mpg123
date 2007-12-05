@@ -1,3 +1,47 @@
+:date 2007-12-04
+:by Thomas
+:title It is here! Oh my mind! <strong>mpg123-1.0rc1</strong>
+.<p>
+.		The first release candidate of the heavily reworked mpg123 is ready! Grab it from <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=559279">Sourceforge</a> or from <a href="download.shtml">the download page</a>.
+.		Please test, especially to help us improve the situation with the specific platforms we cannot test; see <a href="testing.shtml">the testing page</a> for that!
+.</p>
+.<p>A glimpse into the news:</p>
+.<ul>
+.<li>In one word: LOTS!</li>
+.<li>Many small things that happened while migrating to the   
+.  new setup.</li>
+.<li>The decoder is now a library (libmpg123) which can be 
+.  installed also for other programs to use.<br />
+.  This finally provides a heavily improved replacement for 
+.  the aged mpglib. We have doxygen API doc, example codes.
+.  You can still choose to compile the decoder statically 
+.  into the mpg123 binary, though.</li>
+.<li>We have a plugin system for audio output! This should be 
+.  relieving to package maintainers for binary 
+.  distributions, drastically reducing the number of builds 
+.  they have to provide.<br />
+.  Here, too, you can choose to build one audio output into 
+.  the binary like before; you can have your old-school one-
+.  piece mpg123 or the hip I-am-legion shared-lib-and-
+.  plugin flexible mpg123;-)<br />
+.  One exception: For now, you have to compile without   
+.  modules in MinGW32/MSYS/Cygwin.</li>
+.<li>ID3v2 support has been enhanced and, in the case of 
+.  specific comments (those with a description), fixed.
+.  The ID3 parsing is part of libmpg123, offering support 
+.  for virtually all textual information in ID3v2.2, ID3v2.3 
+.  and ID3v2.4 tags (along with the usual 128 bytes of 
+.  ID3v1 or ID3v1.1 in a block).<br />
+.  All tag texts are converted to UTF-8, allowing mpg123 to 
+.  properly display special chars in an Unicode terminal 
+.  without fuzz (for non-UTF locales, there is still the 
+.  ASCII reduction).</li>
+.<li>Gapless decoding (of layer 3 streams) is now considered 
+.  to be a standard feature and is enabled per default both 
+.  at build- and runtime.</li>
+.<li>...</li>
+.</ul>
+
 :date 2007-11-30
 :by Thomas
 :title Traces of 1.0
