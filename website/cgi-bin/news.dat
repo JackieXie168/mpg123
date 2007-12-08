@@ -1,3 +1,15 @@
+:date 2007-12-08
+:by Thomas
+:title 1.0rc2 is immanent
+.<p>
+.The first release canditate has been a huge success so far... a success in finding stuff to be fixed for the final 1.0!
+.Well, we have so much new/reworked code in there that this should not come as a surprise.
+.There will be 1.0rc2 this night, being a much more mature piece of software than 1.0rc1 just days ago.
+.</p>
+.<p>
+.The impatient may check out the updated <a href="/mpg123-svn-snapshot.tar.bz2">SVN snapshot</a> to see what 1.0rc2 will be.
+.</p>
+
 :date 2007-12-04
 :by Thomas
 :title It is here! Oh my mind! <strong>mpg123-1.0rc1</strong>
