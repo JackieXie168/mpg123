@@ -1,5 +1,21 @@
 :date 2007-12-09
 :by Thomas
+:title 1.0rc2 is out!
+.<h2>
+.Welcome to the second round of bug-squashing!
+.</h2>
+.<p>
+.Hurry to get it via <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=560384">Sourceforge</a> or from <a href="download.shtml">the download page</a> and report our blatant mistakes! ;-)
+.</p>
+.<p>
+.Quite a few fixes and improvements went into the second release candidate.
+.ID3 handling is safer now and IDv2 support has been added to the remote control interface.
+.The buffer and general output code got much attention, so that, among others, the buffer now works properly on MacOSX, write errors to .output are handled now and the interactive experience with the buffer and terminal control has been improved.
+.Another important, albeit a bit embarrassing, point: Flexible rate mode should now work at all again.
+.</p>
+
+:date 2007-12-09
+:by Thomas
 :title 1.0rc2 is still immanent
 .<p>
 .I don't want to rush it while I am not in full posession of my mind... i.e. in the middle of the night after doing last changes.
