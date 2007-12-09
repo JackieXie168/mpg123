@@ -11,7 +11,7 @@
 
 	<h2>Current Test Release: 1.0rc2</h2>
 	<p>
-		The first release candidate of the heavily reworked mpg123 is ready! Grab it from <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=560384">Sourceforge</a> or from <a href="download/mpg123-1.0rc2.tar.bz2">here</a> (<a href="download/mpg123-1.0rc2.tar.bz2.sig">sig</a>).
+		The second release candidate of the heavily reworked mpg123 is ready! Grab it from <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=560384">Sourceforge</a> or from <a href="download/mpg123-1.0rc2.tar.bz2">here</a> (<a href="download/mpg123-1.0rc2.tar.bz2.sig">sig</a>).
 		Please test, especially to help us improve the situation with the specific platforms we cannot test; see <a href="testing.shtml">the testing page</a> for that!
 	</p>
 
