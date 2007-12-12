@@ -1,3 +1,21 @@
+:date 2007-12-12
+:by Thomas
+:title Change since rc2: jack fixed
+.<p>
+.In case you have trouble with 1.0rc2 and jack output, that is the one fix we have already in svn and queued for rc3:
+.</p>
+.<p>
+.r1285 | thor | 2007-12-10 01:50:39 +0100 (Mon, 10 Dec 2007) | 1 line<br />
+.Changed paths:<br />
+.&nbsp;&nbsp;&nbsp;M /trunk/src/output/jack.c
+.</p><p>
+.Fixing that one... The capabilities inquiry does not work when the open function fails out on 
+.the first one where native audio settings are required via format=-1 etc.!
+.</p>
+.<p>
+.You can grab the <a href="/mpg123-svn-snapshot.tar.bz2">SVN snapshot</a> if you want jack working <strong>now</strong>.
+.</p>
+
 :date 2007-12-09
 :by Thomas
 :title 1.0rc2 is out!
