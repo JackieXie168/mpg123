@@ -1,3 +1,14 @@
+:date 2007-12-18
+:by Thomas
+:title The (hopefully) last release candidate is ready: 1.0rc3!
+.<p>
+.As promised, this one contains mainly the JACK fix and some smaller cleanups.
+.Get mpg123-1.0rc3 via <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=562455">Sourceforge</a> or from <a href="download.shtml">the download page</a>, as usual.
+.</p>
+.<p>
+.This is intended to be the last release candidate before final 1.0.0 .
+.</p>
+
 :date 2007-12-12
 :by Thomas
 :title Change since rc2: jack fixed
