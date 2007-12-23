@@ -5,7 +5,10 @@
 <!--#include file="linkbar.html" -->
 
 <h1>Links </h1>
-
+<h2>Supporters</h2>
+<ul>
+<li>The team of <a href="http://www.rom.lu">Radio ROM</a> (RadioOrganisation Miedernach asbl) for donations (money and a bottle of quality Gewürztraminer wine(!)) and moral support for Thomas, including a christmas card (a real paper one!) from Luxembourg;-)</li>
+</ul>
 <h2>Patches and ports for different operating systems</h2>
 <ul>
 <li><a href="http://www.bebits.com/app/462">BeOS</a>(on BeBits)</li>

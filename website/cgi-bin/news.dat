@@ -1,3 +1,21 @@
+:date 2007-12-23
+:by Thomas
+:title Happy new mpg123! Version 1.0.0 is out!
+.<p>
+.Some fixes went into the 1.0rc3 during the week, but the substance is unchanged.
+.It is time to release the stable version 1.0.0!
+.Get the tarball from <a href="https://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=563661"> Sourceforge</a> or the local <a href="download.shtml">download page</a> and enjoy.
+.</p>
+.<p>
+.This is, finally, the first "complete" stable release of the revived mpg123 project.
+.The 0.6x series already added an GNU autotool'ed build system and runtime cpu optimization selection, together with numerous bug fixes .and an enhanced generic control interface.
+.</p><p>
+.Now a big step has been taken, adding a re-born decoder library to replace the old mpglib (libmpg123) and support for run-time audio .output selection, which was one usability advantage mpg321 had over mpg123.
+.</p>
+.<p>
+.The development from 0.6x to 1.0.0 also saw some smaller feature additions - make sure you check mpg123 --longhelp for anything you do not know already;-).
+.</p>
+
 :date 2007-12-18
 :by Thomas
 :title The (hopefully) last release candidate is ready: 1.0rc3!
