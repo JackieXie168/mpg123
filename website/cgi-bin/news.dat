@@ -1,3 +1,10 @@
+:date 2007-12-28
+:by Thomas
+:title Bugfix release: mpg123-1.0.1
+.<p>
+.<a href="http://sourceforge.net/tracker/index.php?func=detail&aid=1859413&group_id=135704&atid=733194">Bug 1859413</a> is fixed with version 1.0.1 of mpg123. It is about a crash in the module loader for long directory paths. Needless to say, upgrading is highly recommened!
+.</p>
+
 :date 2007-12-23
 :by Thomas
 :title Happy new mpg123! Version 1.0.0 is out!
