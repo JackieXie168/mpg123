@@ -14,10 +14,10 @@
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.45"
-   sodipodi:docbase="/data/mpg123-neu/svn/website/pics"
-   sodipodi:docname="logo.inkscape.svg"
+   sodipodi:docbase="/data/mpg123/svn/website/pics"
+   sodipodi:docname="logo.inkscape.1.x.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   sodipodi:modified="TRUE">
+   sodipodi:modified="true">
   <defs
      id="defs4">
     <linearGradient
@@ -597,8 +597,8 @@
      inkscape:guide-bbox="true"
      inkscape:window-width="1024"
      inkscape:window-height="768"
-     inkscape:window-x="-2"
-     inkscape:window-y="-15"
+     inkscape:window-x="-1"
+     inkscape:window-y="-11"
      showgrid="false">
     <sodipodi:guide
        orientation="vertical"
@@ -825,7 +825,7 @@
              id="tspan2968"
              sodipodi:role="line"
              x="676.26617"
-             y="173.77217">1.0</tspan></text>
+             y="173.77217">1.1</tspan></text>
       </g>
     </g>
     <path
