@@ -186,3 +186,129 @@ What is still missing, is the correct number of samples to skip in the output. S
 firstoff = soff - out_sampleoff(firstframe)
 
 
+Oh... back to gapless: the stored counts of samples to ignore at begin or end... they should be for output, right?
+
+Lemme try to draw the overall picture.
+
+1. I want to set the audio offset to a specific position given in output samples.
+2. I need to convert that to input samples to determine the frame offset to set the input data stream to.
+   For layer 3, a leading frame will be decoded and discarded to get back on the real track.
+3. I want to incorporate the omission of padding and decoder delay, given in input samples.
+4. Having determined the correct frame to (re)start decoding from, there is a sample offset left over.
+   This offset is in input samples, but must be handled in output samples.
+   Here I need to compute the output sample offset of the input frame I've seeked to, then ignoring the difference to the desired output sample offset in the decoder buffer.
+5. Actually seek the input stream to some position before the target frame.
+
+The decoding routine watches out for the first frame to decode (considering the frame to ignore, too), decodes it and discards the computet amount of samples, then returns data.
+Ideally, that should indeed be the position that has been asked for earlier.
+
+The steps need some tools:
+1. mpg132_seek(mh, outs); the API function
+2. mpg123_insamples(mh, outs) = ins; convert output sample offset outs to input sample offset ins
+   mpg123_frames(mh, ins, &soff) = inf; take ins input sample offset, get the frame offset inf that is just within and also return the input sample offset soff of the beginning of the frame 
+   OR
+   mpg123_frames(mh,ins) = inf; mpg123_outsamples(mh, inf) = soff;
+3. How does the padding/delay offset fit into that picture?
+   It is an offset in input samples. The output sample 0 corresponds to input sample begin_s.
+   Can I hide that properly inside the sample/frame conversion functions?
+   I think I can.
+4. mpg123_outsamples(mh, soff) = insoff; The offset in output samples we reached when getting the first decoded data from target frame.
+   ignore_samples = ins - soff;
+5. back_frame(mh, ...); To wind the input byte stream back/forth ... hm... I want it in absolute terms. This function is a weird one from that perspective...
+
+Hm, for back_frame it doesn't matter if I decoded the frame fr->num already. For the offset I can just use the current fr->num.
+Having to construct that offset still looks weird but should not hurt... until I have time to fix that one.
+
+Actually, the splitting of extra insamples/outsamples functions doesn't make sense as the computation of these is bound to frame computation, too.
+The conversion is simple as long as we are not dealing with NtoM decoding.
+With NtoM, I have
+
+off_t ntom_sampleoff(mpg123_handle *fr, off_t frame);  frame -> output sample offset
+off_t ntom_frameoff(mpg123_handle *fr, off_t soff);    output sample offset -> frame
+
+What these should still do is to care for gapless stuff... going to hack that.
+Then, the picture is a bit simpler:
+
+1. mpg123_seek(mh, outs)
+2. mpg123_set_range(mh, outs) = real_outs; setting firstframe, firstoff, lastframe, lastoff based on gapless data and the demanded offset outs, returning the actually destined output sample position (may differ when gapless code not there, or track is known to be shorter (?))
+   -> using ntom_sampleoff() and ntom_frameoff() for NtoM; applying simple formulae for other cases.
+3. back_frame(mh, -(fr->ignoreframe-fr->num)); ignoreframe is computed in mpg123_seek, being equal to firstframe or some frame before.
+
+That's the sample seek to an absolute position. What did I forget? Two things:
+1. frame seek; that's actually there already ... perhaps nothing to add to that.
+2. Seek to an offset from now on. The full function is mpg123_seek(mh, offset, whence).
+
+For the second one I need the current sample position. I compute that trivially using spf(fr) and fr->down_sample for the simple cases and using ntom_sampleoff for NtoM.
+So that's mpg123_tell(fr) for you, what I already sketched somewhere...
+
+
+The gapless bummer
+
+Now, I can be overly smart and consider the dropsamples of gapless on the input side in my calculations, but this is not what happens on decoding!
+Currently, the gapless code only works for input and output sample rate being the same.
+The NtoM decoding makes trouble here.
+I need to convert the begin_s and end_s values to output samples... or... hm... er... yes.
+for offsets I need the frame -> outsample, too
+
+ntom_insouts(mh, off_t insamples)
+ntom_frmouts(mh, off_t frames)
+
+I need both the input and output sample number in determining firstframe and firstoff.
+Also, I should really separate the 3 stages:
+
+input sample offset -> unadjusted output sample offset -> adjusted (gapless) output offset
+
+At least in thought.
+I get adjusted output samples from caller. An offset from beginning or _now_, where now is determined in adjusted output samples from mpg123_tell(). Oh, and it could be an offset from the end... where end is guessed by fr->track_frames.
+But let's focus on offset from now/beginning.
+
+I have adusted output samples. Make them unadjusted (add fr->begin_os, the converted fr->begin_s).
+Then I have samples to talk to the in/out converters; they (the NtoM one...) only consider unadjusted samples.
+I compute frame offset and intra-frame sample offset... in unadjusted outsamples, being already what I need.
+In case I don't have sample-accurate code (no GAPLESS), the intra-frame sample offset is 0 and I correct the position the caller wanted to the frame boundary; adjustment being a bit unnesessary since the adjustment will be 0 without GAPLESS.
+
+Before doing a seek or even the calculation for begin_os or end_os, I have to be sure that I got the needed decoder variables initialized. That concerns synth_ntom_set_step and the setting of actual output rate.
+It means that basically that decode_update must have been run.
+So I should take care of that. get_next_frame() actually does so already. It calls decode_update() if something changed in frame format; that is especially true for the first frame of a file.
+Now get_next_frame() actually depends on the variables (firstframe, ignoreframe) I need to set _after_ decode_update.
+But that should be workable... when it is run for the first time on a track, get_next_frame() will take the first valid one (after Lame tag, even), without seeking or ignoring.
+It gets the change, runs decode_update ... there I can convert the gapless stuff to output samples... but what with seek?
+Well, get_next_frame() should call the gapless preparation seek before delivering the first frame.
+
+I am with the higher level logic now, lemme walk through the cases:
+
+- A new track is loaded; stuff cleared, firstframe set from parameters, offset=0.
+- Either playback happens or seek happens (or loading of another track).
+- Playback means that the lame tag will be found, or at least layer 3 will be detected; determining some offsets
+  The new (because first) data has to trigger a decode_update and subsequent setting of firstframe & co.
+- Seek can happen before or after play.
+  Before play it has to make sure that the first frame has been found and decode_update run.
+  After play it knows that the first frame has been there and decode_update run.
+  Then one can safely (by assumption) set the new first/lastframe and corresponding offsets.
+
+Now I need to keep track of the track's state. A track can be:
+
+- Freshly loaded, virgin, untouched... we don't even know the sample rate yet.
+- Initialized, playing... meaning: First frame has been read; lame tag has been read.
+
+Hm... what else? As soon as it's not virgin anymore, it's all the same. We are at some input position, leading some output position.
+The format is known, I can compute.
+
+
+The meaning of fr->num
+
+I should straighten that out... you can be off by one in frame number manipulations easily.
+After read_frame(), fr->num contains the frame offset of the frame just read. It's the frame's number.
+Since read_frame() increments fr->num on successful read, fr->num should be one less when entering read_frame().
+Sounds trivial, but can go wrong when seeking.
+You seek to a specific offset (beginning of the frame), want to get the frame for fr->num == offset, you have to set fr->num = offset - 1.
+After reading the frame the number is incremented!
+
+This also has some implication for position calculation. When you got that frame fr and wand to tell a current position, you have to look closely:
+1. The input stream position is always at fr->num+1.
+	When the track is loaded, fr->num = -1; After first frame read, it's 0. 
+2. The output position depends on fr->to_decode and the frame output buffer fill
+	- fr->to_decode = TRUE  -> output is at samples(fr->num) - fr->buffer.fill (taking sample conversion into account!)
+	- fr->to_decode = FALSE -> frame has been decoded; output is at samples(fr->num+1) - fr->buffer.fill 
+
+Before any decoding took place, fr->num == -1 and fr->to_decode = FALSE; so the correct output position is at 0, as is the input position.
