@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /
+RewriteRule ^mpg123-svn-snapshot.tar.bz2$ snapshot
+RewriteRule ^snapshot$ http://mpg123.org/snapshot/mpg123-20080127133958.tar.bz2 [R=302,L]
