@@ -23,7 +23,8 @@
 <br />
 <ul>
 <li><a href="http://mplayerhq.hu">MPlayer</a>, the famous open source media player, using a modified mpglib (which has been a source of improvements to mainline mpg123, too)</li>
-<li><a href="http://glass.ptv.ru/software/english/pm123.html">pm123</a>, an OS/2 audio player</a>
+<li><a href="http://pspupdates.qj.net/MODO-January-30-update-added-MP3-support-via-libmpg123/pg/49/aid/112710">MODO</a>, a music player for the Sony PSP that, among others, uses libmpg123.</li>
+<li><a href="http://glass.ptv.ru/software/english/pm123.html">pm123</a>, an OS/2 audio player</a></li>
 <li><a href="http://www.geocities.co.jp/Technopolis/9674/in_mpg123.html">in_mpg123 plugin for winamp</a></li>
 <li><a href="http://xine.sourceforge.net">Xine - a Unix Video Player</a></li>
 <li><a href="http://www.alsaplayer.org/">ALSA Player</a></li>
