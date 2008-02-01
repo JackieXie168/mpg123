@@ -1,3 +1,15 @@
+:date 2008-02-01
+:by Thomas
+:title Updating again: mpg123-1.2.0!
+.<p>And here is the next incremental update, fixing some bugs, mainly in the build system, and adding the resync limit parameter to libmpg123 and the mpg123 app. There is convenience for RPM Linux distro users: You can run rpmbuild -tb on the mpg123 release tarball and get a qick-and-dirty rpm for installation though the included spec file.</p>
+.<p>An embarrassing omission has been fixed, too: The i486 decoder files now actually are included in the distribution!</p>
+.<p>
+.So, head over to Sourceforge and get the stuff.
+.</p>
+.<p>
+.Also in the news... we have mpg123 on the PSP with a href="http://pspupdates.qj.net/MODO-January-30-update-added-MP3-support-via-libmpg123/pg/49/aid/112710">MODO</a>!
+.</p>
+
 :date 2008-01-15
 :by Thomas
 :title New mpg123 1.1.0 is out!
