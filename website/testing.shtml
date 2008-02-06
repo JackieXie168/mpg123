@@ -5,7 +5,7 @@
 	<!--#include file="linkbar.html" -->
 	<h1>Testing</h1>
 	<p>
-	We changed code all over the place for the upcoming 1.0 release; in current SVN trunk.
+	We changed code all over the place for 1.x series, most impact on portability lying in the reworked output code.
 	Now, mpg123 runs on a large number of platforms and supports a wide 
 	range of audio output APIs. As a result there a quite a few combinations
 	of platforms and APIs to test. We have compiled a list of systems and 
@@ -14,22 +14,22 @@
 	</p>
 	<table>
 	<tr><th>Platform</th><th>Default Output</th><th>Tester</th><th>Comments</th></tr>
-	<tr><td>linux</td><td>alsa/esd/...</td><td>Thomas Orgis</td><td>Just fine. Need a working jack setup, but that builds, too.</td></tr>
+	<tr><td>linux</td><td>alsa/esd/...</td><td>Thomas Orgis</td><td>Works: alsa, oss, jack, sdl, portaudio (v18 or 19), arts... </td></tr>
 	<tr><td>linux-alpha</td><td>alsa</td><td>Thomas Orgis</td><td>Build is no prob. Sound check is difficult atm, but no surprise in sight there when it compiles (OSS, etc., like on other Linux systems)</td></tr>
 	<tr><td>linux-ppc</td><td>alsa</td><td>Nicholas J Humfrey</td><td></td></tr>
 	<tr><td>macosx</td><td>coreaudio</td><td>Nicholas J Humfrey</td><td>Works by user report, buffer is also OK when using output module.</td></tr>
-	<tr><td>freebsd</td><td>oss</td><td>Martin Schütte</td><td>Build works when including sys/types.h in mpg123.h; need to work that into dynamically into the header for installation.</td></tr>
+	<tr><td>freebsd</td><td>oss</td><td>Martin Schütte</td><td>Should work now out of the box.</td></tr>
 	<tr><td>netbsd</td><td>sun/oss</td><td></td><td></td></tr>
-	<tr><td>solaris/sunos</td><td>sun</td><td>Thomas Orgis</td><td>Works with legacy and autotool on Solaris 9 with native compiler, also modules; u8 (eh... shouldn't LINEAR8 be signed, perhaps? test.) format is accepted by device but does not work (bad sound) - omitted from possible formats list (being now: s16, ulaw, alaw).</td></tr>
+	<tr><td>solaris/sunos</td><td>sun</td><td>Thomas Orgis</td><td>Works with legacy and autotool on Solaris 9 SunRay terminal with native compiler, also modules; u8 (eh... shouldn't LINEAR8 be signed, perhaps? test.) format is accepted by device but does not work (bad sound) - omitted from possible formats list (being now: s16, ulaw, alaw).</td></tr>
 	<tr><td>hpux</td><td>hp</td><td></td><td></td></tr>
 	<tr><td>hpux/alib</td><td>alib</td><td></td><td></td></tr>
 	<tr><td>sgi</td><td>sgi</td><td></td><td></td></tr>
-	<tr><td>dec</td><td>oss?</td><td>Thomas Orgis</td><td>Doubt that I'll make it to get the test done. No access to the box currently.</td></tr>
+	<tr><td>dec</td><td>oss?</td><td>Thomas Orgis</td><td>May test that once I got a Tru64 install again.</td></tr>
 	<tr><td>aix</td><td>aix</td><td></td><td></td></tr>
-	<tr><td>os2</td><td>os2</td><td>Thomas Orgis</td><td>Getting there to get an OS/2 system running... whatever it brings, it should be no showstopper for 1.0 as OS/2 isn't that well tested with 0.6x either.</td></tr>
+	<tr><td>os2</td><td>os2</td><td>Thomas Orgis</td><td>Need a system to test... OS/2 doesn't like qemu that much.</td></tr>
 	<tr><td>bsdos</td><td>?</td><td></td><td></td></tr>
 	<tr><td>mint</td><td>mint</td><td></td><td></td></tr>
-	<tr><td>win32</td><td>win32</td><td>Thomas Orgis</td><td>We got a reworked win32 output sent in; Basic build works with static output, but dynamic modules do not - there's also more wrong than the obviously braindead idea of hardcoding /usr/local/lib/mpg123/output_win32.a in the .la file on Windows...</td></tr>
+	<tr><td>win32</td><td>win32</td><td>Thomas Orgis</td><td>Works with native win32 output or portaudio (et al), but no dynamic modules (for the MinGW32 build at least).</td></tr>
 	</table>
 
 	<p></p>
