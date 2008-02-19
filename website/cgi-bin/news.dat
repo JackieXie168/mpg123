@@ -1,3 +1,20 @@
+:date 2008-02-19
+:by Thomas
+:title Bugfix release mpg123-1.2.1 .
+.<div>
+.A little taste of routine... treating some issues with this release:
+.<ul>
+.<li>libmpg123 libtool-version 1.2.1 (coincidence!)
+.	<ul>
+.		<li>Earlier check for free format headers to prevent them from screwing up resync (free format still not supported).</li>
+.		<li>Bug 1889051: more flexible resync, not insisting on the format of the first frame (which could have been bogus).</li>
+.	</ul></li>
+.	<li>Add an output write loop to handle SIGSTOP/CONT operation (bug 1890563).</li>
+.	<li>Fixed a bug where playback status for some http streams was not shown.</li>
+.</ul>
+.You know where to get it, right? ;-)
+.</div>
+
 :date 2008-02-01
 :by Thomas
 :title Updating again: mpg123-1.2.0!
