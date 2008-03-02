@@ -13,11 +13,10 @@
    height="297mm"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.45"
+   inkscape:version="0.45.1"
    sodipodi:docbase="/data/mpg123/svn/website/pics"
    sodipodi:docname="logo.inkscape.1.x.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   sodipodi:modified="true">
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs4">
     <linearGradient
@@ -825,7 +824,7 @@
              id="tspan2968"
              sodipodi:role="line"
              x="676.26617"
-             y="173.77217">1.2</tspan></text>
+             y="173.77217">1.3</tspan></text>
       </g>
     </g>
     <path
