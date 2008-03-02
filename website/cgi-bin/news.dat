@@ -16,7 +16,7 @@
 .			That includes the fix for bug 1895025.</li>
 .		<li>Fix ID3v2 parser with very invalid claimed ID3v2 frame sizes (could have triggered DOS before).</li>
 .		<li>Oh, and fixed a steady memory leak in ID3 handling. Should mention that;-)</li>
-.	<ul>
+.	</ul>
 .<li>Print ICY-NAME and ICY-URL again, as mpg123-0.6x did.</li>
 .<li>Added --smooth option for not flusing buffer between tracks but at program end only.</li>
 .<li>Included some contributed ports/bindings of libmpg123 under ports/ .</li>
