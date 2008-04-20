@@ -1,3 +1,8 @@
+:date 2008-04-20
+:by Thomas
+:title Build fixes in 1.4.2 (for non-UNIX systems)
+.<p>There's been some trouble building the latest mpg123 on cygwin or plain win32 (MinGW). Now that should be fine... no functional changes.</p>
+
 :date 2008-04-08
 :by Thomas
 :title Yeah! A regression in 1.4.0 with terminal control -- get your fix with 1.4.1 now.
