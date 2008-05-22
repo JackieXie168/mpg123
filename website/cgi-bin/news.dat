@@ -1,3 +1,15 @@
+:date 2008-05-22
+:by Thomas
+:title Get your fix with 1.4.3!
+.<p>We had a couple of nice little bugs to fix for this one.</p>
+.<ul>
+.<li>Fix mpg123_tell() and mpg123_seek() return values with respect to the samples in decoding buffer (bug 1947373).</li>
+.<li>Fix (bogus) 3DNow detection on IDT C6 (bug 1947982).</li>
+.<li>Fix mono playback of win32 output (bug 1955157).</li>
+.<li>Fix ABI compatibility with compilers that don't align the stack like gcc does (fixing SSE crashes on win32).</li>
+.</ul>
+.<p>So users of IDT CPUs, serious users of libmpg123 and any users of Windows systems (there are fresh binaries available) really would like to upgrade to the new release.</p>
+
 :date 2008-04-20
 :by Thomas
 :title Build fixes in 1.4.2 (for non-UNIX systems)
