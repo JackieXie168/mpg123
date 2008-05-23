@@ -20,5 +20,5 @@ gunzip $name.tar.gz &&
 bzip2 --best $name.tar &&
 mv -v $name.tar.bz2 $location &&
 chmod a+r $location &&
-perl -pi -e 's/^(RewriteRule ^snapshot.*mpg123-)\d+\./${1}'$date'./' $base/.htaccess &&
+perl -pi -e 's/^(RewriteRule \^snapshot.*mpg123-)\d+\./${1}'$date'./' $base/.htaccess &&
 cd / && rm -rf $work
