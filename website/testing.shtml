@@ -18,7 +18,7 @@
 	<tr><td>linux-alpha</td><td>alsa</td><td>Thomas Orgis</td><td>Build is no prob. Sound check is difficult atm, but no surprise in sight there when it compiles (OSS, etc., like on other Linux systems)</td></tr>
 	<tr><td>linux-ppc</td><td>alsa</td><td>Nicholas J Humfrey</td><td></td></tr>
 	<tr><td>macosx</td><td>coreaudio</td><td>Nicholas J Humfrey</td><td>Works by user report, buffer is also OK when using output module.</td></tr>
-	<tr><td>freebsd</td><td>oss</td><td>Martin Schütte</td><td>Should work now out of the box.</td></tr>
+	<tr><td>freebsd</td><td>oss</td><td>Martin Schütte</td><td>Should work now out of the box. And yes, Martin tested it.</td></tr>
 	<tr><td>netbsd</td><td>sun/oss</td><td></td><td></td></tr>
 	<tr><td>solaris/sunos</td><td>sun</td><td>Thomas Orgis</td><td>Works with legacy and autotool on Solaris 9 SunRay terminal with native compiler, also modules; u8 (eh... shouldn't LINEAR8 be signed, perhaps? test.) format is accepted by device but does not work (bad sound) - omitted from possible formats list (being now: s16, ulaw, alaw).</td></tr>
 	<tr><td>hpux</td><td>hp</td><td></td><td></td></tr>
