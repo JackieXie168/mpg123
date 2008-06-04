@@ -24,10 +24,9 @@ As current maintainer of the mpg123 project (yes - it _is_ active again; officia
 </p>
 <p>So the first major message I would like to give to the asterisk community is that there is a current, active mpg123 and that the old way of calling it in a pipe to produce 8kHz pcm audio from MPEG files works just fine, provided you use a current one. The second message is: In case you want to avoid the trouble of external programs, that may even call themselves mpg123 although they aren't mpg123, you can use the libmpg123 that is provided by mpg123 since version 1.0  for an asterisk input module. There is API documentation on <a href='http://mpg123.org/api'>http://mpg123.org/api</a>
 </p>
-<hr/>
-<div>
+<p>
 Alrighty then,<br/><br/>Thomas Orgis, mpg123 maintainer.
-</div>
+</p>
 
 </body>
 </html>

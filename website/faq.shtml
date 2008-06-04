@@ -5,7 +5,7 @@
 	<!--#include file="linkbar.html" -->
 	<h1>Frequently Asked Questions</h1>
 
-	<h2>I want my music in asterisk any the mpg123 on my distro is just rubbish!</h2>
+	<h2>I want my music in asterisk and the mpg123 on my distro is just rubbish!</h2>
 	<p>
 		You are living in the past. See <a href="asterisk.shtml">my message to the asterisk community</a>.
 	</p>
