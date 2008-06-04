@@ -1,0 +1,33 @@
+<!--#include file="header.html" -->
+	<title>mpg123: Asterisk</title>
+</head>
+<body>
+	<!--#include file="linkbar.html" -->
+	<h1>The Asterisk solution</h1>
+	<p style="text-align:center; font-style:italic">
+		This is a message I sent out to the Asterisk community after having a chat with representatives of which at the LinuxTag 2008, archived for future reference.
+	</p>
+	<p>
+As current maintainer of the mpg123 project (yes - it _is_ active again; officially since two years now), I from time to time get requests from asterisk users on how to set up mp3 decoding for music-on-hold (I guess) with mpg123. For several years, there prevailed a really unfortunate situation in that respect:
+</p>
+<ul><li> The official mpg123 was dead, the old version 0.59r in debian worked, but was confined to the non-free section
+</li><li> The slightly fresher pre0.59s (in gentoo, for example) had trouble with the downsampling to 8000Hz due to the MMX accelerated decoder. 
+</li><li> Then there was/is the sort-of replacement mpg321 masquerading as mpg123 in many GNU/Linux distributions. It has the main functionality of mpg123, but misses quite a number of goodies &mdash; like the downsampling to 8000Hz. Besides, it is also a dead project since 2002 or so...
+</li></ul>
+<p>Now, enter 2008! Thanks to the hard work of the mpg123 team, there is a current successor to the venerable 0.59 that
+</p><ul><li> fixes all known security bugs (overflows, etc.)
+</li><li> fix all known playback problems of specific files
+</li><li> is Free under the LGPL, thus able to re-replace mpg321 again in distributions
+</li><li> since version 1.0 offers the decoder as a library
+</li></ul>
+<p>The revived mpg123 is entering standard distibutions at moderate pace... version 0.67 is in debian lenny, gentoo has 1.3 and 1.4 . Pkgsrc-wip is working on a current version. Clearly, there is still some work to do to make it known better and this posting is part of that. Also, personally, I would like to lower (to zero;-) the number of people who ask me about troubles they have with asterisk and some outdated mpg123 or even the faking mpg321.
+</p>
+<p>So the first major message I would like to give to the asterisk community is that there is a current, active mpg123 and that the old way of calling it in a pipe to produce 8kHz pcm audio from MPEG files works just fine, provided you use a current one. The second message is: In case you want to avoid the trouble of external programs, that may even call themselves mpg123 although they aren't mpg123, you can use the libmpg123 that is provided by mpg123 since version 1.0  for an asterisk input module. There is API documentation on <a href='http://mpg123.org/api'>http://mpg123.org/api</a>
+</p>
+<hr/>
+<div>
+Alrighty then,<br/><br/>Thomas Orgis, mpg123 maintainer.
+</div>
+
+</body>
+</html>

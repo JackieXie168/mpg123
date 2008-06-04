@@ -5,6 +5,11 @@
 	<!--#include file="linkbar.html" -->
 	<h1>Frequently Asked Questions</h1>
 
+	<h2>I want my music in asterisk any the mpg123 on my distro is just rubbish!</h2>
+	<p>
+		You are living in the past. See <a href="asterisk.shtml">my message to the asterisk community</a>.
+	</p>
+
 	<h2>I want to compile with Alsa but configure fails - what do I need?</h2>
 	<p>Most likely, you are missing the header files for the alsa library (libasound) or even the library itself. </p>
 	
