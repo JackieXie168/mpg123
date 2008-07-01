@@ -1,3 +1,15 @@
+:date 2008-07-01
+:by Thomas
+:title Glory days!
+.<p>There are two important announcements to bring to you, favoured public:</p>
+.<ul>
+.<li>mpg123 1.x is in debian lenny (testing)! That means the next stable debian version will have a current mpg123 with libmpg123 as shared lib. That is <em>good</em>:-)</li>
+.<li>I finally came around and reworked the http code to be able to update the stuff to support IPv6 (like some patch already did quite some time ago).</li>
+.</ul>
+.<p>
+.The latter especially means that I need people to test the heck out of the current <a href="/snapshot">development snapshot</a> to find all the nice little bugs I introduced. Seriously: I need you people test the code for IPv4 and IPv6. Please. Test. And. Report to the devel mailing list or just directly to the maintainer.
+.</p>
+
 :date 2008-06-04
 :by Thomas
 :title The Asterisk Solution
