@@ -1,0 +1,33 @@
+There's a feature request for pitch control (in the simple sense of playback speed).
+That means we want to be able to tell mpg123 to lie to libmpg123 about he final desired sample rate.
+We need
+
+double pitch_offset = plusminus * 0.02;
+mpg123_param(mh, MPG123_PITCH_ADJUST, 0, pitch_offset);
+
+Not totally sure about using pitch_offset with normal speed==0 or speed value with 1.0 as base.
+Anyhow, this should influence decoder choice...  well, ideally.
+Of course I can just force usage of the decoders working with flexible rate.
+
+But the decoder flexibility aside... is the kind of resampling libmpg123 does really a good idea for pitch adjustments?
+It works ok for bigger changes, or... well, 44100 to 48000 sounds OK. That's 100 input samples for 109 output samples, 9% pitch.
+The mpg123 resampling computes this:
+
+rechne 32768*48000/44100
+35665.8503401361
+
+As integer: 35665
+For every input sample, 35665 is added to the ntom_val, everytime we cross 32768, the sample is put to the output.
+Now the real difference of singals lies in repeating an input sample about every...
+rechne '32768/(35665-32768)'
+11.3110113910942
+...about every 11 input samples. Well, yeah, matches the idea of around 10% pitch. 5% pitch would mean repeating a sample every 20 samples... Now does that help in tuning the tone of a guitar? The wave of 440Hz at 44kHz has around 100 samples. Will just repeating 5 of these make a nice tone overall? Is it really that rough, only the completeness of oscillations mattering, not the smoothness of the shape? Of course the signal must go through some mechanical hardware to make a sound.
+The hardware may not bother that much.
+But well, it _might_.
+
+Hm, I come to thinking that I should not bother making my life difficult for the libmpg123 pitching which may well be inadequate in the end. On-the-fly decoder changing for flexible rate may still be a good idea for the output device (i.e. jack) forcing a specific, non-trivial sample rate.
+But for the musician wanting to match the pitch to an instrument it makes a lot more sense to let the audio device to the only proper way of pitching: Just play the samples faster or slower. It has a clock for that!
+When your hardware doesn't do more than 44100Hz, you may either be stuck with only downpitching or you do sample rate reduction in libmpg123, one with nice division (2 or 4).
+You loose upper frequencies but you have a smooth signal.
+
+Dunno if that's what the guitar guy wants, but it's what makes sense. To me.
