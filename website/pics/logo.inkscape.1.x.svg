@@ -596,8 +596,8 @@
      inkscape:guide-bbox="true"
      inkscape:window-width="1024"
      inkscape:window-height="768"
-     inkscape:window-x="-1"
-     inkscape:window-y="-11"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      showgrid="false">
     <sodipodi:guide
        orientation="vertical"
@@ -824,7 +824,7 @@
              sodipodi:role="line"
              x="676.26617"
              y="173.77217"
-             id="tspan2279">1.4</tspan></text>
+             id="tspan2279">1.5</tspan></text>
       </g>
     </g>
     <path

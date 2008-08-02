@@ -1,3 +1,29 @@
+:date 2008-08-02
+:by Thomas
+:title I-Pee, I-Pee!
+.<p>The world shatters as version 1.5.0 of mpg123 is being released - now supporting IPv6 officially (a fresh implementation, after that other patch floating around for years...)!</p>
+.<p>But that is not the only change we got there... various features/fixes on different scales went into this one:</p>
+.<ul>
+.<li> libmpg123 6.0.6
+.<ul>
+  <li>Floating point decoding back again, (build time choice for now; --with-cpu=generic_float).</li>
+  <li>More robust string handling; extended string API.</li>
+  <li>fixed an (so far) unnoticed ID3 bug that may have obscured comment fields</li>
+  <li>added mpg123_feed() as shortcut; using const input buffer now</li>
+  <li>resync is enabled again for ICY streams (the trouble in the past was due to a reader bug, not the streams)</li>
+  <li>decode ICY text data to UTF-8 (thanks, Thorsten)</li>
+  <li>preserve file flags for timeout mode</li>
+.</li></ul>
+.<li> More elaborate (helpful?) error message for output format problems.</li>
+.<li> Reworked HTTP code... and added IPv6 support!</li>
+.<li> Fix the --proxy parameter (has been accidentally ignored before).</li>
+.<li> Added --ignore-mime to work with web streams with funny playlist MIME types like "audio/megurl".</li>
+.<li> Know MIME audio/mpegurl.</li>
+.<li> --timeout is now also used for the connection itself (not just reading).</li>
+.<li> Now trying to resume ALSA device after suspend.</li>
+.<li> subtle build changes (your CFLAGS rule now)</li>
+.</ul>
+
 :date 2008-07-01
 :by Thomas
 :title Glory days!
