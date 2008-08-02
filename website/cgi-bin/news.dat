@@ -6,13 +6,13 @@
 .<ul>
 .<li> libmpg123 6.0.6
 .<ul>
-  <li>Floating point decoding back again, (build time choice for now; --with-cpu=generic_float).</li>
-  <li>More robust string handling; extended string API.</li>
-  <li>fixed an (so far) unnoticed ID3 bug that may have obscured comment fields</li>
-  <li>added mpg123_feed() as shortcut; using const input buffer now</li>
-  <li>resync is enabled again for ICY streams (the trouble in the past was due to a reader bug, not the streams)</li>
-  <li>decode ICY text data to UTF-8 (thanks, Thorsten)</li>
-  <li>preserve file flags for timeout mode</li>
+.  <li>Floating point decoding back again, (build time choice for now; --with-cpu=generic_float).</li>
+.  <li>More robust string handling; extended string API.</li>
+.  <li>fixed an (so far) unnoticed ID3 bug that may have obscured comment fields</li>
+.  <li>added mpg123_feed() as shortcut; using const input buffer now</li>
+.  <li>resync is enabled again for ICY streams (the trouble in the past was due to a reader bug, not the streams)</li>
+.  <li>decode ICY text data to UTF-8 (thanks, Thorsten)</li>
+.  <li>preserve file flags for timeout mode</li>
 .</li></ul>
 .<li> More elaborate (helpful?) error message for output format problems.</li>
 .<li> Reworked HTTP code... and added IPv6 support!</li>
