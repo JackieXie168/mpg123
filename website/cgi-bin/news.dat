@@ -1,3 +1,16 @@
+:date 2008-08-20
+:by Thomas
+:title Upcoming bugfix release.
+.<p>
+.There is a couple of bugs fixed in SVN that should make up the upcoming 1.5.1 release, namely these:
+.</p>
+.<ul>
+.<li><a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2053181&amp;group_id=135704&amp;atid=733194">2053181: SSE decoder is not thread safe</a></li>
+.<li><a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2044423&amp;group_id=135704&amp;atid=733194">2044423: Writing WAV output to stdout broken</a></li>
+.<li><a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2044404&amp;group_id=135704&amp;atid=733194">2044404: Option 'resync' is a misnomer</a></li>
+.</ul>
+.<p>Perhaps you'd like to check out the <a href="snapshot">snapshot</a> to verify that these are fixed before 1.5.1 hits the world...</p>
+
 :date 2008-08-02
 :by Thomas
 :title I-Pee, I-Pee!
