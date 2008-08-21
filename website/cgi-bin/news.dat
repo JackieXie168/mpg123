@@ -1,4 +1,4 @@
-:date 2008-08-20
+:date 2008-08-20,21
 :by Thomas
 :title Upcoming bugfix release.
 .<p>
@@ -8,6 +8,7 @@
 .<li><a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2053181&amp;group_id=135704&amp;atid=733194">2053181: SSE decoder is not thread safe</a></li>
 .<li><a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2044423&amp;group_id=135704&amp;atid=733194">2044423: Writing WAV output to stdout broken</a></li>
 .<li><a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2044404&amp;group_id=135704&amp;atid=733194">2044404: Option 'resync' is a misnomer</a></li>
+.<li><a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2064322&amp;group_id=135704&amp;atid=733194">2064322: mpg123_length broken in open_feed mode</a></li>
 .</ul>
 .<p>Perhaps you'd like to check out the <a href="snapshot">snapshot</a> to verify that these are fixed before 1.5.1 hits the world...</p>
 
