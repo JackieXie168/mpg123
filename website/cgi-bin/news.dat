@@ -1,3 +1,11 @@
+:date 2008-08-29
+:by Thomas
+:title 1.5.1 is out
+.<p>
+.As promised, version 1.5.1 is now out, featuring the 4 announced bug fixes (see news archive and tracker).
+.One may note that with this version we seem to have taken all technical steps to make the XMMS2 plugin official (though the code in mpg123 distribution is outdated, there is the fresh stuff from XMMS2 folks).
+.</p>
+
 :date 2008-08-20,21
 :by Thomas
 :title Upcoming bugfix release.
