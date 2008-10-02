@@ -1,3 +1,10 @@
+:date 2008-10-02
+:by Thomas
+:title 1.6.0 is calling
+.<p>...for final testers! Please check out the current <a href="snapshot">snapshot</a> and report any issues.
+.I intend to release 1.6.0 around 11th October...</p>
+.<p>The hottest topic may be the finally <strong>working resampling modes for the integer decoder</strong> (configure --with-cpu=generic_nofpu), others include added features for the remote control interface and some fixes to the decoder for broken streams (p.ex. keep seeking reliable when frames pass header check but do not decode).</p>
+
 :date 2008-08-29
 :by Thomas
 :title 1.5.1 is out
