@@ -1,3 +1,9 @@
+:date 2008-10-18
+:by Thomas
+:title 1.6.0 last call (again)
+.<p>Well, 1.6.0 is still not out. We are showing bad discipline and keep adding features. Sorry.</p>
+.<p>The current candidate now also features fuzzy seeking, along with interpretation of Xing VBR seeking info.</p>
+
 :date 2008-10-11
 :by Thomas
 :title 1.6.0 is still calling
