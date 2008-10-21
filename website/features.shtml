@@ -19,7 +19,11 @@
 			<li>support for Relative Volume Adjustment / ReplayGain</li>
 		</ul>
 	</div>
-	
+
+	<p>
+		Also, especially for the simple decoding, the decoder part of mpg123 is usable as a library in <em>your</em> application!
+	</p>
+
 	<p>
 		mpg123 supports a wide range of audio interfaces, including:
 	</p>
