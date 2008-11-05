@@ -1,3 +1,13 @@
+:date 2008-11-05
+:by Thomas
+:title Finally! Finally! 1.6.0!
+.<p>
+.The new release is out. Now. Lots of stuff happened: Decoding improvements, fast fuzzy seeking (using estimates or the Xing VBR TOC) new commands / API, bugfixes, largefile support via configure... and on and on.
+.</p>
+.<p>
+.Well, it's late... so stop reading and just download it!
+.</p>
+
 :date 2008-10-27
 :by Thomas
 :title New Chapter of the Neverending but Unnerving Tale of 1.6.0
