@@ -31,6 +31,9 @@
 		Have a look into the <a href="download/win32/">download/win32/</a> directory for zip files with mpg123 builds (with libmpg123 DLL or static, different decoder options).
 		I don't promise to update these too often. You can always download the source code and compile it with <a href="http://www.mingw.org/">MinGW32</a> in MSYS.
 	</p>
+	<p>
+		But you Windows folks are lucky since version 1.6.0: Patrick joined the team as a Windows developer and will provide binaries more regulary!
+	</p>
 
 	<h2>Developer Version</h2>
 
