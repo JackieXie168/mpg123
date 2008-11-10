@@ -1,3 +1,11 @@
+:date 2008-11-11
+:by Thomas
+:title Quick! Quick! 1.6.2!
+.<p>
+.As Christian pointed out, the IPv6 autodetection has been broken due to a nice little typo in the configure script.
+.1.6.2 is here to fix that for you.
+.</p>
+
 :date 2008-11-10
 :by Thomas
 :title Little update: 1.6.1
