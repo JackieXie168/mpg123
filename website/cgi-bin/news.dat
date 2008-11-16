@@ -1,3 +1,28 @@
+:date 2008-11-16
+:by Thomas
+:title Large File Fuss
+.<p>
+.I feel the need remind the world about the messy issue of large file support (sometimes called largefile support instead;-).
+.There are certain systems (notably GNU/Linux and Solaris) that have chosen to make that a decision at build time with the type off_t sometimes being 32bit, sometimes 64bit.
+.You can compile apps with or without large file support.
+.</p>
+.<p>
+.That means that you can have libraries for 64bit file offsets on your system and libraries for 32bit offsets.
+.You can have applications (trying to) using libraries with a different file offset setting.
+.That means one thing: Trouble!
+.To prevent weird runtime errors or even crashes, I added some precautions to libmpg123, notably at build time, you could see such a message:
+.</p>
+.<pre>
+./usr/include/mpg123.h:37:2: error: #error "Mismatch in large file setup!
+  Enable/disable large file support appropriately to use libmpg123."
+.</pre>
+.<p>
+.Also, at runtime, a 64bit offset libmpg123 will fail with a program that is not aware of this -- yielding unresolved symbols due to renaming the affected functions with a suffix indicating 64bits.
+.</p>
+.<p>
+.If you encounter this, please read up and think about that problem, and possibly complain to your OS distribution or the software project whose code is failing. Especially GNU/Linux distributions should be interested in making sure that they don't mix largefile builds with non-largefile code.
+.</p>
+
 :date 2008-11-11
 :by Thomas
 :title Quick! Quick! 1.6.2!
