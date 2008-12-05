@@ -5,7 +5,7 @@
 	<!--#include file="linkbar.html" -->
 	<h1>Frequently Asked Questions</h1>
 
-	<h2>I want to use LAME in a non-GPL way and need permission for using the included mpglib</h2>
+	<h2><a name="lame">I want to use LAME in a non-GPL way and need permission for using the included mpglib</a></h2>
 	<p>
 		That request is coming quite often. The issue is that current mpg123 and libmpg123 is LGPL and <em>I</em> as maintainer am fine with usage of code from mpg123 under these terms, while the mpglib in LAME is older and still under GPL.
 		There may be changes to the mpglib made by people who don't want their work used under LGPL instead of GPL.
