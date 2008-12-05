@@ -1,9 +1,9 @@
 RewriteEngine on
 RewriteBase /
-RewriteRule ^current$ http://mpg123.org/download/mpg123-1.4.3.tar.bz2 [R=302,L]
-RewriteRule ^current.sig$ http://mpg123.org/download/mpg123-1.4.3.tar.bz2.sig [R=302,L]
+RewriteRule ^current$ http://mpg123.org/download/mpg123-1.5.0.tar.bz2 [R=302,L]
+RewriteRule ^current.sig$ http://mpg123.org/download/mpg123-1.5.0.tar.bz2.sig [R=302,L]
 RewriteRule ^mpg123-svn-snapshot.tar.bz2$ snapshot
-RewriteRule ^snapshot$ http://mpg123.org/snapshot/mpg123-20080523110859.tar.bz2 [R=302,L]
+RewriteRule ^snapshot$ http://mpg123.org/snapshot/mpg123-20081205000000.tar.bz2 [R=302,L]
 RewriteRule ^bugs$ http://sourceforge.net/tracker/?atid=733194&group_id=135704&func=browse
 RewriteRule ^svn$ cgi-bin/viewvc.cgi
 

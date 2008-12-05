@@ -14,12 +14,32 @@
 	<p>
 		Please read <a href="http://sourceforge.net/mailarchive/forum.php?thread_name=20080724085050.30463yz0cyn01740%40webmail.leidinger.net&forum_name=lame-dev">some mails to the lame-dev list</a> for elaboration.
 	</p>
+
+	<h3>Solution</h3>
 	<p>
 		The solution to the whole mess would be to find a bit of manpower to change LAME to use libmpg123.
 		It should be not that hard, especially since the mpg123 (svn trunk, at least) supports floating point output as runtime option.
 		There may be more requirements by LAME that need some tweaks in libmpg123, but assessing that need is part of the manpower thing.
 		LAME and mpg123 development teams are small and not paid for that work (AFAIK that's the case for both). Your help is appreciated.
 	</p>
+
+	<h2><a name="lfs"></a>Mismatch in large file setup!</h2>
+	<p>You try to compile a program using libmpg123 on GNU/Linux or Solaris and get this:</p>
+	<pre>
+/usr/local/include/mpg123.h:37:2: error: #error &quot;Mismatch in large file setup! 
+               Enable/disable large file support appropriately to use libmpg123.&quot;
+	</pre>
+	<p>
+		This is due to libmpg123 being compile with large file support and your app is trying to compile without... or the other way round.
+		Usually, it is the case that you upgraded to mpg123 1.6, which enabled large file support as default and your app build fails to use the switch for enabling large support.
+	</p>
+	<h3>Solution</h3>
+	<p>The usual case is resolved by this:</p>
+	<ol>
+		<li>Make sure you use off_t properly for all file offsets (mpg123 API, but also other file I/O).</li>
+		<li>Add -D_FILE_OFFSET_BITS=64 to your compiler flags -- for the whole build.</li>
+	</ol>
+	<p>Note that just disabling large file support in libmpg123 may be an option, but not a smart move. Everyone should use large file support nowadays and GNU/Linux distributions use it as default.</p>
 
 	<h2><a name="asterisk">I want my music in asterisk and the mpg123 on my distro is just rubbish!</a></h2>
 	<p>
