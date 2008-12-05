@@ -22,6 +22,7 @@
 .<p>
 .If you encounter this, please read up and think about that problem, and possibly complain to your OS distribution or the software project whose code is failing. Especially GNU/Linux distributions should be interested in making sure that they don't mix largefile builds with non-largefile code.
 .</p>
+.<p><strong>Update:</strong> See the <a href="/faq.shtml#lfs">FAQ</a>.</p>
 
 :date 2008-11-11
 :by Thomas
