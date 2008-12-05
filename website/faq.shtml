@@ -30,7 +30,7 @@
                Enable/disable large file support appropriately to use libmpg123.&quot;
 	</pre>
 	<p>
-		This is due to libmpg123 being compile with large file support and your app is trying to compile without... or the other way round.
+		This is due to libmpg123 being compiled with large file support and your app is trying to compile without... or the other way round.
 		Usually, it is the case that you upgraded to mpg123 1.6, which enabled large file support as default and your app build fails to use the switch for enabling large support.
 	</p>
 	<h3>Solution</h3>
