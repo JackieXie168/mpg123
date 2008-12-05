@@ -5,6 +5,22 @@
 	<!--#include file="linkbar.html" -->
 	<h1>Frequently Asked Questions</h1>
 
+	<h2>I want to use LAME in a non-GPL way and need permission for using the included mpglib</h2>
+	<p>
+		That request is coming quite often. The issue is that current mpg123 and libmpg123 is LGPL and <em>I</em> as maintainer am fine with usage of code from mpg123 under these terms, while the mpglib in LAME is older and still under GPL.
+		There may be changes to the mpglib made by people who don't want their work used under LGPL instead of GPL.
+		I don't know how relevant this issue is, but it is a concern by the LAME developers.
+	</p>
+	<p>
+		Please read <a href="http://sourceforge.net/mailarchive/forum.php?thread_name=20080724085050.30463yz0cyn01740%40webmail.leidinger.net&forum_name=lame-dev">some mails to the lame-dev list</a> for elaboration.
+	</p>
+	<p>
+		The solution to the whole mess would be to find a bit of manpower to change LAME to use libmpg123.
+		It should be not that hard, especially since the mpg123 (svn trunk, at least) supports floating point output as runtime option.
+		There may be more requirements by LAME that need some tweaks in libmpg123, but assessing that need is part of the manpower thing.
+		LAME and mpg123 development teams are small and not paid for that work (AFAIK that's the case for both). Your help is appreciated.
+	</p>
+
 	<h2><a name="asterisk">I want my music in asterisk and the mpg123 on my distro is just rubbish!</a></h2>
 	<p>
 		You are living in the past. See <a href="asterisk.shtml">my message to the asterisk community</a>.
