@@ -1,3 +1,13 @@
+:date 2008-12-20
+:by Thomas
+:title Maintenance release: mpg123-1.6.3
+.<ul>
+.<li>Fix sf.net bug #2413608: Make sure a new format does not slip through after early close.</li>
+.<li>Include equalizer example file and a piece of wrapper code for MSVC++ in the distribution.</li>
+.<li>Do not claim to support unsigned 16 bit encoding (never been the case).</li>
+.<li>Fix default fifo detection, now it actally activates fifo support!</li>
+.</ul>
+
 :date 2008-11-16
 :by Thomas
 :title Large File Fuss
