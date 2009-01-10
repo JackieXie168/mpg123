@@ -3,7 +3,7 @@
 :title Bugfixes for flexible resampling with mpg123-1.6.4
 .<p>
 .This release fixes an issue with flexible resampling and the bad frame fill up introduced in the 1.6 series.
-Also, resampled output should now be consistent across seeks. Get it from the usual places...
+.Also, resampled output should now be consistent across seeks. Get it from the usual places...
 .</p>
 
 :date 2008-12-20
