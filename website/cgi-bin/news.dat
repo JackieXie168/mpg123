@@ -5,6 +5,7 @@
 .This release fixes an issue with flexible resampling and the bad frame fill up introduced in the 1.6 series.
 .Also, resampled output should now be consistent across seeks. Get it from the usual places...
 .</p>
+.<p>Addendum: Since 2009-01-12 there are also fresh Win32 binaries uploaded, by courtesy of fellow P4tr3ck.</p>
 
 :date 2008-12-20
 :by Thomas
