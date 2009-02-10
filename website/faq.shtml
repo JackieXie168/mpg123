@@ -3,7 +3,7 @@
 </head>
 <body>
 	<!--#include file="linkbar.html" -->
-	<h1><a name "alsacpu"></a>Frequently Asked Questions</h1>
+	<h1><a name="alsacpu">Frequently Asked Questions</a></h1>
 
 	<h2>Hey, mpg123 uses way too much CPU time on Linux!</h2>
 	<p>
