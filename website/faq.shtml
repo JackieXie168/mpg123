@@ -3,7 +3,28 @@
 </head>
 <body>
 	<!--#include file="linkbar.html" -->
-	<h1>Frequently Asked Questions</h1>
+	<h1><a name "alsacpu"></a>Frequently Asked Questions</h1>
+
+	<h2>Hey, mpg123 uses way too much CPU time on Linux!</h2>
+	<p>
+		You just installed the fast and lean UNIX command line MPEG audio player and gaze agape at the high CPU load you see while playing a track.
+		You even have a standard GNU/Linux setup with ALSA sound, no fancy audio daemons roaming around... is mpg123 such a CPU hog?
+	</p>
+	<h3>Solution</h3>
+	<p>
+		Check the CPU load of
+	</p>
+<pre>
+mpg123 -a hw:0,0 myfile.mp3
+</pre>
+	<p>
+		That uses the ALSA hardware (sort of) directly without the software layer in between, that can and will do up/downmixing, format conversion and resampling.
+		If that has lower CPU usage, then it may well be that ALSA decided to open your audio hardware at 48kHz and resamples your 44.1kHz file for playback on the fly.
+		The default resampling seems to be of the rather expensive type, easily beating the whole MPEG decoding business.
+		You  can configure the  default audio device to behave differently, choose the sample rate, lower quality resampling, etc.
+		Please refer to ALSA documentation how to do that, or just use the hardware directly as indicated above, if that works for your setup (sharing the device with other apps, etc).
+	</p>
+	<p>It may be an additional bug that on my (Thomas) machine, the CPU load with the ALSA default device increases after some time to a ridiculous number of around 30% (on a Core2Duo, clocked between 800 and 1200MHz).</p>
 
 	<h2><a name="lame">I want to use LAME in a non-GPL way and need permission for using the included mpglib</a></h2>
 	<p>
