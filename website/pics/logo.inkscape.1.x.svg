@@ -2,7 +2,7 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -13,12 +13,19 @@
    height="297mm"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.45.1"
+   inkscape:version="0.46"
    sodipodi:docbase="/data/mpg123/svn/website/pics"
    sodipodi:docname="logo.inkscape.1.x.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective2679" />
     <linearGradient
        inkscape:collect="always"
        id="linearGradient17923">
@@ -596,8 +603,8 @@
      inkscape:guide-bbox="true"
      inkscape:window-width="1024"
      inkscape:window-height="768"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-x="128"
+     inkscape:window-y="5"
      showgrid="false">
     <sodipodi:guide
        orientation="vertical"
@@ -824,7 +831,7 @@
              sodipodi:role="line"
              x="676.26617"
              y="173.77217"
-             id="tspan2279">1.6</tspan></text>
+             id="tspan2279">1.7</tspan></text>
       </g>
     </g>
     <path
