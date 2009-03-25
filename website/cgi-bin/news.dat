@@ -1,3 +1,55 @@
+:date 2009-03-26
+:by Thomas
+:title The mpg123-1.7.0 is out with lots of eclecticity and dynamicalinesshood!
+.<p>This started around christmas... me reworking the decoder core to play more with the dynamic possibilities of juggling with function pointers at runtime. And hardcore templates in C (you know, it's some sort of preprocessing all along...). There's more runtime choice than ever... and also more build-time choice. Plus: --doublespeed works again!</p>
+.<ul>
+.<li>Lots of output format fun!
+.  <ul>
+.  <li>now supporting 8, 16, 32 bit signed/unsigned integers,
+.    32bit float (64bit float can be hacked in quickly)</li>
+.  <li>optimized decoders use fallback routines for non-optimized
+.    formats transparently</li>
+.  <li>flexible resampling is automatically chosen when output does
+.    not support standard rates (like a JACK server)</li>
+.  <li>That meant quite some restructuring in the decoder code...</li>
+.  </ul>
+.</li>
+.<li>Lots of core functionality now optional, enabling small-footprint
+.  builds of libmpg123.
+. <ul>
+. <li>choosing among the MPEG layer codes</li>
+.  <li>NtoM resampling</li>
+.  <li>downsampling</li>
+.  <li>feeder API (mpg123_open_feed())</li>
+.  <li>ID3v2</li>
+.  <li>String API</li>
+.  <li>ICY</li>
+.  <li>output formats</li>
+.  <li>error/warning message printouts</li>
+.  <li>... a layer3-only shared libmpg123 can be just 107K on x86-64
+.    or 94K on x86</li>
+.  </ul>
+.<li>--preload (tune prefill before playback for buffered mode)</li>
+.<li>win64 support (one report at least;-), modules working on Windows</li>
+.<li>Windows/MSVC++: fixed handling of unicode file names,
+.  mpg123_topen() now actually working there<br />
+.  You are obliged to use mpg123_tclose() now!</li>
+.<li>using "plugins" subdir relative to mpg123 binary
+.  (in addition to ../lib/mpg123)</li>
+.<li>switch to libtool 2.2 and automake 1.10 for the build scripts<br />
+.  though no update to new libtool 2 API, yet</li>
+.<li>some portability fixes</li>
+.<li>prevent user from creating non-working I/O setups
+.  (replacing timeout reader, ICY with feeding)</li>
+.<li>JACK output accepts port names for -a, stereo gets mixed down
+.  when only one port is chosen</li>
+.<li>added sndio output, contributed by Christian Weisgerber</li>
+.<li>Make --doublespeed paramter work, porting of which has been
+.  forgotten in the 1.x series!<br />
+.  Along with that, a regression in decoding has been fixed
+.  (concerning skipping of frames in general).</li>
+.</ul>
+
 :date 2009-01-10
 :by Thomas
 :title Bugfixes for flexible resampling with mpg123-1.6.4

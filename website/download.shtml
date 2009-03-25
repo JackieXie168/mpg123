@@ -23,16 +23,17 @@
 	<h3>Local Fallback</h3>
 
 	<div style="text-align:center">
-	    <a href="download/mpg123-1.6.4.tar.bz2">mpg123 1.6.4</a> <a href="download/mpg123-1.6.4.tar.bz2.sig">(signature)</a>
+	    <a href="download/mpg123-1.7.0.tar.bz2">mpg123 1.7.0</a> <a href="download/mpg123-1.7.0.tar.bz2.sig">(signature)</a>
 	</div>
 
-	<h3>Occasional Win32 binaries</h3>
+	<h3>Occasional Win32 and Win64 binaries</h3>
 	<p>
-		Have a look into the <a href="download/win32/">download/win32/</a> directory for zip files with mpg123 builds (with libmpg123 DLL or static, different decoder options).
+		Have a look into the <a href="download/win32/">download/win32/</a> or <a href="download/win64/">download/win64/</a> directory for zip files with mpg123 builds (with libmpg123 DLL or static, different decoder options).
 		I don't promise to update these too often. You can always download the source code and compile it with <a href="http://www.mingw.org/">MinGW32</a> in MSYS.
 	</p>
 	<p>
 		But you Windows folks are lucky since version 1.6.0: Patrick joined the team as a Windows developer and will provide binaries more regulary!
+		Also, JonY chipped in with cross-compiling builds for 64bit Windows.
 	</p>
 
 	<h2>Developer Version</h2>
