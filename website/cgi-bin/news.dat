@@ -1,3 +1,8 @@
+:date 2009-04-03
+:by Thomas
+:title Regression fix: mpg123-1.7.1
+.<p>The interactive adjustment of the RVA setting resulted in utter silence due to a change on mpg123_volume() behaviour. Now, to activate the RVA change, mpg123_volume_change() is used, which works properly.</p>
+
 :date 2009-03-26
 :by Thomas
 :title The mpg123-1.7.0 is out with lots of eclecticity and dynamicalinesshood!
