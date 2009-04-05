@@ -1,3 +1,8 @@
+:date 2009-04-05
+:by Thomas
+:title Security fix: mpg123-1.7.2
+.<p>Even since before the 1.x versions, there has been a vulnerability in the ID3v2 code which at least can cause denial of service (i.e. crashes...). Update to the current release -- there is no excuse!</p>
+
 :date 2009-04-03
 :by Thomas
 :title Regression fix: mpg123-1.7.1
