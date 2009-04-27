@@ -1,3 +1,11 @@
+:date 2009-04-27
+:by Thomas
+:title Regression fix: mpg123-1.7.3
+.<p>While we eagerly anticipate the 1.8.0 release, there arose the need for a quick regression fix for 1.7.x . The re-introduction of workable --doublespeed introduced a fine regression wich basically made seeking unbearable. Why didn't anyone notice? Seems like people using mpg123 want to hear every microsecond of their music and never hit fast-forward...</p>
+.<p>
+.So, head over to the download are to get it... and please someone tell me early when I screw up next time:-(
+.</p>
+
 :date 2009-04-05
 :by Thomas
 :title Security fix: mpg123-1.7.2
