@@ -6,7 +6,7 @@ bins=rmsdouble.bin rms16.bin s16_double.bin f32_double.bin hex24_double.bin
 
 .PHONY: all clean
 
-all: $(bins)
+all: $(bins) compliance/layer3/compl.double
 
 clean:
 	rm -vf $(bins)
