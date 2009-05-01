@@ -20,5 +20,11 @@
 		If you find a player, which claims to be 10 or even more times faster than the
 		current players: just don't believe it. A factor of 2 MAY BE possible.
 	</p>
+	<h1>Some tests results</h1>
+	<p>
+		This is using the benchmark-cpu script in the SVN trunk. The user CPU time of mpg123 decoding the whole album Points of View by Convergence (<a href="http://www.jamendo.com/de/download/album/7328">get it from Jamendo</a>)
+		has been measured.
+		We are working on some nice presentation, for now you can have a look at the text files in the <a href="benchmark/">benchmark directory</a>.
+	</p>
 </body>
 </html>
