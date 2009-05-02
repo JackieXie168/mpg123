@@ -1,0 +1,3 @@
+#mpg123 benchmark (user CPU time in seconds for decoding)
+#decoder        t_s16/s t_f32/s
+generic 44.34   39.41
