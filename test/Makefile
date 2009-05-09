@@ -6,7 +6,7 @@ bins=rmsdouble.bin rms16.bin s16_double.bin f32_double.bin hex24_double.bin
 
 .PHONY: all clean
 
-all: $(bins) compliance/layer3/compl.double
+all: $(bins) compliance/layer1/fl1.bit compliance/layer1/fl1.double compliance/layer2/fl10.bit compliance/layer2/fl10.double compliance/layer3/compl.double
 
 clean:
 	rm -vf $(bins)
@@ -18,7 +18,19 @@ clean:
 .c.bin:
 	$(CC) -O -o $@ $< -lm
 
-%.double: %.hex hex24_double.bin
+compliance/layer1/%.bit: compliance/layer1/%.mpg hex_bitstream.bin
+	./hex_bitstream.bin < $< > $@
+
+compliance/layer1/%.double: compliance/layer1/%.pcm hex24_double.bin
+	./hex24_double.bin < $< > $@
+
+compliance/layer2/%.bit: compliance/layer2/%.mpg hex_bitstream.bin
+	./hex_bitstream.bin < $< > $@
+
+compliance/layer2/%.double: compliance/layer2/%.pcm hex24_double.bin
+	./hex24_double.bin < $< > $@
+
+compliance/layer3/%.double: compliance/layer3/%.hex hex24_double.bin
 	./hex24_double.bin < $< > $@
 
 %.double: %.s16 s16_double.bin
