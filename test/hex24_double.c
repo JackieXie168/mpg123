@@ -6,10 +6,10 @@
 
 int main()
 {
-	union { uint32_t u; int32_t s; } num;
+	union { unsigned int u; int s; } num;
 	while(scanf("%x", &num.u) == 1)
 	{
-		num.u <<=8;
+		num.u <<=(sizeof(int)-3)*8; /* shift the last 3 bytes to the top */
 		double dnum = (double)num.s/((double)2147483647+1);
 		write(STDOUT_FILENO, &dnum, sizeof(double));
 	}
