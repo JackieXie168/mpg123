@@ -6,7 +6,7 @@ bins=rmsdouble.bin rms16.bin s16_double.bin f32_double.bin hex24_double.bin
 
 .PHONY: all clean
 
-all: $(bins) compliance/layer1/fl1.bit compliance/layer1/fl1.double compliance/layer2/fl10.bit compliance/layer2/fl10.double compliance/layer3/compl.double
+all: $(bins) $(shell ls compliance/layer?/fl*.mpg | sed 's:mpg:bit:') $(shell ls compliance/layer?/fl*.pcm | sed 's:pcm:double:') compliance/layer3/compl.double
 
 clean:
 	rm -vf $(bins)

@@ -1,8 +1,6 @@
 #!/bin/bash
 # just picking samples from the host of available bitstreams
-l1="$(dirname $0)/compliance/layer1/fl1"
-l2="$(dirname $0)/compliance/layer2/fl10"
-l3="$(dirname $0)/compliance/layer3/compl"
+files=("$(dirname $0)/compliance/layer1/fl*.mpg" "$(dirname $0)/compliance/layer2/fl*.mpg" "$(dirname $0)/compliance/layer3/compl.bit")
 rms="$(dirname $0)/rmsdouble.bin"
 f32conv="$(dirname $0)/f32_double.bin"
 s16conv="$(dirname $0)/s16_double.bin"
@@ -17,20 +15,38 @@ nogap=
 $@ --longhelp 2>&1 | grep -q no-gapless && nogap=--no-gapless
 
 
-for lay in 1 2 3
+for l in 0 1 2
 do
+  let lay=$l+1
   echo
   echo "==== Layer $lay ===="
-  eval "bit=\$l$lay.bit"
-  eval "double=\$l$lay.double"
-  if [[ -e "$bit" ]] && [[ -e "$double" ]]; then
-    echo "layer $lay 16bit compliance (unlikely...)"
-$@ $nogap -q  -s "$bit" | "$s16conv" | "$rms" "$double" 2>/dev/null
-    if $@ --longhelp 2>&1 | grep -q f32 ; then
-    echo "layer $lay float compliance (hopefully fine)"
-$@ $nogap -q -e f32 -s "$bit" | "$f32conv" | "$rms" "$double" 2>/dev/null
+
+  echo "--> 16 bit signed integer output"
+  for f in ${files[$l]}
+  do
+    bit=${f/mpg/bit}
+    double=${f/mpg/double}
+    double=${double/bit/double}
+    if [[ -e "$bit" ]] && [[ -e "$double" ]]; then
+       echo -n "$(basename $bit):	"
+       $@ $nogap -q  -s "$bit" | "$s16conv" | "$rms" "$double" 2>/dev/null
+    else
+      echo "Layer $lay files are missing... do a make in the test dir!"
     fi
-  else
-    echo "Layer $lay files are missing... do a make in the test dir!"
+  done
+
+  if $@ --longhelp 2>&1 | grep -q f32 ; then
+    echo
+    echo "--> 32 bit floating point output"
+    for f in ${files[$l]}
+    do
+      bit=${f/mpg/bit}
+      double=${f/mpg/double}
+      double=${double/bit/double}
+      if [[ -e "$bit" ]] && [[ -e "$double" ]]; then
+        echo -n "$(basename $bit):	"
+        $@ $nogap -q -e f32 -s "$bit" | "$f32conv" | "$rms" "$double" 2>/dev/null
+      fi
+    done
   fi
 done

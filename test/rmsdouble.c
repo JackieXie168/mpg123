@@ -50,7 +50,7 @@ int main(int argc, char** argv)
 	rms  = sqrt(rms);
 	rms /= 2.; /* full scale... */
 	maxdiff /= 2.; /* full scale again */
-	printf("RMS=%g (%s) maxdiff=%g (%s)\n",
+	printf("RMS=%8.6e (%s) maxdiff=%8.6e (%s)\n",
 		rms, rms<iso_rms_limit ? "PASS" : "FAIL",
 		maxdiff, maxdiff<iso_diff_limit ? "PASS" : "FAIL");
 	return 0;
