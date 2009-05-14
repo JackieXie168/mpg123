@@ -1,3 +1,8 @@
+:date 2009-05-14
+:by Thomas
+:title More goodness for upcoming 1.8.0
+.<p>The release is still delayed, but just because it is becoming a better one, indeed! Apart from fixing regressions that hit layer 1 and layer 2 decoding since the 1.x series, there are improvements underway for 16bit accuracy as well. You may have noticed the MPEG compliance log included on the front page. That one is periodically created from the svn snapshot and for 1.8.0 it will indicate full ISO conformity also for 16bits output, where the mpg123 engine has been lacking in the LSB because of rounding (or lack of) in the generic decoder. Note that the i586 decoder already is correct in the LSB, it uses proper rounding in assembler.</p>
+
 :date 2009-04-27
 :by Thomas
 :title Regression fix: mpg123-1.7.3
