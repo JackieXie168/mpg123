@@ -20,6 +20,33 @@ The call went out and has been answered... you can expect proper decoding speed 
 <h2>Top News</h2>
 <!--#include virtual="cgi-bin/news.cgi?top" -->
 
+<h2><a name="compliance"></a>ISO MPEG compliance</h2>
+<p>This is a rough log of an automated compliance test on the mpg123 webserver (Athlon-XP, GNU/Linux), using each one test bitstream from the ISO MPEG reference set.
+At least the floating point output should really be close enough to the reference.</p>
+<p>
+	Regarding the method: This is comparing mpg123's output (with gapless code deactivated) from reference bitstreams to the reference output.
+	A simple RMS error measure is employed, relative to full scale, just summing over mono or stereo data indiscriminently.
+	This is my interpretation of the rules... maximum allowed RMS=8.80967e-06, maximum signal difference 6.10352e-05.
+</p>
+<pre style="border:solid; background-color:#ffffff; color:#000000; padding:1.5em; margin-left:5%; margin-right:5%; ">
+<!--#include file="compliance.log" -->
+</pre>
+<p>
+	A note on the FAILs for 16bit output: That is to be expected.
+	For the integer output, you have to give +-1 for rounding... that's what I append to any integer number read from a measurement device anyway, by default.
+	That minimum possible deviation already brings the output close (or over) the border of compliance... that really does not mean that the output sounds bad!
+	It shall be noted that a measure to improve subjective quality, namely the dithering before rounding to integers, can also increase the theoretical decoding error.
+	<br>
+	In the end, RMS values in the order of 10 to the power of -5 should sound just fine.
+	Oh, since recently, the generic decoder PASSes the 16bit tests due to proper rounding being used... this is enabled using the --enable-int-quality configure flag.
+	It is not on by default because it needs somewhat more CPU time and the simple truncation is fine for most people...
+</p>
+<p>
+	For comparisong with other decoders (as well as older incarnations of the mpg123 engine), have a read of
+	the <a href="http://www.underbit.com/resources/mpeg/audio/compliance/">Underbit compliance tests</a>.
+	Actually, my testing method follows that example, including their quoting of ISO MPEG rules.
+</p>
+
 <h2>Needed computing power</h2>
 <p>A test (GNU/Linux OS) with 0.60-beta2 showed 3% to 4% CPU usage on decoding high quality VBR MP3 with a pentiumII laptop with 366MHz, while a pentium 100MHz can easily handle two mpg123 instances in realtime (plus the mixing daemon that works on decoded data).
 </p>
