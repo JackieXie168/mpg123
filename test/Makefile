@@ -2,7 +2,7 @@ ifeq ($(CC),)
 CC=gcc
 endif
 
-bins=rmsdouble.bin rms16.bin s16_double.bin f32_double.bin hex24_double.bin
+bins=rmsdouble.bin rms16.bin s16_double.bin f32_double.bin s32_double.bin hex24_double.bin
 
 .PHONY: all clean
 

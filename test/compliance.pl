@@ -17,18 +17,21 @@ my @files=
 
 my $rms="$Bin/rmsdouble.bin";
 my $f32conv="$Bin/f32_double.bin";
+my $s32conv="$Bin/s32_double.bin";
 my $s16conv="$Bin/s16_double.bin";
 
 die "Binaries missing, run make in $Bin\n" unless (-e $rms and -e $f32conv and -e $s16conv);
 
 my $nogap='';
 my $floater=0;
+my $int32er=0;
 {
 	open(DAT, "@ARGV --longhelp 2>&1|");
 	while(<DAT>)
 	{
 		$nogap='--no-gapless' if /no-gapless/;
 		$floater=1 if /f32/;
+		$int32er=1 if /s32/;
 	}
 	close(DAT);
 }
@@ -41,10 +44,17 @@ for(my $lay=1; $lay<=3; ++$lay)
 	print "--> 16 bit signed integer output\n";
 	tester($files[$lay-1], '', $s16conv);
 
-	next unless $floater;
+	if($int32er)
+	{
+		print "--> 32 bit integer output\n";
+		tester($files[$lay-1], '-e s32', $s32conv);
+	}
 
-	print "--> 32 bit floating point output\n";
-	tester($files[$lay-1], '-e f32', $f32conv);
+	if($floater)
+	{
+		print "--> 32 bit floating point output\n";
+		tester($files[$lay-1], '-e f32', $f32conv);
+	}
 }
 
 sub tester
