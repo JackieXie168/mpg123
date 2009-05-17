@@ -11,6 +11,15 @@ all: $(bins) $(shell ls compliance/layer?/fl*.mpg | sed 's:mpg:bit:') $(shell ls
 clean:
 	rm -vf $(bins)
 
+f32_double.bin: to_double.c
+	$(CC) -DF32 -O -o $@ $< -lm
+
+s32_double.bin: to_double.c
+	$(CC) -DS32 -O -o $@ $< -lm
+
+s16_double.bin: to_double.c
+	$(CC) -DS16 -O -o $@ $< -lm
+
 %.bin: %.c
 	$(CC) -O -o $@ $< -lm
 
