@@ -19,12 +19,18 @@
 	    for current and past downloads including release notes etc.
 	    Sourceforge is providing a number of download mirrors to ensure the best availability. Please let&acute;s use this kind service.
 	</p>
-	
+
 	<h3>Local Fallback</h3>
 
 	<div style="text-align:center">
 	    <a href="download/mpg123-1.7.3.tar.bz2">mpg123 1.7.3</a> <a href="download/mpg123-1.7.3.tar.bz2.sig">(signature)</a>
 	</div>
+
+	<h2>Release Canditate for Next Version</h2>
+	<div style="text-align:center">
+	    <a href="download/mpg123-1.8rc2.tar.bz2">mpg123 1.8rc2</a> <a href="download/mpg123-1.8rc2.tar.bz2.sig">(signature)</a>
+	</div>
+
 
 	<h3>Occasional Win32 and Win64 binaries</h3>
 	<p>
