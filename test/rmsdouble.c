@@ -8,7 +8,7 @@
 int main(int argc, char** argv)
 {
 	FILE *fa, *fb;
-	double iso_rms_limit, iso_diff_limit;
+	double iso_rms_limit, iso_diff_limit, iso_limit_limit;
 	double rms, maxdiff;
 	size_t bufs = 1024;
 	size_t got;
@@ -19,7 +19,8 @@ int main(int argc, char** argv)
 	/* Reference values relative to full scale 2 (from -1 to +1). They are _defined_ relative to full scale. */
 	iso_rms_limit  = pow(2.,-15)/sqrt(12.);
 	iso_diff_limit = pow(2.,-14);
-	fprintf(stderr, "ISO limit values: RMS=%g maxdiff=%g\n", iso_rms_limit, iso_diff_limit);
+	iso_limit_limit = pow(2,-11)/sqrt(12.);
+	fprintf(stderr, "ISO limit values: RMS=%g maxdiff=%g; limited accuracy RMS=%g\n", iso_rms_limit, iso_diff_limit, iso_limit_limit);
 
 	rms = 0;
 	maxdiff = 0;
@@ -51,7 +52,7 @@ int main(int argc, char** argv)
 	rms /= 2.; /* full scale... */
 	maxdiff /= 2.; /* full scale again */
 	printf("RMS=%8.6e (%s) maxdiff=%8.6e (%s)\n",
-		rms, rms<iso_rms_limit ? "PASS" : "FAIL",
+		rms, rms<iso_rms_limit ? "PASS" : (rms<iso_limit_limit ? "LIMITED" : "FAIL"),
 		maxdiff, maxdiff<iso_diff_limit ? "PASS" : "FAIL");
 	return 0;
 }
