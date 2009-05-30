@@ -30,10 +30,10 @@ my $int32er=0;
 	while(<DAT>)
 	{
 		$nogap='--no-gapless' if /no-gapless/;
-		$floater=1 if /f32/;
-		$int32er=1 if /s32/;
 	}
 	close(DAT);
+	$int32er = test_encoding('s32');
+	$floater = test_encoding('f32');
 }
 
 for(my $lay=1; $lay<=3; ++$lay)
@@ -73,4 +73,20 @@ sub tester
 		my $commandline = "@ARGV $nogap $enc -q  -s ".quotemeta($bit)." | $conv | $rms ".quotemeta($double)." 2>/dev/null";
 		system($commandline);
 	}
+}
+
+sub test_encoding
+{
+	my $enc = shift;
+	my $supported = 0;
+	my @testfiles = glob($files[2]);
+	my $testfile = $testfiles[0];
+	open(DAT, "@ARGV -q -s -e $enc ".quotemeta($testfile)." 2>/dev/null |");
+	my $tmpbuf;
+	if(read(DAT, $tmpbuf, 1024) == 1024)
+	{
+		$supported = 1;
+	}
+	close(DAT);
+	return $supported;
 }
