@@ -1,3 +1,8 @@
+:date 2009-05-30
+:by Thomas
+:title Test the trunk / 1.8rc3 should come soon.
+.<p>To keep the world updated: We have some fixes in SVN that will make it into the 1.8rc3 test release. If you have an issue with 1.8rc2, please verify if it is still there with the current snapshot.</p>
+
 :date 2009-05-24
 :by Thomas
 :title The second release candidate for 1.8!
