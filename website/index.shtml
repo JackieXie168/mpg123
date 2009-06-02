@@ -32,14 +32,15 @@ At least the floating point output should really be close enough to the referenc
 <!--#include file="compliance.log" -->
 </pre>
 <p>
-	A note on the FAILs for 16bit output: That is to be expected.
-	For the integer output, you have to give +-1 for rounding... that's what I append to any integer number read from a measurement device anyway, by default.
-	That minimum possible deviation already brings the output close (or over) the border of compliance... that really does not mean that the output sounds bad!
+	Depending on what integer quality mode you choose at compile time (and the decoder in use), the 16bit output can vary between PASS and LIMITED for fully or limited accuracy compliance.
+	But keep in mind:
+	For the integer output, you have to give +-1 for rounding... that's what I append to any integer number read from some measurement device anyway, by default.
+	That minimum possible deviation already brings the output close (or over) the border of full compliance... that really does not mean that the output sounds bad!
 	It shall be noted that a measure to improve subjective quality, namely the dithering before rounding to integers, can also increase the theoretical decoding error.
 	<br>
 	In the end, RMS values in the order of 10 to the power of -5 should sound just fine.
-	Oh, since recently, the generic decoder PASSes the 16bit tests due to proper rounding being used... this is enabled using the --enable-int-quality configure flag.
-	It is not on by default because it needs somewhat more CPU time and the simple truncation is fine for most people...
+	To get 16bit output to PASS, you usually need to enable proper rounding using the --enable-int-quality configure flag.
+	It is not on by default because it mostly (yeah, there are odd cases) needs somewhat more CPU time and the simple truncation is fine for most people...
 </p>
 <p>
 	For comparisong with other decoders (as well as older incarnations of the mpg123 engine), have a read of
