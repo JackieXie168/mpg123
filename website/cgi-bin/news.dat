@@ -1,4 +1,4 @@
-:date 2009-05-24
+:date 2009-06-03
 :by Thomas
 :title The third release candidate for 1.8!
 .<p>A handful of issues has been resolved with the rc2, cumulating in the next canditate for public review before full-blown release of 1.8.0 (and the inevitable odd bug creeping up and prompting 1.8.1). We should be quite near a release here, one outstanding issue being workability of the x86-64 code on the MS Windows platform (it's fine on GNU/Linux, though) -- debuggers welcome.</p>
