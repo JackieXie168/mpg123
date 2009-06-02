@@ -1,3 +1,9 @@
+:date 2009-05-24
+:by Thomas
+:title The third release candidate for 1.8!
+.<p>A handful of issues has been resolved with the rc2, cumulating in the next canditate for public review before full-blown release of 1.8.0 (and the inevitable odd bug creeping up and prompting 1.8.1). We should be quite near a release here, one outstanding issue being workability of the x86-64 code on the MS Windows platform (it's fine on GNU/Linux, though) -- debuggers welcome.</p>
+.<p>Well, head over to the download area and check out mpg123-1.8rc3!</p>
+
 :date 2009-05-30
 :by Thomas
 :title Test the trunk / 1.8rc3 should come soon.
