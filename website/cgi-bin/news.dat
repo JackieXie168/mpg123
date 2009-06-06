@@ -1,3 +1,8 @@
+:date 2009-06-06
+:by Thomas
+:title Final release candidate for the win64 fix.
+.<p>1.8rc4 is there, just adding the fix for the x86-64 stereo synth on 64bit MS Windows platforms.</p>
+
 :date 2009-06-03
 :by Thomas
 :title The third release candidate for 1.8!
