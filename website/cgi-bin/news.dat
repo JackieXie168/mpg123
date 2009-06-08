@@ -1,4 +1,4 @@
-:date 2009-06-06
+:date 2009-06-08
 :by Thomas
 :title The second final release candidate for the win64 fix.
 .<p>1.8rc5 is there,  adding a fix for the 32bit-signed-integer x86-64 stereo synth on 64bit MS Windows platforms. Will this be the last fix needed for 1.8.0? Stay tuned for the next episode!</p>
