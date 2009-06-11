@@ -12,9 +12,9 @@ real time MPEG 1.0/2.0/2.5 audio player/decoder for layers 1,2 and 3 (MPEG 1.0 l
 Among others working with Linux, MacOSX, FreeBSD, SunOS4.1.3, Solaris 2.5, HPUX 9.x, SGI Irix and Cygwin or plain MS Windows.<br />
 It is free software licensed under LGPL 2.1 (the officially released sources, some files in subversion repository may differ).
 </p>
-<h2>The mpg123 project got help to port SSE to 64bits!</h2>
+<h2>Upcoming features...</h2>
 <p>
-The call went out and has been answered... you can expect proper decoding speed on x86-64 with the upcoming mpg123-1.8.0!
+	Fixed-point optimizations (including ARM assembler code), unicode filenames on Windows. At least;-)
 </p>
 
 <h2>Top News</h2>
