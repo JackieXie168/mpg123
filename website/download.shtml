@@ -23,16 +23,10 @@
 	<h3>Local Fallback</h3>
 
 	<div style="text-align:center">
-	    <a href="download/mpg123-1.7.3.tar.bz2">mpg123 1.7.3</a> <a href="download/mpg123-1.7.3.tar.bz2.sig">(signature)</a>
+	    <a href="download/mpg123-1.8.0.tar.bz2">mpg123 1.8.0</a> <a href="download/mpg123-1.8.0.tar.bz2.sig">(signature)</a>
 	</div>
 
-	<h2>Release Canditate for Next Version</h2>
-	<div style="text-align:center">
-	    <a href="download/mpg123-1.8rc5.tar.bz2">mpg123 1.8rc5</a> <a href="download/mpg123-1.8rc5.tar.bz2.sig">(signature)</a>
-	</div>
-
-
-	<h3>Occasional Win32 and Win64 binaries</h3>
+	<h3>Win32 and Win64 binaries</h3>
 	<p>
 		You Windows folks are lucky since version 1.6.0: Patrick joined the team as a Windows developer and is providing binaries regulary, see <a href="download/win32/">download/win32/</a>!
 		Also, JonY chipped in with cross-compiling builds for 64bit Windows, to be found in <a href="download/win64/">download/win64/</a>.

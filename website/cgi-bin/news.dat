@@ -1,3 +1,10 @@
+:date 2009-06-11
+:by Thomas
+:title mpg123 1.8.0 -- Yay!
+.<p>This one is massive. We got so many improvements... most important: mpg123 is now more correct than ever and it's faster than ever -- especially on modern x86-64 hardware, where we regain the performance crown from the 64bit SSE code in MPlayer (in the mpg123-derived mp3lib, to be specific;-)!</p> 
+.<p>Well, no need to blabber about it here, just get your 1.8.0 fix from the usual download locations and enjoy! There is massive text in the <a href="http://mpg123.org/cgi-bin/viewvc.cgi/tags/1.8.0/NEWS?view=markup">NEWS</a> file. Have a seat, have a read.<br>
+.Thanks go out to the whole team to make this happen, we got strong new contributions this time! Also, thanks to the Hydrogenaudio community for nit-picking at the leftover SB21 cutoff and those least significant bits -- see the colorful <a href="http://www.hydrogenaudio.org/forums/index.php?showtopic=71797">thread on the Hydrogenaudio forum</a>.</p>
+
 :date 2009-06-08
 :by Thomas
 :title The second final release candidate for the win64 fix.
