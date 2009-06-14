@@ -1,3 +1,8 @@
+:date 2009-06-14
+:by Thomas
+:title No standstill: mpg123 1.8.1
+.<p>The update mainly adds the proper integer / fixed point decoding that accidentally has been promised in the 1.8.0 at places (more still planned for 1.9.0). Minor bug and build system fixes complete the treat, for example updated build files for the Sony PSP.</p>
+
 :date 2009-06-11
 :by Thomas
 :title mpg123 1.8.0 -- Yay!
