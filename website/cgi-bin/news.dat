@@ -1,3 +1,8 @@
+:date 2009-06-29
+:by Thomas
+:title ARM testers?
+.<p>We got fresh ARM assembly code in SVN that wants to get tested before a mpg123 1.9 release. We need someone running it on the real hardware to report about real world performance. Please have a go with the <a href=snapshot>snapshot</a> and speak up (preferred is to the devel mailing list, mail to the maintainer is fine).</p>
+
 :date 2009-06-14
 :by Thomas
 :title No standstill: mpg123 1.8.1
