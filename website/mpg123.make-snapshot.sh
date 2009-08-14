@@ -14,6 +14,7 @@ cd trunk &&
 perl -pi -e 's:(AC_INIT\(\[mpg123\],\s+)\[[^\]]+\]:$1\['$date'\]:' configure.ac &&
 ./autogen.sh &&
 svn2cl &&
+./configure &&
 make distcheck &&
 mv $name.tar.gz .. &&
 ./configure --disable-shared --enable-int-quality && make &&

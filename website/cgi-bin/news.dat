@@ -1,3 +1,10 @@
+:date 2009-08-14
+:by Thomas
+:title mpg123-1.9.0 is ... wait for it ... HERE!
+.<p>Another release broadening mpg123's functionality: Free format support and ARM assembly optimizations!<br /> 
+.Dither noise is now runtime-generated (so less bloated binary with dithered decoders, thus those are included by default now). Several bugs have been fixed, relating to UTF16 in ID3v2 tags and bad frame fillup for 8 bit samples. Generally the ID3v2 parser is more flexible now with encodings, libmpg123 also offering a switch to defer the transcoding to UTF8 (so that a client application can handle strange encodings in disguise).</p>
+.<p>Well, you know where to get it, right? And I know you want it... yeah... give it to yourself...</p>
+
 :date 2009-08-05
 :by Thomas
 :title mpg123 1.9.0 imminent!
