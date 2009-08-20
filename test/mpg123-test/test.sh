@@ -20,6 +20,22 @@
 # V2.1      2009-05-30    Andreas Neustifter
 #                         - reenabled -g tests
 #
+# V2.2      2009-06-12    Andreas Neustifter
+#                         - added -C option to -g for user to be able to skip
+#
+# V2.3      2009-07-29    Andreas Neustifter
+#                         - added showing of differences when not halting on
+#                           error
+#                         - do not remove erronous output
+#                         - filter out filenames in warning messages (this 
+#                           ensures comparability of output)
+#                         - do not output error when --version output changes
+#                         - more flexible version masking
+#
+# V2.4      2009-08-20    Andreas Neustifter
+#                         - added OpenAL output test
+#                         - show at startup which binary is used
+#
 ################################################################################
 
 #### DEFAULT SETTINGS ##########################################################
@@ -65,8 +81,14 @@ checkorcreatereffile() {
         if ! diff --binary -q "$2" "$1" > /dev/null; then
             echo "ERROR: diff \"$2\" \"$1\""
             if [[ $HALTONERROR == true ]]; then exit; fi
+            diff "$2" "$1"
+            echo "ERROR ignored (press key or wait to continue)"
+            if [[ $INTERACTIVE == true ]]; then
+                read -n 1 -t 5 -s
+            fi
+        else
+            rm "$1"
         fi
-        rm "$1"
     # if reference file does not exist, create one
     else
         mv "$1" "$2"
@@ -118,9 +140,15 @@ checkoption() {
 
     # execute test
     if [[ $OUTPUT == wav ]]; then
-        $BINFILE -w "$FILE".wav $* 2>&1 1>"$FILE".out | grep -v '^.*version' > "$FILE".txt
+        $BINFILE -w "$FILE".wav $* 1>1.file 2>2.file
+        cat 1.file | grep -v 'version [0-9.]*;' | sed -e 's/^\[.*:.*\] //' > "$FILE".out
+        cat 2.file | grep -v 'version [0-9.]*;' | sed -e 's/^\[.*:.*\] //' > "$FILE".txt
+        rm 1.file 2.file
     elif [[ $OUTPUT == custom ]]; then
-        $BINFILE $* 2>&1 1>"$FILE".out | grep -v '^.*version' > "$FILE".txt
+        $BINFILE $* 1>1.file 2>2.file
+        mv 1.file "$FILE".out
+        cat 2.file | grep -v 'version [0-9.]*;' | sed -e 's/^\[.*:.*\] //' > "$FILE".txt
+        rm 2.file
     else
         echo "-------- invalid option to \$OUTPUT"
         exit
@@ -148,6 +176,10 @@ removejunk() {
 
 #### START OF SCRIPT ###########################################################
 removejunk
+
+#### PATH message #############################################################
+echo ---- testing $(which mpg123)
+read -n 1 -s -t 5
 
 # check for existence of binary- and test-files, this prevents strange messages
 # in checkoption()
@@ -298,8 +330,8 @@ checkoption -i "$TESTFILE.mp3"
 if [[ $INTERACTIVE == true ]]; then
     HALTONERROR=false
     OUTPUT=custom
-    for i in alsa oss coreaudio sndio sun win32 esd jack portaudio pulse sdl nas arts dummy; do
-        NOTE="testing output $i, errors are to be expected..."
+    for i in alsa oss coreaudio sndio sun win32 esd jack portaudio pulse sdl openal nas arts dummy; do
+        NOTE="testing output $i, errors are to be expected, skip with 'q'"
         checkoption -C -o $i "$TESTFILE.mp3"
     done
     HALTONERROR=true
@@ -392,7 +424,7 @@ else
     echo
 fi
 NOTE="testing output gain, this is done to audio device, skip with 'q'"
-checkoption -g 30 "$TESTFILE.mp3"
+checkoption -C -g 30 "$TESTFILE.mp3"
 OUTPUT=wav
 HALTONERROR=true
 
@@ -642,7 +674,12 @@ checkoption --longhelp
 
 #       --version
 #              Print the version string.
+HALTONERROR=false
 checkoption --version
+HALTONERROR=true
+
+#### COMPARE MAN OUTPUT ########################################################
+# TODO
 
 #### START OF INTERACTIVE TESTS ################################################
 if [[ $INTERACTIVE == true ]]; then
