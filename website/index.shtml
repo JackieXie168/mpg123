@@ -14,7 +14,7 @@ It is free software licensed under LGPL 2.1 (the officially released sources, so
 </p>
 <h2>Upcoming features...</h2>
 <p>
-	Fixed-point optimizations (including ARM assembler code), unicode filenames on Windows. At least;-)
+	Unicode filenames on Windows (merged into trunk), lower levels of API... simple audio output library using mpg123's output plugins.
 </p>
 
 <h2>Top News</h2>
