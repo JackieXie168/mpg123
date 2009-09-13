@@ -4,6 +4,7 @@
 <body>
 	<!--#include file="linkbar.html" -->
 	<h1>Testing</h1>
+	<p><strong>Warning: That page is outdated.</strong></p>
 	<p>
 	We changed code all over the place for 1.x series, most impact on portability lying in the reworked output code.
 	Now, mpg123 runs on a large number of platforms and supports a wide 
