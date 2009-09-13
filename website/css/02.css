@@ -55,4 +55,4 @@ hr { width:80%; }
 .newstitle { color: #ffffff; }
 .newsby { color: #bbbbbb; }
 
-.code { font-family: fixed; }
+.code { font-family: monospace; }
