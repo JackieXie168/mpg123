@@ -134,7 +134,7 @@ int main(int argc, char* argv[])
 	long rate;
 	int channels, enc;
 
-	in = fopen("id3 tag not skipped when NO_ID3V2 is defined.mp3", "rb");
+	in = fopen("2859531_id3_tag_not_skipped_when_NO_ID3V2_is_defined.mp3", "rb");
 	if(in == NULL)
 	{
 		fprintf(stderr,"Unable to open input file %s\n", argv[1]);
