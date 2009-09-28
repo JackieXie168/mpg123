@@ -67,7 +67,9 @@ This is the case when this program is linked to a libmpg123 where the NO_ID3V2 d
 */
 
 #include <stdio.h>
-#include <io.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include "mpg123.h"
 
 #define INBUFF  16384 * 2 * 2
@@ -82,9 +84,9 @@ int init_handle(mpg123_handle **mh, int channels, int encodings)
 	if(*mh == NULL)
 		goto initerror;
 
-	ret = mpg123_param(*mh, MPG123_VERBOSE, 4, 0);
+	/* ret = mpg123_param(*mh, MPG123_VERBOSE, 4, 0);
 	if(ret != MPG123_OK)
-		goto initerror;
+		goto initerror; */
 
 	ret = mpg123_param(*mh, MPG123_FLAGS, MPG123_FUZZY | MPG123_SEEKBUFFER | MPG123_GAPLESS, 0);
 	if(ret != MPG123_OK)
@@ -128,11 +130,12 @@ int main(int argc, char* argv[])
 	unsigned char *audio;
 	FILE *in;
 	mpg123_handle *m;
-	int ret;
+	int ret = 0;
 	off_t len, num;
 	size_t bytes;
 	long rate;
 	int channels, enc;
+	off_t total = 0;
 
 	in = fopen("2859531_id3_tag_not_skipped_when_NO_ID3V2_is_defined.mp3", "rb");
 	if(in == NULL)
@@ -155,16 +158,17 @@ int main(int argc, char* argv[])
 	while(1)
 	{
 		len = fread(buf, sizeof(unsigned char), INBUFF, in);
-		printf("read %d bytes\n", len);
+		/* printf("read %d bytes\n", len); */
 		if(len <= 0)
 			break;
 		ret = mpg123_feed(m, buf, len);
-		printf("mpg123_feed %d\n", ret);
+		/* printf("mpg123_feed %d\n", ret); */
 
 		while(ret != MPG123_ERR && ret != MPG123_DONE && ret != MPG123_NEED_MORE)
 		{
 			ret = mpg123_decode_frame(m, &num, &audio, &bytes);
-			printf("mpg123_decode_frame %d\n", ret);
+			total += bytes;
+			/* printf("mpg123_decode_frame %d\n", ret); */
 			if(ret == MPG123_NEW_FORMAT)
 				mpg123_getformat(m, &rate, &channels, &enc);
 		}
@@ -180,5 +184,15 @@ int main(int argc, char* argv[])
 	mpg123_delete(m);
 	mpg123_exit();
 
-	return 0;
+	fprintf(stderr, "total %li\n:", total);
+	if(total != 4926328)
+	{
+		fprintf(stderr, "Total byte count wrong, skipping of ID3v2 tag did not work out?\n");
+		ret = -1;
+	}
+	else ret = 0;
+
+	printf("%s\n", ret == 0 ? "PASS" : "FAIL");
+
+	return ret;
 }
