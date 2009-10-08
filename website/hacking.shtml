@@ -108,6 +108,13 @@ void fi_add(struct frame_index *fi, off_t pos)
 		On long broken lines: Yes, that looks ugly when your display program does soft-wrapping without indenting to the level of the beginning of the broken line. But then, if that bothers you, you should use a better tool to work with the code instead of restricting yourself to the archaic specifications of teletypes (or punch cards, even).
 	</p>
 
+	<h3>Preprocessing</h3>
+	<p>
+		Well, we have C code, so we do use the C preprocessor. Although one should expect from C89-compliant preprocessors that they can take whitespace before the # introducing some preprocessor directive, it is preferred in mpg123 to put the # really right at the beginning of the line.
+		If indendation of preprocessing directives is necessary (nested #if), then that indent shall be applied directly after the #.
+		This is not (yet) consistent accross mpg123... Oh, and we probably should use tabs in preprocessor indendation just like in code indendation, unless someone gives me a pointer about preprocessors that choke on tabs there.
+	</p>
+
 	<h2>Documentation</h2>
 
 	<p>The API online documentation is generated mainly from mpg123.h (which is generated from mpg123.h.in) using <a href="http://www.doxygen.org">Doxygen</a>. So, any addition to the official API needs to get some properly formatted comment in that header. We do not use Doxygen for the rest of the code, so it is not mandatory to document internal functions that way, though it is also not a bad idea to do so in case doxygen usage is extended.</p>
