@@ -1,0 +1,115 @@
+<!--#include file="header.html" -->
+	<title>mpg123: testing</title>
+</head>
+<body>
+	<!--#include file="linkbar.html" -->
+	<h1>Hacking mpg123</h1>
+
+	<p>
+		Here are some minimal guidelines for hacking the mpg123 code, meaning: A description of the coding standards the mpg123 sources follow and that patches to mpg123 should adhere to, to ease integration.
+		Generally, try to get into discussion with the mpg123 team about your patches and ideas on the <a href="https://lists.sourceforge.net/lists/listinfo/mpg123-devel">mpg123-devel</a> mailing list.
+	</p>
+
+	<h2>It is C89. Period.</h2>
+	<p>
+		The mpg123 project wants to stay true to its legacy of being the portable MPEG engine UNIX (and Windows, OS/2, ...) folks grew up to love during the end of the last millenium (or the past and current decades, if you prefer;-).
+		One simple rule for that is: All mpg123 source is written in the C language as specified in the ANSI C89 / ISO C90 standard.
+	</p>
+	<ol>
+		<li>
+			Extensions to that standard need to be included in a backwards-compatible way. <br />
+			One example is our usage of types like <span class="code">off_t</span> only after testing for availabilty (in an autoconf macro) and defining it to a substitute type if necessary. 
+		</li>
+		<li>
+			Common system workarounds and inclusion of system-specific headers are collected in the compat.h / compat.c files (that code is directly used by the mpg123 lib and the app). A look into that code might give a hint about what kind of stuff is not to be taken for granted on every system mpg123 is built on.
+		</li>
+		<li>
+			Local variables need to be declared before any other code in a block.
+			That rule might surprise folks, but it really is one when staying true to C89. Note that it only requires you to declare all variables in each block before the code in that block. One function can contain several blocks (if / else, loops, etc.).
+		</li>
+		<li>C++ / C99 - style comments are not allowed. The only comment marker is <span class="code">/* Comment. */</span>, with variations of multi-linedness and doxygen fun.</li>
+	</ol>
+
+	<p>A good test for conformity is building the code with a recent <a href="http://gcc.gnu.org">gcc</a> and the options -std=c89 -pedantic. There is the configure option --enable-nagging to enable such a build.</p>
+
+	<h2>Style</h2>
+	<p>
+		I won't discuss the reasoning behind coding style here... as it is nonsensical to argue. I will just state it as it is and ask folks to stick to it.
+	</p>
+	<ol>
+		<li>
+			Indentation with literal tab characters, one tab is one level of indent. If you want to do alignment of stuff, use spaces for that, in addition to the indent (with the assumption of a fixed-width font).
+			Btw., I am wondering if one could make funky use of <a href="http://nickgravgaard.com/elastictabstops/">elastic tab stops</a> in future, then one could use tabs for alignment and indent, in a way that makes it just look right and that would prevent silly diffs with additional whitespace in surrounding lines for alignment.
+		</li>
+		<li>No strict line length limit. Hard breaking of lines and alignment of code pieces is done per case following personal judgement on readability. Generally I assume people can use editors that support soft wrapping.</li>
+		<li>Opening braces start a new line, so that they line up with the closing brace. If the enclosed block is small enough to stay on one line, opening/closing braces can stay on that line as well.</li>
+		<li>Generally, the code tends to be a bit flexible with line breaking and spacing. When an <span class="code">if</span> has only a short piece of code with it, then it can be all on one line, one statement not needing the braces around it. One statement is allowed to simply follow the <span class="code">if</span> on the next line, without additional indent. But when a block is missing the prominent braces on lines of their own, it needs to be separaed by a blank line from following code.</li>
+		<li>No space between keyword/function and opening parenthesis.</li>
+		<li>Flexible handling of line breaking and alignment of long condition chains and function argument lists. Here, lonely parentheses with a block of lines between them are more of an exception for extreme cases. For function calls it is the rule not to break them into multiple lines unless it really is getting unreadable.</li>
+	</ol>
+	<p>Well, here is an actual example of mpg123 code... it's taken as is, possibly not being a perfect example, but showing the main points. What is also shows that we don't have overly many comment lines. That could be improved, but also I think that code can often be written clearly enough not to require additional explanation for each step.</p>
+<div align="center">
+<textarea readonly="readonly" class="code" cols="90" rows="60">
+int fi_resize(struct frame_index *fi, size_t newsize)
+{
+	off_t *newdata = NULL;
+	if(newsize == fi-&gt;size) return 0;
+
+	if(newsize &gt; 0 &amp;&amp; newsize &lt; fi-&gt;size)
+	{ /* When we reduce buffer size a bit, shrink stuff. */
+		while(fi-&gt;fill &gt; newsize){ fi_shrink(fi); }
+	}
+
+	newdata = safe_realloc(fi-&gt;data, newsize*sizeof(off_t));
+	if(newsize == 0 || newdata != NULL)
+	{
+		fi-&gt;data = newdata;
+		fi-&gt;size = newsize;
+		if(fi-&gt;fill &gt; fi-&gt;size) fi-&gt;fill = fi-&gt;size;
+
+		fi-&gt;next = fi_next(fi);
+		debug2("new index of size %lu at %p", (unsigned long)fi-&gt;size, (void*)fi-&gt;data);
+		return 0;
+	}
+	else
+	{
+		error("failed to resize index!");
+		return -1;
+	}
+}
+
+void fi_add(struct frame_index *fi, off_t pos)
+{
+	debug3("wanting to add to fill %lu, step %lu, size %lu", (unsigned long)fi-&gt;fill, (unsigned long)fi-&gt;step, (unsigned long)fi-&gt;size);
+	if(fi-&gt;fill == fi-&gt;size)
+	{ /* Index is full, we need to shrink... or grow. */
+		/* Store the current frame number to check later if we still want it. */
+		off_t framenum = fi-&gt;fill*fi-&gt;step;
+		/* If we want not / cannot grow, we shrink. */	
+		if( !(fi-&gt;grow_size &amp;&amp; fi_resize(fi, fi-&gt;size+fi-&gt;grow_size)==0) )
+		fi_shrink(fi);
+
+		/* Now check if we still want to add this frame (could be that not, because of changed step). */
+		if(fi-&gt;next != framenum) return;
+	}
+	/* When we are here, we want that frame. */
+	if(fi-&gt;fill &lt; fi-&gt;size) /* safeguard for size=1, or just generally */
+	{
+		debug1("adding to index at %p", (void*)(fi-&gt;data+fi-&gt;fill));
+		fi-&gt;data[fi-&gt;fill] = pos;
+		++fi-&gt;fill;
+		fi-&gt;next = fi_next(fi);
+		debug3("added pos %li to index with fill %lu and step %lu", (long) pos, (unsigned long)fi-&gt;fill, (unsigned long)fi-&gt;step);
+	}
+}
+</textarea>
+</div>
+	<p>
+		On long broken lines: Yes, that looks ugly when your display program does soft-wrapping without indenting to the level of the beginning of the broken line. But then, if that bothers you, you should use a better tool to work with the code instead of restricting yourself to the archaic specifications of teletypes (or punch cards, even).
+	</p>
+
+	<h2>Documentation</h2>
+
+	<p>The API online documentation is generated mainly from mpg123.h (which is generated from mpg123.h.in) using <a href="http://www.doxygen.org">Doxygen</a>. So, any addition to the official API needs to get some properly formatted comment in that header. We do not use Doxygen for the rest of the code, so it is not mandatory to document internal functions that way, though it is also not a bad idea to do so in case doxygen usage is extended.</p>
+</body>
+</html>
