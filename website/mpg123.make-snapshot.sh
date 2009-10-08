@@ -12,7 +12,7 @@ cd $work &&
 svn co svn://localhost/mpg123/trunk &&
 cd trunk &&
 perl -pi -e 's:(AC_INIT\(\[mpg123\],\s+)\[[^\]]+\]:$1\['$date'\]:' configure.ac &&
-./autogen.sh &&
+autoreconf -iv &&
 svn2cl &&
 ./configure &&
 make distcheck &&
