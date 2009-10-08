@@ -1,3 +1,18 @@
+:date 2009-10-09
+:by Thomas
+:title A basket of bugfixes in 1.9.1 .
+.<p>Some bugs and regression fixes accumulated quickly in the lively mpg123 svn repository... so here is the mandatory update for 1.9.0:</p>
+.<ul>
+.<li>Fix OpenAL output issue (bug 2840085)</li>
+.<li>Fix theoretically possible discarding of some audio samples when getting a new format.</li>
+.<li>Fix unwanted verboseness (some error messages from library even when MPG123_QUIET was specified).</li>
+.<li>Fix back-to-beginning for feed_skip (fixes bug 2859531).</li>
+.<li>Fix the CPU creep bug with NtoM decoding.<br /<
+.That one has been nasty on you with large files since bad frame fillup has been introduced.</li>
+.<li>Fix regression (since 1.9.0) in ID3 parsing: Now Foobar2000 RVA fields are interpreted again (among others).</li>
+.<li>Fix some compiler warnings, minor cleanup.</li>
+.</ul>
+
 :date 2009-09-13
 :by Thomas
 :title Added hacking guidelines to the website.
