@@ -21,7 +21,7 @@
 	<tr><td>macosx</td><td>coreaudio</td><td>Nicholas J Humfrey</td><td>Works by user report, buffer is also OK when using output module. But native output shares an issue with win32 output: Last bits swallowed.</td></tr>
 	<tr><td>freebsd</td><td>oss</td><td>Martin Schütte</td><td>Should work now out of the box. And yes, Martin tested it.</td></tr>
 	<tr><td>netbsd</td><td>sun/oss</td><td></td><td></td></tr>
-	<tr><td>solaris / sunos / opensolaris</td><td>sun</td><td>Yeah, works for Thomas on the Sun Ray (Solaris 10 x86-64, SPARC), also reported by Apostolos to work fine on OpenSolaris x86-64.</td></tr>
+	<tr><td>solaris / sunos / opensolaris</td><td>sun</td><td>various</td><td>Yeah, works for Thomas on the Sun Ray (Solaris 10 x86-64, SPARC), also reported by Apostolos to work fine on OpenSolaris x86-64.</td></tr>
 	<tr><td>hpux</td><td>hp</td><td></td><td></td></tr>
 	<tr><td>hpux/alib</td><td>alib</td><td></td><td></td></tr>
 	<tr><td>sgi</td><td>sgi</td><td></td><td></td></tr>
