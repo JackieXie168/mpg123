@@ -4,7 +4,7 @@
 <body>
 	<!--#include file="linkbar.html" -->
 	<h1>Testing</h1>
-	<p><strong>Warning: That page is outdated.</strong></p>
+	<p><strong>That page is a bit outdated, well, or better, incomplete. You don't get complaints when somthing works, so you can basically assume that your platform works nowadays, if it should theoretically do so. If not: Bug us;-)</strong></p>
 	<p>
 	We changed code all over the place for 1.x series, most impact on portability lying in the reworked output code.
 	Now, mpg123 runs on a large number of platforms and supports a wide 
