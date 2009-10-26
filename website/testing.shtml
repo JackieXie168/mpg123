@@ -18,19 +18,19 @@
 	<tr><td>linux</td><td>alsa/esd/...</td><td>Thomas Orgis</td><td>Works: alsa, oss, jack, sdl, portaudio (v18 or 19), arts... </td></tr>
 	<tr><td>linux-alpha</td><td>alsa</td><td>Thomas Orgis</td><td>Build is no prob. Sound check is difficult atm, but no surprise in sight there when it compiles (OSS, etc., like on other Linux systems)</td></tr>
 	<tr><td>linux-ppc</td><td>alsa</td><td>Nicholas J Humfrey</td><td></td></tr>
-	<tr><td>macosx</td><td>coreaudio</td><td>Nicholas J Humfrey</td><td>Works by user report, buffer is also OK when using output module.</td></tr>
+	<tr><td>macosx</td><td>coreaudio</td><td>Nicholas J Humfrey</td><td>Works by user report, buffer is also OK when using output module. But native output shares an issue with win32 output: Last bits swallowed.</td></tr>
 	<tr><td>freebsd</td><td>oss</td><td>Martin Schütte</td><td>Should work now out of the box. And yes, Martin tested it.</td></tr>
 	<tr><td>netbsd</td><td>sun/oss</td><td></td><td></td></tr>
-	<tr><td>solaris/sunos</td><td>sun</td><td>Thomas Orgis</td><td>Works with legacy and autotool on Solaris 9 SunRay terminal with native compiler, also modules; u8 (eh... shouldn't LINEAR8 be signed, perhaps? test.) format is accepted by device but does not work (bad sound) - omitted from possible formats list (being now: s16, ulaw, alaw).</td></tr>
+	<tr><td>solaris / sunos / opensolaris</td><td>sun</td><td>Yeah, works for Thomas on the Sun Ray (Solaris 10 x86-64, SPARC), also reported by Apostolos to work fine on OpenSolaris x86-64.</td></tr>
 	<tr><td>hpux</td><td>hp</td><td></td><td></td></tr>
 	<tr><td>hpux/alib</td><td>alib</td><td></td><td></td></tr>
 	<tr><td>sgi</td><td>sgi</td><td></td><td></td></tr>
 	<tr><td>dec</td><td>oss?</td><td>Thomas Orgis</td><td>May test that once I got a Tru64 install again.</td></tr>
 	<tr><td>aix</td><td>aix</td><td></td><td></td></tr>
-	<tr><td>os2</td><td>os2</td><td>Thomas Orgis</td><td>Need a system to test... OS/2 doesn't like qemu that much.</td></tr>
+	<tr><td>os2</td><td>os2</td><td>Thomas Orgis</td><td>Tellie seems to be happy on OS/2...</td></tr>
 	<tr><td>bsdos</td><td>?</td><td></td><td></td></tr>
 	<tr><td>mint</td><td>mint</td><td></td><td></td></tr>
-	<tr><td>win32</td><td>win32</td><td>Thomas Orgis</td><td>Works with native win32 output or portaudio (et al), but no dynamic modules (for the MinGW32 build at least).</td></tr>
+	<tr><td>win32</td><td>win32</td><td>Thomas Orgis</td><td>Works, we even provide binaries for x86 and x86-64. MinGW builds and also project files for MSVC++.</td></tr>
 	</table>
 
 	<p></p>
