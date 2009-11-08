@@ -48,13 +48,13 @@ int main(int argc, char **argv)
 {
 	mpg123_handle *mh;
 	int i;
+	int ret = -1;
 	off_t counts[2];
 	char buf[16384];
 	mpg123_init();
 	mh = mpg123_new(NULL, NULL);
-	int ret = -1;
-printf("open nothing: %i\n",mpg123_open(mh, NULL));
 
+	mpg123_param(mh, MPG123_ADD_FLAGS, MPG123_FORCE_8BIT|MPG123_FORCE_MONO, 0.);
 	if(argc < 2 || mpg123_open(mh, argv[1]) != MPG123_OK)
 	{
 		fprintf(stderr, "Hey, give me a (valid) mpeg file to work on!\n");
