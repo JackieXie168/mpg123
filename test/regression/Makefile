@@ -12,6 +12,12 @@ ifeq ($(CC),)
   CC=cc
 endif
 
+# If there's a prefix set, make sure we use the libmpg123 from there.
+ifneq ($(MPG123_PREFIX),)
+  CPPFLAGS := $(CPPFLAGS) -I$(MPG123_PREFIX)/include
+  LDFLAGS  := $(LDFLAGS) -L$(MPG123_PREFIX)/lib -Wl,-rpath $(MPG123_PREFIX)/lib
+endif
+
 ifeq ($(TESTFILE),)
   $(error I need some TESTFILE with MPEG audio to work on.)
 endif
@@ -20,6 +26,9 @@ endif
 
 test: $(addprefix test-, $(tests))
 	@echo "All tests apparently successful."
+
+clean:
+	rm -vf $(addsuffix .bin, $(tests))
 
 # Run specific tests.
 
@@ -38,4 +47,4 @@ test-%: %.bin
 # Build a test binary.
 
 %.bin: %.c
-	$(CC) $(CFLCAGS) -o $@ $< -lmpg123
+	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) -lmpg123

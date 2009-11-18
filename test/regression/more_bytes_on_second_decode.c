@@ -43,6 +43,8 @@ So, what is wrong here?
 #include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
 int main(int argc, char **argv)
 {
@@ -52,6 +54,10 @@ int main(int argc, char **argv)
 	off_t counts[2];
 	char buf[16384];
 	mpg123_init();
+
+int fd[2];
+fd[0] = open("1.raw", O_CREAT|O_TRUNC|O_RDWR, S_IRUSR|S_IWUSR);
+fd[1] = open("2.raw", O_CREAT|O_TRUNC|O_RDWR, S_IRUSR|S_IWUSR);
 	mh = mpg123_new(NULL, NULL);
 
 	mpg123_param(mh, MPG123_ADD_FLAGS, MPG123_FORCE_8BIT|MPG123_FORCE_MONO, 0.);
@@ -70,6 +76,7 @@ int main(int argc, char **argv)
 			size_t written;
 			mpg123_err = mpg123_read(mh, buf, sizeof buf, &written);
 			counts[i] += written;
+			if(write(fd[i], buf, written) < 0){ perror("cannot write"); exit(1); };
 			if(mpg123_err == MPG123_ERR)
 			{
 				fprintf(stderr, "Read error!\n");
@@ -84,6 +91,9 @@ int main(int argc, char **argv)
 	if(counts[0] == counts[1]) ret = 0;
 
 end:
+	close(fd[0]);
+	close(fd[1]);
+
 	mpg123_delete(mh);
 	mpg123_exit();
 	printf("%s\n", ret == 0 ? "PASS" : "FAIL");
