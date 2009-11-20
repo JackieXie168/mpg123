@@ -1,3 +1,15 @@
+:date 2009-11-20
+:by Thomas
+:title Another bugfix release. We care about bugs. We wanna squash them!
+.<p>The simple facts:</p>
+.<ul>
+.<li>Fix logic failure in gapless code: The trailing silence was only cut on the first decode. So, seek-back and decode again never was gapless:-(</li>
+.<li>Fix linker flags on MacOS 10.6 .</li>
+.<li>Improve portability (mainly for Solaris/x86, possibly others).</li>
+.<li>Fix reading from standard input in Windows (use binary mode).</li>
+.</ul>
+.<p>So just <a href="download.shtml">download mpg123 1.9.2</a>!</p>
+
 :date 2009-10-09
 :by Thomas
 :title A basket of bugfixes in 1.9.1 .
