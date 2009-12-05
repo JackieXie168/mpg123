@@ -1,3 +1,24 @@
+:date 2009-12-05
+:by Thomas
+:title The mpg123 version 1.10.0 is there!
+.<p>Here's a list of the features and fixes in this release:</p>
+.<ul>
+.<li>Confirmed/fixed on OS/2 platform.
+.  At least a static build works with native audio output and generic decoder.</li>
+.<li>Make modules work with libtool-2.2.6b .</li>
+.<li>Added pitch command to control interface.</li>
+.<li>HTTP header field and MIME type parsing now case-insensitive (fixes bug 2904736).
+.  Also, the MIME-parsing for non-playlist URLs is done the same way as from playlists now.
+.  And, we interpret MIME types only to before a ";" (see bug 2836904).</li>
+.<li>There is a build-time option to enable unicode file names on windows now. UNIX (Linux) does not need that, UTF-8 works natively.
+.  An unicode-enabled build of libmpg123 expects file names as UTF-8 strings, opening of non-utf8 strings (by old applications) still works via fallback when the conversion of the string or opening of the file failed.</li>
+.<li>Also, on Windows, --realtime now works, along with added granularity of the new --priority parameter. Note that you get the latter functionality through nice/renice on UNIX, no need to add that to mpg123.</li>
+.<li>Added experimental framebyframe API.</li>
+.<li>Added a new Microsoft common language runtime wrapper (aka .NET wrapper) written by Malcolm Boczek. See ports\MSVC++\2008clr\mpg123clr\ReadMe.txt for further information</li>
+.<li>Added Visual Studio 2010 Beta 2 project files for libmpg123</li>
+.<li>Updated autotools machinery, autogen.sh is gone, use `autoreconf -iv`.</li>
+.</ul>
+
 :date 2009-11-20
 :by Thomas
 :title Another bugfix release. We care about bugs. We wanna squash them!

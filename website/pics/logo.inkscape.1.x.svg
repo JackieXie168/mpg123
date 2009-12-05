@@ -603,8 +603,8 @@
      inkscape:guide-bbox="true"
      inkscape:window-width="1024"
      inkscape:window-height="768"
-     inkscape:window-x="129"
-     inkscape:window-y="6"
+     inkscape:window-x="130"
+     inkscape:window-y="7"
      showgrid="false">
     <sodipodi:guide
        orientation="vertical"
@@ -823,8 +823,8 @@
            inkscape:export-xdpi="56.084557"
            inkscape:export-ydpi="56.084557" />
         <path
-           transform="matrix(3.443866,-0.660171,0.660171,3.443866,-124.6734,201.8766)"
-           d="M 238.46547,41.278884 L 233.33231,40.931441 L 231.74412,45.82508 L 227.47239,42.957606 L 223.65016,46.401528 L 221.38448,41.782359 L 216.35236,42.853767 L 216.69981,37.720606 L 211.80617,36.132417 L 214.67364,31.860691 L 211.22972,28.03846 L 215.84889,25.772774 L 214.77748,20.740663 L 219.91064,21.088106 L 221.49883,16.194466 L 225.77056,19.061941 L 229.59279,15.618019 L 231.85847,20.237188 L 236.89059,19.16578 L 236.54314,24.29894 L 241.43678,25.887129 L 238.56931,30.158855 L 242.01323,33.981087 L 237.39406,36.246773 L 238.46547,41.278884 z "
+           transform="matrix(3.9417601,-0.7556147,0.7556147,3.9417601,-244.14802,204.38517)"
+           d="M 238.46547,41.278884 L 233.33231,40.931441 L 231.74412,45.82508 L 227.47239,42.957606 L 223.65016,46.401528 L 221.38448,41.782359 L 216.35236,42.853767 L 216.69981,37.720606 L 211.80617,36.132417 L 214.67364,31.860691 L 211.22972,28.03846 L 215.84889,25.772774 L 214.77748,20.740663 L 219.91064,21.088106 L 221.49883,16.194466 L 225.77056,19.061941 L 229.59279,15.618019 L 231.85847,20.237188 L 236.89059,19.16578 L 236.54314,24.29894 L 241.43678,25.887129 L 238.56931,30.158855 L 242.01323,33.981087 L 237.39406,36.246773 L 238.46547,41.278884 z"
            inkscape:randomized="0"
            inkscape:rounded="0"
            inkscape:flatsided="false"
@@ -836,7 +836,7 @@
            sodipodi:cx="226.62148"
            sodipodi:sides="12"
            id="path6641"
-           style="color:black;fill:url(#linearGradient17961);fill-opacity:1;fill-rule:nonzero;stroke:white;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
+           style="fill:url(#linearGradient17961);fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
            sodipodi:type="star"
            inkscape:export-filename="/data/projekte/mpg123/svn/website/pics/logo-1.9.png"
            inkscape:export-xdpi="56.084557"
@@ -844,8 +844,8 @@
         <text
            xml:space="preserve"
            style="font-size:28.277174px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#204a87;fill-opacity:1;stroke:none;stroke-width:1.08492506;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:DejaVu Sans Condensed"
-           x="676.26617"
-           y="173.77217"
+           x="671.84845"
+           y="170.82703"
            id="text8415"
            sodipodi:linespacing="125%"
            inkscape:export-filename="/data/projekte/mpg123/svn/website/pics/logo-1.9.png"
@@ -853,9 +853,9 @@
            inkscape:export-ydpi="56.084557"><tspan
              style="font-size:40px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#204a87;stroke:none;stroke-width:1.08492506;font-family:DejaVu Sans Condensed"
              sodipodi:role="line"
-             x="676.26617"
-             y="173.77217"
-             id="tspan2501">1.9</tspan></text>
+             x="671.84845"
+             y="170.82703"
+             id="tspan2501">1.10</tspan></text>
       </g>
     </g>
     <path
