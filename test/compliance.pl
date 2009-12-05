@@ -15,10 +15,15 @@ my @files=
 	,"$Bin/compliance/layer3/compl.bit"
 );
 
-my $rms="$Bin/rmsdouble.bin";
-my $f32conv="$Bin/f32_double.bin";
-my $s32conv="$Bin/s32_double.bin";
-my $s16conv="$Bin/s16_double.bin";
+open(SUFDAT, "$Bin/binsuffix") or die "Hm, binsuffix file does not exist, did you run make in $Bin?";
+my $bsuf = <SUFDAT>;
+chomp($bsuf);
+close(SUFDAT);
+
+my $rms="$Bin/rmsdouble.$bsuf";
+my $f32conv="$Bin/f32_double.$bsuf";
+my $s32conv="$Bin/s32_double.$bsuf";
+my $s16conv="$Bin/s16_double.$bsuf";
 
 die "Binaries missing, run make in $Bin\n" unless (-e $rms and -e $f32conv and -e $s16conv);
 

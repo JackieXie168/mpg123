@@ -9,10 +9,13 @@ bins=rmsdouble.$(BIN_SUFFIX) rms16.$(BIN_SUFFIX) s16_double.$(BIN_SUFFIX) f32_do
 
 .PHONY: all clean
 
-all: $(bins) $(shell ls compliance/layer?/fl*.mpg | sed 's:mpg:bit:') $(shell ls compliance/layer?/fl*.pcm | sed 's:pcm:double:') compliance/layer3/compl.double
+all: binsuffix $(bins) $(shell ls compliance/layer?/fl*.mpg | sed 's:mpg:bit:') $(shell ls compliance/layer?/fl*.pcm | sed 's:pcm:double:') compliance/layer3/compl.double
 
 clean:
 	rm -vf $(bins)
+
+binsuffix: $(bins)
+	echo $(BIN_SUFFIX) > $@
 
 f32_double.$(BIN_SUFFIX): to_double.c
 	$(CC) -DF32 -O -o $@ $< -lm
