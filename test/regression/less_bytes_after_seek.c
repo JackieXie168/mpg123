@@ -23,10 +23,10 @@ int main(int argc, char **argv)
 	unsigned char buf[INBUFF];
 	unsigned char *audio;
 	FILE *in;
-	mpg123_handle *m;
+	mpg123_handle *m,*m_mpg123;
 	int ret;
 	size_t bytes;
-	off_t frame, inoffset, scanned, decoded_mpg123, decoded_calculated;
+	off_t frame, inoffset, scanned, scanned_mpg123, decoded_mpg123, decoded_calculated, seek_to;
 
 	if(argc < 2){ fprintf(stderr, "Gimme a file!\n"); return -1; }
 
@@ -38,6 +38,15 @@ int main(int argc, char **argv)
 	}
 
 	mpg123_init();
+
+	init_handle(&m_mpg123, MPG123_MONO | MPG123_STEREO,  MPG123_ENC_FLOAT_32);
+	ret = mpg123_open(m_mpg123, argv[1]);
+	ret = mpg123_scan(m_mpg123);
+	if(ret == MPG123_OK) {
+		scanned_mpg123 = mpg123_length(m_mpg123);
+	}
+	mpg123_close(m_mpg123);
+	printf("scanning using mpg123_scan returned %d frames\n", scanned_mpg123);
 
 	init_handle(&m, MPG123_MONO | MPG123_STEREO,  MPG123_ENC_FLOAT_32);
 
@@ -53,15 +62,18 @@ int main(int argc, char **argv)
 	}
 	
 	scanned = length(m);
-	fprintf(stdout, "Length after scanning from mpg123: %d\n", scanned);
+	fprintf(stdout, "scanning using mpg123_framebyframe_next returned %d frames\n", scanned);
 	
 	/* This seek sequence passes: 8719191, 8318528 */
 	/* This seek sequence fails: 8528399, 8547479 */
 
-	seek(m, 8528399, &frame, &inoffset, in, buf);
+	seek_to = 8528399;
+	fprintf(stdout, "Seek to %d\n", seek_to);
+	seek(m, seek_to, &frame, &inoffset, in, buf);
 	decode(m, in, buf, &audio, &bytes); /* Taking this line out results in a passed test */
 	
-	decoded_calculated = 8547479;
+	decoded_calculated = 0;
+	fprintf(stdout, "Seek to %d\n", decoded_calculated);
 	seek(m, decoded_calculated, &frame, &inoffset, in, buf);
 	while(decode(m, in, buf, &audio, &bytes)) {
 		decoded_calculated += (bytes / 2 / 4);
