@@ -92,12 +92,13 @@ fd[1] = open("2.raw", O_CREAT|O_TRUNC|O_RDWR, S_IRUSR|S_IWUSR);
 
 	fprintf(stderr, "First:  %"PRIiMAX"\n", (intmax_t) counts[0]);
 	fprintf(stderr, "Second: %"PRIiMAX"\n", (intmax_t) counts[1]);
+
 	if(mpg123_length(mh) == counts[0])
 	{
 		fprintf(stderr, "OK, mpg123_length() agrees with the first count...\n");
 		if(counts[0] == counts[1]) ret = 0;
 	}
-	else fprintf(stderr, "Oh, mpg123_length() has a different opinion!\n");
+	else fprintf(stderr, "Oh, mpg123_length() has a different opinion (%"PRIiMAX")!\n", (intmax_t) mpg123_length(mh));
 
 end:
 	close(fd[0]);
