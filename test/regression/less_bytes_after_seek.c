@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 	/* This seek sequence passes: 8719191, 8318528 */
 	/* This seek sequence fails: 8528399, 8547479 */
 
-	seek_to = 8528399;
+	seek_to = 100000;
 	fprintf(stdout, "Seek to %d\n", seek_to);
 	seek(m, seek_to, &frame, &inoffset, in, buf);
 	decode(m, in, buf, &audio, &bytes); /* Taking this line out results in a passed test */
@@ -89,7 +89,9 @@ int main(int argc, char **argv)
 	mpg123_exit();
 
 	ret = 0;
-	if(scanned != decoded_mpg123 || scanned != decoded_calculated) ret = 1;
+	if(scanned != decoded_mpg123
+		|| scanned != decoded_calculated
+		|| scanned != scanned_mpg123) ret = 1;
 	printf("%s\n", ret == 0 ? "PASS" : "FAIL");
 
 	return ret;
