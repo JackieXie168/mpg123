@@ -6,7 +6,7 @@
 .SUFFIXES:
 .SUFFIXES: .c .h .o .bin
 
-tests=$(patsubst %.c, %, $(wildcard *.c))
+tests=$(patsubst %.c, %, $(filter-out helpers.c, $(wildcard *.c)))
 
 ifeq ($(CC),)
   CC=cc
@@ -27,6 +27,9 @@ endif
 test: $(addprefix test-, $(tests))
 	@echo "All tests apparently successful."
 
+info:
+	@echo "These are the tests: $(tests)"
+
 clean:
 	rm -vf $(addsuffix .bin, $(tests))
 
@@ -46,5 +49,5 @@ test-%: %.bin
 
 # Build a test binary.
 
-%.bin: %.c
-	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) -lmpg123
+%.bin: %.c helpers.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) -lmpg123

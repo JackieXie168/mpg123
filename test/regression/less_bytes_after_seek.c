@@ -28,7 +28,9 @@ int main(int argc, char **argv)
 	size_t bytes;
 	off_t frame, inoffset, scanned, decoded_mpg123, decoded_calculated;
 
-	in = fopen("C:\\mpg123-complete\\test\\regression\\less_bytes_after_seek.mp3", "rb");
+	if(argc < 2){ fprintf(stderr, "Gimme a file!\n"); return -1; }
+
+	in = fopen(argv[1], "rb");
 	if(in == NULL)
 	{
 		fprintf(stderr,"Unable to open input file\n");

@@ -71,58 +71,9 @@ This is the case when this program is linked to a libmpg123 where the NO_ID3V2 d
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "mpg123.h"
+#include "helpers.h"
 
 #define INBUFF  16384 * 2 * 2
-
-int init_handle(mpg123_handle **mh, int channels, int encodings)
-{
-	size_t i, nrates;
-	const long *rates;
-	int ret;
-
-	*mh = mpg123_new(NULL, &ret);
-	if(*mh == NULL)
-		goto initerror;
-
-	/* ret = mpg123_param(*mh, MPG123_VERBOSE, 4, 0);
-	if(ret != MPG123_OK)
-		goto initerror; */
-
-	ret = mpg123_param(*mh, MPG123_FLAGS, MPG123_FUZZY | MPG123_SEEKBUFFER | MPG123_GAPLESS, 0);
-	if(ret != MPG123_OK)
-		goto initerror;
-
-	/* Let the seek index auto-grow and contain an entry for every frame */
-	ret = mpg123_param(*mh, MPG123_INDEX_SIZE, -1, 0);
-	if(ret != MPG123_OK)
-		goto initerror;
-
-	/* Look at the whole stream while looking for sync */
-	ret = mpg123_param(*mh, MPG123_RESYNC_LIMIT, -1, 0);
-	if(ret != MPG123_OK)
-		goto initerror;
-
-	/* Setup output format: float output, all supported samplerates */
-	ret = mpg123_format_none(*mh);
-	if(ret != MPG123_OK)
-		goto initerror;
-
-	rates = NULL;
-	nrates = 0;
-	mpg123_rates(&rates, &nrates);
-	for(i=0; i<nrates; i++)
-	{
-		ret = mpg123_format(*mh, rates[i], channels,  encodings);
-		if(ret != MPG123_OK)
-			goto initerror;
-	}
-
-	return ret;
-
-initerror:
-	fprintf(stderr,"Error initializing handle: %s\n", mpg123_strerror(*mh));
-	return ret;
-}
 
 int main(int argc, char* argv[])
 {
