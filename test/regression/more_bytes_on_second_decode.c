@@ -1,4 +1,6 @@
 /*
+That was the problem:
+
 I'm seeing something unexpected with seeks, and I'm not sure if I'm
 doing something wrong. The situation is as follows: I open a gaplessly
 encoded MP3 with mpg123_open, call mpg123_read until I get
@@ -37,6 +39,8 @@ If I compare the PCM output for the runs, they all compare identical
 except for extra data at the end for runs 2 and up.
 
 So, what is wrong here?
+
+I added another check since it fits in here... see if mpg123_length() agrees with the result.
 */
 
 #include <mpg123.h>
@@ -88,7 +92,12 @@ fd[1] = open("2.raw", O_CREAT|O_TRUNC|O_RDWR, S_IRUSR|S_IWUSR);
 
 	fprintf(stderr, "First:  %"PRIiMAX"\n", (intmax_t) counts[0]);
 	fprintf(stderr, "Second: %"PRIiMAX"\n", (intmax_t) counts[1]);
-	if(counts[0] == counts[1]) ret = 0;
+	if(mpg123_length(mh) == counts[0])
+	{
+		fprintf(stderr, "OK, mpg123_length() agrees with the first count...\n");
+		if(counts[0] == counts[1]) ret = 0;
+	}
+	else fprintf(stderr, "Oh, mpg123_length() has a different opinion!\n");
 
 end:
 	close(fd[0]);
