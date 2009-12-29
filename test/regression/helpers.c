@@ -31,7 +31,7 @@ int init_handle(mpg123_handle **mh, int channels, int encodings)
 	if(ret != MPG123_OK)
 		goto initerror;
 
-	ret = mpg123_param(*mh, MPG123_FLAGS, MPG123_SEEKBUFFER | MPG123_GAPLESS | MPG123_QUIET, 0);
+	ret = mpg123_param(*mh, MPG123_FLAGS, MPG123_SEEKBUFFER | MPG123_QUIET | MPG123_GAPLESS, 0);
 	if(ret != MPG123_OK)
 		goto initerror;
 
