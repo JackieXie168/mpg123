@@ -40,6 +40,7 @@ int main(int argc, char **argv)
 	mpg123_init();
 
 	init_handle(&m_mpg123, MPG123_MONO | MPG123_STEREO,  MPG123_ENC_FLOAT_32);
+	mpg123_param(m_mpg123, MPG123_ADD_FLAGS, MPG123_IGNORE_STREAMLENGTH, 0.0);
 	ret = mpg123_open(m_mpg123, argv[1]);
 	ret = mpg123_scan(m_mpg123);
 	if(ret == MPG123_OK) {
@@ -49,6 +50,7 @@ int main(int argc, char **argv)
 	printf("scanning using mpg123_scan returned %d frames\n", scanned_mpg123);
 
 	init_handle(&m, MPG123_MONO | MPG123_STEREO,  MPG123_ENC_FLOAT_32);
+	mpg123_param(m, MPG123_ADD_FLAGS, MPG123_IGNORE_STREAMLENGTH, 0.0);
 
 	ret = mpg123_open_feed(m);
 	if(ret != MPG123_OK)
@@ -72,9 +74,10 @@ int main(int argc, char **argv)
 	seek(m, seek_to, &frame, &inoffset, in, buf);
 	decode(m, in, buf, &audio, &bytes); /* Taking this line out results in a passed test */
 	
-	decoded_calculated = 0;
+	decoded_calculated = 50000;
 	fprintf(stdout, "Seek to %d\n", decoded_calculated);
 	seek(m, decoded_calculated, &frame, &inoffset, in, buf);
+	decoded_calculated = frame;
 	while(decode(m, in, buf, &audio, &bytes)) {
 		decoded_calculated += (bytes / 2 / 4);
 	}
