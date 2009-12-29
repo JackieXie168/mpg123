@@ -50,4 +50,4 @@ test-%: %.bin
 # Build a test binary.
 
 %.bin: %.c helpers.o
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) -lmpg123
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) -lmpg123
