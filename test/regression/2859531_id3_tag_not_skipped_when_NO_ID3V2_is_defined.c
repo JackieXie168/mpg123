@@ -98,7 +98,12 @@ int main(int argc, char* argv[])
 	mpg123_init();
 
 	init_handle(&m, MPG123_MONO | MPG123_STEREO,  MPG123_ENC_FLOAT_32);
-
+	if(mpg123_param(m, MPG123_ADD_FLAGS, MPG123_GAPLESS, 0) != MPG123_OK)
+	{
+		fprintf(stderr, "Gapless code is not available, this test does not work that way. Letting it just PASS.\n");
+		printf("PASS\n");
+		return 0;
+	}
 	ret = mpg123_open_feed(m);
 	if(ret != MPG123_OK)
 	{
