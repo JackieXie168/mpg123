@@ -69,12 +69,12 @@ int main(int argc, char **argv)
 	/* This seek sequence passes: 8719191, 8318528 */
 	/* This seek sequence fails: 8528399, 8547479 */
 
-	seek_to = 100000;
+	seek_to = 8528399;
 	fprintf(stdout, "Seek to %d\n", seek_to);
 	seek(m, seek_to, &frame, &inoffset, in, buf);
 	decode(m, in, buf, &audio, &bytes); /* Taking this line out results in a passed test */
 	
-	decoded_calculated = 50000;
+	decoded_calculated = 8547479;
 	fprintf(stdout, "Seek to %d\n", decoded_calculated);
 	seek(m, decoded_calculated, &frame, &inoffset, in, buf);
 	decoded_calculated = frame;
