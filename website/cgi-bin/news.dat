@@ -1,3 +1,12 @@
+:date 2009-02-09
+:by jon_y
+:title Experimental network support for Windows!
+.<p>Experimental network support for windows has been added to svn trunk, you can download the
+.  <a href="/download/win32/mpg123-20100209-snapshot-win32net-static-x86.zip">static</a> or
+.  <a href="/download/win32/mpg123-20100209-snapshot-win32net-x86.zip">shared</a>win32 binaries with network.</p>
+.<p>Win64 builds will follow shortly</p>
+.<p>You can now access <a href="http://www.shoutcast.org/">shoutcast</a> and other http streamed web radios, within the comfort of your console, even on Windows.</p>
+
 :date 2009-12-05
 :by Thomas
 :title The mpg123 version 1.10.0 is there!
