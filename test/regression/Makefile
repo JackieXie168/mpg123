@@ -22,8 +22,12 @@ ifeq ($(TESTFILE),)
   TESTFILE := drum.mp3
 endif
 
-# Rule to run all tests. If one test fails, the whole thing failed.
+# Default target for running all tests from the script, showing a summary.
+# Add ./ as prefix to make paths definite for execution from script.
+testscript: $(addsuffix .bin, $(tests))
+	TESTFILE=$(TESTFILE) perl test.pl $(addprefix ./, $^)
 
+# Fallback target that does not need perl, aborts on first failed test.
 test: $(addprefix test-, $(tests))
 	@echo "All tests apparently successful."
 
