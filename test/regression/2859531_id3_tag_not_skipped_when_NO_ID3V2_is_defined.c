@@ -88,7 +88,9 @@ int main(int argc, char* argv[])
 	int channels, enc;
 	off_t total = 0;
 
-	in = fopen("2859531_id3_tag_not_skipped_when_NO_ID3V2_is_defined.mp3", "rb");
+	if(argc < 2){ fprintf(stderr, "Gimme file!\n"); return -1; }
+
+	in = fopen(argv[1], "rb");
 	if(in == NULL)
 	{
 		fprintf(stderr,"Unable to open input file %s\n", argv[1]);
