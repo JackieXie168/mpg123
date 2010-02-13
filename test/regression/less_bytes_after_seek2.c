@@ -18,6 +18,19 @@
 #include "mpg123.h"
 #include "helpers.h"
 
+/*
+	With the original test file (non-public):
+	This seek sequence passes: 8719191, 8318528
+	This seek sequence fails: 8528399, 8547479
+
+	With the default testfile (drum.mp3):
+	528399, 547479
+	(First guess and a hit the first time!)
+*/
+
+#define SEEK_1 528399
+#define SEEK_2 547479
+
 int main(int argc, char **argv)
 {
 	unsigned char buf[INBUFF];
@@ -39,7 +52,7 @@ int main(int argc, char **argv)
 
 	mpg123_init();
 
-	init_handle(&m_mpg123, MPG123_MONO | MPG123_STEREO,  MPG123_ENC_FLOAT_32);
+	init_handle(&m_mpg123, MPG123_MONO,  MPG123_ENC_FLOAT_32);
 	mpg123_param(m_mpg123, MPG123_ADD_FLAGS, MPG123_IGNORE_STREAMLENGTH, 0.0);
 	ret = mpg123_open(m_mpg123, argv[1]);
 	ret = mpg123_scan(m_mpg123);
@@ -47,9 +60,17 @@ int main(int argc, char **argv)
 		scanned_mpg123 = mpg123_length(m_mpg123);
 	}
 	mpg123_close(m_mpg123);
-	printf("scanning using mpg123_scan returned %d frames\n", scanned_mpg123);
+	fprintf(stderr,"scanning using mpg123_scan returned %d audio frames\n", scanned_mpg123);
 
-	init_handle(&m, MPG123_MONO | MPG123_STEREO,  MPG123_ENC_FLOAT_32);
+	if(scanned_mpg123 <= SEEK_1 || scanned_mpg123 <= SEEK_2)
+	{
+		mpg123_exit();
+		fprintf(stderr, "The file is too small for the configured offsets!\n");
+		printf("FAIL\n");
+		return -1;
+	}
+
+	init_handle(&m, MPG123_MONO,  MPG123_ENC_FLOAT_32);
 	mpg123_param(m, MPG123_ADD_FLAGS, MPG123_IGNORE_STREAMLENGTH, 0.0);
 
 	ret = mpg123_open_feed(m);
@@ -64,37 +85,45 @@ int main(int argc, char **argv)
 	}
 	
 	scanned = length(m);
-	fprintf(stdout, "scanning using mpg123_framebyframe_next returned %d frames\n", scanned);
-	
-	/* This seek sequence passes: 8719191, 8318528 */
-	/* This seek sequence fails: 8528399, 8547479 */
+	fprintf(stderr, "scanning using mpg123_framebyframe_next returned %d audio frames\n", scanned);
 
-	seek_to = 8528399;
-	fprintf(stdout, "Seek to %d\n", seek_to);
+	seek_to = SEEK_1;
+	fprintf(stderr, "Seek to %d\n", seek_to);
 	seek(m, seek_to, &frame, &inoffset, in, buf);
+	fprintf(stderr, "Position: %"OFF_P"\n", (off_p)mpg123_tell(m));
 	decode(m, in, buf, &audio, &bytes); /* Taking this line out results in a passed test */
 	
-	decoded_calculated = 8547479;
-	fprintf(stdout, "Seek to %d\n", decoded_calculated);
+	decoded_calculated = SEEK_2;
+	fprintf(stderr, "Seek to %d\n", decoded_calculated);
 	seek(m, decoded_calculated, &frame, &inoffset, in, buf);
+	fprintf(stderr, "Position: %"OFF_P"\n", (off_p)mpg123_tell(m));
 	decoded_calculated = frame;
-	while(decode(m, in, buf, &audio, &bytes)) {
-		decoded_calculated += (bytes / 2 / 4);
+	while(decode(m, in, buf, &audio, &bytes))
+	{
+		/* mono float samples */
+		decoded_calculated += (bytes / 4);
 	}
 
 	decoded_mpg123 = length(m);
-	fprintf(stdout, "Length after decoding from mpg123_length: %d\n", decoded_mpg123);
+	fprintf(stderr, "Length after decoding from mpg123_length: %d\n", decoded_mpg123);
 
-	fprintf(stdout, "Length after decoding calculated from decoded bytes: %d\n", decoded_calculated);
+	fprintf(stderr, "Length after decoding calculated from decoded bytes: %d\n", decoded_calculated);
 
 	fclose(in);
 	mpg123_delete(m);
 	mpg123_exit();
 
 	ret = 0;
+	fprintf(stderr, "Summary:\n");
+	fprintf(stderr, " f2f scan:    %"OFF_P"\n", (off_p)scanned);
+	fprintf(stderr, " mpg123 scan: %"OFF_P"\n", (off_p)scanned_mpg123);
+	fprintf(stderr, " dec mpg123:  %"OFF_P"\n", (off_p)decoded_mpg123);
+	fprintf(stderr, " dec calc:    %"OFF_P"\n", (off_p)decoded_calculated);
+
 	if(scanned != decoded_mpg123
 		|| scanned != decoded_calculated
-		|| scanned != scanned_mpg123) ret = 1;
+		|| scanned != scanned_mpg123)
+		ret = 1;
 	printf("%s\n", ret == 0 ? "PASS" : "FAIL");
 
 	return ret;
