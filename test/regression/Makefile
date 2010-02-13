@@ -19,7 +19,7 @@ ifneq ($(MPG123_PREFIX),)
 endif
 
 ifeq ($(TESTFILE),)
-  $(error I need some TESTFILE with MPEG audio to work on.)
+  TESTFILE := drum.mp3
 endif
 
 # Rule to run all tests. If one test fails, the whole thing failed.
