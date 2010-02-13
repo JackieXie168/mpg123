@@ -13,6 +13,11 @@
 #include <stdio.h>
 #include "mpg123.h"
 
+/* Wanna print offsets. */
+#include <inttypes.h>
+#define OFF_P PRIiMAX
+typedef intmax_t off_p;
+
 #define INBUFF  16384 * 2 * 2
 
 int init_handle(mpg123_handle **mh, int channels, int encodings);
