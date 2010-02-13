@@ -6,7 +6,10 @@
 .SUFFIXES:
 .SUFFIXES: .c .h .o .bin
 
-tests=$(patsubst %.c, %, $(filter-out helpers.c, $(wildcard *.c)))
+tests := $(patsubst %.c, %, $(filter-out helpers.c, $(wildcard *.c)))
+ifneq ($(SKIP_TESTS),)
+  tests := $(shell for i in $(tests); do echo '$(SKIP_TESTS)' | grep "$$i" > /dev/null || echo "$$i"; done)
+endif
 
 ifeq ($(CC),)
   CC=cc
