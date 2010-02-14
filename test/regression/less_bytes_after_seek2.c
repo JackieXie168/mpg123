@@ -64,7 +64,7 @@ int main(int argc, char **argv)
 	mpg123_init();
 
 	init_handle(&m_mpg123, MPG123_MONO,  MPG123_ENC_FLOAT_32);
-	mpg123_param(m_mpg123, MPG123_ADD_FLAGS, MPG123_IGNORE_STREAMLENGTH, 0.0);
+/*	mpg123_param(m_mpg123, MPG123_ADD_FLAGS, MPG123_IGNORE_STREAMLENGTH, 0.0); */
 	ret = mpg123_open(m_mpg123, argv[1]);
 	fprintf(stderr, "\nPART 1: scan with mpg123\n\n");
 	ret = mpg123_scan(m_mpg123);
@@ -111,7 +111,7 @@ int main(int argc, char **argv)
 	fprintf(stderr, "\nPART 3: scan with framebyframe / feeder\n\n");
 
 	init_handle(&m, MPG123_MONO,  MPG123_ENC_FLOAT_32);
-	mpg123_param(m, MPG123_ADD_FLAGS, MPG123_IGNORE_STREAMLENGTH, 0.0);
+/*	mpg123_param(m, MPG123_ADD_FLAGS, MPG123_IGNORE_STREAMLENGTH, 0.0); */
 
 	ret = mpg123_open_feed(m);
 	if(ret != MPG123_OK)
