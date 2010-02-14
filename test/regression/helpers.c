@@ -95,11 +95,17 @@ int feed(mpg123_handle *mh, FILE *in, void *buf)
 {
 	int ret;
 	size_t len;
+	off_t filepos;
 
+	filepos = ftello(in);
 	len = fread(buf, sizeof(unsigned char), INBUFF, in);
 	if(len <= 0)
 		return 0;
-	
+
+	fprintf(stderr, "helper: feeding %zu bytes from %"OFF_P"\n", len, filepos);
+	if(len >= 4)
+	fprintf(stderr, "helper: first bytes: %02x %02x %02x %02x\n", ((unsigned char*)buf)[0], ((unsigned char*)buf)[1], ((unsigned char*)buf)[2], ((unsigned char*)buf)[3]);
+
 	ret = mpg123_feed(mh, (unsigned char *) buf, len);
 	if(ret != MPG123_OK)
 	{
