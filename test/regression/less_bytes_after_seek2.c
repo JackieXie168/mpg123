@@ -9,6 +9,17 @@
 	copyright 1995-2009 by the mpg123 project - free software under the terms of the LGPL 2.1
 	see COPYING and AUTHORS files in distribution or http://mpg123.org
 
+	Explanation after fixing the bug inside libmpg123:
+	The actual issue is that the feeder code miscalculated the file offset for next feeding when a seeking position is inside the already buffered data.
+	Basically, the feed buffer made us jump over as many bytes as it has already delivered from its current chain.
+
+	One might simplify this test to just
+	1. Decode normally to get the length (or just use mpg123_scan / mpg123_ength).
+	2. Open with feeder, feed some frames worth of data.
+	3. Seek a bit into the file so that the first needed frame (for ignoring) is not the first anymore but still to be found in the provided data.
+	4. Decode to the end.
+	5. Observe that the length counted is different (smaller).
+
 */
 
 #include <stdio.h>
