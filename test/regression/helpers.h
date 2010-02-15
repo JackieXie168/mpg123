@@ -13,8 +13,11 @@
 #include <stdio.h>
 #include "mpg123.h"
 
-/* Wanna print offsets. */
+#ifndef _MSC_VER
 #include <inttypes.h>
+#endif
+
+/* Wanna print offsets. */
 #define OFF_P PRIiMAX
 typedef intmax_t off_p;
 
