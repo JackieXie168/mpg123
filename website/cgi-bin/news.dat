@@ -1,4 +1,12 @@
-:date 2009-02-09
+:date 2010-02-21
+:by Thomas
+:title version 1.10.1 pre-release number 3
+.<p>The upcoming bugfix release is quite a prominent one, being focus of frantic attention mainly because of the trouble multilib systems have with the old large-file safety hack in the header.
+.That safety hack is largely gone now -- with the header resulting in being identical for 32 bit and 64 bit mode on a multilib system.</p>
+.<p>But there is more to it: There are important fixes for gapless decoding corner cases and improvements of the parser for bad files: prevent seemingly endless loop in search of first valid header and more so seemingly (at least) endless loop for the feeder mode.</p>
+.<p>Get the <a href="download/mpg123-1.10.1-prerelease3">pre-release source code</a>, or the occasional binary from the <a href="download/win64">win64 directory</a>, if you are so inclined. And yes, This could just be named 1.10.1-rc3 to be consistent with earlier practice, but I did not know at the first pre-release that it would become that official. Sorry, really. Now get up and test it so that we can do the release for good;-)</p>
+
+:date 2010-02-09
 :by jon_y
 :title Experimental network support for Windows!
 .<p>Experimental network support for windows has been added to svn trunk, you can download the
