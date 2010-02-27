@@ -9,7 +9,7 @@
 .<li>Fixes for gapless decoding:
 .<ul>
 .  <li>Correctly skip padding larger than one MPEG frame (strange, but occurs).</li>
-.  <li>a href="http://sourceforge.net/tracker/?func=detail&aid=2950218&group_id=135704&atid=733194">Bug 2950218</a> (proper gapless cuts for seeking near the end).</li>
+.  <li><a href="http://sourceforge.net/tracker/?func=detail&aid=2950218&group_id=135704&atid=733194">Bug 2950218</a> (proper gapless cuts for seeking near the end).</li>
 .</ul></li>
 .<li>Make sure the search for the first header aborts after 64K of one-byte reads, as always intended (<a href="http://sourceforge.net/tracker/?func=detail&aid=2951334&group_id=135704&atid=733194">bug 2951334</a>).<br />
 .  Certain files (or even random data) were able to fool mpg123 sufficiently enough that it basically reads through the whole file in 1-byte steps in search for MPEG data.
