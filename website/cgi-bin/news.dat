@@ -20,6 +20,19 @@
 .<li>Compile fix for OpenAL (with strict compiler).</li>
 .</ul>
 .<p>You see, this upgrade is a no-brainer. I gets a number of bugs out of the way to add more fun stuff to the next release, 1.11.0 . Get it from the <a href="download.shtml">usual places</a>.</p>
+.<p>Update: I fixed the link to <a href="/current">current mpg123</a> to actually point to the current version. Oh, and, I must admit that indeed, mpg123 is to blame for an oversight regarding IPv6 support which can trouble you with your broken DNS server (DSL router):
+.It asks for IPv6 name resolution even if your setup does not feature IPv6 interfaces... together with glibc 2.10, that is rather annoying (see the web for stories). A future release will fix that, but lacking time for that, I point to the svn trunk, which has it fixed, or this little patch that should apply to a reasonable number of past releases:</p>
+.<pre>
+.--- src/resolver.c	(Revision 2607)
+.+++ src/resolver.c	(Revision 2608)
+.@@ -277,6 +277,7 @@
+. 	memset(&hints, 0, sizeof(struct addrinfo));
+. 	hints.ai_family   = AF_UNSPEC; /* We accept both IPv4 and IPv6 ... and perhaps IPv8;-) */
+. 	hints.ai_socktype = SOCK_STREAM;
+.+	hints.ai_flags    = AI_ADDRCONFIG; /* Only ask for addresses that we have configured inerfaces for. */
+. 
+. 	addrcount = getaddrinfo(host->p, port->p, &hints, &addrlist);
+.</pre>
 
 :date 2010-02-21
 :by Thomas
