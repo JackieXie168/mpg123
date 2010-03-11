@@ -1,3 +1,16 @@
+:date 2010-03-10
+:by Thomas
+:title Working on a stable future for large file support (again).
+.<p>The optional large file support on Linux/Solaris still troubles the mpg123 project. Of course the troubles started from me unwittingly choosing to expose off_t in the API.
+.From mpg123-1.5.0 on up to the recently released 1.10.1 I at least opted to prevent runtime damage by renaming API functions according to the selection in large file support.
+.This, again, is not a good idea when leaving the library name unchanged: A new build with large file support actually exposes a different ABI and thus is not compatible with an old binary.</p>
+.<p>So, here is my second attempt on getting the situation predictable: Not just some symbols, the whole library gets renamed when large file support is enabled. You get libmpg123_64 instead of libmpg123.
+.That means a one-time incompatible switch for any binary that depends on a libmpg123 with 64 bit file offsets (on the affected systems),
+.but it preserves compatibility for older and future binaries that depend on &quot;default&quot; file offset size (that is, 32 bit on a 32 bit Linux system). It hurts once, but after the switch, we have, if not a pretty, but at least predictable vision of the future.</p>
+.<p>If nobody comes up with a better idea (no, supporting 32 bit and 64 bit offsets in one build is not considered better... it's not worth the maintenance work and is error-prone, in my view), the next release of mpg123 will bring the change of library name depending on enabled large file support.</p>
+.<p><strong>So please test it and be prepared, perhaps give some comments about it:</strong> <a href="download/mpg123-1.11.0-dev_largefile.tar.bz2">mpg123-1.11.0 preview for the large file name change</a></p>
+.<p>To all users of systems that are not sensitive to variable off_t size (most non-Linux/Solaris, 64 bit systems): Be happy and do not worry about this mess. For anyone who wants to worry and understand the issue, have a read of <a href="http://ac-archive.sourceforge.net/largefile/">Guido Draheim's work on the matter</a>.</p>
+
 :date 2010-02-27
 :by thomas
 :title mpg123 1.10.1 - the most wanted maintenance release
