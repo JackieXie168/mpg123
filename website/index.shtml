@@ -14,7 +14,7 @@ It is free software licensed under LGPL 2.1 (the officially released sources, so
 </p>
 <h2>Upcoming features...</h2>
 <p>
-	Improved portability of SSE code (with speed improvement, even), windows network streaming (merged into trunk), lower levels of API... simple audio output library using mpg123's output plugins... stuff.
+	Lower levels of API... simple audio output library using mpg123's output plugins... stuff.
 </p>
 
 <h2>Top News</h2>
