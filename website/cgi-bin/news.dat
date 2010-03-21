@@ -1,6 +1,10 @@
 :date 2010-03-20
 :by Thomas
-:title mpg123 1.11.0 by large
+:title mpg123 1.11.0 by large -- re-issued
+.<p>
+.<strong>Attention:</strong> The initial source package was missing the crucial changes for the library name.
+.I uploaded a corrected version around 2010-03-21 22:30 CET. Please get a fresh one if you got your download earlier than that.
+.</p>
 .<p>
 .So, here it is: The mpg123 release that hopefully causes only small trouble now, but will be safe for the future regarding the mess that is the hybrid setup of small and large file support on certain systems (like GNU/Linux and Solaris on x86). If your system does optional large file support, a build of libmpg123 with that enabled will be called libmpg123_64.so, a default build with small file support will be called just libmpg123.so like before.<br />
 .Note that default means that what you get when not giving special flags or preprocessor defines -- the configure script will detect the optional large file support and enable it by default, thus, changing from the system default. Confused? Right.
