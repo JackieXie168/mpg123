@@ -1,3 +1,14 @@
+:date 2010-03-26
+:by Thomas
+:title What a fuss. Large files suck, don't they?
+.<p>
+.Reactions to my split of small and large file libmpg123 are mostly irritated, confused ... or even hostile. Too sad that mpg123 does not have enough outreach to have people complaining about the test release two weeks ago, before I made it official.
+.Now there are facts and the world does not like them. I am in discussion with someone knowing that largefile business and perhaps he can help me to come to a conclusion. Maybe I'll do dual mode in the end, supporting 32 and 64 bit offsets from one library. So stay tuned... something will happen in the next days. I don't promise what, though.
+.</p>
+.<p>
+.To mirror the anger and frustration I met out there, I want to express my anger and frustration about the whole 64on32 large file mess. I hate it. I hate it that I fell into the trap of making the mpg123 API rely on shape-shifting off_t (but at the same time feel that it is still correct, by concept -- would off_t be a stable entity). I'll try to find a solution nevertheless. But I hate it. Free software is not always fun. Not at all.
+.</p>
+
 :date 2010-03-20
 :by Thomas
 :title mpg123 1.11.0 by large -- re-issued
