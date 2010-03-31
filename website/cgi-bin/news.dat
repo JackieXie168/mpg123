@@ -1,6 +1,6 @@
 :date 2010-03-31
 :by Thomas
-:title A large d√©j√† vu: mpg123 1.12.0 fixes the future for large file support, again.
+:title A large dÈj‡ vu: mpg123 1.12.0 fixes the future for large file support, again.
 .<p>Please forget the previous release, 1.11.0 . The libmpg123_64.so it introduced on largefile-sensitive systems is gone now. The interfaces for applications using system default file offsets and those using enabled large file support are unified in one libmpg123.so now.
 .Version 1.12.0 of mpg123 shall mark the first stable ABI for such systems since mpg123 1.4.x, after which libmpg123.so usually offered only the interface for large files. Please, please: Update to this one so that emerging users of libmpg123 do not get bitten by an inconsistent base of mpg123 installations with incompatible libraries.</p>
 .<p>As a side effect of dual mode hacking, replacement I/O using client-provided handles (void pointer) has been added to the API. Oh, and the introduction of AI_ADDRCONFIG has been made conditional based on the actual availability of that flag on a system (that helps OpenBSD).</p>
