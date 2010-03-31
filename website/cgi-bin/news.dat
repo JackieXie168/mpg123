@@ -5,6 +5,7 @@
 .Version 1.12.0 of mpg123 shall mark the first stable ABI for such systems since mpg123 1.4.x, after which libmpg123.so usually offered only the interface for large files. Please, please: Update to this one so that emerging users of libmpg123 do not get bitten by an inconsistent base of mpg123 installations with incompatible libraries.</p>
 .<p>As a side effect of dual mode hacking, replacement I/O using client-provided handles (void pointer) has been added to the API. Oh, and the introduction of AI_ADDRCONFIG has been made conditional based on the actual availability of that flag on a system (that helps OpenBSD).</p>
 .<p><a href="download.shtml">Download mpg123</a> version 1.12.0 now!</p>
+.<p><strong>Update:</strong>In 1.12.0, there was still a passage in INSTALL referring to the twin libraries, I changed that and released 1.12.1 -- there are no changes in the code.</p>
 
 :date 2010-03-29
 :by Thomas
