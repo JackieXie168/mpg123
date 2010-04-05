@@ -4,8 +4,7 @@
 .<p>I uploaded a quick hack that turns two instances of mpg123 and a MIDI controller (in this case the rather inexpensive M-Audio XSession pro) into a simple live DJ set: See the <a href="download/mpg123-midi-control.c">source code of mpg123-midi-control</a>.
 .I'll cut out the guts of the comment header to make this little post complete:</p>
 .<p>
-.        This is a hacky proof of concept for getting my M-Audio XSession pro to excert some effect on mp
-g123, on Linux systems with ALSA sequencer API.
+.        This is a hacky proof of concept for getting my M-Audio XSession pro to excert some effect on mpg123, on Linux systems with ALSA sequencer API.
 .
 .        The idea is to run two instances of mpg123 like that:
 .</p>
