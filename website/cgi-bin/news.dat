@@ -1,3 +1,36 @@
+:date 2010-04-05
+:by Thomas
+:title Got a new toy... and wired it up to mpg123!
+.<p>I uploaded a quick hack that turns two instances of mpg123 and a MIDI controller (in this case the rather inexpensive M-Audio XSession pro) into a simple live DJ set: See the <a href="download/mpg123-midi-control.c">source code of mpg123-midi-control</a>.
+.I'll cut out the guts of the comment header to make this little post complete:</p>
+.<p>
+.        This is a hacky proof of concept for getting my M-Audio XSession pro to excert some effect on mp
+g123, on Linux systems with ALSA sequencer API.
+.
+.        The idea is to run two instances of mpg123 like that:
+.</p>
+.<pre>mpg123 -R --fifo /dev/shm/mpg123-1
+.mpg123 -R --fifo /dev/shm/mpg123-2
+.</pre>
+.<p>
+.        Then run this program here with a playlist (listing of absolute file paths) from STDIN
+.</p>
+.<pre>cat absolute-playlist | ./mpg123-control /dev/shm/mpg123-1 /dev/shm/mpg123-2
+.</pre>
+.<p>
+.        and connect it to the MIDI controller (adjust port numbers):
+.</p>
+.<pre>aconnect 20:0 129:0</pre>
+.<p>
+.        With that setup, you will load tracks from the playlist with the eject buttons for the respective channel, start/stop playback with the play/pause buttons... the volume and pitch faders will do something you might expect... the EQ buttons change the EQ settings.
+.        In short: You have a nifty basic DJ setup on your PC with two plain instances of mpg123.
+.</p><p>
+.        Note that the pitching only works in a range the hardware or your audio output support (i.e. ALSA dmix)... and you need to be able to open two audio outputs at once, at different rates (ALSA dmix can do that... but it rather stresses the CPU -- though on modern machines you might not notice).
+.        Anyhow, it is just a fun proof-of-concept to be able to get some reaction out of my MIDI toy.
+.</p>
+.<p>It works rather well... of course the pitching is not optimal, since mpg123 re-opens the audio output for every pitch change, but the volume/fader and EQ controls work nicely. If you're into this stuff, you should now have a simple example to adapt to your gear
+.(different MIDI controllers might just need changes to the numerical constants naming the controllers and buttons).</p>
+
 :date 2010-03-31
 :by Thomas
 :title A large déjà vu: mpg123 1.12.0 fixes the future for large file support, again.
