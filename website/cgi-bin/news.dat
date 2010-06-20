@@ -1,3 +1,24 @@
+:date 2010-06-20
+:by Thomas
+:title Fixing your world with mpg123-1.12.2
+.<p>The fresh maintenance release mainly fixes bug <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2996045&amp;group_id=135704&amp;atid=733194">2996045</a>, invalid memory access prompted by addresses in the upper half of the address space. I introduced that one with a bad alignment algorithm, sorry.<p>
+.<p>Along with this go several other fixes/improvements:</p>
+.<ul>
+.<li>Various build and portability fixes (including making some exotic configure switches work (again)).</li>
+.<li>Add dump_seekindex example</li>
+.<li>Sync mpg123_clr (.NET wrapper) to 1.12 feature set, patch provided by Malcolm Boczek -- and actually include it in release tarball!</li>
+.<li>Rework mpg123.h logic for large file stuff a bit, clients can control it by defining MPG123_NO_LARGENAME or MPG123_LARGESUFFIX.</li>
+.<li>Include dumb wrappers to provide names suffixed with _64 on 64 bit machines and _32 on 32 bit machines, respectively, to help clients that insist on defining _FILE_OFFSET_BITS where it is not needed (or with a non-large value).</li>
+.<li>Tuning of the internal buffer code for feeder mode to minimize its performance impact (works in 4K blocks now).</li>
+.<li>Workaround for compiler bugs in Open64/PathScale/SunStudio (<a href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=3004396&amp;group_id=135704&amp;atid=733194">bug 3004396</a>, suggestion by Doug Gilmore). <br />
+.  Note that Sun Studio is still a tricky fellow, at least when it comes to our preprocessed assembly (generic build works).
+.  Also, x86-Open64 recently produced another segfault in layer3.c on my box... GNU and intel compilers are what one can use as something stable.</li>
+.<li>Make mpg123_getformat() return more error codes (like MPG123_NEED_MORE).</li>
+.<li>Fix handle I/O for clients with small file offset (32 bit when libmpg123 has 64 bit).</li>
+.<li>Fix 3DNow(Ext) standalone builds.</li>
+.</ul>
+.<p>The <a href="dowload.shtml">download area</a> is your friend...</p>
+
 :date 2010-04-05
 :by Thomas
 :title Got a new toy... and wired it up to mpg123!
