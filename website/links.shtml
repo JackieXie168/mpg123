@@ -7,8 +7,18 @@
 <h1>Links </h1>
 <h2>Supporters</h2>
 <ul>
-<li>The team of <a href="http://www.rom.lu">Radio ROM</a> (RadioOrganisation Miedernach asbl) for donations (money and a bottle of quality Gewürztraminer wine(!)) and moral support for Thomas, including a christmas card (a real paper one!) from Luxembourg;-)</li>
+<li>The team of <a href="http://www.rom.lu">Radio ROM</a> (RadioOrganisation Miedernach asbl) for donations (money and a bottle of quality Gewürztraminer wine) and moral support for Thomas, including <strong>multiple</strong> Christmas cards (real paper, and all!) from Luxembourg;-)</li>
 </ul>
+<h2>The &quot;other&quot mpg123</h2>
+<p>
+	Many people might encounter another program under the name mpg123 on their system, which behaves similary, but not exactly the same. Or people might just be curious about mpg321 being a typing error:
+	No, it is not (mpg132 is the usual typo;-).
+	Back when mpg123 was under a somewhat non-Free license, mpg321 has been created as a replacement under GPL license, providing most of mpg123's external behaviour, for users and frontends.
+</p>
+<p>
+	The project went dormant about the same time mpg123 did, but also, like mpg123, it has been revived years later.
+	Of course I'd rather see people use mpg123, but hey, what's life without competition? ;-) So, if you are so inclined, check it out at the <a href="http://mpg321.sourceforge.net">mpg321 website</a>.
+</p>
 <h2>Patches and ports for different operating systems</h2>
 <ul>
 <li><a href="http://www.bebits.com/app/462">BeOS</a>(on BeBits)</li>
