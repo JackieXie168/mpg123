@@ -1,3 +1,10 @@
+:date 2010-07-11
+:by Thomas
+:title Finally nailing strange http streaming breakage with mpg123 1.12.3!
+.<p>
+.The newest release fixes <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3022850&amp;group_id=135704&amp;atid=733194">bug 3022850</a>, a long-standing bug that managed to break http streaming with ICY metadata in a non-obvious manner.
+.It's a little change with big impact... for those who listen to web radio, that is.
+.</p>
 :date 2010-06-20
 :by Thomas
 :title Fixing your world with mpg123-1.12.2
