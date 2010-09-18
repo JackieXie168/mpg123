@@ -1,3 +1,11 @@
+:date 2010-09-18
+:by Thomas
+:title mpg123 1.12.4
+.<p>
+.This is a little bugfix release that improves printout of metadata (ID3) in UTF-8 terminals, fixing one of those distro bug reports that I am getting aware of late...
+.Get it from the <a href="download.shtml">usual places</a>.
+.</p>
+
 :date 2010-07-11
 :by Thomas
 :title Finally nailing strange http streaming breakage with mpg123 1.12.3!
