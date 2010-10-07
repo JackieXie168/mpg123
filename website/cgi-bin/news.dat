@@ -1,3 +1,11 @@
+:date 2010-10-07
+:by Thomas
+:title mpg123 1.12.5 fixing buffer overflow regression from 1.12.4
+.<p>
+.This release fixes a buffer overflow issue in the mpg123 frontend application when printing ID3 data in non-UTF-8 environments.
+.It has been introduced in version 1.12.4 and Jakub Bogusz was so kind to bump my head into this. Please upgrade. Thanks.
+.</p>
+
 :date 2010-09-18
 :by Thomas
 :title mpg123 1.12.4
