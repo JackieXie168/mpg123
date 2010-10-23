@@ -23,6 +23,7 @@ close(SUFDAT);
 my $rms="$Bin/rmsdouble.$bsuf";
 my $f32conv="$Bin/f32_double.$bsuf";
 my $s32conv="$Bin/s32_double.$bsuf";
+my $s24conv="$Bin/s24_double.$bsuf";
 my $s16conv="$Bin/s16_double.$bsuf";
 
 die "Binaries missing, run make in $Bin\n" unless (-e $rms and -e $f32conv and -e $s16conv);
@@ -30,6 +31,7 @@ die "Binaries missing, run make in $Bin\n" unless (-e $rms and -e $f32conv and -
 my $nogap='';
 my $floater=0;
 my $int32er=0;
+my $int24er=0;
 {
 	open(DAT, "@ARGV --longhelp 2>&1|");
 	while(<DAT>)
@@ -38,6 +40,7 @@ my $int32er=0;
 	}
 	close(DAT);
 	$int32er = test_encoding('s32');
+	$int24er = test_encoding('s24');
 	$floater = test_encoding('f32');
 }
 
@@ -53,6 +56,12 @@ for(my $lay=1; $lay<=3; ++$lay)
 	{
 		print "--> 32 bit integer output\n";
 		tester($files[$lay-1], '-e s32', $s32conv);
+	}
+
+	if($int24er)
+	{
+		print "--> 24 bit integer output\n";
+		tester($files[$lay-1], '-e s24', $s24conv);
 	}
 
 	if($floater)

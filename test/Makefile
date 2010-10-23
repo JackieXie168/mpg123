@@ -5,7 +5,7 @@ endif
 # Change that to exe or whatever... but it should be non-empty.
 BIN_SUFFIX=bin
 
-bins=rmsdouble.$(BIN_SUFFIX) rms16.$(BIN_SUFFIX) s16_double.$(BIN_SUFFIX) f32_double.$(BIN_SUFFIX) s32_double.$(BIN_SUFFIX) hex24_double.$(BIN_SUFFIX) buffer.$(BIN_SUFFIX)
+bins=rmsdouble.$(BIN_SUFFIX) rms16.$(BIN_SUFFIX) s16_double.$(BIN_SUFFIX) f32_double.$(BIN_SUFFIX) s32_double.$(BIN_SUFFIX) s24_double.$(BIN_SUFFIX) hex24_double.$(BIN_SUFFIX) buffer.$(BIN_SUFFIX)
 
 .PHONY: all clean
 
@@ -23,8 +23,14 @@ f32_double.$(BIN_SUFFIX): to_double.c
 s32_double.$(BIN_SUFFIX): to_double.c
 	$(CC) -DS32 -O -o $@ $< -lm
 
+s24_double.$(BIN_SUFFIX): s24_to_double.c endian.txt
+	$(CC) -D$(shell cat endian.txt) -o $@ $< -lm
+
 s16_double.$(BIN_SUFFIX): to_double.c
 	$(CC) -DS16 -O -o $@ $< -lm
+
+endian.txt: endian.$(BIN_SUFFIX)
+	./$< > $@
 
 %.$(BIN_SUFFIX): %.c
 	$(CC) -O -o $@ $< -lm
@@ -50,6 +56,9 @@ compliance/layer3/%.double: compliance/layer3/%.hex hex24_double.$(BIN_SUFFIX)
 
 %.double: %.s16 s16_double.$(BIN_SUFFIX)
 	./s16_double.$(BIN_SUFFIX) < $< > $@
+
+%.double: %.s24 s24_double.$(BIN_SUFFIX)
+	./s24_double.$(BIN_SUFFIX) < $< > $@
 
 %.double: %.s32 s32_double.$(BIN_SUFFIX)
 	./s32_double.$(BIN_SUFFIX) < $< > $@

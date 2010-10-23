@@ -45,7 +45,7 @@
 BINFILE=mpg123
 
 # master switch for running the script interactively or not
-INTERACTIVE=true
+INTERACTIVE=false
 
 # the prefix for the test files, there have to be two files present, one named
 # $TESTFILE.mp3 and one named $TESTFILE.mp2. preferably the mp3 file contains
