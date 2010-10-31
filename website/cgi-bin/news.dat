@@ -1,3 +1,11 @@
+:date 2010-11-01
+:by Thomas
+:title Server move.
+.<p>
+.The mpg123 website and source code repository server has moved. Ideally, nobody did notice except for the notices. But there is one change for the future: I'd like people to use svn://svn.orgis.org/mpg123 as URL for the source code repository. The added subdomain adds flexibility that one might need for future server moves.
+.Anyway, business as usual... go along, nothing special to see.
+.</p>
+
 :date 2010-10-07
 :by Thomas
 :title mpg123 1.12.5 fixing buffer overflow regression from 1.12.4
