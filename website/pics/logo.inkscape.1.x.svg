@@ -596,9 +596,9 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1"
      inkscape:cx="376.30451"
-     inkscape:cy="834.80613"
+     inkscape:cy="764.73199"
      inkscape:document-units="px"
-     inkscape:current-layer="g13191"
+     inkscape:current-layer="layer1"
      showguides="false"
      inkscape:guide-bbox="true"
      inkscape:window-width="1024"
@@ -713,7 +713,7 @@
        inkscape:export-ydpi="90" />
     <g
        id="g19231"
-       inkscape:export-filename="/data/mpg123-neu/svn-website/pics/logo-0.68.png"
+       inkscape:export-filename="/data/projekte/mpg123/svn/website/pics/logo-1.13.png"
        inkscape:export-xdpi="56.071758"
        inkscape:export-ydpi="56.071758">
       <path
@@ -855,12 +855,12 @@
              sodipodi:role="line"
              x="671.84845"
              y="170.82703"
-             id="tspan2501">1.12</tspan></text>
+             id="tspan2501">1.13</tspan></text>
       </g>
     </g>
     <path
        style="fill:#d3d7cf;fill-rule:evenodd;stroke:#d3d7cf;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 496.42823,57.008416 L 496.42823,815.03175"
+       d="M 515.42823,803.00842 L 515.42823,1561.0318"
        id="path17977"
        inkscape:export-filename="/tmp/mpg123-logo.png"
        inkscape:export-xdpi="90"
