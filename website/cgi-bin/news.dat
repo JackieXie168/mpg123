@@ -1,3 +1,10 @@
+:date 2011-01-06
+:by Thomas
+:title mpg123 1.13.1
+.<p>New Year, new bugs (from last year) -- and their fixes!</p>
+.<p>This release fixes a stupid regression in 1.13.0 that broke MPG123_FORCE_FLOAT and MPG123_FORCE_8BIT (--float and --8bit command line switches), caused by the introduction of 24 bit format support.
+.Furthermore, it has been suggested to ignore the private / extension header bit in the parser's stream checking and so it is now.</p>
+
 :date 2010-12-13
 :by Thomas
 :title mpg123 1.13.0
