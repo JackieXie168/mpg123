@@ -21,7 +21,7 @@ It is free software licensed under LGPL 2.1 (the officially released sources, so
 <!--#include virtual="cgi-bin/news.cgi?top" -->
 
 <h2><a name="compliance"></a>ISO MPEG compliance</h2>
-<p>This is a rough log of an automated compliance test on the mpg123 webserver (Athlon-XP, GNU/Linux), using each one test bitstream from the ISO MPEG reference set.
+<p>This is a rough log of an automated compliance test on the mpg123 webserver (Athlon 64, GNU/Linux), using each one test bitstream from the ISO MPEG reference set.
 At least the floating point output should really be close enough to the reference.</p>
 <p>
 	Regarding the method: This is comparing mpg123's output (with gapless code deactivated) from reference bitstreams to the reference output.
