@@ -74,7 +74,7 @@ mpg123 -a hw:0,0 myfile.mp3
 		<tr><th>Distro</th><th>Needed packages</th></tr>
 		<tr><td>Debian / Ubuntu</td><td>libasound2, libasound2-dev</td></tr>
 	</table>
-	<h2>I want a fresh RPM of mpg123!<h2>
+	<h2>I want a fresh RPM of mpg123!</h2>
 	<p>Your distro does not contain a current mpg123 and but you still want to install it properly via rpm...</p>
 	<h3>Solution</h3>
 	<p>You can simply download the source and use rpmbuild -- see <a href="http://sites.google.com/site/mclroy/mpg123">Michael's HOWTO</a></p>
