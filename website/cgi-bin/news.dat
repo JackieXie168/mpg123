@@ -1,3 +1,13 @@
+:date 2011-02-03
+:by Thomas
+:title mpg123 in the FOSS world
+.<p>There are some things going on that I'd like to remind the world and myself on:</p>
+.<ul>
+.<li>The ffmpeg project could still profit from getting a libmpg123 wrapper: <a href="http://multimedia.cx/eggs/gcc-of-multimedia/">ffmpeg audio decoder performance comparison</a>. Now a question is: Which fork of ffmpeg? I remember Michael saying that he won't oppose a wrapper when it's maintained, while Diego stronly argued for actually moving mpg123 code into ffmpeg and ditch any separate specialized library.</li>
+.<li>GStreamer apps could also profit from getting libmpg123 mojo -- and there is <a href="http://gst.homeunix.net/">a libmpg123 plugin for GStreamer</a>, which apparently just needs some polish. See discussion at <a href="https://bugzilla.gnome.org/show_bug.cgi?id=558235">GNOME / Rhythmbox</a> and <a href="https://bugs.launchpad.net/rhythmbox/+bug/290150">launchpad bug for Rhythmbox</a></li>
+.</ul>
+.<p>Indeed, after getting some mpg123 into XMMS2 and MPlayer (try -ac mpg123 on a recent build) ... ffmpeg and GStreamer are two influential multimedia frameworks that we also should be part of.</p>
+
 :date 2011-01-06
 :by Thomas
 :title mpg123 1.13.1
