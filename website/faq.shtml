@@ -8,6 +8,9 @@
 	<p>As a special treat, this FAQ is also available as <a href="http://ucallweconn.net/be/mpg123-faq-be">Belorussian 
 translation</a> by Martha Ruszkowski.</p>
 
+	<h2>I am trying to use libmpg123 and I am confused by the output format stuff.</h2>
+	<p>Read the updated overall <a href="/api/group__mpg123__output.shtml">description of the format API</a>. If that does not help, please ask for clarification.</p>
+
 	<h2>Hey, mpg123 uses way too much CPU time on Linux!</h2>
 	<p>
 		You just installed the fast and lean UNIX command line MPEG audio player and gaze agape at the high CPU load you see while playing a track.
