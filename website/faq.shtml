@@ -11,6 +11,9 @@ translation</a> by Martha Ruszkowski.</p>
 	<h2>I am trying to use libmpg123 and I am confused by the output format stuff.</h2>
 	<p>Read the updated overall <a href="/api/group__mpg123__output.shtml">description of the format API</a>. If that does not help, please ask for clarification.</p>
 
+	<h2>I want to port some old code using mpglib to libmpg123</h2>
+	<p>For that case, the feeder API has been introduced in addition to the file-based API. Have a look at the examples, specifically <a href="/api/mpglib_8c.shtml">the mpglib-like example</a>. Make also sure to read the API documentation about the feeder API ... and the stuff about output formats.
+
 	<h2>Hey, mpg123 uses way too much CPU time on Linux!</h2>
 	<p>
 		You just installed the fast and lean UNIX command line MPEG audio player and gaze agape at the high CPU load you see while playing a track.
