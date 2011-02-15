@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 
 use strict;
 
@@ -32,13 +32,23 @@ my $nogap='';
 my $floater=0;
 my $int32er=0;
 my $int24er=0;
+# Crude hack to detect the raw decoder test binary.
+my $rawdec = 1;
+
+# Store STDERR descriptor.
+open(my $the_stderr, '>&', \*STDERR);
+
 {
-	open(DAT, "@ARGV --longhelp 2>&1|");
+	stderr_null();
+	open(DAT, "-|", @ARGV, '--longhelp');
 	while(<DAT>)
 	{
+		# If we see the greeting from mpg123, we don't have the raw decoder at hand.
+		$rawdec = 0 if /^High Performance MPEG/;
 		$nogap='--no-gapless' if /no-gapless/;
 	}
 	close(DAT);
+	stderr_normal();
 	$int32er = test_encoding('s32');
 	$int24er = test_encoding('s24');
 	$floater = test_encoding('f32');
@@ -50,24 +60,24 @@ for(my $lay=1; $lay<=3; ++$lay)
 	print "==== Layer $lay ====\n";
 
 	print "--> 16 bit signed integer output\n";
-	tester($files[$lay-1], '', $s16conv);
+	tester($files[$lay-1], 's16', $s16conv);
 
 	if($int32er)
 	{
 		print "--> 32 bit integer output\n";
-		tester($files[$lay-1], '-e s32', $s32conv);
+		tester($files[$lay-1], 's32', $s32conv);
 	}
 
 	if($int24er)
 	{
 		print "--> 24 bit integer output\n";
-		tester($files[$lay-1], '-e s24', $s24conv);
+		tester($files[$lay-1], 's24', $s24conv);
 	}
 
 	if($floater)
 	{
 		print "--> 32 bit floating point output\n";
-		tester($files[$lay-1], '-e f32', $f32conv);
+		tester($files[$lay-1], 'f32', $f32conv);
 	}
 }
 
@@ -84,7 +94,28 @@ sub tester
 		$double =~ s:(mpg|bit)$:double:;
 		die "Please make some files!\n" unless (-e $bit and -e $double);
 		print basename($bit).":\t";
-		my $commandline = "@ARGV $nogap $enc -q  -s ".quotemeta($bit)." | $conv | $rms ".quotemeta($double)." 2>/dev/null";
+		# This needs to be reworked to be save with funny stuff in @ARGV.
+		# Relying on the shell is dangerous.
+		my @com = @ARGV;
+		if($rawdec)
+		{
+			push(@com, $enc, $bit);
+			
+		}
+		else
+		{
+			push(@com, '-e', $enc) unless($enc eq 's16');
+			push(@com, '-q', '-s');
+			push(@com, $nogap) unless($nogap eq '');
+			push(@com, $bit);
+		}
+		my $commandline;
+		for(@com)
+		{
+			$commandline .= ' ' if $commandline ne '';
+			$commandline .= quotemeta($_);
+		}
+		$commandline .= " 2>/dev/null | $conv | $rms ".quotemeta($double)." 2>/dev/null";
 		system($commandline);
 	}
 }
@@ -92,15 +123,33 @@ sub tester
 sub test_encoding
 {
 	my $enc = shift;
+	# We only support the raw decoder supporting all encodings, for now.
+	if($rawdec)
+	{
+		print STDERR "Warning: Hacked use of the raw decoder test binary, assuming format support.\n";
+		return 1;
+	}
 	my $supported = 0;
 	my @testfiles = glob($files[2]);
 	my $testfile = $testfiles[0];
-	open(DAT, "@ARGV -q -s -e $enc ".quotemeta($testfile)." 2>/dev/null |");
+	stderr_null();
+	open(DAT, '-|', @ARGV, '-q', '-s', '-e', $enc, $testfile);
 	my $tmpbuf;
 	if(read(DAT, $tmpbuf, 1024) == 1024)
 	{
 		$supported = 1;
 	}
 	close(DAT);
+	stderr_normal();
 	return $supported;
+}
+
+sub stderr_null
+{
+	close(STDERR);
+}
+
+sub stderr_normal
+{
+	open STDERR, '>&', $the_stderr;
 }
