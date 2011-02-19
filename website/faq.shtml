@@ -8,6 +8,16 @@
 	<p>As a special treat, this FAQ is also available as <a href="http://ucallweconn.net/be/mpg123-faq-be">Belorussian 
 translation</a> by Martha Ruszkowski.</p>
 
+	<h2>mpg123 does only play the intro jingle of my web radio!</h2>
+	<p>
+		This might be collateral damage from a feature of mpg123 -- the gapless playback using sample-exact length and padding information provided at the beginning of an MP3 stream. It makes perfect sense for files, and actually should only be present there.
+		Now, some web radios just insert such a single file with that special gapless header into the radio stream and make mpg123 believe it is just playing a single small file where it should cut off some trailing silence -- that trailing silence effectively including the actual radio stream!
+	</p>
+	<p>
+		Use of the --no-gapless command line switch might help, or the unsetting of the MPG123_GAPLESS flag when using libmpg123. Further information and discussion about possible changes of mpg123's smarts about this are to be found in mailing list archives,
+		one <a href="http://sourceforge.net/mailarchive/forum.php?thread_name=AANLkTi%3DsPFmeVzzxx2YM9cLC34VBtXF6-YPGPpFd_6HP%40mail.gmail.com&amp;forum_name=mpg123-devel">thread on the devel list</a>,
+		one <a href="http://sourceforge.net/mailarchive/forum.php?thread_name=20110112114017.57cd4507%40dunkelstern&amp;forum_name=mpg123-users">thread on the users list</a>.
+	</p>
 	<h2>I am trying to use libmpg123 and I am confused by the output format stuff.</h2>
 	<p>Read the updated overall <a href="/api/group__mpg123__output.shtml">description of the format API</a>. If that does not help, please ask for clarification.</p>
 
