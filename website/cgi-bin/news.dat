@@ -1,3 +1,19 @@
+:date 2011-02-19
+:by Thomas
+:title mpg123 version 1.13.2 is here
+.<p>
+.Maintenance shows itself in the following points:
+.</p>
+.<ul>
+.<li>Updated .NET wrapper (MPG123_SKIP_ID3V2, encsize and mpg123_strlen functions) by Malcolm Boczek.</li>
+.<li>Fix crash when calling mpg123_decoder() before opening a track -- a rare use case since one can choose a decoder with mpg123_new() already.</li>
+.<li>Fix format change detection for certain (artificial) concatenated streams (p.ex. MPEG 1 frames following MPEG 2 frames).</li>
+.<li>Prevent the nasty of bug 3154889: No change of pitch without a current audio format. No proper solution, but more like earlier behaviour.</li>
+.<li>Fix some compiler warnings.</li>
+.<li>Fix a memory leak in the module loader, also some in the examples, for being pedantic.</li>
+.<li>More use of AC_LANG_SOURCE to silence autoconf.</li>
+.</ul>
+
 :date 2011-02-03
 :by Thomas
 :title mpg123 in the FOSS world
