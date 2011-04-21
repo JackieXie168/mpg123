@@ -1,3 +1,14 @@
+:date 2011-04-21
+:by Thomas
+:title more bug fixing, mpg123 1.13.2 is here
+:<p>No long speech ... just get it!</p>
+.<ul>
+.<li>Fix an endless loop on bad headers, bug 3267863.</li>
+.<li>Prevent compiler warnings about unused variables with gcc 4.6 .</li>
+.<li>Fix return value handling of getaddrinfo(), bug 3288333.</li>
+.<li>Make decwin size computation work for OPT_ARM and sizeof(long) != 4 (bug 3288360).</li>
+.</u>
+
 :date 2011-02-19
 :by Thomas
 :title mpg123 version 1.13.2 is here
