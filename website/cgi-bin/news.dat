@@ -1,6 +1,6 @@
 :date 2011-04-21
 :by Thomas
-:title more bug fixing, mpg123 1.13.2 is here
+:title more bug fixing, mpg123 1.13.3 is here
 :<p>No long speech ... just get it!</p>
 .<ul>
 .<li>Fix an endless loop on bad headers, bug 3267863.</li>
