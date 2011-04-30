@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+use File::Basename;
+
+$e = $ENV{QUERY_STRING};
+$s = $ENV{SCRIPT_NAME};
+$p = $ENV{PATH_INFO};
+$sp = dirname($s);
+
+if($s =~ m:/viewvc.cgi:)
+{
+	$ziel = "scm/mpg123$p";
+	$ziel .= '?'.$e if $e ne '';
+}
+else
+{
+	$ziel = "/"; # lazy, could do error page later
+}
+
+$ziel = "$sp/$ziel";
+
+print <<EOT;
+Status: 301 Moved Permanently\r
+Location: $ziel\r
+Content-length: 0\r
+Content-type: text/html\r
+\r
+EOT
+1;
