@@ -87,7 +87,7 @@
 <li><a href="http://freeweb.pdq.net/redline/fuse"> GUI frontend for the GNOME desktop project </a></li>
 <li><a href="http://www.tf.hut.fi/~flu/cplay/"> Front-end written in Python </a></li>
 <li><a href="http://www.ffem.org/gdam/"> mp3 mixing </a></li>
-<li><a href="http://www.geocities.com/SiliconValley/Haven/5235/mpeg-over.html"> GQmpeg </a></li>
+<li><a href="http://gqmpeg.sourceforge.net/">GQmpeg</a>, or a <a href="http://members.chello.cz/mcermak/gqmpeg/">fixed version of GQmpeg</a>, working with newer mpg123.</li>
 <li><a href="http://www.xmms.org/">XMMS</a></li>
 <li><a href="http://www.informatik.uni-freiburg.de/~nebel/rio/"> TKRio, Tcl/Tk GUI for Rio Program </a></li>
 <li><a href="http://www.dpotter.com/irmp3"> IRMP3 </a></li>
