@@ -1,3 +1,8 @@
+:date 2011-08-09
+:by Thomas
+:title Fixed Windows binaries ... plugins were missing!
+.<p>This is for all who downloaded the Windows binaries from his site and wondered why they didn't work since mpg123 1.13.0: The dynamic builds simply were missing the output plugins due to a build script error. We got some updates on those, and the static builds as fallback in any way.</p>
+
 :date 2011-04-21
 :by Thomas
 :title more bug fixing, mpg123 1.13.3 is here
