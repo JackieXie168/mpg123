@@ -1,3 +1,14 @@
+:date 2011-10-10
+:by Thomas
+:title We want to be faster!
+.<p>
+.As you might know, some time ago I contributed a mpg123 binding for <a href="http://mplayerhq.hu">MPlayer</a> to replace the fork there, called mp3lib. The final adoption of this mpg123 binding depends on some eerie performance issue being resolved. Mpg123 is slower than an old fork of itself! Well, that is the case when used as library from MPlayer...
+.</p>
+.<p>
+.I sent out a <a href="http://sourceforge.net/mailarchive/forum.php?thread_name=20111010210331.0955d99b
+%40orgis.org&forum_name=mpg123-devel">call on the mpg123-devel list</a> to find someone who can help out with fixing this performance issue since I lack the time for that, sadly. If you feel motivated, please join the discussion there. Alternatively you can just send the fix to me personally, too. I won't mind;-)
+.</p>
+
 :date 2011-09-07
 :by Thomas
 :title Heads up with a bug down.
