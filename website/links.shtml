@@ -32,7 +32,7 @@
 <h2>Misc. programs and modules based on mpg123</h2>
 <div style="text-align:center">If you have something to add to this list, please contact the mpg123 maintainer to add it!</div>
 <ul>
-<li><a href="http://cueplay.sourceforge.net/">Cueplay</a>, a frontend to mpg123 (among others) that focuses on playbac with cue sheets</li>
+<li><a href="http://cueplay.sourceforge.net/">Cueplay</a>, a frontend to mpg123 (among others) that focuses on playback with cue sheets</li>
 <li><a href="http://code.google.com/p/musikcube/">musikCube 2</a></li>
 <li><a href="http://mplayerhq.hu">MPlayer</a>, the famous open source media player, using a modified mpglib (which has been a source of improvements to mainline mpg123, too)</li>
 <li><a href="http://pspupdates.qj.net/MODO-January-30-update-added-MP3-support-via-libmpg123/pg/49/aid/112710">MODO</a>, a music player for the Sony PSP that, among others, uses libmpg123.</li>
