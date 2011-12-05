@@ -1,5 +1,7 @@
 libmpg123 with (sample-accurate) seeking
 
+Note: bitreservoir.txt might contains some relevant insights
+
 These notes start with the basically working mpg123lib branch and document the process of adding proper seeking to that one.
 
 The basic unit of MPEG audio is a frame, consisting of a certain number of mono/stereo samples (a stereo sample being what sometimes is referred to as a frame in digital audio).
