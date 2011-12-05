@@ -1,0 +1,382 @@
+\documentclass[a4paper,12pt]{scrartcl}
+
+\begin{document}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+
+\section{Introduction}
+
+Over a year ago, I contributed am mpg123 binding for MPlayer to replace the old fork of mpg123 code dubbed "mp3lib". I can say "old" since we incorporated the added optimizations from that one plus added new stuff from Taihei;-)
+
+Generally, mpg123 performs well compared to MPlayer, but there is a performance hit when using libmpg123 from MPlayer, making it slower than the built-in mp3lib. This is mostly apparent on older systems, where possibly cache misses are a source of trouble.
+
+Specifically, the regression has been reported on K6-3+, of which I happen to have a unit available for testing. It has been confirmed for Athlons (no XP), too. Well, I happen to have a good old Duron 800 at my disposal. That should do the trick there.
+
+\section{Test setup}
+
+The software baseline is a current stable debian squeeze (installed from 6.0.3 media), with MPlayer and mpg123 pulled from SVN and built enforcing binaries for a K6-3 (also on the Duron), adding in 3DNowExt optimizations via custom assembly on either side.
+
+Furthermore, the data set is, for the sake of comparability with earlier results, the MP3 album "Points of View" by "Convergence". To make sure, I talk of these files with the respective MD5 hashes:
+
+\begin{verbatim}
+04d953da593d8cfa43aee4d00572ca37 \
+ /dev/shm/convergence_-_points_of_view/01 - Bleed.mp3
+2999166bab6fe443f6a2c15c8eb5d938 \
+ /dev/shm/convergence_-_points_of_view/02 - Strike the end.mp3
+d324e12b3f20bea69c9c5e01252d0d96 \
+ /dev/shm/convergence_-_points_of_view/03 - Listen.mp3
+e0215065002ef2492a8d88c356609c21 \
+ /dev/shm/convergence_-_points_of_view/04 - Six feet under.mp3
+2b19190e15b5e5a805ccfacd789b01ab \
+ /dev/shm/convergence_-_points_of_view/05 - Always the same.mp3
+502c4d1e5793352fb25e6e90d6480415 \
+ /dev/shm/convergence_-_points_of_view/06 - Breath.mp3
+80bffd4e4bd6cc2f330b08e8156070ad \
+ /dev/shm/convergence_-_points_of_view/07 - Vanished memories.mp3
+de5ebd6e36eebf8c77642fa52f9610bd \
+ /dev/shm/convergence_-_points_of_view/08 - Silent.mp3
+c4c1167b5ca29c061d75f6104eec9283 \
+ /dev/shm/convergence_-_points_of_view/09 - Nothing else.mp3
+df624cee3f7b65be9b98e449e122ac63 \
+ /dev/shm/convergence_-_points_of_view/10 - Train to leave.mp3
+\end{verbatim}
+
+As you may notice: I try to eliminate the hard disk at least for the test data by moving stuff to RAM. Even the K6-3+ has no issue with sparing some of its 512 MiB of RAM (the duron setup has 768 MiB).
+
+The command lines try to do comparable things in mpg123 and MPlayer:
+
+\begin{verbatim}
+mplayer -ac mp3 -quiet -ao pcm:file=/dev/null \
+   /dev/shm/convergence_-_points_of_view/*.mp3
+mplayer -ac mpg123 -quiet -ao pcm:file=/dev/null \
+   /dev/shm/convergence_-_points_of_view/*.mp3
+mpg123 -w /dev/null /dev/shm/convergence_-_points_of_view/*.mp3
+\end{verbatim}
+
+I'm trying to combine timings with good old 'time' and measurements with 'perf'. The latter does not give much information on the K6-3+ with respect to cache misses, so I hope to do the grunt work on the Duron and hopefully the findings will transfer to the K6.
+
+As an additional measure to avoid a penalty for libmpg123 loading, the libmpg123.a is linked in statically into MPlayer. The final solution will hopefully make the dynamic lib perform about as well (considering that stand-alone mpg123 does this successfully).
+
+The build of MPlayer is configured via
+\begin{verbatim}
+./configure --extra-cflags='-march=k6-3 -mtune=k6-3 -g'
+\end{verbatim}
+the mpg123 build via
+\begin{verbatim}
+CFLAGS="-march=k6-3 -mtune=k6-3 -g -O3" ./configure --disable-shared
+\end{verbatim}
+
+That results in this set of CFLAGS: \verb:-O2: \verb:-fomit-frame-pointer: \verb:-funroll-all-loops: \verb:-finline-functions: \verb:-ffast-math:  \verb:-march=k6-3: \verb:-mtune=k6-3: \verb:-g: \verb:-O3:
+Those are largely similar to what MPlayer uses, but not identical. Thinking about this... some of those might be even damaging. But: As long as standalone mpg123 has such a clear lead over MPlayer, I doubt that those make much of a difference.
+
+
+\section{The situation}
+
+How do my K6-3 binaries perform on the two systems? Well, let's record the user time to decode the test album (no statistics as long as the result is rather clear).
+\begin{center}
+\begin{tabular}{lrrr}
+run & user time K6-III+ / s & user time Duron / s & ratio K6 / Duron \\
+\hline
+mpg123-debian & 51.6 & 22.4 & 2.30 \\
+mpg123 & 50.4 & 22.3 & 2.26 \\
+mplayer-mp3lib & 56.8 & 25.4 & 2.24 \\
+mplayer-mpg123 & 67.0 & 28.7 & 2.33
+\end{tabular}
+\end{center}
+
+This is using run-time choice of 3DNowExt routines. It might be interesting to compare runtimes of generic C code, the difference attesting to the respective assembly routine quality.
+But let's stay focused on the case that is important in practice, and that is using 3DNowExt as the most performant choice on these CPUs.\footnote{Alas, that is limited to 16 bit output, currently.}
+Let's express runtime as percent of plain mpg123 runtime:
+\begin{center}
+\begin{tabular}{lrr}
+run & user time K6-III+ & user time Duron \\
+\hline
+mpg123-debian & 102.4 \% & 100.4 \% \\
+mpg123 & 100.0 \% & 100.0 \% \\
+mplayer-mp3lib & 112.7 \% & 113.9 \% \\
+mplayer-mpg123 & 132.9 \% & 128.7 \%
+\end{tabular}
+\end{center}
+
+Ivan noted a performance penalty of 6 \% on his Athlon. Well, I can offer even more: MPlayer with mpg123 binding adds 13 \% on the runtime of MPlayer with mp3lib. Cache size could explain that somewhat, as the Duron does have less of that than an Athlon, though it was not considered that much of a performance difference back then when people cared about comparing Athlons and Durons.
+Anyhow, good starting point to dig at the reason for the difference, eh? I do remember trying out generic decoders on the K6-III+, there the effect was even larger. If things are unclear, I can resort to that.
+
+\section{Glimpses with perf}
+
+Now let's hook up with Linux Performance Events. On the K6-III+, the information was rather meager\footnote{I had to build a kernel for K6 to support performance events at all, as opposed to the debian i486 kernel.}, I hope for more stats on the Duron as a more modern / better supported CPU.
+But perhaps it's just my novice usage of perf, which I didn't know before. Oh, hm. Let's see. Ah, yes... all the goodies Ivan used in his perf invocation relies on a PMU being present. That's not the case for the K6.
+\begin{verbatim}
+altwarentester@k6-3:~/mplayer$ perf record -f \
+ -e cycles:u -e instructions:u -e l1-dcache-loads:u \
+ -e l1-dcache-load-misses:u -e branch-misses \
+ ./mplayer -ac mp3 -quiet -ao pcm:file=/dev/null  \
+ /dev/shm/convergence_-_points_of_view/*.mp3
+
+  Error: perfcounter syscall returned with -1 (No such device)
+
+  Fatal: No CONFIG_PERF_EVENTS=y kernel support configured?
+\end{verbatim}
+It seems the only diagnostic I get is cycles, and that's not very special. On the Duron:
+\begin{verbatim}
+altwarentester@duron:~/mplayer$ perf record -f \
+ -e cycles:u -e instructions:u -e l1-dcache-loads:u \
+ -e l1-dcache-load-misses:u -e branch-misses \
+ ./mplayer -ac mp3 -quiet -ao pcm:file=/dev/null  \
+ /dev/shm/convergence_-_points_of_view/*.mp3
+  Error: failed to mmap with 1 (Operation not permitted)
+\end{verbatim}
+Well. That's nearly success. I have to increase the allowed locked memory count from the default 64 K.
+
+Now let's see what we've got. Hm, recording works, but I don't get how to report all that wonderful information.
+Plain \verb:perf report: doesn't tell more than usual. I can do that call graph thing, but also here, there is still some strangeness going on with the mpg123 symbols. I'll figure that out.
+
+In the meantime, there is \verb:perf stat:, which gives a nice overall picture:
+
+\begin{verbatim}
+altwarentester@duron:~/mplayer$ perf stat ./mplayer -ac mpg123 \
+ -quiet -ao pcm:file=/dev/null    /dev/shm/convergence_-_points_of_view/*.mp3
+
+   29435.786923  task-clock-msecs         #      0.994 CPUs 
+            216  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+           6780  page-faults              #      0.000 M/sec
+    23502185554  cycles                   #    798.422 M/sec
+    22870306002  instructions             #      0.973 IPC  
+     8562390418  cache-references         #    290.884 M/sec
+       17327364  cache-misses             #      0.589 M/sec
+
+   29.605841362  seconds time elapsed
+\end{verbatim}
+
+\begin{verbatim}
+altwarentester@duron:~/mplayer$ perf stat ./mplayer -ac mp3 \
+ -quiet -ao pcm:file=/dev/null    /dev/shm/convergence_-_points_of_view/*.mp3
+
+   26210.959074  task-clock-msecs         #      0.993 CPUs 
+            207  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+           6290  page-faults              #      0.000 M/sec
+    20923114721  cycles                   #    798.258 M/sec
+    20818859901  instructions             #      0.995 IPC  
+     7867755901  cache-references         #    300.170 M/sec
+       10962558  cache-misses             #      0.418 M/sec
+
+   26.387378954  seconds time elapsed
+\end{verbatim}
+
+\begin{verbatim}
+altwarentester@duron:~$ perf stat mpg123/src/mpg123 -w /dev/null \
+ /dev/shm/convergence_-_points_of_view/*.mp3
+
+   23163.487659  task-clock-msecs         #      0.996 CPUs 
+            140  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            337  page-faults              #      0.000 M/sec
+    18501736597  cycles                   #    798.746 M/sec
+    20408582208  instructions             #      1.103 IPC  
+     7871105536  cache-references         #    339.807 M/sec
+       11304577  cache-misses             #      0.488 M/sec
+
+   23.246529422  seconds time elapsed
+\end{verbatim}
+
+The K6 is not that generous with details (not counted from cycles on).
+Regarding cache misses, that's 17 million for mplayer-mpg123, 11 million for mplayer-mp3 and a similar 11 million for plain mpg123. OK, it is sub-optimal. I know that. Now how to dig deeper? I do wonder if switching to generic C code would help since this reduces the amount of functions involved.
+
+\section{The situation with generic C code}
+
+Let's try that: Force MPlayer not to activate special optimizations, tell mpg123 to stick to generic decoding. Hm. I see that mp3lib generic code is actually the i386 code. Well, then, two can play that game.
+
+\begin{verbatim}
+altwarentester@duron:~$ perf stat mpg123/src/mpg123 --cpu i386 \
+ -w /dev/null /dev/shm/convergence_-_points_of_view/*.mp3
+
+   44296.192117  task-clock-msecs         #      0.996 CPUs 
+            263  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            335  page-faults              #      0.000 M/sec
+    35386827671  cycles                   #    798.868 M/sec
+    34153833893  instructions             #      0.965 IPC  
+    10346222151  cache-references         #    233.569 M/sec
+       13440804  cache-misses             #      0.303 M/sec
+
+   44.465953954  seconds time elapsed
+\end{verbatim}
+
+\begin{verbatim}
+altwarentester@duron:~/mplayer-generic$ perf stat ./mplayer -ac mp3 \
+  -quiet -ao pcm:file=/dev/null    /dev/shm/convergence_-_points_of_view/*.mp3
+
+   32032.688338  task-clock-msecs         #      0.994 CPUs 
+            233  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+           6284  page-faults              #      0.000 M/sec
+    25575954000  cycles                   #    798.433 M/sec
+    28423479288  instructions             #      1.111 IPC  
+     9061572976  cache-references         #    282.885 M/sec
+       13821093  cache-misses             #      0.431 M/sec
+
+   32.228199936  seconds time elapsed
+\end{verbatim}
+
+\begin{verbatim}
+altwarentester@duron:~/mplayer-generic$ perf stat ./mplayer -ac mpg123 \
+  -quiet -ao pcm:file=/dev/null    /dev/shm/convergence_-_points_of_view/*.mp3
+
+   49121.685292  task-clock-msecs         #      0.995 CPUs 
+            309  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+           6781  page-faults              #      0.000 M/sec
+    39219721233  cycles                   #    798.420 M/sec
+    35350587000  instructions             #      0.901 IPC  
+    10824302596  cache-references         #    220.357 M/sec
+       21094060  cache-misses             #      0.429 M/sec
+
+   49.370325203  seconds time elapsed
+\end{verbatim}
+
+Wait a moment... This looks a lot like mpg123's C code being mashed into an inferior binary form.
+It's still slower from MPlayer than from stand-alone mpg123, but the comparison to mp3lib is harsh.
+But then, wait a bit more: Is MPlayer really playing fair? Did I hack mp3lib correctly?
+Those 32 seconds aren't that much more than 26 seconds. Let's record.
+
+Hm, well... it looks like generic code, alright. Building mpg123 with \verb:-O4: and the rest of the MPlayer CFLAGS doesn't change too much: runtime stays around 44 seconds for standalone mpg123.
+But the comparison is still somewhat interesting: Cache is not the point here.
+\begin{verbatim}
+altwarentester@duron:~/mpg123-mpopt$ perf stat src/mpg123 --cpu i386 \
+ -w /dev/null    /dev/shm/convergence_-_points_of_view/*.mp3
+
+   44294.299679  task-clock-msecs         #      0.996 CPUs 
+            272  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            325  page-faults              #      0.000 M/sec
+    35383207571  cycles                   #    798.821 M/sec
+    34414257475  instructions             #      0.973 IPC  
+    10373238416  cache-references         #    234.189 M/sec
+       17922320  cache-misses             #      0.405 M/sec
+
+   44.451762052  seconds time elapsed
+\end{verbatim}
+Well, that fits with the earlier comparison: Differences in cache hit or miss are not really significant, the mpg123 C code plainly sucks!
+
+So, I got two issues at hand:
+\begin{itemize}
+	\item With 3DNowExt code, there is a definite penalty that MPlayer gets compared to stand-alone mpg123. This might have to do with CPU cache performance.
+	\item The non-assembly mpg123 code doesn't work out well compared to MPlayer's C code. I had a peek and it really looks like the synth function just needs (much) more time.
+\end{itemize}
+Great. Which one will I fix? I must admit that I am tempted to find out what works differently with the mpg123 C code in its two incarnations. Well, for starters, it could be the change I had to make to give the code thread-safety. That meant movement of quite some data structures from static variables to the handle on the heap.
+
+Let'c check mpg123-0.68, which predates the move to the thread-safe library, with the MPlayer CFLAGS:
+\begin{verbatim}
+altwarentester@duron:~/mpg123-0.68$ perf stat src/mpg123 --cpu i386 \
+ -w /dev/null    /dev/shm/convergence_-_points_of_view/*.mp3
+
+   43475.950745  task-clock-msecs         #      0.996 CPUs 
+            264  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            317  page-faults              #      0.000 M/sec
+    34730969332  cycles                   #    798.855 M/sec
+    34317362404  instructions             #      0.988 IPC  
+    10323913086  cache-references         #    237.463 M/sec
+       12847122  cache-misses             #      0.295 M/sec
+
+   43.628917385  seconds time elapsed
+\end{verbatim}
+Does not look like that much of an extra hit. Well, about 2 \% difference to the current version there. So, it's not nothing.
+But in that range I lean to argue that there has to be {\em some} cost involved in making the code thread-safe, with all that data in the handle and al.
+Of course, my approach to libmpg123 should have room for cleanup and optimization per se, but we are not talking about 2 \% here, compared to mp3lib. This is more serious than the simple transition to libmpg123.
+
+It is difficult to test earlier versions of mpg123 since they happen not to like my test data. One should not forget that I added bug fixes over time! Well, I suspect my approach to CPU runtime optimization choice.
+Found a set of old MP3s to work on (``Dune'', by ... eh... ``Dune'')... and the difference is appaling:
+
+\begin{verbatim}
+altwarentester@duron:~/mpg123-0.59r$ perf stat ./mpg123 -t \
+ /home/altwarentester/dune/*.mp3
+
+   23312.117777  task-clock-msecs         #      0.996 CPUs 
+            152  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+          14344  page-faults              #      0.001 M/sec
+    18623038218  cycles                   #    798.857 M/sec
+    24254735169  instructions             #      1.302 IPC  
+     8597454473  cache-references         #    368.798 M/sec
+        4262514  cache-misses             #      0.183 M/sec
+
+   23.394514625  seconds time elapsed
+\end{verbatim}
+\begin{verbatim}
+altwarentester@duron:~/mpg123-0.68$ perf stat ./mpg123 -t \
+ /home/altwarentester/dune/*.mp3
+
+   32211.610636  task-clock-msecs         #      0.996 CPUs 
+            199  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            296  page-faults              #      0.000 M/sec
+    25731964846  cycles                   #    798.841 M/sec
+    30810795898  instructions             #      1.197 IPC  
+    10904946603  cache-references         #    338.541 M/sec
+        7285056  cache-misses             #      0.226 M/sec
+
+   32.326412050  seconds time elapsed
+\end{verbatim}
+
+Frick. That is a huge hit. Hah! I even forgot to specify \verb:--cpu i386:. With that, I'm at around 70 seconds.
+Something smells fishy.
+
+\section{What happened to mpg123 on the way to 0.68?}
+
+Comparing 0.59r and 0.68 furher... decoding one of the dune tracks, where the old version needs 2.5 seconds and the new one over 6 seconds.
+Reports:
+
+\begin{verbatim} 
+altwarentester@duron:~/mpg123-0.59r$ perf report
+# Samples: 15180
+#
+# Overhead      Command                  Shared Object  Symbol
+# ........  ...........  .............................  ......
+#
+    45.76%       mpg123  ./mpg123                       [.] III_dequantize_sample
+    20.47%       mpg123  ./mpg123                       [.] dct64
+    15.01%       mpg123  ./mpg123                       [.] dct36
+     9.65%       mpg123  ./mpg123                       [.] do_layer3
+     3.41%       mpg123  ./mpg123                       [.] synth_1to1
+     1.98%       mpg123  ./mpg123                       [.] dct12
+     1.03%       mpg123  /lib/i686/cmov/libc-2.11.2.so  [.] memcpy
+\end{verbatim}
+
+
+\begin{verbatim}
+altwarentester@duron:~/mpg123-0.68$ perf report
+# Samples: 44859
+#
+# Overhead      Command                  Shared Object  Symbol
+# ........  ...........  .............................  ......
+#
+    65.42%       mpg123  ./src/mpg123                   [.] synth_1to1_i386
+    15.60%       mpg123  ./src/mpg123                   [.] III_dequantize_sample
+     7.63%       mpg123  ./src/mpg123                   [.] dct64_i386
+     4.91%       mpg123  ./src/mpg123                   [.] dct36
+     3.07%       mpg123  ./src/mpg123                   [.] do_layer3
+     0.70%       mpg123  ./src/mpg123                   [.] dct12
+     0.34%       mpg123  ./src/mpg123                   [.] III_get_scale_factors_1
+     0.33%       mpg123  [kernel]                       [k] __copy_to_user_ll
+     0.12%       mpg123  [kernel]                       [k] generic_file_aio_read
+\end{verbatim}
+
+I seriously borked up the synth function for this CPU. But remember: This is code that is not run in the initially considered case, only when I enforce avoidance of the optimized decoders.
+But it could be symptomatic.
+
+\paragraph{Oh, dear.} I listened to some output from 0.59r. It's crap, distorted something.
+So, perhaps that just doesn't count. weren't it for the finding that the synth function is more heavy also compared to mp3lib.
+Taking a look at mpg123 0.60. Perhaps that's more sane.
+No, it isn't. The fun fact is that it works fine on my 64 bit laptop with generic decoder... hm... would generic work?
+Yes, the generic decoder works also on the Duron. But it's slow, just about as current mpg123.
+
+Fun question: Does MPLayer with the i386 mp3lib decode correctly, like current mpg123? Yes it does.
+Result looks good. Computing time looks better.
+
+Last resort of mpg123 without multi-cpu code: 0.65. Will that produce proper output? Will it be faster? It produces crap. Faster. Only mpg123-0.66 finally produces proper output with i386 decoder. But is that a generic property?
+Shouldn't I have noticed such breakage before? I don't see it mentioned in NEWS.
+
+\end{document}
