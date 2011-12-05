@@ -321,7 +321,7 @@ altwarentester@duron:~/mpg123-0.68$ perf stat ./mpg123 -t \
    32.326412050  seconds time elapsed
 \end{verbatim}
 
-Frick. That is a huge hit. Hah! I even forgot to specify \verb:--cpu i386:. With that, I'm at around 70 seconds.
+Frick. That is a huge hit. Hah! I even forgot to specify \verb:--cpu i386:. With that, I'm at around \textbf{70 seconds}.
 Something smells fishy.
 
 \section{What happened to mpg123 on the way to 0.68?}
@@ -378,5 +378,97 @@ Result looks good. Computing time looks better.
 
 Last resort of mpg123 without multi-cpu code: 0.65. Will that produce proper output? Will it be faster? It produces crap. Faster. Only mpg123-0.66 finally produces proper output with i386 decoder. But is that a generic property?
 Shouldn't I have noticed such breakage before? I don't see it mentioned in NEWS.
+
+There it is:
+\begin{verbatim}
+------------------------------------------------------------------------
+r577 | thor | 2007-02-22 03:04:23 +0100 (Do, 22. Feb 2007) | 4 Zeilen
+
+fixing i386 code with gcc-4.1 by using the old WRITE_SAMPLE again - the
+new one has distorted sound and gcc complains about strict aliasing ...
+the old WRITE_SAMPLE even seems to be faster with gcc-3.4!
+Of course I didn't (yet) test on my real i386DX40 if there's an advantage.
+Started mocking with cpuflags to get proper MMX and SSE detection.
+
+------------------------------------------------------------------------
+\end{verbatim}
+Well, there it may be. Let's switch around \verb:WRITE_SAMPLE:. And we got a change from
+\begin{verbatim}
+    2566.163526  task-clock-msecs         #      0.994 CPUs 
+             21  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            300  page-faults              #      0.000 M/sec
+     2047880985  cycles                   #    798.032 M/sec
+     2041781623  instructions             #      0.997 IPC  
+      798943574  cache-references         #    311.338 M/sec
+        4049486  cache-misses             #      1.578 M/sec
+
+    2.581971582  seconds time elapsed
+\end{verbatim}
+to
+\begin{verbatim}
+    6272.432955  task-clock-msecs         #      0.989 CPUs 
+             51  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            300  page-faults              #      0.000 M/sec
+     5006116015  cycles                   #    798.114 M/sec
+     4398072978  instructions             #      0.879 IPC  
+     1320889896  cache-references         #    210.587 M/sec
+        4730705  cache-misses             #      0.754 M/sec
+
+    6.343654290  seconds time elapsed
+\end{verbatim}
+Very well. Seems like I have to learn from MPlayer about fixing up the new \verb:WRITE_SAMPLE:.
+And yes, there is something in revision 7300; something about gcc 3.x being too clever for the double - int conversion trick. Applying the fix from MPlayer to mpg123 0.65 yields
+\begin{verbatim}
+    5213.636059  task-clock-msecs         #      0.985 CPUs 
+             46  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            301  page-faults              #      0.000 M/sec
+     4161133383  cycles                   #    798.125 M/sec
+     4203986268  instructions             #      1.010 IPC  
+     1302169739  cache-references         #    249.762 M/sec
+        4555437  cache-misses             #      0.874 M/sec
+
+    5.293784289  seconds time elapsed
+\end{verbatim}
+(and good-sounding output, of course).
+
+Going back to the original test album, writing to /dev/null (the stuff before wrote to a real file to check the output):
+\begin{verbatim}
+   35322.795994  task-clock-msecs         #      0.996 CPUs 
+            215  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            315  page-faults              #      0.000 M/sec
+    28215905365  cycles                   #    798.802 M/sec
+    32624122756  instructions             #      1.156 IPC  
+    10324164674  cache-references         #    292.281 M/sec
+       12229060  cache-misses             #      0.346 M/sec
+
+   35.457957266  seconds time elapsed
+\end{verbatim}
+That's not 70 seconds. \verb:WRITE_SAMPLE: is a sore spot, but that it is that influential on the Duron is a surprise. I have to check on a more modern system, with a 32 bit install.
+But where came the 70 seconds from anyway? The current mpg123 had only about 44 seconds. This CPU is sensitive. And don't forget: I observed the old \verb:WRITE_SAMPLE: even being faster back then!
+
+Anyhow, 35 seconds is still above the 32 seconds mp3lib achieves. There is more to the generic/i386 C code. Stay tuned.
+
+Found MPlayer rev. 28866. Reducing the size of bandInfoStruct bring that:
+\begin{verbatim}
+   35303.691456  task-clock-msecs         #      0.996 CPUs 
+            215  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            314  page-faults              #      0.000 M/sec
+    28199408110  cycles                   #    798.767 M/sec
+    32624433817  instructions             #      1.157 IPC  
+    10330702614  cache-references         #    292.624 M/sec
+       14060449  cache-misses             #      0.398 M/sec
+
+   35.430962884  seconds time elapsed
+\end{verbatim}
+In short: nothing. The preceeding rev. 28865 has some \verb:const: stuff. That might play a role. Then there is Zuxy's rev. 23485 that changed some static vars to automatic. Generally, he worked on SSE stuff, that's not of interest right now.
+There is the \verb:fast_memcpy: business. I should check that. Rev. 22158 does buffer alignment.
+Revision 18946 fixes something in the 3DNow DCT64 ... and makes we wonder what exactly is the relation of mpg123's and MPlayers plain 3DNow code. That is another matter to investigate.
+
+For now, it seems that it is fruitful enough to pursue merging of apparent improvements in the generic/overall C code of mp3lib that we indeed still miss in mpg123.
 
 \end{document}
