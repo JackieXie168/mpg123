@@ -471,4 +471,94 @@ Revision 18946 fixes something in the 3DNow DCT64 ... and makes we wonder what e
 
 For now, it seems that it is fruitful enough to pursue merging of apparent improvements in the generic/overall C code of mp3lib that we indeed still miss in mpg123.
 
+Hacking the ``new'' \verb:WRITE_SAMPLE: into current mpg123 does yield a tiny improvement over the hacked 0.65, even.
+\begin{verbatim}
+altwarentester@duron:~/mpg123$ perf stat ./src/mpg123 -w /dev/null \
+ --cpu i386  /dev/shm/convergence_-_points_of_view/*.mp3
+
+   35030.997934  task-clock-msecs         #      0.996 CPUs
+            225  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            333  page-faults              #      0.000 M/sec
+    27983581759  cycles                   #    798.823 M/sec
+    33233941274  instructions             #      1.188 IPC
+    10325844134  cache-references         #    294.763 M/sec
+       11774779  cache-misses             #      0.336 M/sec
+   
+   35.176724921  seconds time elapsed
+\end{verbatim}
+\begin{verbatim}
+altwarentester@duron:~/mpg123-0.65$ perf stat ./src/mpg123 -w /dev/null \
+ /dev/shm/convergence_-_points_of_view/*.mp3
+
+   35215.369977  task-clock-msecs         #      0.995 CPUs
+            226  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            314  page-faults              #      0.000 M/sec
+    28126526481  cycles                   #    798.700 M/sec
+    32624128394  instructions             #      1.160 IPC
+    10335841084  cache-references         #    293.504 M/sec
+       12821386  cache-misses             #      0.364 M/sec
+   
+   35.387834336  seconds time elapsed
+\end{verbatim}
+Too bad that this doesn't fit the current framework of separated clipping and conversion too well. Seems like, at least for some CPUs (I really should wire up the i486, or even the i386...), this separation hurts.
+But then: We are talking about the i386 C code, which is not used by default from old Pentiums onwards. This is rather academic. The performance of the plain C code doesn't matter at all in practice, when there's nowadays a variant of Taihei's SSE code in use.
+
+In MPlayer, this change improves the situation, but it is still 39 seconds against 32 seconds:
+\begin{verbatim}
+perf stat ./mplayer -ac mp3 -ao pcm:file=/dev/null -quiet \
+ /dev/shm/convergence_-_points_of_view/*.mp3
+
+   32049.354400  task-clock-msecs         #      0.994 CPUs 
+            249  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+           6293  page-faults              #      0.000 M/sec
+    25589163911  cycles                   #    798.430 M/sec
+    28424067520  instructions             #      1.111 IPC  
+     9060506927  cache-references         #    282.705 M/sec
+       12323035  cache-misses             #      0.385 M/sec
+
+   32.251952962  seconds time elapsed
+\end{verbatim}
+\begin{verbatim}
+perf stat ./mplayer -ac mpg123 -ao pcm:file=/dev/null -quiet \
+ /dev/shm/convergence_-_points_of_view/*.mp3
+
+   39542.041678  task-clock-msecs         #      0.994 CPUs 
+            298  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+           6790  page-faults              #      0.000 M/sec
+    31575386518  cycles                   #    798.527 M/sec
+    34341985738  instructions             #      1.088 IPC  
+    10817342380  cache-references         #    273.566 M/sec
+       17943896  cache-misses             #      0.454 M/sec
+
+   39.787800467  seconds time elapsed
+\end{verbatim}
+
+But how does the picture of CPU usage per function look now?
+With mp3lib:
+\begin{verbatim}
+    36.40%      mplayer  ./mplayer                            [.] synth_1to1
+    28.16%      mplayer  ./mplayer                            [.] III_dequantize_sample
+    10.59%      mplayer  ./mplayer                            [.] dct64_1
+     9.05%      mplayer  ./mplayer                            [.] dct36
+     4.23%      mplayer  ./mplayer                            [.] T.293
+     3.92%      mplayer  /lib/i686/cmov/libc-2.11.2.so        [.] memcpy
+\end{verbatim}
+With libmpg123:
+\begin{verbatim}
+    40.43%      mplayer  ./mplayer                            [.] INT123_synth_1to1_i386
+    22.31%      mplayer  ./mplayer                            [.] III_dequantize_sample
+     7.68%      mplayer  ./mplayer                            [.] INT123_dct36
+     6.73%      mplayer  ./mplayer                            [.] INT123_dct64_i386
+     6.07%      mplayer  /lib/i686/cmov/libc-2.11.2.so        [.] memcpy
+     3.51%      mplayer  ./mplayer                            [.] INT123_synth_ntom
+     3.35%      mplayer  ./mplayer                            [.] INT123_do_layer3
+     1.25%      mplayer  ./mplayer                            [.] feed_read
+\end{verbatim}
+That's still quite some overhang for the synth function itself.
+And even if it's totally irrelevant in practice... I want to see how I messed up the synth function for Durons.
+
 \end{document}
