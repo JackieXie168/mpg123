@@ -561,4 +561,10 @@ With libmpg123:
 That's still quite some overhang for the synth function itself.
 And even if it's totally irrelevant in practice... I want to see how I messed up the synth function for Durons.
 
+\paragraph{A quick look on the Core2Duo in 32 bit chroot:}
+An mpg123 binary built with '-march=pentium3' and mpg123 default optimization shows perhaps {\em some} difference regarding the \verb:WRITE_SAMPLE: change. using i386 decoder.
+I might be convinced to give it 2 \% advantage.
+It's harder to tell a difference when using the generic decoder, but there might be one. When building for \verb:-march=pentium:, both differences are around 1 to 1.5 \%.
+One would need some statistics for more definite answer, but the main point is: The effect, if any, is much less pronounced on the Core2Duo machine. Might be a reason for me not spotting anything wrong. The message behind this, of course, is that tuning things for the Duron should not hurt performance on newer machines (which use SSE optimization anyway, d'oh).
+
 \end{document}
