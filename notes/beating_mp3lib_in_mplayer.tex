@@ -567,4 +567,11 @@ I might be convinced to give it 2 \% advantage.
 It's harder to tell a difference when using the generic decoder, but there might be one. When building for \verb:-march=pentium:, both differences are around 1 to 1.5 \%.
 One would need some statistics for more definite answer, but the main point is: The effect, if any, is much less pronounced on the Core2Duo machine. Might be a reason for me not spotting anything wrong. The message behind this, of course, is that tuning things for the Duron should not hurt performance on newer machines (which use SSE optimization anyway, d'oh).
 
+\paragraph{A root cause}
+of the slowness seems to be some inefficient translation of \verb:WRITE_SAMPLE: resulting in floating point stack messiness.
+Seems like the summand for the \verb:fadd: is kept on the fp stack in mp3lib, but is grabbed from main stack repeatedly for mpg123. One indicator is the appearance of the \verb:fxch: instruction in mpg123's \verb:synth_1to1: function.
+It is totally absent in mp3lib's version.
+
+Now the question is how I can rearrange to code to avoid this. I am working on the 0.65 source to stay closer to mp3lib.
+
 \end{document}
