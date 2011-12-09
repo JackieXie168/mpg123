@@ -574,4 +574,14 @@ It is totally absent in mp3lib's version.
 
 Now the question is how I can rearrange to code to avoid this. I am working on the 0.65 source to stay closer to mp3lib.
 
+\paragraph{A cause to the cause?}
+Yes, there might be a simple explanation: The GCC optimizer is pushed along different ways because the mpg123 code is built to separate object files, with public functions, while mp3lib pushes everything into a single object, with stuff like \verb:synth_1to1: being all-static.
+That eases optimzation of (floating point) stack usage.
+
+An interesting side note is that for the mpg123 code, the floating point stack messup seems to be pushed by enabling optimization at all.
+
+But anyway, repackaging the stuff to have the direct calls to the synth functions together with the (then static) functions might do the trick.
+For modern mpg123 this would mean packaging all synth functions and \verb:layer[123].c: files together with \verb:optimise.c:, perhaps \verb:frame.c:, into one compilation unit.
+An indicator could be this: If there are public symbols that are not part of the API in a static libmpg123, those symbols should have been static and {\em not} public.
+
 \end{document}
