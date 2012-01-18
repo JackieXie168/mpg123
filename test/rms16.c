@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 		}
 	}
 	rms /= count*pow((long)maxin-(long)minin, 2);
-	printf("RMS=%g; max=%i; diffcount=%li in count=%li; input amplitude range %li, from %i to %i\n", sqrt(rms), max, diffcount, count, (long)maxin-(long)minin, minin, maxin);
+	printf("RMS=%g; max=%li; diffcount=%li in count=%li; input amplitude range %li, from %i to %i\n", sqrt(rms), max, diffcount, count, (long)maxin-(long)minin, minin, maxin);
 	close(a);
 	close(b);
 	return 0;

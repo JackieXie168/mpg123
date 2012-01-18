@@ -14,6 +14,7 @@ int main(int argc, char** argv)
 	size_t got;
 	double av[bufs], bv[bufs];
 	long count;
+	int result;
 
 	fprintf(stderr,"Computing RMS full scale for double float data (thus, full scale is 2).\n");
 	/* Reference values relative to full scale 2 (from -1 to +1). They are _defined_ relative to full scale. */
@@ -28,7 +29,11 @@ int main(int argc, char** argv)
 
 	fa = fopen(argv[1], "r");
 	fb = argc > 2 ? fopen(argv[2], "r") : stdin;
-	if(fa == NULL || fb == NULL){ fprintf(stderr, "cannot open files\n");return 1; }
+	if(fa == NULL || fb == NULL)
+	{
+		fprintf(stderr, "cannot open files\n");
+		return 1;
+	}
 
 	while( (got = fread(av, sizeof(double), bufs, fa))
 	           == fread(bv, sizeof(double), bufs, fb) && got )
@@ -51,8 +56,9 @@ int main(int argc, char** argv)
 	rms  = sqrt(rms);
 	rms /= 2.; /* full scale... */
 	maxdiff /= 2.; /* full scale again */
+	result = !(rms<iso_limit_limit); /* limited decoder is enough */
 	printf("RMS=%8.6e (%s) maxdiff=%8.6e (%s)\n",
 		rms, rms<iso_rms_limit ? "PASS" : (rms<iso_limit_limit ? "LIMITED" : "FAIL"),
 		maxdiff, maxdiff<iso_diff_limit ? "PASS" : "FAIL");
-	return 0;
+	return result;
 }

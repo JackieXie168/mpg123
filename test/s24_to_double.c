@@ -35,7 +35,7 @@ int main()
 			d[fi] = TO_DOUBLE(sample.s);
 		}
 
-		write(STDOUT_FILENO, d, sizeof(double)*got);
+		fwrite(d, sizeof(double), got, stdout);
 	}
 	return 0;
 }

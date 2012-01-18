@@ -30,7 +30,7 @@ int main()
 		for(fi=0; fi<got; ++fi)
 		d[fi] = TO_DOUBLE(f[fi]);
 
-		write(STDOUT_FILENO, d, sizeof(double)*got);
+		fwrite(d, sizeof(double), got, stdout);
 	}
 	return 0;
 }

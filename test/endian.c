@@ -3,7 +3,7 @@
 
 typedef unsigned char byte;
 
-int main() 
+int main(void)
 {
   unsigned long i,a=0,b=0,c=0;
   int ret = 0;
