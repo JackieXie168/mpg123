@@ -54,38 +54,42 @@ open(my $the_stderr, '>&', \*STDERR);
 	$floater = test_encoding('f32');
 }
 
+my $results = 0;
 for(my $lay=1; $lay<=3; ++$lay)
 {
 	print "\n";
 	print "==== Layer $lay ====\n";
 
 	print "--> 16 bit signed integer output\n";
-	tester($files[$lay-1], 's16', $s16conv);
+	$results += tester($files[$lay-1], 's16', $s16conv);
 
 	if($int32er)
 	{
 		print "--> 32 bit integer output\n";
-		tester($files[$lay-1], 's32', $s32conv);
+		$results += tester($files[$lay-1], 's32', $s32conv);
 	}
 
 	if($int24er)
 	{
 		print "--> 24 bit integer output\n";
-		tester($files[$lay-1], 's24', $s24conv);
+		$results += tester($files[$lay-1], 's24', $s24conv);
 	}
 
 	if($floater)
 	{
 		print "--> 32 bit floating point output\n";
-		tester($files[$lay-1], 'f32', $f32conv);
+		$results += tester($files[$lay-1], 'f32', $f32conv);
 	}
 }
+
+exit $results;
 
 sub tester
 {
 	my $pattern = shift;
 	my $enc = shift;
 	my $conv = shift;
+	my $ret = 0;
 	foreach my $f (glob($pattern))
 	{
 		my $bit = $f;
@@ -94,7 +98,7 @@ sub tester
 		$double =~ s:(mpg|bit)$:double:;
 		die "Please make some files!\n" unless (-e $bit and -e $double);
 		print basename($bit).":\t";
-		# This needs to be reworked to be save with funny stuff in @ARGV.
+		# This needs to be reworked to be safe with funny stuff in @ARGV.
 		# Relying on the shell is dangerous.
 		my @com = @ARGV;
 		if($rawdec)
@@ -117,7 +121,17 @@ sub tester
 		}
 		$commandline .= " 2>/dev/null | $conv | $rms ".quotemeta($double)." 2>/dev/null";
 		system($commandline);
+		if($? == -1)
+		{
+			print "failed to execute $!\n";
+		}
+		elsif($? & 127)
+		{
+			printf "child died with signal %d\n", ($? & 127);
+		}
+		else{ $ret += $? >> 8; }
 	}
+	return $ret;
 }
 
 sub test_encoding
