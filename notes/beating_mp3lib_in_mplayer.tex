@@ -1,4 +1,5 @@
 \documentclass[a4paper,12pt]{scrartcl}
+\usepackage{pxfonts}
 
 \begin{document}
 
@@ -584,4 +585,12 @@ But anyway, repackaging the stuff to have the direct calls to the synth function
 For modern mpg123 this would mean packaging all synth functions and \verb:layer[123].c: files together with \verb:optimise.c:, perhaps \verb:frame.c:, into one compilation unit.
 An indicator could be this: If there are public symbols that are not part of the API in a static libmpg123, those symbols should have been static and {\em not} public.
 
+Of course, performance is only one possible reason to make these functions static:
+It is bad library design to have those symbols floating around and possibly colliding when someone uses the static library.
+
+I tried this on the Core2Duo and, if anything, this makes things perhaps slightly worse. On the Duron the tendency to worsen the performance is also indicated. At least the more static build is about 0.5 K smaller. The effect of adapting Dan's patch for const huffman tables is bigger (both in performance and binary size).
+But still, this is not really big. I need to get to the core of the bad WRITE\_SAMPLE translation. How does the compiler get the hint from MPlayer code? And... how about building with the Intel or open64 compilers for a change?
+Well, one bummer is that I have those installed for 64 bits, not 32.
+
+On the Duron, the effect of the const tables is also quite small.
 \end{document}
