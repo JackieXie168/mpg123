@@ -7,6 +7,9 @@
 .<p>
 .I sent out a <a href="http://sourceforge.net/mailarchive/forum.php?thread_name=20111010210331.0955d99b%40orgis.org&forum_name=mpg123-devel">call on the mpg123-devel list</a> to find someone who can help out with fixing this performance issue since I lack the time for that, sadly. If you feel motivated, please join the discussion there. Alternatively you can just send the fix to me personally, too. I won't mind;-)
 .</p>
+.<p>
+.<strong>Update:</strong> I am trying to investigate this with the time I can (not, actually) spare. I am documenting this with my <a href="beating_mp3lib_in_mplayer/">notes about Beating mp3lib in MPlayer</a>. Suggestions welcome.
+.</p>
 
 :date 2011-09-07
 :by Thomas
