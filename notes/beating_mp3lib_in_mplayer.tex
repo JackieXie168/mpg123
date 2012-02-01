@@ -6,6 +6,9 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.5em}
 
+
+\tableofcontents
+
 \section{Introduction}
 
 Over a year ago, I contributed am mpg123 binding for MPlayer to replace the old fork of mpg123 code dubbed "mp3lib". I can say "old" since we incorporated the added optimizations from that one plus added new stuff from Taihei;-)
@@ -538,6 +541,8 @@ perf stat ./mplayer -ac mpg123 -ao pcm:file=/dev/null -quiet \
    39.787800467  seconds time elapsed
 \end{verbatim}
 
+\section{Why does GCC hate my code?}
+
 But how does the picture of CPU usage per function look now?
 With mp3lib:
 \begin{verbatim}
@@ -593,4 +598,132 @@ But still, this is not really big. I need to get to the core of the bad WRITE\_S
 Well, one bummer is that I have those installed for 64 bits, not 32.
 
 On the Duron, the effect of the const tables is also quite small.
+
+\section{Revisit after some time...}
+
+Just make sure I still know what I am talking about, mpg123-0.65-like-mplayer r3005, my old MPlayer checkout, both with i386 C code. Perf says for MPlayer:
+\begin{verbatim}
+   32331.247743  task-clock-msecs         #      0.994 CPUs 
+            371  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+           6301  page-faults              #      0.000 M/sec
+    25814521225  cycles                   #    798.439 M/sec
+    28424759003  instructions             #      1.101 IPC  
+     9068719643  cache-references         #    280.494 M/sec
+       13063911  cache-misses             #      0.404 M/sec
+
+   32.523356972  seconds time elapsed
+
+# Samples: 270005
+#
+# Overhead      Command                        Shared Object  Symbol
+# ........  ...........  ...................................  ......
+#
+    35.82%      mplayer  ./mplayer                            [.] synth_1to1
+    28.14%      mplayer  ./mplayer                            [.] III_dequantize_sample
+    10.57%      mplayer  ./mplayer                            [.] dct64_1
+     9.18%      mplayer  ./mplayer                            [.] dct36
+     4.19%      mplayer  ./mplayer                            [.] T.293
+     4.07%      mplayer  /lib/i686/cmov/libc-2.11.2.so        [.] memcpy
+     0.56%      mplayer  ./mplayer                            [.] fast_memcpy
+\end{verbatim}
+And for mpg123:
+\begin{verbatim}
+   34845.338614  task-clock-msecs         #      0.996 CPUs
+            377  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            245  page-faults              #      0.000 M/sec
+    27835529165  cycles                   #    798.831 M/sec
+    32659069064  instructions             #      1.173 IPC
+    10169107285  cache-references         #    291.836 M/sec
+        8112060  cache-misses             #      0.233 M/sec
+   
+   34.982723275  seconds time elapsed
+
+# Samples: 292093
+#
+# Overhead      Command                        Shared Object  Symbol
+# ........  ...........  ...................................  ......
+#
+    51.58%       mpg123  ./src/mpg123                         [.] synth_1to1
+    24.78%       mpg123  ./src/mpg123                         [.] III_dequantize_sample
+     8.20%       mpg123  ./src/mpg123                         [.] dct64
+     7.84%       mpg123  ./src/mpg123                         [.] dct36
+     3.73%       mpg123  ./src/mpg123                         [.] do_layer3
+     0.52%       mpg123  [kernel]                             [k] __copy_to_user_ll
+     0.31%       mpg123  ./src/mpg123                         [.] dct12
+     0.25%       mpg123  ./src/mpg123                         [.] III_get_scale_factors_1
+     0.17%       mpg123  /lib/i686/cmov/libc-2.11.2.so        [.] __mempcpy
+\end{verbatim}
+It is still apparent that synth of mpg123 needs more time. 51.6\% of 35 seconds, that is, 18 seconds.
+For MPlayer, that's 35.8\% of 32.5 secods. 11.6 seconds.
+Let's summarize that.
+\begin{center}
+\begin{tabular}{lrr}
+function & time MPlayer / s & time mpg123 / s
+\\\hline
+synth\_1to1 & 11.64 & 18.04 \\
+III\_dequantize\_sample & 9.15 & 8.67 \\
+dct64 & 3.44 & 2.87 \\
+dct36 & 2.99 & 2.74 \\
+T.293 / do\_layer3 & 1.36 & 1.30
+\end{tabular}
+\end{center}
+
+That does look interesting. If only the synth function were faster, mpg123 would easily beat mp3lib. All other main functions are a tad quicker, even, than the mp3lib counterparts!
+The \verb:perf annotate: ist not too helpful in placing the blame on certain code portions, but I know already what the main difference is. Or do I?
+The annotations show huge runtime hit for the faddp instruction in mpg123, where it doesn't really count in MPlayer, at the sample places.
+
+The output of \verb:perf annotate: is confusing. The association of code and assembly seems rather whacky. But first, what is {\em that}?
+\begin{verbatim}
+     :          for (j=16;j;j--,b0+=0x10,window+=0x20,samples+=step)
+0.14 :       806ca36:       83 c3 40                add    $0x40,%ebx
+0.64 :       806ca39:       83 c2 40                add    $0x40,%edx
+0.01 :       806ca3c:       83 e9 80                sub    $0xffffff80,%ecx
+0.22 :       806ca3f:       83 c6 04                add    $0x4,%esi
+1.11 :       806ca42:       81 fb 00 04 00 00       cmp    $0x400,%ebx
+0.00 :       806ca48:       0f 84 22 01 00 00       je     806cb70 <synth_1t
+0.10 :       806ca4e:       dd d8                   fstp   %st(0)
+0.83 :       806ca50:       dd d8                   fstp   %st(0)
+0.12 :       806ca52:       dd d8                   fstp   %st(0)
+0.02 :       806ca54:       dd d8                   fstp   %st(0)
+0.47 :       806ca56:       dd d8                   fstp   %st(0)
+0.09 :       806ca58:       dd d8                   fstp   %st(0)
+\end{verbatim}
+Such floating point stack messing around is not to be found, in MPlayer. Then, the detail:
+\begin{verbatim}
+     :            sum += window[0x4] * b0[0x4];
+1.18 :       82478f2:       d9 42 20                flds   0x20(%edx)
+0.60 :       82478f5:       d8 49 20                fmuls  0x20(%ecx)
+0.11 :       82478f8:       de c1                   faddp  %st,%st(1)
+     :            sum -= window[0x5] * b0[0x5];
+0.71 :       82478fa:       d9 42 28                flds   0x28(%edx)
+0.46 :       82478fd:       d8 49 28                fmuls  0x28(%ecx)
+0.17 :       8247900:       de c1                   faddp  %st,%st(1)
+\end{verbatim}
+And a similar portion from mpg123:
+\begin{verbatim}
+         :            sum += window[0x4] * b0[0x4];
+    0.36 :       806caca:       d9 44 24 34             flds   0x34(%esp)
+    0.00 :       806cace:       d8 49 20                fmuls  0x20(%ecx)
+    1.90 :       806cad1:       de c7                   faddp  %st,%st(7)
+         :            sum -= window[0x5] * b0[0x5];
+    0.35 :       806cad3:       d9 44 24 2c             flds   0x2c(%esp)
+    0.00 :       806cad7:       d8 49 28                fmuls  0x28(%ecx)
+    2.09 :       806cada:       de c7                   faddp  %st,%st(7)
+\end{verbatim}
+The exact attribution to one instruction might be tough here, but it is apparent that very similar pieces of code perform consistently different. The location on the floating point stack is different.
+And, hm, why are array offsets different?
+This pattern is carried through: The MPlayer code has matching offsets on the load and multiplication operations, especially matching the array offsets in the C code.
+In mpg123, that is different.
+
+
+\paragraph{Comparing the code for the two synth functions,}
+I see only one difference at all: The possible call of the equalizing function.
+Hm, it might be worth a try to remove that bit of code. It introduces a branch... and inserts code for a possible function call.
+But no, that doesn't make a difference. I'm relieved.
+
+Now, that leaves the strange decisions of the compiler on the table. It does {\em weird} stuff with the floating point sums. Generally, the floating point code is messy. What's the magic compiler switch to change that?
+
 \end{document}
+

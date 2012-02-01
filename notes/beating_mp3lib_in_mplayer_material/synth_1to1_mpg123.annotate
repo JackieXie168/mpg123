@@ -1,0 +1,715 @@
+
+
+------------------------------------------------
+ Percent |	Source code & Disassembly of mpg123
+------------------------------------------------
+         :
+         :
+         :
+         :	Disassembly of section .text:
+         :
+         :	0806c980 <synth_1to1>:
+         :
+         :	  return ret;
+         :	}
+         :
+         :	DECODE_SCOPE int synth_1to1(real *bandPtr,int channel,unsigned char *out,int *pnt)
+         :	{
+    0.08 :	 806c980:	55                   	push   %ebp
+    0.05 :	 806c981:	57                   	push   %edi
+    0.00 :	 806c982:	56                   	push   %esi
+    0.00 :	 806c983:	53                   	push   %ebx
+    0.05 :	 806c984:	83 ec 6c             	sub    $0x6c,%esp
+    0.00 :	 806c987:	8b bc 24 8c 00 00 00 	mov    0x8c(%esp),%edi
+         :	#ifndef PENTIUM_OPT
+         :	  static real buffs[2][2][0x110];
+         :	  static const int step = 2;
+         :	  static int bo = 1;
+         :	  short *samples = (short *) (out + *pnt);
+    0.00 :	 806c98e:	8b 8c 24 88 00 00 00 	mov    0x88(%esp),%ecx
+    0.08 :	 806c995:	8b 17                	mov    (%edi),%edx
+         :
+         :	  return ret;
+         :	}
+         :
+         :	DECODE_SCOPE int synth_1to1(real *bandPtr,int channel,unsigned char *out,int *pnt)
+         :	{
+    0.00 :	 806c997:	8b 9c 24 84 00 00 00 	mov    0x84(%esp),%ebx
+         :	#ifndef PENTIUM_OPT
+         :	  static real buffs[2][2][0x110];
+         :	  static const int step = 2;
+         :	  static int bo = 1;
+         :	  short *samples = (short *) (out + *pnt);
+    0.00 :	 806c99e:	01 d1                	add    %edx,%ecx
+         :
+         :	  real *b0,(*buf)[0x110];
+         :	  int clip = 0; 
+         :	  int bo1;
+         :
+         :	  *pnt += 128; /* moved that here as MPlayer has it */
+    0.09 :	 806c9a0:	83 ea 80             	sub    $0xffffff80,%edx
+    0.00 :	 806c9a3:	89 17                	mov    %edx,(%edi)
+         :
+         :	  return ret;
+         :	}
+         :
+         :	DECODE_SCOPE int synth_1to1(real *bandPtr,int channel,unsigned char *out,int *pnt)
+         :	{
+    0.00 :	 806c9a5:	8b b4 24 80 00 00 00 	mov    0x80(%esp),%esi
+         :	  int bo1;
+         :
+         :	  *pnt += 128; /* moved that here as MPlayer has it */
+         :	#endif
+         :
+         :	  if(have_eq_settings)
+    0.04 :	 806c9ac:	a1 08 8b 07 08       	mov    0x8078b08,%eax
+         :	{
+         :	#ifndef PENTIUM_OPT
+         :	  static real buffs[2][2][0x110];
+         :	  static const int step = 2;
+         :	  static int bo = 1;
+         :	  short *samples = (short *) (out + *pnt);
+    0.00 :	 806c9b1:	89 4c 24 48          	mov    %ecx,0x48(%esp)
+         :	  int bo1;
+         :
+         :	  *pnt += 128; /* moved that here as MPlayer has it */
+         :	#endif
+         :
+         :	  if(have_eq_settings)
+    0.00 :	 806c9b5:	85 c0                	test   %eax,%eax
+    0.08 :	 806c9b7:	0f 85 1b 04 00 00    	jne    806cdd8 <synth_1to1+0x458>
+         :		do_equalizer(bandPtr,channel);
+         :
+         :	#ifndef PENTIUM_OPT
+         :	  if(!channel) {
+    0.00 :	 806c9bd:	85 db                	test   %ebx,%ebx
+    0.00 :	 806c9bf:	0f 85 f3 03 00 00    	jne    806cdb8 <synth_1to1+0x438>
+         :	    bo--;
+         :	    bo &= 0xf;
+    0.02 :	 806c9c5:	a1 b0 8a 07 08       	mov    0x8078ab0,%eax
+         :	    buf = buffs[0];
+    0.14 :	 806c9ca:	ba 20 0f 09 08       	mov    $0x8090f20,%edx
+         :		do_equalizer(bandPtr,channel);
+         :
+         :	#ifndef PENTIUM_OPT
+         :	  if(!channel) {
+         :	    bo--;
+         :	    bo &= 0xf;
+    0.00 :	 806c9cf:	48                   	dec    %eax
+    0.02 :	 806c9d0:	83 e0 0f             	and    $0xf,%eax
+    0.01 :	 806c9d3:	a3 b0 8a 07 08       	mov    %eax,0x8078ab0
+         :	  else {
+         :	    samples++;
+         :	    buf = buffs[1];
+         :	  }
+         :
+         :	  if(bo & 0x1) {
+    0.02 :	 806c9d8:	a8 01                	test   $0x1,%al
+    0.04 :	 806c9da:	0f 84 a8 03 00 00    	je     806cd88 <synth_1to1+0x408>
+         :	    b0 = buf[0];
+         :	    bo1 = bo;
+         :	    dct64(buf[1]+((bo+1)&0xf),buf[0]+bo,bandPtr);
+    0.01 :	 806c9e0:	89 c3                	mov    %eax,%ebx
+    0.11 :	 806c9e2:	57                   	push   %edi
+    0.00 :	 806c9e3:	8d 3c 82             	lea    (%edx,%eax,4),%edi
+         :	    samples++;
+         :	    buf = buffs[1];
+         :	  }
+         :
+         :	  if(bo & 0x1) {
+         :	    b0 = buf[0];
+    0.01 :	 806c9e6:	89 d5                	mov    %edx,%ebp
+         :	    bo1 = bo;
+         :	    dct64(buf[1]+((bo+1)&0xf),buf[0]+bo,bandPtr);
+    0.01 :	 806c9e8:	8d 40 01             	lea    0x1(%eax),%eax
+    0.00 :	 806c9eb:	56                   	push   %esi
+    0.01 :	 806c9ec:	83 e0 0f             	and    $0xf,%eax
+    0.00 :	 806c9ef:	57                   	push   %edi
+    0.00 :	 806c9f0:	8d b4 82 40 04 00 00 	lea    0x440(%edx,%eax,4),%esi
+    0.01 :	 806c9f7:	56                   	push   %esi
+    0.01 :	 806c9f8:	e8 83 0b 00 00       	call   806d580 <dct64>
+    0.03 :	 806c9fd:	89 5c 24 5c          	mov    %ebx,0x5c(%esp)
+    0.02 :	 806ca01:	83 c4 10             	add    $0x10,%esp
+         :	    dct64(buf[0]+bo,buf[1]+bo+1,bandPtr);
+         :	  }
+         :	  
+         :	  {
+         :	    register int j;
+         :	    real *window = decwin + 16 - bo1;
+    0.04 :	 806ca04:	be 10 00 00 00       	mov    $0x10,%esi
+    0.05 :	 806ca09:	29 de                	sub    %ebx,%esi
+    0.00 :	 806ca0b:	8d 14 b5 20 21 09 08 	lea    0x8092120(,%esi,4),%edx
+    0.04 :	 806ca12:	bb 00 00 00 00       	mov    $0x0,%ebx
+    0.00 :	 806ca17:	8b 74 24 48          	mov    0x48(%esp),%esi
+    0.01 :	 806ca1b:	b8 00 00 00 00       	mov    $0x0,%eax
+    0.03 :	 806ca20:	89 54 24 40          	mov    %edx,0x40(%esp)
+    0.00 :	 806ca24:	89 d1                	mov    %edx,%ecx
+    0.01 :	 806ca26:	89 ea                	mov    %ebp,%edx
+    0.03 :	 806ca28:	eb 30                	jmp    806ca5a <synth_1to1+0xda>
+    0.00 :	 806ca2a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+         :	      sum -= window[0xB] * b0[0xB];
+         :	      sum += window[0xC] * b0[0xC];
+         :	      sum -= window[0xD] * b0[0xD];
+         :	      sum += window[0xE] * b0[0xE];
+         :	      sum -= window[0xF] * b0[0xF];
+         :	      WRITE_SAMPLE(samples,sum,clip);
+    0.00 :	 806ca30:	66 c7 06 ff 7f       	movw   $0x7fff,(%esi)
+    0.00 :	 806ca35:	40                   	inc    %eax
+         :	  
+         :	  {
+         :	    register int j;
+         :	    real *window = decwin + 16 - bo1;
+         :
+         :	    for (j=16;j;j--,b0+=0x10,window+=0x20,samples+=step)
+    0.14 :	 806ca36:	83 c3 40             	add    $0x40,%ebx
+    0.68 :	 806ca39:	83 c2 40             	add    $0x40,%edx
+    0.01 :	 806ca3c:	83 e9 80             	sub    $0xffffff80,%ecx
+    0.19 :	 806ca3f:	83 c6 04             	add    $0x4,%esi
+    1.10 :	 806ca42:	81 fb 00 04 00 00    	cmp    $0x400,%ebx
+    0.00 :	 806ca48:	0f 84 22 01 00 00    	je     806cb70 <synth_1to1+0x1f0>
+    0.13 :	 806ca4e:	dd d8                	fstp   %st(0)
+    0.78 :	 806ca50:	dd d8                	fstp   %st(0)
+    0.14 :	 806ca52:	dd d8                	fstp   %st(0)
+    0.02 :	 806ca54:	dd d8                	fstp   %st(0)
+    0.49 :	 806ca56:	dd d8                	fstp   %st(0)
+    0.09 :	 806ca58:	dd d8                	fstp   %st(0)
+         :	    {
+         :	      real sum;
+         :	      sum  = window[0x0] * b0[0x0];
+    0.01 :	 806ca5a:	d9 02                	flds   (%edx)
+    0.53 :	 806ca5c:	d9 54 24 3c          	fsts   0x3c(%esp)
+    0.12 :	 806ca60:	d9 01                	flds   (%ecx)
+    0.02 :	 806ca62:	de c9                	fmulp  %st,%st(1)
+         :	      sum -= window[0x1] * b0[0x1];
+    0.51 :	 806ca64:	d9 42 04             	flds   0x4(%edx)
+         :	      sum += window[0x2] * b0[0x2];
+    0.13 :	 806ca67:	d9 42 08             	flds   0x8(%edx)
+         :	      sum -= window[0x3] * b0[0x3];
+    0.03 :	 806ca6a:	d9 42 0c             	flds   0xc(%edx)
+         :	      sum += window[0x4] * b0[0x4];
+    0.51 :	 806ca6d:	d9 42 10             	flds   0x10(%edx)
+         :	      sum -= window[0x5] * b0[0x5];
+    0.13 :	 806ca70:	d9 42 14             	flds   0x14(%edx)
+         :	      sum += window[0x6] * b0[0x6];
+    0.02 :	 806ca73:	d9 42 18             	flds   0x18(%edx)
+         :	      sum -= window[0x7] * b0[0x7];
+    0.60 :	 806ca76:	d9 42 1c             	flds   0x1c(%edx)
+    0.16 :	 806ca79:	d9 5c 24 38          	fstps  0x38(%esp)
+         :	      sum += window[0x8] * b0[0x8];
+    0.06 :	 806ca7d:	d9 42 20             	flds   0x20(%edx)
+    1.48 :	 806ca80:	d9 5c 24 34          	fstps  0x34(%esp)
+         :	      sum -= window[0x9] * b0[0x9];
+    0.35 :	 806ca84:	d9 42 24             	flds   0x24(%edx)
+    0.04 :	 806ca87:	d9 5c 24 30          	fstps  0x30(%esp)
+         :	      sum += window[0xA] * b0[0xA];
+    0.90 :	 806ca8b:	d9 42 28             	flds   0x28(%edx)
+    0.21 :	 806ca8e:	d9 5c 24 2c          	fstps  0x2c(%esp)
+         :	      sum -= window[0xB] * b0[0xB];
+    0.80 :	 806ca92:	d9 42 2c             	flds   0x2c(%edx)
+    0.10 :	 806ca95:	d9 5c 24 28          	fstps  0x28(%esp)
+         :	      sum += window[0xC] * b0[0xC];
+    0.02 :	 806ca99:	d9 42 30             	flds   0x30(%edx)
+    0.70 :	 806ca9c:	d9 5c 24 24          	fstps  0x24(%esp)
+         :	      sum -= window[0xD] * b0[0xD];
+    0.13 :	 806caa0:	d9 42 34             	flds   0x34(%edx)
+    0.02 :	 806caa3:	d9 5c 24 20          	fstps  0x20(%esp)
+         :	      sum += window[0xE] * b0[0xE];
+    0.92 :	 806caa7:	d9 42 38             	flds   0x38(%edx)
+    0.10 :	 806caaa:	d9 5c 24 1c          	fstps  0x1c(%esp)
+         :	      sum -= window[0xF] * b0[0xF];
+    0.02 :	 806caae:	d9 42 3c             	flds   0x3c(%edx)
+    0.97 :	 806cab1:	d9 5c 24 18          	fstps  0x18(%esp)
+         :
+         :	    for (j=16;j;j--,b0+=0x10,window+=0x20,samples+=step)
+         :	    {
+         :	      real sum;
+         :	      sum  = window[0x0] * b0[0x0];
+         :	      sum -= window[0x1] * b0[0x1];
+    0.15 :	 806cab5:	d9 41 08             	flds   0x8(%ecx)
+    0.00 :	 806cab8:	d8 cd                	fmul   %st(5),%st
+    1.41 :	 806caba:	de c7                	faddp  %st,%st(7)
+         :	      sum += window[0x2] * b0[0x2];
+    0.14 :	 806cabc:	d9 41 10             	flds   0x10(%ecx)
+    0.00 :	 806cabf:	d8 cb                	fmul   %st(3),%st
+    1.35 :	 806cac1:	de c7                	faddp  %st,%st(7)
+         :	      sum -= window[0x3] * b0[0x3];
+    0.23 :	 806cac3:	d9 41 18             	flds   0x18(%ecx)
+    0.00 :	 806cac6:	d8 c9                	fmul   %st(1),%st
+    1.92 :	 806cac8:	de c7                	faddp  %st,%st(7)
+         :	      sum += window[0x4] * b0[0x4];
+    0.28 :	 806caca:	d9 44 24 34          	flds   0x34(%esp)
+    0.00 :	 806cace:	d8 49 20             	fmuls  0x20(%ecx)
+    2.00 :	 806cad1:	de c7                	faddp  %st,%st(7)
+         :	      sum -= window[0x5] * b0[0x5];
+    0.28 :	 806cad3:	d9 44 24 2c          	flds   0x2c(%esp)
+    0.01 :	 806cad7:	d8 49 28             	fmuls  0x28(%ecx)
+    2.15 :	 806cada:	de c7                	faddp  %st,%st(7)
+         :	      sum += window[0x6] * b0[0x6];
+    0.25 :	 806cadc:	d9 44 24 24          	flds   0x24(%esp)
+    0.01 :	 806cae0:	d8 49 30             	fmuls  0x30(%ecx)
+    2.77 :	 806cae3:	de c7                	faddp  %st,%st(7)
+         :	      sum -= window[0x7] * b0[0x7];
+    0.29 :	 806cae5:	d9 44 24 1c          	flds   0x1c(%esp)
+    0.00 :	 806cae9:	d8 49 38             	fmuls  0x38(%ecx)
+    2.04 :	 806caec:	de c7                	faddp  %st,%st(7)
+         :	      sum += window[0x8] * b0[0x8];
+    0.63 :	 806caee:	d9 44 24 18          	flds   0x18(%esp)
+    0.22 :	 806caf2:	d8 49 3c             	fmuls  0x3c(%ecx)
+    1.30 :	 806caf5:	de ef                	fsubrp %st,%st(7)
+         :	      sum -= window[0x9] * b0[0x9];
+    0.11 :	 806caf7:	d9 41 04             	flds   0x4(%ecx)
+    0.13 :	 806cafa:	d8 ce                	fmul   %st(6),%st
+    0.75 :	 806cafc:	de ef                	fsubrp %st,%st(7)
+         :	      sum += window[0xA] * b0[0xA];
+    0.07 :	 806cafe:	d9 41 0c             	flds   0xc(%ecx)
+    0.09 :	 806cb01:	d8 cc                	fmul   %st(4),%st
+    0.52 :	 806cb03:	de ef                	fsubrp %st,%st(7)
+         :	      sum -= window[0xB] * b0[0xB];
+    0.08 :	 806cb05:	d9 41 14             	flds   0x14(%ecx)
+    0.09 :	 806cb08:	d8 ca                	fmul   %st(2),%st
+    0.53 :	 806cb0a:	de ef                	fsubrp %st,%st(7)
+         :	      sum += window[0xC] * b0[0xC];
+    0.07 :	 806cb0c:	d9 44 24 38          	flds   0x38(%esp)
+    0.09 :	 806cb10:	d8 49 1c             	fmuls  0x1c(%ecx)
+    0.55 :	 806cb13:	de ef                	fsubrp %st,%st(7)
+         :	      sum -= window[0xD] * b0[0xD];
+    0.06 :	 806cb15:	d9 44 24 30          	flds   0x30(%esp)
+    0.08 :	 806cb19:	d8 49 24             	fmuls  0x24(%ecx)
+    0.52 :	 806cb1c:	de ef                	fsubrp %st,%st(7)
+         :	      sum += window[0xE] * b0[0xE];
+    0.08 :	 806cb1e:	d9 44 24 28          	flds   0x28(%esp)
+    1.05 :	 806cb22:	d8 49 2c             	fmuls  0x2c(%ecx)
+    0.10 :	 806cb25:	de ef                	fsubrp %st,%st(7)
+         :	      sum -= window[0xF] * b0[0xF];
+         :	      WRITE_SAMPLE(samples,sum,clip);
+    0.01 :	 806cb27:	d9 44 24 20          	flds   0x20(%esp)
+    2.07 :	 806cb2b:	d8 49 34             	fmuls  0x34(%ecx)
+    0.16 :	 806cb2e:	de ef                	fsubrp %st,%st(7)
+    0.04 :	 806cb30:	dd 05 40 57 07 08    	fldl   0x8075740
+    2.25 :	 806cb36:	de c7                	faddp  %st,%st(7)
+    1.04 :	 806cb38:	d9 ce                	fxch   %st(6)
+    0.04 :	 806cb3a:	dd 5c 24 58          	fstpl  0x58(%esp)
+    3.34 :	 806cb3e:	8b 7c 24 58          	mov    0x58(%esp),%edi
+    0.17 :	 806cb42:	81 ef 00 00 00 80    	sub    $0x80000000,%edi
+    0.06 :	 806cb48:	81 ff ff 7f 00 00    	cmp    $0x7fff,%edi
+    0.71 :	 806cb4e:	0f 8f dc fe ff ff    	jg     806ca30 <synth_1to1+0xb0>
+    0.43 :	 806cb54:	81 ff 00 80 ff ff    	cmp    $0xffff8000,%edi
+    0.76 :	 806cb5a:	7d 0c                	jge    806cb68 <synth_1to1+0x1e8>
+    0.00 :	 806cb5c:	66 c7 06 00 80       	movw   $0x8000,(%esi)
+    0.00 :	 806cb61:	40                   	inc    %eax
+    0.00 :	 806cb62:	e9 cf fe ff ff       	jmp    806ca36 <synth_1to1+0xb6>
+    0.00 :	 806cb67:	90                   	nop
+    0.00 :	 806cb68:	66 89 3e             	mov    %di,(%esi)
+    0.99 :	 806cb6b:	e9 c6 fe ff ff       	jmp    806ca36 <synth_1to1+0xb6>
+         :	    }
+         :
+         :	    {
+         :	      real sum;
+         :	      sum  = window[0x0] * b0[0x0];
+    0.01 :	 806cb70:	8b 7c 24 40          	mov    0x40(%esp),%edi
+         :	  
+         :	  {
+         :	    register int j;
+         :	    real *window = decwin + 16 - bo1;
+         :
+         :	    for (j=16;j;j--,b0+=0x10,window+=0x20,samples+=step)
+    1.94 :	 806cb74:	8d 8d 00 04 00 00    	lea    0x400(%ebp),%ecx
+    0.00 :	 806cb7a:	8b 5c 24 40          	mov    0x40(%esp),%ebx
+         :	      WRITE_SAMPLE(samples,sum,clip);
+         :	    }
+         :
+         :	    {
+         :	      real sum;
+         :	      sum  = window[0x0] * b0[0x0];
+    0.00 :	 806cb7e:	d9 87 00 08 00 00    	flds   0x800(%edi)
+    0.04 :	 806cb84:	d8 8d 00 04 00 00    	fmuls  0x400(%ebp)
+         :	  
+         :	  {
+         :	    register int j;
+         :	    real *window = decwin + 16 - bo1;
+         :
+         :	    for (j=16;j;j--,b0+=0x10,window+=0x20,samples+=step)
+    0.00 :	 806cb8a:	81 c3 00 08 00 00    	add    $0x800,%ebx
+    0.00 :	 806cb90:	8b 54 24 40          	mov    0x40(%esp),%edx
+    0.04 :	 806cb94:	8b 74 24 48          	mov    0x48(%esp),%esi
+         :	      WRITE_SAMPLE(samples,sum,clip);
+         :	    }
+         :
+         :	    {
+         :	      real sum;
+         :	      sum  = window[0x0] * b0[0x0];
+    0.00 :	 806cb98:	d9 5c 24 40          	fstps  0x40(%esp)
+         :	  
+         :	  {
+         :	    register int j;
+         :	    real *window = decwin + 16 - bo1;
+         :
+         :	    for (j=16;j;j--,b0+=0x10,window+=0x20,samples+=step)
+    0.00 :	 806cb9c:	81 c2 80 07 00 00    	add    $0x780,%edx
+         :	    }
+         :
+         :	    {
+         :	      real sum;
+         :	      sum  = window[0x0] * b0[0x0];
+         :	      sum += window[0x2] * b0[0x2];
+    0.04 :	 806cba2:	d9 43 08             	flds   0x8(%ebx)
+         :	  
+         :	  {
+         :	    register int j;
+         :	    real *window = decwin + 16 - bo1;
+         :
+         :	    for (j=16;j;j--,b0+=0x10,window+=0x20,samples+=step)
+    0.00 :	 806cba5:	83 c6 40             	add    $0x40,%esi
+         :	    }
+         :
+         :	    {
+         :	      real sum;
+         :	      sum  = window[0x0] * b0[0x0];
+         :	      sum += window[0x2] * b0[0x2];
+    0.00 :	 806cba8:	d8 49 08             	fmuls  0x8(%ecx)
+         :	  
+         :	  {
+         :	    register int j;
+         :	    real *window = decwin + 16 - bo1;
+         :
+         :	    for (j=16;j;j--,b0+=0x10,window+=0x20,samples+=step)
+    0.04 :	 806cbab:	89 54 24 0c          	mov    %edx,0xc(%esp)
+         :	    }
+         :
+         :	    {
+         :	      real sum;
+         :	      sum  = window[0x0] * b0[0x0];
+         :	      sum += window[0x2] * b0[0x2];
+    0.00 :	 806cbaf:	d9 43 10             	flds   0x10(%ebx)
+         :	  
+         :	  {
+         :	    register int j;
+         :	    real *window = decwin + 16 - bo1;
+         :
+         :	    for (j=16;j;j--,b0+=0x10,window+=0x20,samples+=step)
+    0.00 :	 806cbb2:	8d 95 c0 03 00 00    	lea    0x3c0(%ebp),%edx
+         :	    }
+         :
+         :	    {
+         :	      real sum;
+         :	      sum  = window[0x0] * b0[0x0];
+         :	      sum += window[0x2] * b0[0x2];
+    0.04 :	 806cbb8:	d8 49 10             	fmuls  0x10(%ecx)
+    0.00 :	 806cbbb:	de c1                	faddp  %st,%st(1)
+         :	      sum += window[0x4] * b0[0x4];
+    0.00 :	 806cbbd:	d8 44 24 40          	fadds  0x40(%esp)
+         :	      sum += window[0x6] * b0[0x6];
+    0.12 :	 806cbc1:	d9 43 18             	flds   0x18(%ebx)
+    0.00 :	 806cbc4:	d8 49 18             	fmuls  0x18(%ecx)
+    0.00 :	 806cbc7:	de c1                	faddp  %st,%st(1)
+         :	      sum += window[0x8] * b0[0x8];
+    0.04 :	 806cbc9:	d9 43 20             	flds   0x20(%ebx)
+    0.00 :	 806cbcc:	d8 49 20             	fmuls  0x20(%ecx)
+    0.00 :	 806cbcf:	de c1                	faddp  %st,%st(1)
+         :	      sum += window[0xA] * b0[0xA];
+    0.04 :	 806cbd1:	d9 43 28             	flds   0x28(%ebx)
+    0.00 :	 806cbd4:	d8 49 28             	fmuls  0x28(%ecx)
+    0.00 :	 806cbd7:	de c1                	faddp  %st,%st(1)
+         :	      sum += window[0xC] * b0[0xC];
+    0.04 :	 806cbd9:	d9 43 30             	flds   0x30(%ebx)
+    0.00 :	 806cbdc:	d8 49 30             	fmuls  0x30(%ecx)
+    0.00 :	 806cbdf:	de c1                	faddp  %st,%st(1)
+         :	      sum += window[0xE] * b0[0xE];
+         :	      WRITE_SAMPLE(samples,sum,clip);
+    0.07 :	 806cbe1:	d9 43 38             	flds   0x38(%ebx)
+    0.00 :	 806cbe4:	d8 49 38             	fmuls  0x38(%ecx)
+    0.00 :	 806cbe7:	de c1                	faddp  %st,%st(1)
+    0.04 :	 806cbe9:	d8 05 38 57 07 08    	fadds  0x8075738
+    0.00 :	 806cbef:	dd 5c 24 40          	fstpl  0x40(%esp)
+    0.03 :	 806cbf3:	8b 4c 24 40          	mov    0x40(%esp),%ecx
+    0.00 :	 806cbf7:	81 e9 00 00 00 80    	sub    $0x80000000,%ecx
+    0.00 :	 806cbfd:	81 f9 ff 7f 00 00    	cmp    $0x7fff,%ecx
+    0.04 :	 806cc03:	0f 8e 67 01 00 00    	jle    806cd70 <synth_1to1+0x3f0>
+    0.00 :	 806cc09:	8b 4c 24 48          	mov    0x48(%esp),%ecx
+    0.00 :	 806cc0d:	40                   	inc    %eax
+    0.00 :	 806cc0e:	66 c7 41 40 ff 7f    	movw   $0x7fff,0x40(%ecx)
+         :	      b0-=0x10,window-=0x20,samples+=step;
+         :	    }
+         :	    window += bo1<<1;
+    0.00 :	 806cc14:	8b 5c 24 4c          	mov    0x4c(%esp),%ebx
+         :	      sum += window[0x8] * b0[0x8];
+         :	      sum += window[0xA] * b0[0xA];
+         :	      sum += window[0xC] * b0[0xC];
+         :	      sum += window[0xE] * b0[0xE];
+         :	      WRITE_SAMPLE(samples,sum,clip);
+         :	      b0-=0x10,window-=0x20,samples+=step;
+    0.07 :	 806cc18:	83 c6 04             	add    $0x4,%esi
+         :	    }
+         :	    window += bo1<<1;
+    0.00 :	 806cc1b:	8b 7c 24 0c          	mov    0xc(%esp),%edi
+         :	  }
+         :
+         :	  return ret;
+         :	}
+         :
+         :	DECODE_SCOPE int synth_1to1(real *bandPtr,int channel,unsigned char *out,int *pnt)
+    0.00 :	 806cc1f:	83 c5 40             	add    $0x40,%ebp
+         :	      sum -= window[-0xC] * b0[0xB];
+         :	      sum -= window[-0xD] * b0[0xC];
+         :	      sum -= window[-0xE] * b0[0xD];
+         :	      sum -= window[-0xF] * b0[0xE];
+         :	      sum -= window[-0x0] * b0[0xF];
+         :	      WRITE_SAMPLE(samples,sum,clip);
+    0.04 :	 806cc22:	d9 05 38 57 07 08    	flds   0x8075738
+         :	      sum += window[0xC] * b0[0xC];
+         :	      sum += window[0xE] * b0[0xE];
+         :	      WRITE_SAMPLE(samples,sum,clip);
+         :	      b0-=0x10,window-=0x20,samples+=step;
+         :	    }
+         :	    window += bo1<<1;
+    0.00 :	 806cc28:	8d 0c df             	lea    (%edi,%ebx,8),%ecx
+    0.00 :	 806cc2b:	eb 73                	jmp    806cca0 <synth_1to1+0x320>
+    0.00 :	 806cc2d:	8d 76 00             	lea    0x0(%esi),%esi
+         :	      sum -= window[-0xC] * b0[0xB];
+         :	      sum -= window[-0xD] * b0[0xC];
+         :	      sum -= window[-0xE] * b0[0xD];
+         :	      sum -= window[-0xF] * b0[0xE];
+         :	      sum -= window[-0x0] * b0[0xF];
+         :	      WRITE_SAMPLE(samples,sum,clip);
+    0.00 :	 806cc30:	66 c7 06 ff 7f       	movw   $0x7fff,(%esi)
+    0.00 :	 806cc35:	40                   	inc    %eax
+         :	      WRITE_SAMPLE(samples,sum,clip);
+         :	      b0-=0x10,window-=0x20,samples+=step;
+         :	    }
+         :	    window += bo1<<1;
+         :
+         :	    for (j=15;j;j--,b0-=0x10,window-=0x20,samples+=step)
+    0.43 :	 806cc36:	39 ea                	cmp    %ebp,%edx
+    0.12 :	 806cc38:	0f 84 1a 01 00 00    	je     806cd58 <synth_1to1+0x3d8>
+    0.33 :	 806cc3e:	83 ea 40             	sub    $0x40,%edx
+    0.55 :	 806cc41:	83 c1 80             	add    $0xffffff80,%ecx
+    0.00 :	 806cc44:	d9 02                	flds   (%edx)
+    0.22 :	 806cc46:	83 c6 04             	add    $0x4,%esi
+    0.46 :	 806cc49:	d9 5c 24 3c          	fstps  0x3c(%esp)
+    0.00 :	 806cc4d:	d9 42 04             	flds   0x4(%edx)
+    0.28 :	 806cc50:	d9 42 08             	flds   0x8(%edx)
+    0.53 :	 806cc53:	d9 42 0c             	flds   0xc(%edx)
+    0.00 :	 806cc56:	d9 42 10             	flds   0x10(%edx)
+    0.30 :	 806cc59:	d9 42 14             	flds   0x14(%edx)
+    0.51 :	 806cc5c:	d9 42 18             	flds   0x18(%edx)
+    0.00 :	 806cc5f:	d9 42 1c             	flds   0x1c(%edx)
+    0.44 :	 806cc62:	d9 5c 24 38          	fstps  0x38(%esp)
+    0.16 :	 806cc66:	d9 42 20             	flds   0x20(%edx)
+    0.99 :	 806cc69:	d9 5c 24 34          	fstps  0x34(%esp)
+    0.12 :	 806cc6d:	d9 42 24             	flds   0x24(%edx)
+    0.49 :	 806cc70:	d9 5c 24 30          	fstps  0x30(%esp)
+    0.51 :	 806cc74:	d9 42 28             	flds   0x28(%edx)
+    0.14 :	 806cc77:	d9 5c 24 2c          	fstps  0x2c(%esp)
+    0.27 :	 806cc7b:	d9 42 2c             	flds   0x2c(%edx)
+    0.73 :	 806cc7e:	d9 5c 24 28          	fstps  0x28(%esp)
+    0.08 :	 806cc82:	d9 42 30             	flds   0x30(%edx)
+    0.27 :	 806cc85:	d9 5c 24 24          	fstps  0x24(%esp)
+    0.49 :	 806cc89:	d9 42 34             	flds   0x34(%edx)
+    0.08 :	 806cc8c:	d9 5c 24 20          	fstps  0x20(%esp)
+    0.16 :	 806cc90:	d9 42 38             	flds   0x38(%edx)
+    0.46 :	 806cc93:	d9 5c 24 1c          	fstps  0x1c(%esp)
+    0.12 :	 806cc97:	d9 42 3c             	flds   0x3c(%edx)
+    0.27 :	 806cc9a:	d9 5c 24 18          	fstps  0x18(%esp)
+    0.57 :	 806cc9e:	d9 ce                	fxch   %st(6)
+         :	    {
+         :	      real sum;
+         :	      sum = -window[-0x1] * b0[0x0];
+    0.15 :	 806cca0:	d9 41 fc             	flds   -0x4(%ecx)
+    0.16 :	 806cca3:	d9 e0                	fchs   
+    0.47 :	 806cca5:	d8 4c 24 3c          	fmuls  0x3c(%esp)
+    0.07 :	 806cca9:	d9 ce                	fxch   %st(6)
+         :	      sum -= window[-0x2] * b0[0x1];
+    0.18 :	 806ccab:	d8 49 f8             	fmuls  -0x8(%ecx)
+    0.31 :	 806ccae:	de ee                	fsubrp %st,%st(6)
+    0.06 :	 806ccb0:	d9 cc                	fxch   %st(4)
+         :	      sum -= window[-0x3] * b0[0x2];
+    0.17 :	 806ccb2:	d8 49 f4             	fmuls  -0xc(%ecx)
+    0.35 :	 806ccb5:	de ed                	fsubrp %st,%st(5)
+    0.08 :	 806ccb7:	d9 ca                	fxch   %st(2)
+         :	      sum -= window[-0x4] * b0[0x3];
+    0.18 :	 806ccb9:	d8 49 f0             	fmuls  -0x10(%ecx)
+    0.37 :	 806ccbc:	de ec                	fsubrp %st,%st(4)
+         :	      sum -= window[-0x5] * b0[0x4];
+    0.08 :	 806ccbe:	d8 49 ec             	fmuls  -0x14(%ecx)
+    0.82 :	 806ccc1:	de eb                	fsubrp %st,%st(3)
+         :	      sum -= window[-0x6] * b0[0x5];
+    0.13 :	 806ccc3:	d8 49 e8             	fmuls  -0x18(%ecx)
+    0.05 :	 806ccc6:	de ea                	fsubrp %st,%st(2)
+    1.23 :	 806ccc8:	d9 ca                	fxch   %st(2)
+         :	      sum -= window[-0x7] * b0[0x6];
+    0.44 :	 806ccca:	d8 49 e4             	fmuls  -0x1c(%ecx)
+    0.07 :	 806cccd:	de e9                	fsubrp %st,%st(1)
+         :	      sum -= window[-0x8] * b0[0x7];
+    1.34 :	 806cccf:	d9 44 24 38          	flds   0x38(%esp)
+    2.13 :	 806ccd3:	d8 49 e0             	fmuls  -0x20(%ecx)
+    0.00 :	 806ccd6:	de e9                	fsubrp %st,%st(1)
+         :	      sum -= window[-0x9] * b0[0x8];
+    0.01 :	 806ccd8:	d9 44 24 34          	flds   0x34(%esp)
+    3.31 :	 806ccdc:	d8 49 dc             	fmuls  -0x24(%ecx)
+    0.00 :	 806ccdf:	de e9                	fsubrp %st,%st(1)
+         :	      sum -= window[-0xA] * b0[0x9];
+    4.50 :	 806cce1:	d9 44 24 30          	flds   0x30(%esp)
+    0.31 :	 806cce5:	d8 49 d8             	fmuls  -0x28(%ecx)
+    0.00 :	 806cce8:	de e9                	fsubrp %st,%st(1)
+         :	      sum -= window[-0xB] * b0[0xA];
+    1.94 :	 806ccea:	d9 44 24 2c          	flds   0x2c(%esp)
+    0.13 :	 806ccee:	d8 49 d4             	fmuls  -0x2c(%ecx)
+    0.00 :	 806ccf1:	de e9                	fsubrp %st,%st(1)
+         :	      sum -= window[-0xC] * b0[0xB];
+    0.56 :	 806ccf3:	d9 44 24 28          	flds   0x28(%esp)
+    0.05 :	 806ccf7:	d8 49 d0             	fmuls  -0x30(%ecx)
+    0.00 :	 806ccfa:	de e9                	fsubrp %st,%st(1)
+         :	      sum -= window[-0xD] * b0[0xC];
+    0.60 :	 806ccfc:	d9 44 24 24          	flds   0x24(%esp)
+    0.04 :	 806cd00:	d8 49 cc             	fmuls  -0x34(%ecx)
+    0.00 :	 806cd03:	de e9                	fsubrp %st,%st(1)
+         :	      sum -= window[-0xE] * b0[0xD];
+    0.84 :	 806cd05:	d9 44 24 20          	flds   0x20(%esp)
+    0.08 :	 806cd09:	d8 49 c8             	fmuls  -0x38(%ecx)
+    0.00 :	 806cd0c:	de e9                	fsubrp %st,%st(1)
+         :	      sum -= window[-0xF] * b0[0xE];
+    1.20 :	 806cd0e:	d9 44 24 1c          	flds   0x1c(%esp)
+    0.06 :	 806cd12:	d8 49 c4             	fmuls  -0x3c(%ecx)
+    0.00 :	 806cd15:	de e9                	fsubrp %st,%st(1)
+         :	      sum -= window[-0x0] * b0[0xF];
+         :	      WRITE_SAMPLE(samples,sum,clip);
+    1.81 :	 806cd17:	d9 44 24 18          	flds   0x18(%esp)
+    0.33 :	 806cd1b:	d8 09                	fmuls  (%ecx)
+    0.01 :	 806cd1d:	de e9                	fsubrp %st,%st(1)
+    2.15 :	 806cd1f:	d8 c1                	fadd   %st(1),%st
+    1.34 :	 806cd21:	dd 5c 24 50          	fstpl  0x50(%esp)
+    0.00 :	 806cd25:	8b 5c 24 50          	mov    0x50(%esp),%ebx
+    3.26 :	 806cd29:	81 eb 00 00 00 80    	sub    $0x80000000,%ebx
+    0.12 :	 806cd2f:	81 fb ff 7f 00 00    	cmp    $0x7fff,%ebx
+    1.26 :	 806cd35:	0f 8f f5 fe ff ff    	jg     806cc30 <synth_1to1+0x2b0>
+    1.51 :	 806cd3b:	81 fb 00 80 ff ff    	cmp    $0xffff8000,%ebx
+    0.73 :	 806cd41:	7d 25                	jge    806cd68 <synth_1to1+0x3e8>
+    0.00 :	 806cd43:	40                   	inc    %eax
+         :	      WRITE_SAMPLE(samples,sum,clip);
+         :	      b0-=0x10,window-=0x20,samples+=step;
+         :	    }
+         :	    window += bo1<<1;
+         :
+         :	    for (j=15;j;j--,b0-=0x10,window-=0x20,samples+=step)
+    0.00 :	 806cd44:	39 ea                	cmp    %ebp,%edx
+         :	      sum -= window[-0xC] * b0[0xB];
+         :	      sum -= window[-0xD] * b0[0xC];
+         :	      sum -= window[-0xE] * b0[0xD];
+         :	      sum -= window[-0xF] * b0[0xE];
+         :	      sum -= window[-0x0] * b0[0xF];
+         :	      WRITE_SAMPLE(samples,sum,clip);
+    0.00 :	 806cd46:	66 c7 06 00 80       	movw   $0x8000,(%esi)
+         :	      WRITE_SAMPLE(samples,sum,clip);
+         :	      b0-=0x10,window-=0x20,samples+=step;
+         :	    }
+         :	    window += bo1<<1;
+         :
+         :	    for (j=15;j;j--,b0-=0x10,window-=0x20,samples+=step)
+    0.00 :	 806cd4b:	0f 85 ed fe ff ff    	jne    806cc3e <synth_1to1+0x2be>
+    0.00 :	 806cd51:	dd d8                	fstp   %st(0)
+    0.00 :	 806cd53:	eb 05                	jmp    806cd5a <synth_1to1+0x3da>
+    0.00 :	 806cd55:	8d 76 00             	lea    0x0(%esi),%esi
+    0.03 :	 806cd58:	dd d8                	fstp   %st(0)
+         :	    ret = synth_1to1_pent(bandPtr,channel,out+*pnt);
+         :	    *pnt += 128;
+         :	    return ret;
+         :	  }
+         :	#endif
+         :	}
+    2.04 :	 806cd5a:	83 c4 6c             	add    $0x6c,%esp
+    0.00 :	 806cd5d:	5b                   	pop    %ebx
+    0.05 :	 806cd5e:	5e                   	pop    %esi
+    0.03 :	 806cd5f:	5f                   	pop    %edi
+    0.04 :	 806cd60:	5d                   	pop    %ebp
+    0.04 :	 806cd61:	c3                   	ret    
+    0.00 :	 806cd62:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+         :	      sum -= window[-0xC] * b0[0xB];
+         :	      sum -= window[-0xD] * b0[0xC];
+         :	      sum -= window[-0xE] * b0[0xD];
+         :	      sum -= window[-0xF] * b0[0xE];
+         :	      sum -= window[-0x0] * b0[0xF];
+         :	      WRITE_SAMPLE(samples,sum,clip);
+    0.09 :	 806cd68:	66 89 1e             	mov    %bx,(%esi)
+    0.43 :	 806cd6b:	e9 c6 fe ff ff       	jmp    806cc36 <synth_1to1+0x2b6>
+         :	      sum += window[0x6] * b0[0x6];
+         :	      sum += window[0x8] * b0[0x8];
+         :	      sum += window[0xA] * b0[0xA];
+         :	      sum += window[0xC] * b0[0xC];
+         :	      sum += window[0xE] * b0[0xE];
+         :	      WRITE_SAMPLE(samples,sum,clip);
+    0.00 :	 806cd70:	81 f9 00 80 ff ff    	cmp    $0xffff8000,%ecx
+    0.04 :	 806cd76:	7d 58                	jge    806cdd0 <synth_1to1+0x450>
+    0.00 :	 806cd78:	66 c7 06 00 80       	movw   $0x8000,(%esi)
+    0.00 :	 806cd7d:	40                   	inc    %eax
+    0.00 :	 806cd7e:	e9 91 fe ff ff       	jmp    806cc14 <synth_1to1+0x294>
+    0.00 :	 806cd83:	90                   	nop
+    0.00 :	 806cd84:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+         :	    bo1 = bo;
+         :	    dct64(buf[1]+((bo+1)&0xf),buf[0]+bo,bandPtr);
+         :	  }
+         :	  else {
+         :	    b0 = buf[1];
+         :	    bo1 = bo+1;
+    0.00 :	 806cd88:	8d 78 01             	lea    0x1(%eax),%edi
+         :	    dct64(buf[0]+bo,buf[1]+bo+1,bandPtr);
+    0.14 :	 806cd8b:	8d 1c 82             	lea    (%edx,%eax,4),%ebx
+         :	    bo1 = bo;
+         :	    dct64(buf[1]+((bo+1)&0xf),buf[0]+bo,bandPtr);
+         :	  }
+         :	  else {
+         :	    b0 = buf[1];
+         :	    bo1 = bo+1;
+    0.01 :	 806cd8e:	89 7c 24 4c          	mov    %edi,0x4c(%esp)
+         :	    dct64(buf[0]+bo,buf[1]+bo+1,bandPtr);
+    0.01 :	 806cd92:	51                   	push   %ecx
+    0.00 :	 806cd93:	8d 8c 82 44 04 00 00 	lea    0x444(%edx,%eax,4),%ecx
+    0.03 :	 806cd9a:	56                   	push   %esi
+    0.02 :	 806cd9b:	51                   	push   %ecx
+    0.00 :	 806cd9c:	53                   	push   %ebx
+         :	    b0 = buf[0];
+         :	    bo1 = bo;
+         :	    dct64(buf[1]+((bo+1)&0xf),buf[0]+bo,bandPtr);
+         :	  }
+         :	  else {
+         :	    b0 = buf[1];
+    0.01 :	 806cd9d:	8d aa 40 04 00 00    	lea    0x440(%edx),%ebp
+         :	    bo1 = bo+1;
+         :	    dct64(buf[0]+bo,buf[1]+bo+1,bandPtr);
+    0.02 :	 806cda3:	e8 d8 07 00 00       	call   806d580 <dct64>
+    0.03 :	 806cda8:	8b 5c 24 5c          	mov    0x5c(%esp),%ebx
+    0.09 :	 806cdac:	83 c4 10             	add    $0x10,%esp
+    0.00 :	 806cdaf:	e9 50 fc ff ff       	jmp    806ca04 <synth_1to1+0x84>
+    0.00 :	 806cdb4:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+         :	    bo--;
+         :	    bo &= 0xf;
+         :	    buf = buffs[0];
+         :	  }
+         :	  else {
+         :	    samples++;
+    0.02 :	 806cdb8:	83 44 24 48 02       	addl   $0x2,0x48(%esp)
+         :	    buf = buffs[1];
+    0.02 :	 806cdbd:	ba a0 17 09 08       	mov    $0x80917a0,%edx
+    0.01 :	 806cdc2:	a1 b0 8a 07 08       	mov    0x8078ab0,%eax
+    0.00 :	 806cdc7:	e9 0c fc ff ff       	jmp    806c9d8 <synth_1to1+0x58>
+    0.00 :	 806cdcc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+         :	      sum += window[0x6] * b0[0x6];
+         :	      sum += window[0x8] * b0[0x8];
+         :	      sum += window[0xA] * b0[0xA];
+         :	      sum += window[0xC] * b0[0xC];
+         :	      sum += window[0xE] * b0[0xE];
+         :	      WRITE_SAMPLE(samples,sum,clip);
+    0.00 :	 806cdd0:	66 89 0e             	mov    %cx,(%esi)
+    0.07 :	 806cdd3:	e9 3c fe ff ff       	jmp    806cc14 <synth_1to1+0x294>
+         :
+         :	  *pnt += 128; /* moved that here as MPlayer has it */
+         :	#endif
+         :
+         :	  if(have_eq_settings)
+         :		do_equalizer(bandPtr,channel);
+    0.00 :	 806cdd8:	55                   	push   %ebp
+    0.00 :	 806cdd9:	55                   	push   %ebp
+    0.00 :	 806cdda:	53                   	push   %ebx
+    0.00 :	 806cddb:	56                   	push   %esi
+    0.00 :	 806cddc:	e8 df 86 ff ff       	call   80654c0 <do_equalizer>
+    0.00 :	 806cde1:	83 c4 10             	add    $0x10,%esp
+    0.00 :	 806cde4:	e9 d4 fb ff ff       	jmp    806c9bd <synth_1to1+0x3d>
