@@ -1,5 +1,6 @@
 \documentclass[a4paper,12pt]{scrartcl}
 \usepackage{pxfonts}
+\usepackage{hyperref}
 
 \begin{document}
 
@@ -724,6 +725,8 @@ Hm, it might be worth a try to remove that bit of code. It introduces a branch..
 But no, that doesn't make a difference. I'm relieved.
 
 Now, that leaves the strange decisions of the compiler on the table. It does {\em weird} stuff with the floating point sums. Generally, the floating point code is messy. What's the magic compiler switch to change that?
+
+I added some disassembly and the corresponding source to SVN, the public may have a peek at \url{http://mpg123.orgis.org/cgi-bin/scm/mpg123/notes/beating_mp3lib_in_mplayer_material/}.
 
 \end{document}
 
