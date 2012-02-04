@@ -788,5 +788,79 @@ Now, how does the stuff land on the stack anyways?
 is that, after simply disabling the call to dct64 (and, thusly, producing rubbish) both in mp3lib and mpg123, the mpg123 binary beats MPlayer with 25 agains 28 seconds decoding time.
 This function call messes up the code optimization for mpg123 and somehow does not for mp3lib.
 
+This is creepy. I hacked around with the mp3lib code for a while, making functions non-static, cleaning away distracting parts... and then this:
+The optional optimized synth function is disabled at runtime by my hacking, but the call was still present in the synth.
+\begin{verbatim}
+  if ( synth_func )
+   {
+//    printf("Calling %p, bandPtr=%p channel=%d samples=%p\n",synth_func,bandPtr,channel,samples);
+    // FIXME: synth_func() may destroy EBP, don't rely on stack contents!!!
+    return (*synth_func)( bandPtr,channel,samples);
+   }
+\end{verbatim}
+Now, if I remove that function call,
+\begin{verbatim}
+  if ( synth_func )
+   {
+//    printf("Calling %p, bandPtr=%p channel=%d samples=%p\n",synth_func,bandPtr,channel,samples);
+    // FIXME: synth_func() may destroy EBP, don't rely on stack contents!!!
+    /* return (*synth_func)( bandPtr,channel,samples); */
+   }
+\end{verbatim}
+I suddenly get my bad code delivered! Let's check the actual performance... Yup, with the call present (but inactive), we have the usual 32 seconds, with the call removed, it's 40 seconds.
+
+OK... so I see now how I could fix the generic decoding to be better. Via some nasty trick I might convince gcc to produce the correct output for mpg123; or, I even capture the good assembly and have the i386 code as assembly optimization, which is a bit crazy, given that there is the i586 optimization anyway.
+
+But first, let's verify the concept, I added this little fake function someplace else than decode\_i386.c (so that the symbol exists and the function call code actually is generated for lack of link-time inlining).
+\begin{verbatim}
+int synth_1to1_fake(real *bandPtr,int channel,unsigned char *out,int *pnt)
+{
+	return 0;
+}
+\end{verbatim}
+Then, the bogus fake call gets added to the synth.
+\begin{verbatim}
+int moody_switch = 0;
+DECODE_SCOPE int synth_1to1(real *bandPtr,int channel,unsigned char *out,int *pnt)
+{
+#ifndef PENTIUM_OPT
+  static real buffs[2][2][0x110];
+  static const int step = 2;
+  static int bo = 1;
+  short *samples = (short *) (out + *pnt);
+
+  real *b0,(*buf)[0x110];
+  int clip = 0; 
+  int bo1;
+
+  *pnt += 128; /* moved that here as MPlayer has it */
+#endif
+
+  if(moody_switch)
+    return synth_1to1_fake(bandPtr, channel, out, pnt);
+\end{verbatim}
+Well, the result...
+\begin{verbatim}
+   28522.600345  task-clock-msecs         #      0.996 CPUs 
+            302  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            246  page-faults              #      0.000 M/sec
+    22784727766  cycles                   #    798.831 M/sec
+    27729388895  instructions             #      1.217 IPC  
+     9218523630  cache-references         #    323.201 M/sec
+        7898355  cache-misses             #      0.277 M/sec
+
+   28.650573967  seconds time elapsed
+\end{verbatim}
+
+Nifty, eh? Now I have a grip on how to hack utmost speed out of the generic C code on x86 with gcc. That is an interesting point, but it is not the main matter of this investigation.
+Let's look at what the binding of libmpg123 to mplayer does to hurt performance by 30\%.
+
+\section{Back to the Binding}
+
+Without the hands tied behind its back, mpg123 is faster than MPlayer (using 3DNowExt optimizations).
+But the binding of libmpg123 to MPlayer brings great suffering.
+Let's investigate that.
+
 \end{document}
 
