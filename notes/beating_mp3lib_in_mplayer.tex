@@ -728,5 +728,65 @@ Now, that leaves the strange decisions of the compiler on the table. It does {\e
 
 I added some disassembly and the corresponding source to SVN, the public may have a peek at \url{http://mpg123.orgis.org/cgi-bin/scm/mpg123/notes/beating_mp3lib_in_mplayer_material/}.
 
+Separating out the synth function in the MPlayer code into its own object file (not static, obviously) yields binary code very similar to what gcc produces for mpg123.
+
+\paragraph{A proposal for different clipping}
+from Ivan didn't do much good on the Duron, actually worsened it a bit. The idea was to save one if branch by  addition and bitmask comparison, but this is not guaranteed to be faster...
+Anyhow, this is tangential to the question why the MPlayer build works better.
+
+\paragraph{Back to the assembly line},
+my gaze wanders towards the differences outlined above again, and I realize that the array index strangeness might have to do with the fact that there is \%esp involved in mpg123. 
+The function stack versus a pointer in a separate register.
+Oh, also, I see a trigger for the bad code: Removing the call to DCT64 improves things, not entirely surprisingly.
+This is a piece of diff between the separated-out synth function without and with call to non-static dct64:
+\begin{verbatim}
+119,121c170,172
+<   93: d9 41 20                flds   0x20(%ecx)
+<   96: d8 4a 20                fmuls  0x20(%edx)
+<   99: de c2                   faddp  %st,%st(2)
+---
+>  109: d9 44 24 28             flds   0x28(%esp)
+>  10d: d8 4a 20                fmuls  0x20(%edx)
+>  110: de c7                   faddp  %st,%st(7)
+123,125c174,176
+<   9b: d9 41 28                flds   0x28(%ecx)
+<   9e: d8 4a 28                fmuls  0x28(%edx)
+<   a1: de c2                   faddp  %st,%st(2)
+---
+>  112: d9 44 24 20             flds   0x20(%esp)
+>  116: d8 4a 28                fmuls  0x28(%edx)
+>  119: de c7                   faddp  %st,%st(7)
+\end{verbatim}
+Now, as I said, a function call messing with stack/register handling is not entirely spurprising.
+But, still, I should wrap my head around what exactly happens here.
+Especially, since including static dct64 didn't seem to help mpg123. But what does it do here? Let's try.
+
+Gah! Static! I forgot that there are static variables in the synth function (there aren't anymore for current mpg123). I simply defined the static keyword to nothing for the separated object, only thinking about the static function, not static variables.
+Does the situation change when I just remove the static keyword from the function?
+\begin{verbatim}
+156,158c223,225
+<   b2: d9 42 20                flds   0x20(%edx)
+<   b5: d8 49 20                fmuls  0x20(%ecx)
+<   b8: de c1                   faddp  %st,%st(1)
+---
+>  144: d9 44 24 34             flds   0x34(%esp)
+>  148: d8 49 20                fmuls  0x20(%ecx)
+>  14b: de c7                   faddp  %st,%st(7)
+160,162c227,229
+<   ba: d9 42 28                flds   0x28(%edx)
+<   bd: d8 49 28                fmuls  0x28(%ecx)
+<   c0: de c1                   faddp  %st,%st(1)
+---
+>  14d: d9 44 24 2c             flds   0x2c(%esp)
+>  151: d8 49 28                fmuls  0x28(%ecx)
+>  154: de c7                   faddp  %st,%st(7)
+\end{verbatim}
+OK, that's still the same, basically. Only the stack location changes.
+Now, how does the stuff land on the stack anyways?
+
+\paragraph{An indication of victory}
+is that, after simply disabling the call to dct64 (and, thusly, producing rubbish) both in mp3lib and mpg123, the mpg123 binary beats MPlayer with 25 agains 28 seconds decoding time.
+This function call messes up the code optimization for mpg123 and somehow does not for mp3lib.
+
 \end{document}
 
