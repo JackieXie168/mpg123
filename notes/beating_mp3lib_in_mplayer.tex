@@ -856,11 +856,378 @@ Well, the result...
 Nifty, eh? Now I have a grip on how to hack utmost speed out of the generic C code on x86 with gcc. That is an interesting point, but it is not the main matter of this investigation.
 Let's look at what the binding of libmpg123 to mplayer does to hurt performance by 30\%.
 
+Pack your things and go, mp3lib, you're owned! Well, owned by plain mpg123, that is. Libmpg123 still has some way to go.
+
 \section{Back to the Binding}
 
 Without the hands tied behind its back, mpg123 is faster than MPlayer (using 3DNowExt optimizations).
 But the binding of libmpg123 to MPlayer brings great suffering.
 Let's investigate that.
+
+MPlayer's mp3lib has such a profile,
+\begin{verbatim}
+# Samples: 217361
+#
+# Overhead      Command                        Shared Object  Symbol
+# ........  ...........  ...................................  ......
+#
+    34.08%      mplayer  ./mplayer                            [.] III_dequantize_sample
+    17.89%      mplayer  ./mplayer                            [.] synth_1to1_MMX
+    16.40%      mplayer  ./mplayer                            [.] dct36_3dnowex
+    11.61%      mplayer  ./mplayer                            [.] dct64_MMX_3dnowex
+     5.27%      mplayer  ./mplayer                            [.] T.293
+     4.85%      mplayer  /lib/i686/cmov/libc-2.11.2.so        [.] memcpy
+\end{verbatim}
+while with libmpg123 usage, it is
+\begin{verbatim}
+# Samples: 248096
+#
+# Overhead      Command                        Shared Object  Symbol
+# ........  ...........  ...................................  ......
+#
+    30.14%      mplayer  ./mplayer                            [.] III_dequantize_sample
+    26.41%      mplayer  ./mplayer                            [.] 0x000000009470c1
+     9.41%      mplayer  ./mplayer                            [.] 0x00000000950941
+     8.04%      mplayer  /lib/i686/cmov/libc-2.11.2.so        [.] memcpy
+     7.30%      mplayer  ./mplayer                            [.] INT123_synth_ntom
+     4.62%      mplayer  ./mplayer                            [.] INT123_do_layer3
+     1.69%      mplayer  ./mplayer                            [.] feed_read
+     1.15%      mplayer  ./mplayer                            [.] INT123_dct64
+     0.97%      mplayer  ./mplayer                            [.] INT123_synth_1to1_3dnowext
+\end{verbatim}
+Wait. What?! Ntom? And the actual synth with 0.97\%? That is fishy.
+The figures may be right, but the names aren't. Perhaps the static link messes things up a bit (but why should it?).
+Let's link to the system libmpg123.
+\begin{verbatim}
+# Samples: 225783
+#
+# Overhead      Command                        Shared Object  Symbol
+# ........  ...........  ...................................  ......
+#
+    82.32%      mplayer  /usr/lib/libmpg123.so.0.25.1         [.] 0x00000000028247
+     7.92%      mplayer  /lib/i686/cmov/libc-2.11.2.so        [.] memcpy
+     1.00%      mplayer  /usr/lib/libmpg123.so.0.25.1         [.] 0x000000000147c4
+     0.65%      mplayer  [kernel]                             [k] __copy_to_user_ll
+     0.53%      mplayer  /lib/i686/cmov/libc-2.11.2.so        [.] 0x000000000705dd
+     0.31%      mplayer  ./mplayer                            [.] avpriv_ac3_parse_header
+     0.31%      mplayer  /lib/i686/cmov/libc-2.11.2.so        [.] __mempcpy
+     0.28%      mplayer  ./mplayer                            [.] ac3_eac3_probe
+     0.23%      mplayer  ./mplayer                            [.] demux_audio_fill_buffer
+     0.19%      mplayer  /usr/lib/libmpg123.so.0.25.1         [.] mpg123_decode
+\end{verbatim}
+Whut? Get out already. What is that?
+Ok, fresh build, dynamic link to local libmpg123.
+\begin{verbatim}
+# Samples: 245675
+#
+# Overhead      Command                 Shared Object  Symbol
+# ........  ...........  ............................  ......
+#
+    36.09%      mplayer  .libs/libmpg123.so.0.33.1     [.] 0x00000000043685
+    31.83%      mplayer  .libs/libmpg123.so.0.33.1     [.] III_dequantize_sample
+     8.23%      mplayer  /lib/i686/cmov/libc-2.11.2.so [.] memcpy
+     4.86%      mplayer  .libs/libmpg123.so.0.33.1     [.] INT123_synth_ntom
+     4.65%      mplayer  .libs/libmpg123.so.0.33.1     [.] INT123_do_layer3
+     1.67%      mplayer  .libs/libmpg123.so.0.33.1     [.] feed_read
+     1.25%      mplayer  .libs/libmpg123.so.0.33.1     [.] INT123_dct64
+     1.06%      mplayer  .libs/libmpg123.so.0.33.1     [.] INT123_synth_1to1_3dnowext
+\end{verbatim}
+Wtf? First: This needs more time than system mpg123, second: Those symbols can't be right.
+
+Checking this... Heck, the NtoM synth {\em is} called! And, know what? It's because of a bug in the libmpg123 parser in feeder mode (I really should not have added this contraption):
+It did not seek back 4 bytes if the ahead check past the first frame does not work.
+This pecuilar bug is triggered because MPlayer also parses the MPEG data and manages to give exactly one frame of data at the beginning.
+
+Now, for some more sensible numbers and names...
+\begin{verbatim}
+   27269.086270  task-clock-msecs         #      0.993 CPUs 
+            322  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+           6858  page-faults              #      0.000 M/sec
+    21765861127  cycles                   #    798.188 M/sec
+    20944822745  instructions             #      0.962 IPC  
+     8198643751  cache-references         #    300.657 M/sec
+       16856742  cache-misses             #      0.618 M/sec
+
+   27.465041648  seconds time elapsed
+
+# Samples: 228283
+#
+# Overhead      Command                  Shared Object  Symbol
+# ........  ...........  .............................  ......
+#
+    34.38%      mplayer  .libs/libmpg123.so.0.33.1      [.] III_dequantize_sample
+    30.03%      mplayer  .libs/libmpg123.so.0.33.1      [.] 0x00000000043e7d
+    10.94%      mplayer  .libs/libmpg123.so.0.33.1      [.] 0x00000000042e2d
+     7.84%      mplayer  /lib/i686/cmov/libc-2.11.2.so  [.] memcpy
+     4.97%      mplayer  .libs/libmpg123.so.0.33.1      [.] INT123_do_layer3
+     1.23%      mplayer  .libs/libmpg123.so.0.33.1      [.] INT123_synth_1to1_3dnowext
+     0.66%      mplayer  .libs/libmpg123.so.0.33.1      [.] III_get_scale_factors_1
+     0.63%      mplayer  [kernel]                       [k] __copy_to_user_ll
+\end{verbatim}
+Now that looks better, but only covers a bug I must have introduced recently (yes, revision 2935 must've been it). Those 27.5 seconds are still rather bad compared to plain mpg123:
+\begin{verbatim}
+   24365.715653  task-clock-msecs         #      0.991 CPUs 
+            372  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+           7600  page-faults              #      0.000 M/sec
+    19462031681  cycles                   #    798.747 M/sec
+    20804412868  instructions             #      1.069 IPC  
+     8193661424  cache-references         #    336.278 M/sec
+       13213580  cache-misses             #      0.542 M/sec
+
+   24.576109613  seconds time elapsed
+
+# Samples: 200099
+#
+# Overhead      Command                  Shared Object  Symbol
+# ........  ...........  .............................  ......
+#
+    46.39%    lt-mpg123  .libs/libmpg123.so.0.33.1      [.] 0x000000000413ac
+    38.52%    lt-mpg123  .libs/libmpg123.so.0.33.1      [.] III_dequantize_sample
+     5.81%    lt-mpg123  .libs/libmpg123.so.0.33.1      [.] INT123_do_layer3
+     1.45%    lt-mpg123  .libs/libmpg123.so.0.33.1      [.] INT123_synth_1to1_3dnowext
+     0.78%    lt-mpg123  [kernel]                       [k] __copy_to_user_ll
+     0.74%    lt-mpg123  /lib/i686/cmov/libc-2.11.2.so  [.] __mempcpy
+     0.66%    lt-mpg123  .libs/libmpg123.so.0.33.1      [.] III_get_scale_factors_1
+\end{verbatim}
+I must assume that this first block encompasses all synth functions combined (asm aynth and the DCTs).
+
+How is the absolute comparison to mp3lib, per function? First the raw data again...
+\begin{verbatim}
+   26190.932710  task-clock-msecs         #      0.993 CPUs 
+            333  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+           6307  page-faults              #      0.000 M/sec
+    20908670446  cycles                   #    798.317 M/sec
+    20816640224  instructions             #      0.996 IPC  
+     7871360378  cache-references         #    300.538 M/sec
+       11813272  cache-misses             #      0.451 M/sec
+
+   26.370606238  seconds time elapsed
+
+# Samples: 217594
+#
+# Overhead      Command                        Shared Object  Symbol
+# ........  ...........  ...................................  ......
+#
+    34.25%      mplayer  ./mplayer                            [.] III_dequantize_sample
+    17.89%      mplayer  ./mplayer                            [.] synth_1to1_MMX
+    16.45%      mplayer  ./mplayer                            [.] dct36_3dnowex
+    11.35%      mplayer  ./mplayer                            [.] dct64_MMX_3dnowex
+     5.32%      mplayer  ./mplayer                            [.] T.293
+     4.83%      mplayer  /lib/i686/cmov/libc-2.11.2.so        [.] memcpy
+     0.65%      mplayer  [kernel]                             [k] __copy_to_user_ll
+     0.59%      mplayer  ./mplayer                            [.] synth_1to1
+\end{verbatim}
+
+As a bonus, I compare also with good old mpg123 0.65 (the hacked i386 code). It is eerily close.
+\begin{verbatim}
+   28434.455457  task-clock-msecs         #      0.996 CPUs 
+            298  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+            246  page-faults              #      0.000 M/sec
+    22713949581  cycles                   #    798.818 M/sec
+    27729289453  instructions             #      1.221 IPC  
+     9204425341  cache-references         #    323.707 M/sec
+        7354561  cache-misses             #      0.259 M/sec
+
+   28.561796156  seconds time elapsed
+
+# Samples: 234591
+#
+# Overhead      Command                  Shared Object  Symbol
+# ........  ...........  .............................  ......
+#
+    40.85%       mpg123  ./src/mpg123                   [.] synth_1to1
+    30.31%       mpg123  ./src/mpg123                   [.] III_dequantize_sample
+    10.18%       mpg123  ./src/mpg123                   [.] dct64
+     9.77%       mpg123  ./src/mpg123                   [.] dct36
+     4.62%       mpg123  ./src/mpg123                   [.] do_layer3
+     0.64%       mpg123  [kernel]                       [k] __copy_to_user_ll
+     0.34%       mpg123  ./src/mpg123                   [.] dct12
+     0.32%       mpg123  ./src/mpg123                   [.] III_get_scale_factors_1
+     0.23%       mpg123  /lib/i686/cmov/libc-2.11.2.so  [.] __mempcpy
+\end{verbatim}
+I get just that bit of time for all that assembly code? SIMD and all?
+
+For mpg123, the individual asm functions cannot be separated for some reason, so let's combine the numbers:
+\begin{center}
+\begin{tabular}{lrrrr}
+         & time & time & time & time  \\
+         & MPlayer & MPlayer & mpg123 & mpg123 \\
+function & +mp3lib / s & +libmpg123 / s & trunk / s & 0.65-i386 / s
+\\\hline
+synth \& DCT            & 12.20 & 11.59 & 11.75 & 17.36 \\
+III\_dequantize\_sample &  9.03 &  9.44 &  9.46 &  8.66 \\
+T.293 / do\_layer3      &  1.40 &  1.36 &  1.43 &  1.31 \\
+memcpy+to\_user         &  1.31 &  2.33 &  0.37 &  0.25 \\
+sum of above            & 23.94 & 24.72 & 23.01 & 27.58 \\
+diff to mpg123          &  0.93 & 1.71  &  0    &  4.57 \\
+total runtime diff      &  1.79 & 2.89  &  0    &  3.98 
+\end{tabular}
+\end{center}
+So, I can explain $59\%$ of the difference to mpg123 from these main contributors to computing time. And it is rather clear where that comes from: memcpy.
+The same is even true for mp3lib, there, memcpy also plays a larger role.
+
+A more subtle point is to be made about the assembly synths in mpg123 being a bit faster (yay, despite criticism about inefficient stack handling;-), while, again, MPlayer wins on the efficiency of GCC-generated code.
+They managed to befriend to optimizer somehow.
+
+Since I like to explore to the sidess before going for the bulls eye, I am going to have a look at what exactly is different in the sample dequantization.
+This comparison is messy. Looking at that huge slab of code with CPU time distributed all over the place, but somewhat prominent on code portions that are rather identical between mp3lib and mpg123, I think it is not worth it no nail down the optimizer here. That half of a second can come and go.
+
+Well, but what could be worth it is to investigate what the heck happened since mpg123 0.65 here. I am comparing to the plain C code for i386 (well, boosted a bit by the recent improvements / hack for GCC optimizer)!
+I see the 3DNowExt assembly shaving off 5.61 seconds from the synth stuff, but here, 0.8 seconds are lost in the dequantization again.
+Eh, I have to take a step back. I just glossed over half a second compared to mp3lib, I can ignore 0.8 seconds, too. Really, I have seen what GCC is capable of with the rather simple synth code.
+I will not start a battle about 0.8 seconds in III\_dequantize\_sample. I need some lifetime left.
+Let's be happy that in the sum, 14\% of decoding performance is gained from 3DNowExt.
+
+What spooks me here, is that the plain 3DNow code makes mpg123 even slower than the beefed-up generic code:
+\begin{verbatim}
+   29208.504107  task-clock-msecs         #      0.995 CPUs 
+            389  context-switches         #      0.000 M/sec
+              0  CPU-migrations           #      0.000 M/sec
+           4151  page-faults              #      0.000 M/sec
+    23331202619  cycles                   #    798.781 M/sec
+    26197929267  instructions             #      1.123 IPC  
+     9571621109  cache-references         #    327.700 M/sec
+       13034794  cache-misses             #      0.446 M/sec
+
+   29.341045891  seconds time elapsed
+
+# Samples: 248648
+#
+# Overhead      Command                  Shared Object  Symbol
+# ........  ...........  .............................  ......
+#
+    31.26%    lt-mpg123  ./libs/libmpg123.so.0.33.1     [.] III_dequantize_sample
+    30.25%    lt-mpg123  ./libs/libmpg123.so.0.33.1     [.] 0x00000000041684
+    26.01%    lt-mpg123  .libs/libmpg123.so.0.33.1      [.] 0x00000000042611
+     4.54%    lt-mpg123  .libs/libmpg123.so.0.33.1      [.] INT123_do_layer3
+     0.89%    lt-mpg123  .libs/libmpg123.so.0.33.1      [.] INT123_synth_1to1_3dnow
+     0.73%    lt-mpg123  /lib/i686/cmov/libc-2.11.2.so  [.] __mempcpy
+     0.64%    lt-mpg123  [kernel]                       [k] __copy_to_user_ll
+     0.64%    lt-mpg123  .libs/libmpg123.so.0.33.1      [.] III_get_scale_factors_1
+\end{verbatim}
+That makes 9.17 seconds for dequantization, 16.77 seconds for combined synth, that is a bit more and a bit less than the i386 C code.
+All in all, one can say that any benefit from the assembly marginal, and, depending on the mood of the compiler, not worth anything. I feel that I could go down that road, a long way down, down into the abyss, but let's avoid that.
+The fastest variant on this machine is what should be the fastest. Let's make MPlayer+libmpg123 live up to that.
+
+\paragraph{I diagnosed some memcpy poisoning,}
+so let's start with switching around I/O variants to avoid memcpy. I have something prepared there.
+Some numbers for the differing variants (switches for packet-based input, plain demuxer reads, callback, feeder, callback with seek buffer).
+The memcpy number is only the actual count for memcpy() now, not this kernel-to-userspace stuff (isn't that just that I am reading from /dev/shm?).
+\begin{center}
+\begin{tabular}{lrr}
+I/O variant & packet (memcpy) & demux\_read (memcpy)
+\\\hline
+feeder   & 27.50 s (2.14 s) & 27.54 s (2.28 s) \\ 
+callback & 27.35 s (1.98 s) & 27.58 s (2.02 s) \\
+callback+seekbuffer
+         & 27.79 s (2.31 s) & 27.52 s (2.33 s)
+\end{tabular}
+\end{center}
+Big difference I see not, though some there is.
+The most backwards-compatible and also parsingly flexible variant is second only to the plain callback variant that cannot peek ahead in streams.
+I am willing to pay these 0.15 seconds for the stream parsing robustness and the fact that this API works with any release of libmpg123. Of course, the more I think of it, those 0.5\% aren't {\em nothing}. Sheesh.
+Oh, and don't forget that the numbers have some leeway. An earlier measurement the packet feeder took 27.47 seconds.
+Well, rounding to 1/10th seconds would be reasonable, when jumping to final conclusions. As I am groping for any hint here, it should be fine to also look one digit further for the wobbly fine print.
+
+Focus on the bigger picture: There is more to it than the input buffering with libmpg123.
+Or, hm... have a look at the call graph for the packet feeder, compared to plain mpg123 and mp3lib.
+
+So, the rare memcpy calls in plain mpg123 are rooted in the WAV writing, not decoding.
+With mp3lib, the call graph doesn't give sensible information as to where the calls orginate. 99.60\% from (nil). Great.
+What is always apparent, is the presence of those fast\_memcpy() calls. They amount to 0.46\% instead compared to 4.84\% for the libc one.
+They don't occur in the call graph for libmpg123 usage from MPlayer.
+There, at least, is a sensible trace of the plain memcpy() calls: 
+\begin{verbatim}
+     8.02%  mplayer-feeder-  /lib/i686/cmov/libc-2.11.2.so                                        [.] memcpy
+                |          
+                |--58.67%-- 0x10000
+                |          
+                |--41.15%-- decode_a_bit
+                 --0.18%-- [...]
+\end{verbatim}
+At least half of them can be accounted for. Not surprisingly, that's the feeding of data via mpg123\_decode().
+Half of the good two seconds spent in memcpy would already suffice to get on par with mp3lib...
+
+But, since there is not one second difference from the feeder to the plain callback ... I guess demux\_read\_data() also employs simple memcpy for the same task. Hm, so...
+Wait! I wanted to look into that anyway, and I see confirmation in the call graph for the callback variant: There, it's mpg123\_read() and decode\_audio().
+Yes, we come to the point where I will ponder variants to get the audio data {\em out} of libmpg123. 
+
+Well, there is mpg123\_replace\_reader() that should help to prevent copies, but after hacking that in, I reduced the memcpy usage, all right, but the total time didn't go down. Compare the callback variant with packets: 27.65 seconds runtime, of that 1.24 seconds memcpy().
+This should be half a second faster, but it's third of a second slower!
+
+I get that down to 27.52 s by lying  about buffer sizes... that really should match what mp3lib does (directly decoding to a 4608-byte caller-provided buffer), but it doesn't.
+I got 9.49 s for the dequantization, 12.32 s for the synth stuff, 1.41 for do\_layer and 1.24 s for memcpy.
+So there is no net gain at all, only more messy code.
+
+This very much looks like a dead end here. Let's do a comparison with linking to libmpg123 statically. Interesting, that gets it down to 26.80 s. That's about 0.4 seconds more than mp3lib.
+
+Switching back to plain normal feeder mode with packets produces 27.65 s. Activating framewise work again... that's 27.03 s. The whole deal, callback, packets, seekbuffer, framewise, is at 27.01 s.
+Am I being ridiculous? Well, it's close.
+
+Well, working around memcpy is not the total breakthrough... I still have the option to use a faster memcpy in libmpg123. What about copying as 32 bit integers for a simple start? Nah, that naive approach does not improve things. So glibc memcpy is not {\em that} dumb.
+
+Closest I can reach is 26.69 s via callback and framewise, without packets, seekbuffer and mean bitrate calculation.
+
+\paragraph{On the K6-3}
+I finally an claim victory for framewise decoding with a static libmpg123.
+It's indeed a bit faster than mp3lib. Not so on the Duron (also with \verb:-march=athlon:), there, libmpg123 can only come close, but never overtake.
+But this is with this certain setup / tool chain. Who knows what gcc 4.6 would do?
+
+Native binaries on Duron and K6-3 ... and my Laptop Core2Duo at 800 MHz, 64 bit mode.
+\begin{tabular}{lrrr}
+build                     & Duron   & K6-III+ & Core 2 \\
+\hline
+variant1-dynamic (1.12.1) & 27.74 s &        &         \\
+variant1-dynamic (1.13.4) &         &        & 16.72 s \\
+variant1-dynamic (trunk)  & 27.81 s &        & 16.87 s \\
+variant2-dynamic          & 27.10 s &        & 16.54 s \\
+variant2-static           & 27.01 s &        & 16.51 s \\
+mp3lib                    & 26.45 s &        & 18.56 s \\
+ffmp3                     & 73.52 s &        & 22.00 s \\
+ffmp3float                & 30.74 s &        & 12.26 s \\
+variant2-float            &         &        & 18.76 s
+\end{tabular}
+What is the deal with ffmp3float on my Core2Duo? I have to check the output of that.
+This does not seem right. The waves look good.
+How can this be suddenly that fast? What kind of 64 bit assembly magic is part of that?
+
+It is suspious that ffmp3float is not consistent. Repeated runs show differing numbers. Most interestingly such a run:
+\begin{verbatim}
+      10817,626571 task-clock                #    0,049 CPUs utilized          
+            16.540 context-switches          #    0,002 M/sec                  
+                19 CPU-migrations            #    0,000 M/sec                  
+             3.377 page-faults               #    0,000 M/sec                  
+     8.544.770.425 cycles                    #    0,790 GHz                    
+   <not supported> stalled-cycles-frontend 
+   <not supported> stalled-cycles-backend  
+     8.038.105.826 instructions              #    0,94  insns per cycle        
+     1.302.988.705 branches                  #  120,451 M/sec                  
+        41.415.237 branch-misses             #    3,18% of all branches        
+
+     222,249003389 seconds time elapsed
+\end{verbatim}
+Well, how do you come from 12 seconds to 222? Easy, you actually play in realtime.
+\begin{verbatim}
+MPlayer SVN-r34365-4.6.1 (C) 2000-2011 MPlayer Team
+
+Playing pcm:file=/dev/null.
+File not found: 'pcm:file=/dev/null'
+Failed to open pcm:file=/dev/null.
+
+
+Playing /dev/shm/convergence_-_points_of_view/03 - Listen.mp3.
+\end{verbatim}
+This looks rather corrupt from the beginning. The command line is always the same, the interpretation differs.
+
+Valgrind is no help with my MPlayer build:
+\begin{verbatim}
+valgrind: m_debuginfo/readdwarf.c:2162 (copy_convert_CfiExpr_tree):
+  Assertion 'srcix >= 0 && srcix < VG_(sizeXA)(srcxa)' failed.
+\end{verbatim}
 
 \end{document}
 
