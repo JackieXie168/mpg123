@@ -78,15 +78,15 @@ Those are largely similar to what MPlayer uses, but not identical. Thinking abou
 
 \section{The situation}
 
-How do my K6-III binaries perform on the two systems? Well, let's record the user time to decode the test album (no statistics as long as the result is rather clear).
+How do my K6-III binaries perform on the two systems? Well, let's record the user time to decode the test album (no statistics as long as the result is rather clear)\footnote{I re-measured the times for K6-III as there was a typo before.}.
 \begin{center}
 \begin{tabular}{lrrr}
 run & user time K6-III+ / s & user time Duron / s & ratio K6 / Duron \\
 \hline
 mpg123-debian & 51.6 & 22.4 & 2.30 \\
 mpg123 & 50.4 & 22.3 & 2.26 \\
-mplayer-mp3lib & 56.8 & 25.4 & 2.24 \\
-mplayer-mpg123 & 67.0 & 28.7 & 2.33
+mplayer-mp3lib & 56.5 & 25.4 & 2.24 \\
+mplayer-mpg123 & 56.5 & 28.7 & 2.33
 \end{tabular}
 \end{center}
 
@@ -99,12 +99,12 @@ run & user time K6-III+ & user time Duron \\
 \hline
 mpg123-debian & 102.4 \% & 100.4 \% \\
 mpg123 & 100.0 \% & 100.0 \% \\
-mplayer-mp3lib & 112.7 \% & 113.9 \% \\
-mplayer-mpg123 & 132.9 \% & 128.7 \%
+mplayer-mp3lib & 112 \% & 113.9 \% \\
+mplayer-mpg123 & 112 \% & 128.7 \%
 \end{tabular}
 \end{center}
 
-Ivan noted a performance penalty of 6 \% on his Athlon. Well, I can offer even more: MPlayer with mpg123 binding adds 13 \% on the runtime of MPlayer with mp3lib. Cache size could explain that somewhat, as the Duron does have less of that than an Athlon, though it was not considered that much of a performance difference back then when people cared about comparing Athlons and Durons.
+Ivan noted a performance penalty of 8 \% on his Athlon. Well, I can offer even more: MPlayer with mpg123 binding adds 13 \% on the runtime of MPlayer with mp3lib. Cache size could explain that somewhat, as the Duron does have less of that than an Athlon, though it was not considered that much of a performance difference back then when people cared about comparing Athlons and Durons.
 Anyhow, good starting point to dig at the reason for the difference, eh? I do remember trying out generic decoders on the K6-III+, there the effect was even larger. If things are unclear, I can resort to that.
 
 \section{Glimpses with perf}
@@ -1334,6 +1334,9 @@ Eh... how did I arrive at 67 seconds with libmpg123 before? Was that a typo? Or 
 I did omit the \verb:-g: flag in the latest binaries, to get the best result. Did it make that difference? Checking again with old \verb:ad_mpg123: and the flags without \verb:-g:. Gah! It needs 56.2 seconds.
 I have the massive suspicion that I had a typo in the beginning.
 But everything's possible. Thus, another build of MPlayer, now with the exact same flags as in the beginning.
+OK, that one needs 56.0 seconds. So I call this a typo. 
+
+And why is mp3lib slower now? Go figure. I guess I have to do proper statistics. Later.
 
 \end{document}
 
