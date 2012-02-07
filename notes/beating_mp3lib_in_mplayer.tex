@@ -16,11 +16,11 @@ Over a year ago, I contributed am mpg123 binding for MPlayer to replace the old 
 
 Generally, mpg123 performs well compared to MPlayer, but there is a performance hit when using libmpg123 from MPlayer, making it slower than the built-in mp3lib. This is mostly apparent on older systems, where possibly cache misses are a source of trouble.
 
-Specifically, the regression has been reported on K6-3+, of which I happen to have a unit available for testing. It has been confirmed for Athlons (no XP), too. Well, I happen to have a good old Duron 800 at my disposal. That should do the trick there.
+Specifically, the regression has been reported on K6-III+, of which I happen to have a unit available for testing. It has been confirmed for Athlons (no XP), too. Well, I happen to have a good old Duron 800 at my disposal. That should do the trick there.
 
 \section{Test setup}
 
-The software baseline is a current stable debian squeeze (installed from 6.0.3 media), with MPlayer and mpg123 pulled from SVN and built enforcing binaries for a K6-3 (also on the Duron), adding in 3DNowExt optimizations via custom assembly on either side.
+The software baseline is a current stable debian squeeze (installed from 6.0.3 media), with MPlayer and mpg123 pulled from SVN and built enforcing binaries for a K6-III (also on the Duron), adding in 3DNowExt optimizations via custom assembly on either side.
 
 Furthermore, the data set is, for the sake of comparability with earlier results, the MP3 album "Points of View" by "Convergence". To make sure, I talk of these files with the respective MD5 hashes:
 
@@ -47,7 +47,7 @@ df624cee3f7b65be9b98e449e122ac63 \
  /dev/shm/convergence_-_points_of_view/10 - Train to leave.mp3
 \end{verbatim}
 
-As you may notice: I try to eliminate the hard disk at least for the test data by moving stuff to RAM. Even the K6-3+ has no issue with sparing some of its 512 MiB of RAM (the duron setup has 768 MiB).
+As you may notice: I try to eliminate the hard disk at least for the test data by moving stuff to RAM. Even the K6-III+ has no issue with sparing some of its 512 MiB of RAM (the duron setup has 768 MiB).
 
 The command lines try to do comparable things in mpg123 and MPlayer:
 
@@ -59,7 +59,7 @@ mplayer -ac mpg123 -quiet -ao pcm:file=/dev/null \
 mpg123 -w /dev/null /dev/shm/convergence_-_points_of_view/*.mp3
 \end{verbatim}
 
-I'm trying to combine timings with good old 'time' and measurements with 'perf'. The latter does not give much information on the K6-3+ with respect to cache misses, so I hope to do the grunt work on the Duron and hopefully the findings will transfer to the K6.
+I'm trying to combine timings with good old 'time' and measurements with 'perf'. The latter does not give much information on the K6-III+ with respect to cache misses, so I hope to do the grunt work on the Duron and hopefully the findings will transfer to the K6.
 
 As an additional measure to avoid a penalty for libmpg123 loading, the libmpg123.a is linked in statically into MPlayer. The final solution will hopefully make the dynamic lib perform about as well (considering that stand-alone mpg123 does this successfully).
 
@@ -78,7 +78,7 @@ Those are largely similar to what MPlayer uses, but not identical. Thinking abou
 
 \section{The situation}
 
-How do my K6-3 binaries perform on the two systems? Well, let's record the user time to decode the test album (no statistics as long as the result is rather clear).
+How do my K6-III binaries perform on the two systems? Well, let's record the user time to decode the test album (no statistics as long as the result is rather clear).
 \begin{center}
 \begin{tabular}{lrrr}
 run & user time K6-III+ / s & user time Duron / s & ratio K6 / Duron \\
@@ -1172,30 +1172,117 @@ Well, working around memcpy is not the total breakthrough... I still have the op
 
 Closest I can reach is 26.69 s via callback and framewise, without packets, seekbuffer and mean bitrate calculation.
 
-\paragraph{On the K6-3}
+\paragraph{On the K6-III+}
 I finally an claim victory for framewise decoding with a static libmpg123.
 It's indeed a bit faster than mp3lib. Not so on the Duron (also with \verb:-march=athlon:), there, libmpg123 can only come close, but never overtake.
 But this is with this certain setup / tool chain. Who knows what gcc 4.6 would do?
 
-Native binaries on Duron and K6-3 ... and my Laptop Core2Duo at 800 MHz, 64 bit mode.
+Native binaries on Duron and K6-III+ ... and my Laptop Core2Duo at 800 MHz, 64 bit mode (on the K6 it's user time measured by the \verb:time: command, the others via perf).
 \begin{tabular}{lrrr}
-build                     & Duron   & K6-III+ & Core 2 \\
+build                     & Duron   &  K6-III+ & Core 2 \\
 \hline
-variant1-dynamic (1.12.1) & 27.74 s &        &         \\
-variant1-dynamic (1.13.4) &         &        & 16.72 s \\
-variant1-dynamic (trunk)  & 27.81 s &        & 16.87 s \\
-variant2-dynamic          & 27.10 s &        & 16.54 s \\
-variant2-static           & 27.01 s &        & 16.51 s \\
-mp3lib                    & 26.45 s &        & 18.56 s \\
-ffmp3                     & 73.52 s &        & 22.00 s \\
-ffmp3float                & 30.74 s &        & 12.26 s \\
-variant2-float            &         &        & 18.76 s
+variant1-dynamic (1.12.1) & 27.74 s &  57.46 s &         \\
+variant1-dynamic (1.13.4) &         &          & 16.72 s \\
+variant1-dynamic (trunk)  & 27.81 s &  57.05 s & 16.87 s \\
+variant2-dynamic          & 27.10 s &  55.92 s & 16.54 s \\
+variant2-static           & 27.01 s &  53.92 s & 16.51 s \\
+mp3lib                    & 26.45 s &  56.47 s & 18.56 s \\
+ffmp3                     & 73.52 s & 115.08 s & 22.00 s \\
+ffmp3float                & 30.74 s & 118.19 s & 12.26 s \\
+variant2-float            &         &          & 18.76 s
 \end{tabular}
-What is the deal with ffmp3float on my Core2Duo? I have to check the output of that.
+So, the comparisong between mp3lib and libmpg123 does look very good on the K6-III+, not so good on the Duron.
+Would be interesting to have the comparison with Ivan's Athlon.
+On the Core2Duo there is not discussion because of the better SSE code anyway. Well, apart from the strange numbers for ffmp3float, but I'm getting to that later.
+
+Here, the net result is that I can be 4.5\% faster on the K6-III+ and down to 2.1\% slower on the Duron (from 5.1\%). Ivan had 8\% loss (user time, 53.4 s agains 49.4 s).
+Oh, and the final comparison on the K6-III+ using mplayer's own benchmark mechanism:
+\begin{verbatim}
+altwarentester@k6-3:~/mplayer$ for i in mpg123 mp3; do ./mplayer-variant2-static -loop 5 \
+  -ao pcm:fast:file=/dev/null -benchmark -quiet -ac mp3 \
+  /dev/shm/convergence_-_points_of_view/10\ -\ Train\ to\ leave.mp3 \
+  2>&1 | grep BENCH; echo "$i ^^^^^"; done
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.653s Sys:   0.051s =    6.704s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.2399% Sys:  0.7601% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.659s Sys:   0.053s =    6.712s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.2089% Sys:  0.7911% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.657s Sys:   0.052s =    6.708s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.2291% Sys:  0.7709% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.685s Sys:   0.052s =    6.737s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.2267% Sys:  0.7733% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.653s Sys:   0.050s =    6.703s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.2524% Sys:  0.7476% = 100.0000%
+mpg123 ^^^^^
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.600s Sys:   0.055s =    6.655s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.1722% Sys:  0.8278% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.592s Sys:   0.048s =    6.640s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.2755% Sys:  0.7245% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.600s Sys:   0.051s =    6.650s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.2378% Sys:  0.7622% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.604s Sys:   0.052s =    6.656s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.2248% Sys:  0.7752% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.596s Sys:   0.050s =    6.646s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.2493% Sys:  0.7507% = 100.0000%
+mp3 ^^^^^
+\end{verbatim}
+Damn, that's a mean user time of 6.66 s against 6.59 s for mp3lib. How subtle is that?
+What is the equivalent timing of the same track 10 times using my method?
+\begin{verbatim}
+altwarentester@k6-3:~/mplayer$ for i in mpg123 mp3
+  do time ./mplayer-variant2-static -loop 5 -ao pcm:fast:file=/dev/null \
+  -quiet -ac mp3 \
+  /dev/shm/convergence_-_points_of_view/10\ -\ Train\ to\ leave.mp3 \
+  2>&1 > /dev/null; echo "$i ^^^^^"; done
+
+real    0m34.197s
+user    0m33.498s
+sys     0m0.636s
+mpg123 ^^^^^
+
+real    0m34.145s
+user    0m33.446s
+sys     0m0.656s
+mp3 ^^^^^
+\end{verbatim}
+Oh, funny. See what I did there? One should actually switch decoders. But still, interesting to see that I was about to diagnose a performance difference of 1\% between mp3lib and itself.
+This is the proper measurement:
+\begin{verbatim}
+altwarentester@k6-3:~/mplayer$ for i in mpg123 mp3; do ./mplayer-variant2-static\
+  -loop 5 -ao pcm:fast:file=/dev/null -benchmark -quiet -ac $i \
+  /dev/shm/convergence_-_points_of_view/10\ -\ Train\ to\ leave.mp3 \
+  2>&1 | grep BENCH; echo "$i ^^^^^"; done
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.393s Sys:   0.067s =    6.460s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 98.9636% Sys:  1.0364% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.314s Sys:   0.061s =    6.375s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.0432% Sys:  0.9568% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.327s Sys:   0.067s =    6.394s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 98.9583% Sys:  1.0417% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.316s Sys:   0.060s =    6.376s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.0572% Sys:  0.9428% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.323s Sys:   0.064s =    6.387s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.0008% Sys:  0.9992% = 100.0000%
+mpg123 ^^^^^
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.682s Sys:   0.057s =    6.739s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.1586% Sys:  0.8414% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.693s Sys:   0.057s =    6.750s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.1543% Sys:  0.8457% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.671s Sys:   0.055s =    6.727s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.1761% Sys:  0.8239% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.671s Sys:   0.058s =    6.729s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.1383% Sys:  0.8617% = 100.0000%
+BENCHMARKs: VC:   0.000s VO:   0.000s A:   6.670s Sys:   0.055s =    6.725s
+BENCHMARK%: VC:  0.0000% VO:  0.0000% A: 99.1802% Sys:  0.8198% = 100.0000%
+mp3 ^^^^^
+\end{verbatim}
+That's a mean of 6.33 s for libmpg123 against 6.68 s for mp3lib, a decrease in decoding time of 5.2\%.
+Of course, we got quite some variation here and I'm too lazy to compute the standard deviation, but it is apparent that mpg123 has a consistent lead here.
+
+\paragraph{What is the deal with ffmp3float on my Core2Duo?}
+I'm comparing with libmpg123 in floating point mode (also assembly optimized).
 This does not seem right. The waves look good.
 How can this be suddenly that fast? What kind of 64 bit assembly magic is part of that?
 
-It is suspious that ffmp3float is not consistent. Repeated runs show differing numbers. Most interestingly such a run:
+It is suspicious that ffmp3float is not consistent. Repeated runs show differing numbers. Most interestingly such a run:
 \begin{verbatim}
       10817,626571 task-clock                #    0,049 CPUs utilized          
             16.540 context-switches          #    0,002 M/sec                  
@@ -1228,6 +1315,25 @@ Valgrind is no help with my MPlayer build:
 valgrind: m_debuginfo/readdwarf.c:2162 (copy_convert_CfiExpr_tree):
   Assertion 'srcix >= 0 && srcix < VG_(sizeXA)(srcxa)' failed.
 \end{verbatim}
+Well, I'm not here for debugging ffmp3float. Perhaps that's a bug fixed since I did my checkout of MPlayer / ffmpeg.
+
+\section{Summary}
+
+Let me summarize the results. Where did I start, where did I end up? 
+\begin{center}
+\begin{tabular}{lrrr}
+run & user time K6-III+ / s & user time Duron / s & ratio K6 / Duron \\
+run & new (old) & new (old) / s & new (old) \\
+\hline
+mplayer-mp3lib & 56.5 (56.8) & 26.5 (25.4) & 2.13 (2.24) \\
+mplayer-mpg123 & 53.9 (67.0) & 27.0 (28.7) & 2.00 (2.33)
+\end{tabular}
+\end{center}
+Eh... how did I arrive at 67 seconds with libmpg123 before? Was that a typo? Or did I actually improve \verb:ad_mpg123: that much, even with old libmpg123? I measured 57.5 seconds now. Did I mean 57 instead of 67? Damn.
+
+I did omit the \verb:-g: flag in the latest binaries, to get the best result. Did it make that difference? Checking again with old \verb:ad_mpg123: and the flags without \verb:-g:. Gah! It needs 56.2 seconds.
+I have the massive suspicion that I had a typo in the beginning.
+But everything's possible. Thus, another build of MPlayer, now with the exact same flags as in the beginning.
 
 \end{document}
 
