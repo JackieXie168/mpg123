@@ -1,6 +1,7 @@
 \documentclass[a4paper,12pt]{scrartcl}
 \usepackage{pxfonts}
 \usepackage{hyperref}
+\usepackage{verbatim}
 
 \begin{document}
 
@@ -1319,23 +1320,37 @@ Well, I'm not here for debugging ffmp3float. Perhaps that's a bug fixed since I 
 
 \section{Summary}
 
-Let me summarize the results. Where did I start, where did I end up? 
+Let me summarize the results. Where did I start, where did I end up? This is the approximate picture here, inside MPlayer:
+
 \begin{center}
 \begin{tabular}{lrrr}
 run & user time K6-III+ / s & user time Duron / s & ratio K6 / Duron \\
 run & new (old) & new (old) / s & new (old) \\
 \hline
-mplayer-mp3lib & 56.5 (56.8) & 26.5 (25.4) & 2.13 (2.24) \\
-mplayer-mpg123 & 53.9 (67.0) & 27.0 (28.7) & 2.00 (2.33)
+mplayer-mp3lib & 56.5 (56.5) & 26.5 (25.4) & 2.13 (2.24) \\
+mplayer-mpg123 & 53.9 (56.5) & 27.0 (28.7) & 2.00 (2.33)
 \end{tabular}
 \end{center}
-Eh... how did I arrive at 67 seconds with libmpg123 before? Was that a typo? Or did I actually improve \verb:ad_mpg123: that much, even with old libmpg123? I measured 57.5 seconds now. Did I mean 57 instead of 67? Damn.
+As there is quite some variation and also typos involved, I want to make sure about this. Let's give the machines some time to grind down the data.
 
-I did omit the \verb:-g: flag in the latest binaries, to get the best result. Did it make that difference? Checking again with old \verb:ad_mpg123: and the flags without \verb:-g:. Gah! It needs 56.2 seconds.
-I have the massive suspicion that I had a typo in the beginning.
-But everything's possible. Thus, another build of MPlayer, now with the exact same flags as in the beginning.
-OK, that one needs more like 56.5 seconds. So I call this a typo. 
+Let's automate the whole thing. I need to do builds of MPlayer with all three variants of \verb:ad_mpg123: and both libmpg123 versions, the latter static, too.
 
-Whatever, it's faster now and the problem wasn't that big on the K6-III+ to begin with. Strange, didn't Diego specifically say that libmpg123 was slow on his system? Well, My time ran out some time ago, so I'll give the current patch to the MPlayer folks and let them produce some numbers to verify whatever I did and will do.
+I'll use extra CFLAGS of '-march=k6-3 -mtune=k6-3' for MPlayer, '-march=k6-3 -mtune=k6-3 -O3' for mpg123. For the latter, I have to see if the builtin default set of flags is really a good idea. Has \verb:-funroll-all-loops: proven to be good? Oh, I see something. I wonder if omitting frame pointers interferes with debugging on i386 and explains the difficulties I had in the profiles? But for plain MPlayer that worked fine. Ah
+
+To be fair, let's use the same set of CFLAGS for the programs, MPlayer does this: \verb:-O4 -march=native -mtune=native -pipe -ffast-math -fomit-frame-pointer -fno-tree-vectorize:, I add \verb:-march=k6-3 -mtune=k6-3: to make sure the build works on the K6-3 (I'll change that to athlon for the Duron). Let's use the same flags for both:
+
+\begin{verbatim}
+export CFLAGS="-O4 -march=native -mtune=native -pipe -ffast-math -fomit-frame-pointer -fno-tree-vectorize"
+cd mplayer && ./configure && make && cd ..
+cd mpg123 && ./configure --with-optimization=0 && make
+\end{verbatim}
+
+Well, here is a full script to collect some reliable data on the two machines:
+\verbatiminput{mpg123-vs-mplayer.sh}
+I'll let this run on the two machines over the day...
+
+\paragraph{Is that unrolling of all loops in mpg123 default flags actually any good?}
+I'm testing the separately. I have the feeling that that's too much. With full unrolling I get around 22.0 s user time, with normal unrolling, too. It's not decisive without more statistics.
+
 \end{document}
 
