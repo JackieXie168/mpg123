@@ -191,37 +191,41 @@ link_mplayer() {
     ffmpeg/libavfilter/libavfilter.a ffmpeg/libavformat/libavformat.a \
     ffmpeg/libavcodec/libavcodec.a ffmpeg/libavutil/libavutil.a \
     "$@" -Wl,-z,noexecstack -lm  -ffast-math \
-    -lncurses -lasound -ldl -lpthread -lpthread -ldl -rdynamic &&
+    -lncurses -lasound -ldl -lpthread -lpthread -ldl -rdynamic
 }
 
-cp -v $ad_mpg123.old $ad_mpg123 &&
+# Be careful with the copying!
+# Debian has messed up scripting so that the x bit normally is not copied!
+# That and the strange format of `time` output when called in a script, is, strange.
+
+cp -av $ad_mpg123.old $ad_mpg123 &&
 build_ad_mpg123 &&
 link_mplayer -lmpg123 &&
-cp -v mplayer mplayer-variant0-dynamic-sys &&
+cp -av mplayer mplayer-variant0-dynamic-sys &&
 link_mplayer -Wl,-rpath=$mpg123prefix/lib -lmpg123 &&
-cp -v mplayer mplayer-variant0-dynamic-trunk &&
+cp -av mplayer mplayer-variant0-dynamic-trunk &&
 link_mplayer $mpg123prefix/lib/libmpg123.a &&
-cp -v mplayer mplayer-variant0-static-trunk &&
+cp -av mplayer mplayer-variant0-static-trunk &&
 
-cp -v $ad_mpg123.new $ad_mpg123 &&
+cp -av $ad_mpg123.new $ad_mpg123 &&
 build_ad_mpg123 &&
 link_mplayer -lmpg123 &&
-cp -v mplayer mplayer-variant1-dynamic-sys &&
+cp -av mplayer mplayer-variant1-dynamic-sys &&
 link_mplayer -Wl,-rpath=$mpg123prefix/lib -lmpg123 &&
-cp -v mplayer mplayer-variant1-dynamic-trunk &&
+cp -av mplayer mplayer-variant1-dynamic-trunk &&
 link_mplayer $mpg123prefix/lib/libmpg123.a &&
-cp -v mplayer mplayer-variant1-static-trunk &&
+cp -av mplayer mplayer-variant1-static-trunk &&
 
-cp -v $ad_mpg123.new $ad_mpg123 &&
+cp -av $ad_mpg123.new $ad_mpg123 &&
 build_ad_mpg123 -I$mpg123prefix/include &&
 # also variant 2 with old lib, not recommened,
 # but should still work (or at least fail gracefully)
 link_mplayer -lmpg123 &&
-cp -v mplayer mplayer-variant2-dynamic-sys &&
+cp -av mplayer mplayer-variant2-dynamic-sys &&
 link_mplayer -Wl,-rpath=$mpg123prefix/lib -lmpg123 &&
-cp -v mplayer mplayer-variant2-dynamic-trunk &&
+cp -av mplayer mplayer-variant2-dynamic-trunk &&
 link_mplayer $mpg123prefix/lib/libmpg123.a &&
-cp -v mplayer mplayer-variant2-static-trunk
+cp -av mplayer mplayer-variant2-static-trunk || exit 1
 
 time_run() {
   time "$@"
@@ -247,12 +251,12 @@ done
 # now the mplayers
 for d in $mplayersrc/mplayer-variant*
 do
-  for ac in mp3lib mpg123
+  for ac in mp3 mpg123
   do
   for n in `seq 1 20`
   do
     time_run $d -ac $ac -quiet -ao pcm:fast:file=/dev/null $album/*.mp3
-    mark_run $n $d
+    mark_run $n $d:$ac
   done
   done
 done
