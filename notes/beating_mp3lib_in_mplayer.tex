@@ -1445,5 +1445,8 @@ One can still argue that there is something sub-optimal with our 3DNowExt assemb
 If that's the case, however, this effect should be smaller on a proper Athlon (Thunderbird, at least).
 It could be that this is the reason for the effect being half as big for the K6-III+, aleady. But the Sempron does not employ the 3DNowExt code and also has not exactly a small cache. Though, I admit that the size of impact indeed does seem to correlate with L2 cache size: We got 64K, 256K, 1M, 3M.
 
+But if you need 3M of cache to cover the hot code / data, then I'd conclude that MPlayer is rather fat there. I guess that switching off the MPEG stream parsing there could help, as that code is doubled in libmpg123, too.
+I also keep noticing routines checking for AC3 stuff in MPlayer. I dunno why they are needed here. There is too much code running.
+
 \end{document}
 
