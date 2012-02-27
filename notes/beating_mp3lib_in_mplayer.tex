@@ -1444,9 +1444,16 @@ Or, if you lean that way, get on with debugging what the heck the compiler is do
 One can still argue that there is something sub-optimal with our 3DNowExt assembly (although it works wonderfully for the K6-III+), specific to the Duron's small cache. But then, profiling does not suggest that there is excess time spent in that code. Would have to be a side effect making {\em other} code slower because of cache trashing.
 If that's the case, however, this effect should be smaller on a proper Athlon (Thunderbird, at least).
 It could be that this is the reason for the effect being half as big for the K6-III+, aleady. But the Sempron does not employ the 3DNowExt code and also has not exactly a small cache. Though, I admit that the size of impact indeed does seem to correlate with L2 cache size: We got 64K, 256K, 1M, 3M.
+Still, it's apples against oranges with the differing platforms (toolchain).
 
 But if you need 3M of cache to cover the hot code / data, then I'd conclude that MPlayer is rather fat there. I guess that switching off the MPEG stream parsing there could help, as that code is doubled in libmpg123, too.
 I also keep noticing routines checking for AC3 stuff in MPlayer. I dunno why they are needed here. There is too much code running.
+
+And my mysery is a bit offset by another way at looking at mp3lib: Comparing the Core2Duo with the Sempron we have plain mpg123 runtime of 15.4 vs. 14.8 s, Sempron is 0.6 s faster. From within MPlayer, using dynamic trunk libmpg123, it is rather consistently around 0.6 s faster, too (extremes from 0.5 to 0.7).
+So, this all seams reasonable, once you accept that the Sempron has a better time with the x86-64 assemblly code.
+
+With mp3lib, there is a spread from 18.3 to 18.6 s on the Core2Duo, and on the Sempron from 20.8 to 21.6; the direct comparison of runs shows 2.3 to 3 s increase in runtime. Now explain why the Sempron has a harder time with MPlayer's 64 bit SSE assembly code, a time harder by 17\%.
+With that in mind, 4\% unexplained performance hit on the Duron is not that bad, is it?
 
 \end{document}
 
