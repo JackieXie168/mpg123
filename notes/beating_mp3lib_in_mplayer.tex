@@ -1426,9 +1426,9 @@ The code does not change there ... but the binary that contains it does change, 
 \subsection{Variant 1 vs. variant 0}
 
 Well, I did change something going from 0 to 1: The decoding loop is different to support the frame decoding.
-That difference amounts to 0.3 seconds runtime difference, based on around 26 seconds total time.
-I guess. This is about one percent.
-Heck, this is not limited to the Duron --- look closer! This means also almost 2\% hit on the K6-III+ and also 1\% on the Sempron. The Core2Duo doesn't complain.
+That difference amounts to about a whole second runtime difference, based on around 26 seconds total time.
+This is about 4\%.
+Heck, this is not limited to the Duron --- look closer! This means also almost 2\% hit on the K6-III+ and also 1\% on the Sempron. The Core2Duo doesn't complain at all.
 
 OK, I see a need to improve that decoding loop. I didn't think that it matters a lot, but yeah, I changed the branch order there. It was needed because of feeder logic... revisit that.
 
@@ -1443,6 +1443,7 @@ Or, if you lean that way, get on with debugging what the heck the compiler is do
 
 One can still argue that there is something sub-optimal with our 3DNowExt assembly (although it works wonderfully for the K6-III+), specific to the Duron's small cache. But then, profiling does not suggest that there is excess time spent in that code. Would have to be a side effect making {\em other} code slower because of cache trashing.
 If that's the case, however, this effect should be smaller on a proper Athlon (Thunderbird, at least).
+It could be that this is the reason for the effect being half as big for the K6-III+, aleady. But the Sempron does not employ the 3DNowExt code and also has not exactly a small cache. Though, I admit that the size of impact indeed does seem to correlate with L2 cache size: We got 64K, 256K, 1M, 3M.
 
 \end{document}
 
