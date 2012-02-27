@@ -1,7 +1,13 @@
 \documentclass[a4paper,12pt]{scrartcl}
+\usepackage{amsmath}
+\usepackage{booktabs}
 \usepackage{pxfonts}
 \usepackage{hyperref}
 \usepackage{verbatim}
+
+
+\newcommand{\tsigma}[0]{\multicolumn{1}{c}{$\text{t}/\text{s}$} & \multicolumn{1}{c}{$\sigma/\text{s}$}}
+\newcommand{\ccenter}[1]{\multicolumn{2}{c}{#1}}
 
 \begin{document}
 
@@ -107,6 +113,10 @@ mplayer-mpg123 & 112 \% & 128.7 \%
 
 Ivan noted a performance penalty of 8 \% on his Athlon. Well, I can offer even more: MPlayer with mpg123 binding adds 13 \% on the runtime of MPlayer with mp3lib. Cache size could explain that somewhat, as the Duron does have less of that than an Athlon, though it was not considered that much of a performance difference back then when people cared about comparing Athlons and Durons.
 Anyhow, good starting point to dig at the reason for the difference, eh? I do remember trying out generic decoders on the K6-III+, there the effect was even larger. If things are unclear, I can resort to that.
+
+
+\paragraph{Is that unrolling of all loops in mpg123 default flags actually any good?}
+I'm testing the separately. I have the feeling that that's too much. With full unrolling I get around 22.0 s user time, with normal unrolling, too. It's not decisive without more statistics.
 
 \section{Glimpses with perf}
 
@@ -1334,6 +1344,13 @@ mplayer-mpg123 & 53.9 (56.5) & 27.0 (28.7) & 2.00 (2.33)
 As there is quite some variation and also typos involved, I want to make sure about this. Let's give the machines some time to grind down the data.
 
 Let's automate the whole thing. I need to do builds of MPlayer with all three variants of \verb:ad_mpg123: and both libmpg123 versions, the latter static, too.
+To reiterate, the variants are:
+\begin{itemize}
+	\item Variant 0: the old state of ad\_mpg123.c, currently in MPlayer svn. It uses mpg123 feeder API with packets,  mempcy all around.
+	\item Variant 1: same function as the old state, just \#ifdef cruft removed and the decoding loop reworked a bit. Needed for currently released mpg123 versions.
+	\item Variant 2: new libmpg123 usage with decoder buffer sharing. For safety reasons, this is only activated for upcoming mpg123 releases (older versions do not offer a way to ensure that resampling is not activated on (bogus) input data changes, possibly enlarging the needed decoding buffer).
+\end{itemize}
+Note: I later discovered that I disabled packet mode in the new variants. But this doesn't make a big difference, apparently.
 
 I'll use extra CFLAGS of '-march=k6-3 -mtune=k6-3' for MPlayer, '-march=k6-3 -mtune=k6-3 -O3' for mpg123. For the latter, I have to see if the builtin default set of flags is really a good idea. Has \verb:-funroll-all-loops: proven to be good? Oh, I see something. I wonder if omitting frame pointers interferes with debugging on i386 and explains the difficulties I had in the profiles? But for plain MPlayer that worked fine. Ah
 
@@ -1345,12 +1362,87 @@ cd mplayer && ./configure && make && cd ..
 cd mpg123 && ./configure --with-optimization=0 && make
 \end{verbatim}
 
-Well, here is a full script to collect some reliable data on the two machines:
+Well, here is a full script\footnote{Needs adaption on other systems in the MPlayer link line, of course.} to collect some reliable data on the two machines:
 \verbatiminput{mpg123-vs-mplayer.sh}
 I'll let this run on the two machines over the day...
 
-\paragraph{Is that unrolling of all loops in mpg123 default flags actually any good?}
-I'm testing the separately. I have the feeling that that's too much. With full unrolling I get around 22.0 s user time, with normal unrolling, too. It's not decisive without more statistics.
+This is the result for user times... arithmetic mean over 20 runs each, with $\sigma$ being the standard deviation.
+\begin{center}
+\begin{tabular}{lrrrrrrrr}
+    & \multicolumn{2}{c}{K6-III+@550} & \multicolumn{2}{c}{Duron@800} & \multicolumn{2}{c}{C2@800} & \multicolumn{2}{c}{Semp@800} \\
+run & \tsigma & \tsigma & \tsigma & \tsigma \\
+\midrule
+\midrule
+mpg123-sys    & 51.5&0.3 & 22.5&0.1 & 15.5&0.0 & 14.8&0.0 \\
+mpg123-trunk  & 50.7&0.3 & 22.4&0.2 & 15.4&0.0 & 14.8&0.0 \\
+\midrule
+mpl0ds-mp3lib & 56.2&0.2 & 25.5&0.1 & 18.5&0.5 & 21.1&1.3 \\
+mpl0ds-mpg123 & 56.1&0.2 & 26.0&0.1 & 16.4&0.1 & 15.7&0.0 \\
+mpl0dt-mp3lib & 56.3&0.3 & 25.5&0.1 & 18.6&0.0 & 21.6&0.3 \\
+mpl0dt-mpg123 & 55.3&0.4 & 25.7&0.1 & 16.3&0.0 & 15.6&0.0 \\
+mpl0st-mp3lib & 56.7&0.4 & 25.7&0.1 & 18.5&0.0 & 20.8&1.1 \\
+mpl0st-mpg123 & 55.2&0.2 & \em{25.5}&0.1 & 16.3&0.0 & 15.6&0.0 \\
+\midrule
+mpl1ds-mp3lib & 56.1&0.4 & \textbf{25.4}&0.1 & 18.5&0.0 & 21.4&0.4 \\
+mpl1ds-mpg123 & 57.4&0.3 & 26.8&0.1 & 16.4&0.0 & 15.8&0.0 \\
+mpl1dt-mp3lib & 56.2&0.3 & 25.5&0.1 & 18.6&0.0 & 21.5&0.1 \\
+mpl1dt-mpg123 & 56.5&0.4 & 26.8&0.1 & 16.3&0.0 & 15.7&0.1 \\
+mpl1st-mp3lib & 56.7&0.4 & 25.6&0.1 & 18.6&0.1 & 21.3&0.3 \\
+mpl1st-mpg123 & 56.2&0.1 & 26.6&0.1 & 16.3&0.0 & 15.8&0.1 \\
+\midrule
+mpl2ds-mp3lib & 56.3&0.3 & 25.5&0.1 & 18.5&0.1 & 21.3&0.4 \\
+mpl2dt-mp3lib & 56.2&0.4 & 25.5&0.1 & 18.5&0.0 & 21.4&0.1 \\
+mpl2dt-mpg123 & \textbf{\em{54.4}}&0.3 & 26.0&0.1 & \textbf{\em{16.0}}&0.0 & \textbf{\em{15.4}}&0.1 \\
+mpl2st-mp3lib & 56.5&0.2 & 25.7&0.2 & 18.3&0.0 & 20.8&1.1 \\
+mpl2st-mpg123 & 54.6&0.4 & 25.8&0.1 & \textbf{\em{16.0}}&0.0 & 15.5&0.0 \\
+\midrule
+best mp3lib & 56.1&0.4   & 25.4&0.1 & 18.3&0.0 & 20.8&1.1 \\
+best mpg123 & 54.4&0.3   & 25.5&0.1 & 16.0&0.0 & 15.4&0.1 \\
+best variant & \ccenter{mpl2dt} & \ccenter{mpl0st} & \ccenter{mpl2dt} & \ccenter{mpl2dt}
+\end{tabular}
+\end{center}
+The systems involved are the K6-III+ at 550 MHz clock and Duron at 800 MHz, equipped with PC100 and PC133 SDRAM, respectively, and both running Debian Squeeze.
+Then, there is my workhorse Thinkpad X200 with a Core2Duo P8600 clocked at 800 MHz for the test, supported by some DDR3-1066 RAM (two modules).
+The OS here is a custom Source Mage GNU/Linux with gcc 4.6 and some modern-ish kernel (either 2.6.37 with RT patch or 3.2.1 with that ASPM fix).
+The last entry is a media box with a Sempron 140 unlocked to Athlon II, also running at 800 MHz for the test. RAM is also DDR3 here, but two modules of DDR3-1333. OS is ubuntu 10.04 LTS.
+
+It's interesting that the Duron/Athlon is capable of keeping the Core2Duo in check; probably assisted by that faster RAM, though I do wonder how much effect that has since the relevant code should nicely fit into the cache. But the audio data won't, of course. And the Core2Duo has more cache. Whatever.
+Both machines are in 64 bit mode and are using the 64 bit SSE code in mpg123.
+
+\paragraph{The good}
+bit is that MPlayer with libmpg123 is able to beat mp3lib or at least come within range of the standard deviation.
+Also, the best variant is almost always the new code using a common buffer for decoding, avoiding some memcpy and thus saving time, according to theory.
+
+\paragraph{The bad}
+bit is that the Duron plays tricks with me.
+It is the one system where libmpg123 is not really able to beat mp3lib (when used from MPlayer, of course, stand-alone mpg123 beats it easily).
+And it is the one system where the initial, in theory less efficient, code for the libmpg123 binding is faster than the newest iteration.
+
+Also, the numbers in this table are noticeably different from the initial measurements. I attribute this to the statistics, and changed CFLAGS... in any case, there is really quite some variation of individual values going on.
+This is really striking even in the mean values for mp3lib:
+The builds that differ only in the libmpg123 binding do show different runtimes for mp3lib.
+The code does not change there ... but the binary that contains it does change, with considerable effect on mp3lib performance.
+
+\subsection{Variant 1 vs. variant 0}
+
+Well, I did change something going from 0 to 1: The decoding loop is different to support the frame decoding.
+That difference amounts to 0.3 seconds runtime difference, based on around 26 seconds total time.
+I guess. This is about one percent.
+Heck, this is not limited to the Duron --- look closer! This means also almost 2\% hit on the K6-III+ and also 1\% on the Sempron. The Core2Duo doesn't complain.
+
+OK, I see a need to improve that decoding loop. I didn't think that it matters a lot, but yeah, I changed the branch order there. It was needed because of feeder logic... revisit that.
+
+Oh. Perhaps that's not it yet. It seems I inadvertedly disabled the packet mode! Re-check using packets.
+Nope, that doesn't make a big difference, if at all. Let's try the reordered playback loop.
+Nope, no difference. I cannot blame this on my code, really.
+This must be a strange side-effect. Really, the code logic is the {\em same}. Just the \#ifdefs around are different.
+
+Really, it doesn't make sense. The calls to libmpg123 are the same, the order of feeding vs. decoding in the loop doesn't make a difference... Hacking the variant 1 feeding decode to also return decoded data worsens the situation. I'm lost here and also fed up.
+This is insanity. The next gcc might reversen the situation. So, for now, just use fresh MPlayer with fresh mpg123 to get variant 2 and be done with the small performance hit in that specific configuration.
+Or, if you lean that way, get on with debugging what the heck the compiler is doing there, and also make sure you find the reason why mp3lib tends to have different modes of operation with differing variance of runtime depending on what ad\_mpg123 code is built (easy to spot in the Sempron runs).
+
+One can still argue that there is something sub-optimal with our 3DNowExt assembly (although it works wonderfully for the K6-III+), specific to the Duron's small cache. But then, profiling does not suggest that there is excess time spent in that code. Would have to be a side effect making {\em other} code slower because of cache trashing.
+If that's the case, however, this effect should be smaller on a proper Athlon (Thunderbird, at least).
 
 \end{document}
 
