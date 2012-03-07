@@ -1,3 +1,16 @@
+:date 2012-03-07
+:by Thomas
+:title A maintenance release in between.
+.<p>To make inclusion of recent bug fixes a no-brainer also for conservative distros, I present an update to the 1.13 series: mpg123 1.13.5 contains:</p>
+.<ul>
+.<li>Fix reading of ReplayGain values from Lame tag (nobody seen this before?!)
+.  (both actual values and the distinction between audiophile / radio).</li>
+.<li>Accept application/octet-stream as input from HTTP.</li>
+.<li>Update man page with encodings.</li>
+.<li>Build fixes.</li>
+.</ul>
+.<p>You should be able to <a href="http://sourceforge.net/projects/mpg123/files/mpg123/1.13.5/mpg123-1.13.5.tar.bz2/download">get it from sf.net</a> right now.</p>
+
 :date 2012-02-29
 :by Thomas
 :title Beta time!
