@@ -1466,5 +1466,67 @@ The build on the Duron gives, scaled relative to plain mpg123 performance, compa
 That strangeness in mind, I hereby declare that I want to keep what's left of my sanity and also that the new variant of ad\_mpg123 should go into MPlayer's trunk and is rightfully obsoleting mp3lib.
 If someone opposes that, that someone should first give me a consistent picture of what exactly the mp3lib performance is;-)
 
+\section{Addendum: A closer look at the Duron, victory after all!}
+
+Now, after recognizing that current ffmpeg indeed improved the mp3float decoder to surpass mpg123 on a Core2 CPU, with the help of SSE handcrafting and, more importantly, an approach to Huffman decoding that fits that CPU a lot better,
+I checked the situation again on the Duron.
+
+There, the bare comparison between ffmpeg and mpg123, when both decode to floating point numbers, showed two things:
+\begin{itemize}
+\item Head-to-head, mpg123 is faster than ffmpeg's mp3float decoder.
+\item The current dct36 optimizations for 3DNow and 3DNowExt are actually worse than their plain C counterparts (generic or i386). The synth\_1to1 for 16 bit output still rules (though I will have to investigate how well the dct64 really works). Upshoot of that is: I can make mpg123 a bit faster by disabling the optimized dct36!
+This improves the lead of mpg123 over ffmpeg on this machine and also offers a chance to be able to say that we truly beat good old mp3lib here.
+\end{itemize}
+
+With that latest change, the picture finally fits on the Duron.
+I re-run some benchmarks with updated MPlayer checkout, usage of ffmp3float is also included, but note that the comparison is actually skewed in favour of ffmpeg as it does not do the final conversion to 16 bits (it would need a bit more time with that).
+
+I repeat the big table for the current ad\_mpg123 in MPlayer (leaving only variants 1 and 2), updating the columns for the Duron with the new numbers. Note that I assume, but do not know, that the K6-III+ would react similar to the Duron.
+I'll have to run the updated test there, too... some time.
+\begin{center}
+\begin{tabular}{lrrrrrrrr}
+    & \multicolumn{2}{c}{K6-III+@550} & \multicolumn{2}{c}{Duron@800 new} & \multicolumn{2}{c}{C2@800} & \multicolumn{2}{c}{Semp@800} \\
+run & \tsigma & \tsigma & \tsigma & \tsigma \\
+\midrule
+\midrule
+mpg123-sys    & 51.5&0.3 & 22.5&0.1               & 15.5&0.0               & 14.8&0.0 \\
+mpg123-trunk  & 50.6&0.3 & 21.3&0.1               & 15.4&0.0               & 14.8&0.0 \\
+\midrule
+mpl1ds-mp3lib & 56.2&0.4 & 25.5&0.1               & 18.6&0.1               & 20.5&1.8 \\
+mpl1ds-mpg123 & 57.2&0.3 & 27.0&0.1               & 16.4&0.0               & 15.7&0.1 \\
+mpl1ds-ffmp3float
+              &     &    & 29.5&0.1               &     &                  &     &    \\
+mpl1dt-mp3lib & 56.2&0.3 & 25.5&0.1               & 18.6&0.0               & 20.3&1.9 \\
+mpl1dt-mpg123 & 56.2&0.3 & 25.6&0.1               & 16.3&0.0               & 15.7&0.1 \\
+mpl1dt-ffmp3float
+              &     &    & 29.7&0.2               &     &                  &     &    \\
+mpl1st-mp3lib & 56.6&0.3 & 25.5&0.1               & 18.6&0.0               & 19.6&1.8 \\
+mpl1st-mpg123 & 56.3&0.3 & 25.5&0.1               & 16.3&0.0               & 15.7&0.1 \\
+mpl1st-ffmp3float
+              &     &    & 29.7&0.2               &     &                  &     &    \\
+\midrule
+%mpl2ds-mp3lib & 56.1&0.3 & \textbf{25.5}&0.1      & 18.3&0.1               & 21.3&0.4 \\
+mpl2dt-mp3lib & 56.4&0.4 & 25.5&0.1               & 18.3&0.0               & 19.2&1.9 \\
+mpl2dt-mpg123 & \textbf{\em{54.5}}&0.3 & 24.9&0.1 & \textbf{\em{16.0}}&0.0 & \textbf{\em{15.4}}&0.1 \\
+mpl2dt-ffmp3float
+              &     &    & 29.6&0.1               &     &                  &     &    \\
+mpl2st-mp3lib & 56.6&0.5 & 25.5&0.1               & 18.3&0.0               & 19.8&1.9 \\
+mpl2st-mpg123 & \textbf{\em{54.5}}&0.3 & \textbf{\em{24.7}}&0.1 & \textbf{\em{16.0}}&0.0 & 15.5&0.1 \\
+mpl2st-ffmp3float
+              &     &    & 29.7&0.1               &     &                  &     &    \\
+\midrule
+best mp3lib & 56.0&0.4   & 25.5&0.1 & 18.3&0.0 & 19.2&1.9 \\
+best mpg123 & 54.5&0.3   & 24.7&0.1 & 16.0&0.0 & 15.4&0.1 \\
+best variant & \ccenter{mpl2dt} & \ccenter{mpl2st} & \ccenter{mpl2dt} & \ccenter{mpl2dt}
+\end{tabular}
+\end{center}
+
+So, with an upcoming mpg123 release, mp3lib is clearly beaten.
+The situation with ffmp3float is also under control on non-SSE machines (or generally non-Core2?).
+Investigations are underway to get mpg123 up to speed on modern CPUs, at least on par with ffmpeg.
+
+Also, that the hand-crafted DCT routines are overtaken by the compiler's own optimizing is actually a good thing. Of course, I'll have to check if this also applies to the K6-III+ and newer Athlons.
+If that is the case, we can delete old code for good. On the other hand: There might be potential for even better routines using 3DNow; question is if we care enough for that now obsoleted instruction set... or if we want to go freakish and use 3DNow and SSE at the same time for maximum register count.
+
 \end{document}
 
