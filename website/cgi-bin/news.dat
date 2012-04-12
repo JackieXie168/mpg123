@@ -1,3 +1,8 @@
+:date 2012-04-12
+:by Thomas
+:title mpg123 version 1.13.8, pulling in a fix for building on ARM machines from the upcoming 1.14
+.<p>Yeah, that's it all: Just a bugfix release to make things smooth for folks on ARM machines. We had that fix in trunk for a while. Get the current stable version if you need a working build on your ARM Thumb CPU and prefer not to jump to the 1.14 beta version.</p>
+
 :date 2012-04-06
 :by Thomas
 :title Beta time again!
