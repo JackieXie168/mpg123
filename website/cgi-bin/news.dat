@@ -1,3 +1,34 @@
+:date 2012-05-01
+:by Thomas
+:title Finally! It is here! It. Is. Here! Behold mpg123 version 1.14.0!
+.<p>This is a rather big update, with a good number of fixes and behavioural improvements. You want a list? Here we go:</p>
+.<ul>
+.<li>libmpg123 API version 36 (see NEWS.libmpg123)</li>
+.<li>Add --ignore-streamlength.</li>
+.<li>But also deal with concatenated (Frankenstein) streams: Not applying gapless cutting once we're over the announced number of frames.</li>
+.<li>Add --lyrics for printout of lyrics (from USLT in ID3v2).</li>
+.<li>Added handling of SIGUSR1 and SIGUSER2 to terminal control code, configurable via --ctrlusr1 and --ctrlusr2.</li>
+.<li>Some low-level API added (mpg123_framedata(), mpg123_framepos(), buffering and resampling control).</li>
+.<li>Added info about input buffer fill to mpg123_getstate().</li>
+.<li>ReplayGain: Try to detect LAME below 3.95 for the different reference level of 83 dB (adding preamp of 6 dB). Version 3.95 itself (not 3.95.1) I cannot detect. User-set gain values are not touched.</li>
+.<li>Keep silent about missing bit reservoir when ignoring frames. That is the whole point (mostly;-).</li>
+.<li>Add the new/old WRITE_SAMPLE variant from MPlayer that makes the generic decoder faster on older CPUs (x86 at least). Not on x86-64, though (it's not enabled per default there).</li>
+.<li>Handle out-of-disk in the file writers (a bit, see http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=67259)</li>
+.<li>Added Xcode project files to build libmpg123 on Mac OS and iOS</li>
+.<li>32 bit output for sndio output (patch by Brad Smith).</li>
+.<li>Remote control interface knows LOADLIST command now.</li>
+.<li>Now freeing meta data memory after printout.</li>
+.<li>Some documentation cleanup, including manpage fixes by quadrispro.</li>
+.<li>Re-enabled wildcard expansion on Windows (been broken by unicode file name support).</li>
+.<li>Fix MMX tabinit syntax (thanks to Marcel Müller for pointing that out).</li>
+.<li>Fix SGI audio output (been broken since change to modules).</li>
+.<li>Fix some fringe behaviour (mpg123_getformat() triggering needless reading of next frame, possibly hitting bogus MPG123_NEED_MORE).</li>
+.<li>Resync limit now also serves to increase amount of skipped junk on beginning.</li>
+.<li>Better separation of stream end and read error (in case there is no stream opened, even).</li>
+.<li>Don't always complain about failed free format header search (only with verbosity level 3).</li>
+.</ul>
+.<p>Well, what more to say? Of course you are going to grab the update from the usual <a href="download.shtml">download</a> locations. There is something in it for everyone;-)</p>
+
 :date 2012-04-12
 :by Thomas
 :title mpg123 version 1.13.8, pulling in a fix for building on ARM machines from the upcoming 1.14
