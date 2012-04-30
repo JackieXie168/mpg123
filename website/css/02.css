@@ -50,7 +50,7 @@ hr { width:80%; }
    margin-right:1.5cm; 
    padding-bottom: .5em;
 }
-.newshead { background-color: #000055; padding: 0.5em; }
+.newshead { background-color: #000055; padding: 0.5em; font-weight: bold; }
 .newsdate { color: #ee4400; }
 .newstitle { color: #ffffff; }
 .newsby { color: #bbbbbb; }
