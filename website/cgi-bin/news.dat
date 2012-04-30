@@ -20,7 +20,7 @@
 .<li>Now freeing meta data memory after printout.</li>
 .<li>Some documentation cleanup, including manpage fixes by quadrispro.</li>
 .<li>Re-enabled wildcard expansion on Windows (been broken by unicode file name support).</li>
-.<li>Fix MMX tabinit syntax (thanks to Marcel MÃ¼ller for pointing that out).</li>
+.<li>Fix MMX tabinit syntax (thanks to Marcel Müller for pointing that out).</li>
 .<li>Fix SGI audio output (been broken since change to modules).</li>
 .<li>Fix some fringe behaviour (mpg123_getformat() triggering needless reading of next frame, possibly hitting bogus MPG123_NEED_MORE).</li>
 .<li>Resync limit now also serves to increase amount of skipped junk on beginning.</li>
