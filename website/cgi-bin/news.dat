@@ -1,3 +1,9 @@
+:date 2012-05-07
+:by Thomas
+:title The mandatory follow-up: mpg123 1.14.1
+.<p>This one fixes a bug that got uncovered with the (modest) reorganization of the parser code. With the feeder API, it was possible to miss a format change in the (damaged) stream, the more dire outcome being the allocated output buffer being too small (switching from MPEG 3 with 576 samples per frame to 1152 samples per frame).</p>
+.<p>Upgrade naturally encouraged.</p>
+
 :date 2012-05-01
 :by Thomas
 :title Finally! It is here! It. Is. Here! Behold mpg123 version 1.14.0!
