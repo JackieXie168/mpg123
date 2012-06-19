@@ -112,7 +112,7 @@ sub Put
 sub NewsHead
 {
     my $head = shift;
-    print "<div class=\"newshead\"><span class=\"newsdate\">$head->{date}</span> ";
+    print "<div class=\"newshead\"><a name=\"$head->{date}\"><span class=\"newsdate\">$head->{date}</span></a> ";
     print "<span class=\"newsby\">$head->{by}:</span> " if $head->{by};
     print "<span class=\"newstitle\">$head->{title}</span></div>\n";
 }
