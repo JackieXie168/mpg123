@@ -39,7 +39,7 @@
 .<li>Better separation of stream end and read error (in case there is no stream opened, even).</li>
 .<li>Don't always complain about failed free format header search (only with verbosity level 3).</li>
 .</ul>
-.<p>Well, what more to say? Of course you are going to grab the update from the usual <a href="download.shtml">download</a> locations. There is something in it for everyone;-)</p>
+.<p>Well, what more to say? Of course you are going to grab the update from the usual <a href="/download.shtml">download</a> locations. There is something in it for everyone;-)</p>
 
 :date 2012-04-12
 :by Thomas
@@ -76,7 +76,7 @@
 .- Now freeing meta data memory after printout.
 .- Some documentation cleanup, including manpage fixes by quadrispro.
 .</pre>
-.<p>So, get it now and report your experience: <a href="download/mpg123-1.14-beta2.tar.bz2">mpg123-1.14-beta2</a>!</p>
+.<p>So, get it now and report your experience: <a href="/download/mpg123-1.14-beta2.tar.bz2">mpg123-1.14-beta2</a>!</p>
 
 
 :date 2012-03-30
@@ -140,7 +140,7 @@
 .  decoder faster on older CPUs (x86 at least). Not on x86-64, though
 .  (it's not enabled per default there).
 .</pre>
-.<p>So, get it now and report your experience: <a href="download/mpg123-1.14-beta1.tar.bz2">mpg123-1.14-beta1</a>!</p>
+.<p>So, get it now and report your experience: <a href="/download/mpg123-1.14-beta1.tar.bz2">mpg123-1.14-beta1</a>!</p>
 
 :date 2011-10-10
 :by Thomas
@@ -251,7 +251,7 @@
 :title mpg123 1.12.4
 .<p>
 .This is a little bugfix release that improves printout of metadata (ID3) in UTF-8 terminals, fixing one of those distro bug reports that I am getting aware of late...
-.Get it from the <a href="download.shtml">usual places</a>.
+.Get it from the <a href="/download.shtml">usual places</a>.
 .</p>
 
 :date 2010-07-11
@@ -280,12 +280,12 @@
 .<li>Fix handle I/O for clients with small file offset (32 bit when libmpg123 has 64 bit).</li>
 .<li>Fix 3DNow(Ext) standalone builds.</li>
 .</ul>
-.<p>The <a href="download.shtml">download area</a> is your friend...</p>
+.<p>The <a href="/download.shtml">download area</a> is your friend...</p>
 
 :date 2010-04-05
 :by Thomas
 :title Got a new toy... and wired it up to mpg123!
-.<p>I uploaded a quick hack that turns two instances of mpg123 and a MIDI controller (in this case the rather inexpensive M-Audio XSession pro) into a simple live DJ set: See the <a href="download/mpg123-midi-control.c">source code of mpg123-midi-control</a>.
+.<p>I uploaded a quick hack that turns two instances of mpg123 and a MIDI controller (in this case the rather inexpensive M-Audio XSession pro) into a simple live DJ set: See the <a href="/download/mpg123-midi-control.c">source code of mpg123-midi-control</a>.
 .I'll cut out the guts of the comment header to make this little post complete:</p>
 .<p>
 .        This is a hacky proof of concept for getting my M-Audio XSession pro to excert some effect on mpg123, on Linux systems with ALSA sequencer API.
@@ -320,7 +320,7 @@
 .<p>Please forget the previous release, 1.11.0 . The libmpg123_64.so it introduced on largefile-sensitive systems is gone now. The interfaces for applications using system default file offsets and those using enabled large file support are unified in one libmpg123.so now.
 .Version 1.12.0 of mpg123 shall mark the first stable ABI for such systems since mpg123 1.4.x, after which libmpg123.so usually offered only the interface for large files. Please, please: Update to this one so that emerging users of libmpg123 do not get bitten by an inconsistent base of mpg123 installations with incompatible libraries.</p>
 .<p>As a side effect of dual mode hacking, replacement I/O using client-provided handles (void pointer) has been added to the API. Oh, and the introduction of AI_ADDRCONFIG has been made conditional based on the actual availability of that flag on a system (that helps OpenBSD).</p>
-.<p><a href="download.shtml">Download mpg123</a> version 1.12.0 now!</p>
+.<p><a href="/download.shtml">Download mpg123</a> version 1.12.0 now!</p>
 .<p><strong>Update:</strong>In 1.12.0, there was still a passage in INSTALL referring to the twin libraries, I changed that and released 1.12.1 -- there are no changes in the code.</p>
 
 :date 2010-03-29
@@ -364,7 +364,7 @@
 .<li>Fix a potential reading problem with ICY streams.</li>
 .<li>Assembler cleanup that will enable optimized builds with the Sun compiler once it got a certain bug fixed.</li>
 .</ul>
-.<p>So, get the new <a href="download/mpg123-1.11.0.tar.bz2">mpg123-1.11.0 source</a> and be happy (possibly after relinking some apps).</p>
+.<p>So, get the new <a href="/download/mpg123-1.11.0.tar.bz2">mpg123-1.11.0 source</a> and be happy (possibly after relinking some apps).</p>
 
 :date 2010-03-10
 :by Thomas
@@ -376,7 +376,7 @@
 .That means a one-time incompatible switch for any binary that depends on a libmpg123 with 64 bit file offsets (on the affected systems),
 .but it preserves compatibility for older and future binaries that depend on &quot;default&quot; file offset size (that is, 32 bit on a 32 bit Linux system). It hurts once, but after the switch, we have, if not a pretty, but at least predictable vision of the future.</p>
 .<p>If nobody comes up with a better idea (no, supporting 32 bit and 64 bit offsets in one build is not considered better... it's not worth the maintenance work and is error-prone, in my view), the next release of mpg123 will bring the change of library name depending on enabled large file support.</p>
-.<p><strong>So please test it and be prepared, perhaps give some comments about it:</strong> <a href="download/mpg123-1.11.0-dev_largefile.tar.bz2">mpg123-1.11.0 preview for the large file name change</a></p>
+.<p><strong>So please test it and be prepared, perhaps give some comments about it:</strong> <a href="/download/mpg123-1.11.0-dev_largefile.tar.bz2">mpg123-1.11.0 preview for the large file name change</a></p>
 .<p>To all users of systems that are not sensitive to variable off_t size (most non-Linux/Solaris, 64 bit systems): Be happy and do not worry about this mess. For anyone who wants to worry and understand the issue, have a read of <a href="http://ac-archive.sourceforge.net/largefile/">Guido Draheim's work on the matter</a>.</p>
 .<p><strong>And, not to forget, there are other goodies with mpg123-1.11.0:</strong> Also concerning portability and ABI stability, the SSE code does not rely on aligned variables on the stack anymore.
 .At least that is the idea behind doing all explicit alignments now on the heap with pointer arithmetic -- as a side effect, I have seen speedup from that change, too.<br />
@@ -403,7 +403,7 @@
 .<li>The parser code still needs overhaul. It is not pretty.</li>
 .<li>Compile fix for OpenAL (with strict compiler).</li>
 .</ul>
-.<p>You see, this upgrade is a no-brainer. I gets a number of bugs out of the way to add more fun stuff to the next release, 1.11.0 . Get it from the <a href="download.shtml">usual places</a>.</p>
+.<p>You see, this upgrade is a no-brainer. I gets a number of bugs out of the way to add more fun stuff to the next release, 1.11.0 . Get it from the <a href="/download.shtml">usual places</a>.</p>
 .<p>Update: I fixed the link to <a href="/current">current mpg123</a> to actually point to the current version. Oh, and, I must admit that indeed, mpg123 is to blame for an oversight regarding IPv6 support which can trouble you with your broken DNS server (DSL router):
 .It asks for IPv6 name resolution even if your setup does not feature IPv6 interfaces... together with glibc 2.10, that is rather annoying (see the web for stories). A future release will fix that, but lacking time for that, I point to the svn trunk, which has it fixed, or this little patch that should apply to a reasonable number of past releases:</p>
 .<pre>
@@ -424,7 +424,7 @@
 .<p>The upcoming bugfix release is quite a prominent one, being focus of frantic attention mainly because of the trouble multilib systems have with the old large-file safety hack in the header.
 .That safety hack is largely gone now -- with the header resulting in being identical for 32 bit and 64 bit mode on a multilib system.</p>
 .<p>But there is more to it: There are important fixes for gapless decoding corner cases and improvements of the parser for bad files: prevent seemingly endless loop in search of first valid header and more so seemingly (at least) endless loop for the feeder mode.</p>
-.<p>Get the <a href="download/mpg123-1.10.1-prerelease3.tar.bz2">pre-release source code</a>, or the occasional binary from the <a href="download/win64">win64 directory</a>, if you are so inclined. And yes, This could just be named 1.10.1-rc3 to be consistent with earlier practice, but I did not know at the first pre-release that it would become that official. Sorry, really. Now get up and test it so that we can do the release for good;-)</p>
+.<p>Get the <a href="/download/mpg123-1.10.1-prerelease3.tar.bz2">pre-release source code</a>, or the occasional binary from the <a href="/download/win64">win64 directory</a>, if you are so inclined. And yes, This could just be named 1.10.1-rc3 to be consistent with earlier practice, but I did not know at the first pre-release that it would become that official. Sorry, really. Now get up and test it so that we can do the release for good;-)</p>
 
 :date 2010-02-09
 :by jon_y
@@ -468,7 +468,7 @@
 .<li>Improve portability (mainly for Solaris/x86, possibly others).</li>
 .<li>Fix reading from standard input in Windows (use binary mode).</li>
 .</ul>
-.<p>So just <a href="download.shtml">download mpg123 1.9.2</a>!</p>
+.<p>So just <a href="/download.shtml">download mpg123 1.9.2</a>!</p>
 
 :date 2009-10-09
 :by Thomas
@@ -891,7 +891,7 @@
 .<li>Added --smooth option for not flusing buffer between tracks but at program end only.</li>
 .<li>Included some contributed ports/bindings of libmpg123 under ports/ .</li>
 .</ul>
-.<p>You are already heading for the <a href="download.shtml">download</a> section, aren't you? ;-)</p>
+.<p>You are already heading for the <a href="/download.shtml">download</a> section, aren't you? ;-)</p>
 
 :date 2008-02-19
 :by Thomas
@@ -955,7 +955,7 @@
 .<p>
 .Some fixes went into the 1.0rc3 during the week, but the substance is unchanged.
 .It is time to release the stable version 1.0.0!
-.Get the tarball from <a href="https://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=563661"> Sourceforge</a> or the local <a href="download.shtml">download page</a> and enjoy.
+.Get the tarball from <a href="https://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=563661"> Sourceforge</a> or the local <a href="/download.shtml">download page</a> and enjoy.
 .</p>
 .<p>
 .This is, finally, the first "complete" stable release of the revived mpg123 project.
@@ -973,7 +973,7 @@
 :title The (hopefully) last release candidate is ready: 1.0rc3!
 .<p>
 .As promised, this one contains mainly the JACK fix and some smaller cleanups.
-.Get mpg123-1.0rc3 via <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=562455">Sourceforge</a> or from <a href="download.shtml">the download page</a>, as usual.
+.Get mpg123-1.0rc3 via <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=562455">Sourceforge</a> or from <a href="/download.shtml">the download page</a>, as usual.
 .</p>
 .<p>
 .This is intended to be the last release candidate before final 1.0.0 .
@@ -1004,7 +1004,7 @@
 .Welcome to the second round of bug-squashing!
 .</h3>
 .<p>
-.Hurry to get mpg123-1.0rc2 via <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=560384">Sourceforge</a> or from <a href="download.shtml">the download page</a> and report our blatant mistakes! ;-)
+.Hurry to get mpg123-1.0rc2 via <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=560384">Sourceforge</a> or from <a href="/download.shtml">the download page</a> and report our blatant mistakes! ;-)
 .</p>
 .<p>
 .Quite a few fixes and improvements went into the second release candidate.
@@ -1040,7 +1040,7 @@
 :by Thomas
 :title It is here! Oh my mind! <strong>mpg123-1.0rc1</strong>
 .<p>
-.		The first release candidate of the heavily reworked mpg123 is ready! Grab it from <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=559279">Sourceforge</a> or from <a href="download.shtml">the download page</a>.
+.		The first release candidate of the heavily reworked mpg123 is ready! Grab it from <a href="http://sourceforge.net/project/showfiles.php?group_id=135704&package_id=148937&release_id=559279">Sourceforge</a> or from <a href="/download.shtml">the download page</a>.
 .		Please test, especially to help us improve the situation with the specific platforms we cannot test; see <a href="testing.shtml">the testing page</a> for that!
 .</p>
 .<p>A glimpse into the news:</p>
@@ -1162,7 +1162,7 @@
 .<p>
 .This is an important release, also it is hopefully the last release with monolithic audio output (plugin system is nearly there).
 .The extracted libmpg123 will become reality in the not too distant future, too.
-.Well, for now, go and get version 0.66 from the usual places (see <a href="download.shtml">download</a> page)!
+.Well, for now, go and get version 0.66 from the usual places (see <a href="/download.shtml">download</a> page)!
 .</p>
 :date 2007-02-26
 :by Thomas
