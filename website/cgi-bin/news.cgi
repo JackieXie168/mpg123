@@ -32,7 +32,7 @@ if(open(NEWS,"news.dat"))
 			$end = 1;
 			last;
 		    }
-		    if($2  =~ /^(title|date|by)\s+(.*\S)$/)
+		    if($2  =~ /^(title|date|by|release)\s+(.*\S)$/)
 		    {
 			$head{$1} = $2;
 		    }
@@ -75,8 +75,9 @@ if(open(NEWS,"news.dat"))
 			delete $head{title};
 			delete $head{date};
 			delete $head{by};
+			delete $head{release};
 		    }
-		    if($2  =~ /^(title|date|by)\s+(.*\S)$/)
+		    if($2  =~ /^(title|date|by|release)\s+(.*\S)$/)
 		    {
 			$head{$1} = $2;
 		    }
@@ -112,7 +113,10 @@ sub Put
 sub NewsHead
 {
     my $head = shift;
+    my $release = defined $head->{release}
+        ? "Releasing <a href=\"/download/mpg123-$head->{release}.tar.bz2\">mpg123 version $head->{release}</a>: "
+        : "";
     print "<div class=\"newshead\"><a name=\"$head->{date}\"><span class=\"newsdate\">$head->{date}</span></a> ";
     print "<span class=\"newsby\">$head->{by}:</span> " if $head->{by};
-    print "<span class=\"newstitle\">$head->{title}</span></div>\n";
+    print "<span class=\"newstitle\">$release$head->{title}</span></div>\n";
 }
