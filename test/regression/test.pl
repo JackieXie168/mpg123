@@ -66,7 +66,7 @@ sub strip_bin
 sub find_testfile
 {
 	my $name = strip_bin(shift);
-	foreach my $e qw(mpg mp1 mp2 mp3 mpeg)
+	foreach my $e (qw(mpg mp1 mp2 mp3 mpeg))
 	{
 		if(-f "$name.$e")
 		{
