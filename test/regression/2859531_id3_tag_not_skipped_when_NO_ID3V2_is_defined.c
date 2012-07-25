@@ -142,7 +142,7 @@ int main(int argc, char* argv[])
 	mpg123_delete(m);
 	mpg123_exit();
 
-	fprintf(stderr, "total %li\n:", total);
+	fprintf(stderr, "total %li:\n", total);
 	if(total != 4926328)
 	{
 		fprintf(stderr, "Total byte count wrong, skipping of ID3v2 tag did not work out?\n");
