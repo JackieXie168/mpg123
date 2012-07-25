@@ -58,3 +58,8 @@ test-%: %.bin
 
 %.bin: %.c helpers.o
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) -lmpg123
+
+junked-$(TESTFILE): $(TESTFILE)
+	dd if=$< of=$@ bs=1K count=50 && \
+	dd if=/dev/zero of=$@ bs=1K seek=50 count=2 && \
+	dd if=$< of=$@ bs=1K skip=50 seek=52
