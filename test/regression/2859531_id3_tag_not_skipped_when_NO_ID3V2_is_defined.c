@@ -75,6 +75,8 @@ This is the case when this program is linked to a libmpg123 where the NO_ID3V2 d
 
 #define INBUFF  16384 * 2 * 2
 
+const off_t expected = 4926328;
+
 int main(int argc, char* argv[])
 {
 	unsigned char buf[INBUFF];
@@ -142,10 +144,11 @@ int main(int argc, char* argv[])
 	mpg123_delete(m);
 	mpg123_exit();
 
-	fprintf(stderr, "total %li:\n", total);
-	if(total != 4926328)
+	fprintf(stderr, "total %"OFF_P":\n", (off_p)total);
+	/* Newer MPG123 does not automatically cut decoder delay of 529 samples. */
+	if(total != expected && total != expected+529*4*2)
 	{
-		fprintf(stderr, "Total byte count wrong, skipping of ID3v2 tag did not work out?\n");
+		fprintf(stderr, "Total byte count wrong, skipping of ID3v2 tag did not work out? (%"OFF_P" != %"OFF_P")\n", total, expected);
 		ret = -1;
 	}
 	else ret = 0;
