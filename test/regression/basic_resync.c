@@ -13,6 +13,8 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <strings.h>
+#include <errno.h>
+#include <string.h>
 #include "helpers.h"
 
 const int lead_in = 50000;
@@ -95,9 +97,16 @@ int main(int argc, char **argv)
 
 	if(argc != 2) goto far_end;
 
+	errno = 0;
 	goodfd = open(argv[1], O_RDONLY);
-	badfd = mkstemp(tempfile);
-	if(goodfd < 0 || badfd < 0) goto far_end;
+	badfd = open("basic_resync-bad.mp3", O_TRUNC|O_RDWR|O_CREAT, 0666);
+	fprintf(stderr, "fd: %i %i\n", goodfd, badfd);
+
+	if(goodfd < 0 || badfd < 0)
+	{
+		fprintf(stderr, "cannot open files: %s\n", strerror(errno));
+		goto far_end;
+	}
 
 	mpg123_init();
 	mh = mpg123_new(NULL, NULL);
