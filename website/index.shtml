@@ -52,6 +52,14 @@ At least the floating point output should really be close enough to the referenc
 	Actually, my testing method follows that example, including their quoting of ISO MPEG rules.
 </p>
 
+<h2><a name="regression"></a>Regression tests</h2>
+<p>
+This is output from the rudimentary regression test suite (which should eventually merge several approaches we had on testing in the past), working on the periodic snapshot:
+</p>
+<pre style="border:solid; background-color:#ffffff; color:#000000; padding:1.5em; margin-left:5%; margin-right:5%; ">
+<!--#include file="regression.log" -->
+</pre>
+
 <h2>Needed computing power</h2>
 <p>A test (GNU/Linux OS) with 0.60-beta2 showed 3% to 4% CPU usage on decoding high quality VBR MP3 with a pentiumII laptop with 366MHz, while a pentium 100MHz can easily handle two mpg123 instances in realtime (plus the mixing daemon that works on decoded data).
 </p>
