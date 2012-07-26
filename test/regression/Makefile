@@ -5,6 +5,7 @@
 
 .SUFFIXES:
 .SUFFIXES: .c .h .o .bin
+.SECONDARY:
 
 tests := $(patsubst %.c, %, $(filter-out helpers.c, $(wildcard *.c)))
 ifneq ($(SKIP_TESTS),)
@@ -28,7 +29,8 @@ endif
 # Default target for running all tests from the script, showing a summary.
 # Add ./ as prefix to make paths definite for execution from script.
 testscript: $(addsuffix .bin, $(tests))
-	TESTFILE=$(TESTFILE) perl test.pl $(addprefix ./, $^)
+	@echo Running tests.
+	@TESTFILE=$(TESTFILE) perl test.pl $(addprefix ./, $^)
 
 # Fallback target that does not need perl, aborts on first failed test.
 test: $(addprefix test-, $(tests))
@@ -57,9 +59,5 @@ test-%: %.bin
 # Build a test binary.
 
 %.bin: %.c helpers.o
-	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) -lmpg123
-
-junked-$(TESTFILE): $(TESTFILE)
-	dd if=$< of=$@ bs=1K count=50 && \
-	dd if=/dev/zero of=$@ bs=1K seek=50 count=2 && \
-	dd if=$< of=$@ bs=1K skip=50 seek=52
+	@echo "CC $@"
+	@$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) -lmpg123
