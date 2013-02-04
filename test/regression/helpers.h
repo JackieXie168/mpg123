@@ -20,6 +20,8 @@
 /* Wanna print offsets. */
 #define OFF_P PRIiMAX
 typedef intmax_t off_p;
+#define SIZE_P "zu"
+typedef size_t size_p;
 
 #define INBUFF  16384 * 2 * 2
 

@@ -1,7 +1,7 @@
 /*
 	seek-accuracy: Take some given mpeg file and validate that seeks are indeed accurate.
 
-	copyright 2009 by the mpg123 project - free software under the terms of the LGPL 2.1
+	copyright 2009-2013 by the mpg123 project - free software under the terms of the LGPL 2.1
 	see COPYING and AUTHORS files in distribution or http://mpg123.org
 	initially written by Thomas Orgis
 
@@ -9,7 +9,7 @@
 */
 
 #include <mpg123.h>
-#include <compat.h>
+#include "helpers.h"
 
 #define SAMPLES 1000
 /* Cannot use the const value as fixed array size:-( */
@@ -38,20 +38,33 @@ int main(int argc, char **argv)
 	int ret = 0;
 	size_t errs[2] = {0, 0};
 	size_t errs_ntom[2] = {0, 0};
+	const char* decoder = "auto";
+	const char* preframes = "10";
 
 	if(argc < arg_total)
 	{
-		fprintf(stderr, "\nUsage: %s <decoder> <preframes> <mpeg audio file>\n\n", argv[0]);
+		if(argc < 2)
+		{
+			/* Would at least need a file to use ... */
+			fprintf(stderr, "\nUsage: %s <decoder> <preframes> <mpeg audio file>\n\n", argv[0]);
 		return -1;
+		}
+		/* silently use defaults plus given file */
+		filename = argv[argc-1];
+	}
+	else
+	{
+		decoder   = argv[arg_decoder];
+		preframes = argv[arg_preframes];
+		filename  = argv[arg_file];
 	}
 	mpg123_init();
-	m = mpg123_new(argv[arg_decoder], NULL);
+	m = mpg123_new(decoder, NULL);
 	mpg123_param(m, MPG123_RESYNC_LIMIT, -1, 0);
 
-	if(mpg123_param(m, MPG123_PREFRAMES, atol(argv[arg_preframes]), 0) == MPG123_OK)
-	printf("Testing library with preframes set to %li\n", atol(argv[arg_preframes]));
+	if(mpg123_param(m, MPG123_PREFRAMES, atol(preframes), 0) == MPG123_OK)
+	printf("Testing library with preframes set to %li\n", atol(preframes));
 
-	filename = argv[arg_file];
 	ret = check_seeking(errs);
 
 	if(ret == 0)
@@ -223,6 +236,11 @@ size_t check_positions(struct seeko *so)
 	printf("Seeking and comparing...\n");
 	for(i=0; i<samples; ++i)
 	{
+		if(i == samples/2)
+		{
+			printf("a little scan in between\n");
+			mpg123_scan(m);
+		}
 		if(check_sample(so, i) != 0)
 		++errs;
 	}
