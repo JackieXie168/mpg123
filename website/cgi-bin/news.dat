@@ -22,8 +22,7 @@
 .<li>Accept application/x-scpls as additional MIME type.</li>
 .<li>Try to handle certain Windows toolchains that miss EOVERFLOW.</li>
 .</ul>
-.<p>So, don't hesitate to grab the fresh one from the  <a href="/downloa
-d.shtml">download section</a>!</p>
+.<p>So, don't hesitate to grab the fresh one from the  <a href="/download.shtml">download section</a>!</p>
 
 :date 2012-07-26
 :by Thomas
