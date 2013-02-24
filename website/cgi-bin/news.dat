@@ -1,3 +1,30 @@
+:date 2013-02-24
+:by Thomas
+:tiyle Leapfrog: mpg123 1.15.1 is here.
+.<p>Been some time, time to release the next mpg123. There was a 1.15.0 release, but a very quiet one since two bugs immediately jumped up. Now there is 1.15.1 right away, with those goodies:</p>
+.<ul>
+.<li>libmpg123 API version 37</li>
+.<li>Fix corner case in HTTP communication with missing path in Location header (bug 187).</li>
+.<li>Prevent nasty alignment issues by not guessing about assembler alignment when .balign is available (bug 188).</li>
+.<li>Added --continue (also see scripts/conplay).</li>
+.<li>Added number row to terminal control keys for 10% jump points (for navigating long tracks).</li>
+.<li>Set xterm title always if asked, disregarding the -q switch (if you want fully quiet, don't specify --title).</li>
+.<li>Enable terminal mode in OS/2 by explicitly checking for and using os2term library.</li>
+.<li>Getting WAV/AU/CDR writing back to a sane state while still catching out-of-disk when writing headers (none in case of CDR) but removing that initial test that prevented writing on any non-seekable file (like, /dev/stdout to a pipe).</li>
+.<li>Added native audio output for QNX (thanks to Mike Gorchak), also improving portability of configure script while at that.</li>
+.<li>more robust recovery from ALSA issues (device suspend)</li>
+.<li>Fix crash in module loader on *BSD.</li>
+.<li>Extend time display to switch to hours above 60 minutes (hh:mm:ss, ditching the sub-second precision)</li>
+.<li>really include dithering in default x86-64 build.</li>
+.<li>Fix mpg123_scan() not properly seeking back for all types of files (bug 3582628 ... it got a different number on sf.net now ... brilliant, folks!).</li>
+.<li>Prevent false positives for "Frankenstein!" when using mpg123_scan().</li>
+.<li>Fix printing of negative positions with buffer (bug 186).</li>
+.<li>Accept application/x-scpls as additional MIME type.</li>
+.<li>Try to handle certain Windows toolchains that miss EOVERFLOW.</li>
+.</ul>
+.<p>So, don't hesitate to grab the fresh one from the  <a href="/downloa
+d.shtml">download section</a>!</p>
+
 :date 2012-07-26
 :by Thomas
 :title Fix it, already! Releasing mpg123 1.14.4 .
