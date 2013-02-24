@@ -1,6 +1,6 @@
 :date 2013-02-24
 :by Thomas
-:tiyle Leapfrog: mpg123 1.15.1 is here.
+:title Leapfrog: mpg123 1.15.1 is here.
 .<p>Been some time, time to release the next mpg123. There was a 1.15.0 release, but a very quiet one since two bugs immediately jumped up. Now there is 1.15.1 right away, with those goodies:</p>
 .<ul>
 .<li>libmpg123 API version 37</li>
