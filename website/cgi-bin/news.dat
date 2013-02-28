@@ -23,7 +23,7 @@
 .<li>Try to handle certain Windows toolchains that miss EOVERFLOW.</li>
 .</ul>
 .<p>So, don't hesitate to grab the fresh one from the  <a href="/download.shtml">download section</a>!</p>
-.<p><strong>Update:</strong>We got Windows binaries uploaded, the 64 bit ones built for generic x86-64 CPUs (not just Core i7).</p>
+.<p><strong>Update:</strong> We got Windows binaries uploaded, the 64 bit ones built for generic x86-64 CPUs (not just Core i7).</p>
 
 :date 2012-07-26
 :by Thomas
