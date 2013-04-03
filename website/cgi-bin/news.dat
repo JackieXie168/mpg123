@@ -1,3 +1,13 @@
+:date 2013-04-03
+:by Thomas
+:title Announcing mpg123 1.15.3
+.<p>Main feature of this release is hopefully the final go at satisfying all needs concerning WAV writing to standard output. To quote the NEWS:</p>
+.<p style="margin-left:2em;">
+.Fix WAV writing. AGAIN. People love to decode WAV to stdout in various ways that started to get broken with me starting to care for people who like to write to full disks. I frikkin' HATE this rat race! I'm even starting to SHOUT. Now, the code prefers to write no header at all (when there is no actual output) instead of possibly writing too many misleading ones. Getting the blame for breaking dir2ogg repeatedly while trying to cope with one fatal situation that you cannot really cope with sucks. Big time. I hope that's it now!
+.</p>
+.<p>The silent version 1.15.2 introduced a compatibility fix for the configure script. Get the new release from the usual places.</p>
+
+
 :date 2013-02-24
 :by Thomas
 :title Leapfrog: mpg123 1.15.1 is here.
