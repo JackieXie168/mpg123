@@ -1,3 +1,18 @@
+:date 2013-05-18
+:by Thomas
+:title Compliant again
+.<p>
+.A note about the MPEG compliance test on the mpg123 front page:
+.This is automatically run on mpg123 trunk, the development version. In that function, the
+.compliance test reported a failure in some layer I and II test bitstreams for some time recently.
+.That concerned a too strict stream parsing that has been added to the development version and
+.has just been corrected. So, now, fetching mpg123 directly from svn or the regular
+.<a href="/snapshot>snapshot</a> gives you the best mpg123, yet, again.
+.</p>
+.<p>
+.And indeed, featuring Taihei's improved Huffman decoding, the current development version should
+.give every other decoder out there a mark to beat regarding efficiency!
+.</p>
 :date 2013-04-03
 :by Thomas
 :title Announcing mpg123 1.15.3
