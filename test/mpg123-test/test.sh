@@ -42,7 +42,7 @@
 # these defines the default settings for the script
 
 # the mpg123 binary to test
-BINFILE=mpg123
+BINFILE=${1:-mpg123}
 
 # master switch for running the script interactively or not
 INTERACTIVE=false
@@ -178,7 +178,7 @@ removejunk() {
 removejunk
 
 #### PATH message #############################################################
-echo ---- testing $(which mpg123)
+echo ---- testing $(which $BINFILE)
 read -n 1 -s -t 5
 
 # check for existence of binary- and test-files, this prevents strange messages
