@@ -1,3 +1,20 @@
+:date 2013-05-21
+:by Thomas
+:title mpg132 1.15.4
+.<p>May I present the latest and last mpg123 release of the 1.15 series: It fixes some illustrous bugs, upgrade highly recommened (as always;-). Here they are:
+.</p>
+.<ul>
+.<li>Writing CDDA data via --cdr works again; had also been broken by attempts to catch failing writes because of full disk.</li>
+.<li>Also, the return values of WAV/CDR writing routines now properly indicate error to avoid stupid endless loop of "smart" audio writing code that wants to handle interruptions. Really, --cdr could just go and nobody would miss it ...</li>
+.<li>Fix stupid bug in mpg123_chomp_string() (introduced in 1.15.1), empty lines were badly treated. Only usage in mpg123 is for parsing HTTP redirect headers; malicious HTTP servers might exploit that (possibility to zero bytes in memory).</li>
+.<li>some cleanup for nagging mode</li>
+.<li>more resync strictness to really catch (all) cases with changing decoder structure; in practice badly needed when disabling seekbuffer (so it's your fault, somehow ...) for non-seekable streams, otherwise not really an issue because of readahead checking<br />
+.<strong>I repeat:</strong> This fixes possibly fatal behaviour in the parser when readahead checking is explicitly disabled (p.ex. via mpg123 --no-seekbuffer on http streams). By default, readahead checking is <strong>always</strong> active!</li>
+.<li>build system fixed for automake 1.13 (thanks to Nix)</li>
+.</ul>
+.<p>Reviewing the recent bugfix releases, there is a lesson to learn about not touching things unless it is really necessary and clearly beneficial. Is the fallout from trying to make WAV writing safer over yet?</p>
+.<p>Apart from that, stay tuned for the upcoming 1.16.0 release with improved decoding performance! Oh, and, yes ... in the meantime, get your 1.15.4 from the <a href=/download.shtml>download</a> area.
+
 :date 2013-05-18
 :by Thomas
 :title Compliant again
