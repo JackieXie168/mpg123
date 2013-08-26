@@ -19,6 +19,8 @@ It's fast, it's high-quality. Just use it;-)
 <h2>Upcoming features...</h2>
 <p>
 	More <strong>power</strong>: New and faster Huffman decoding, AVX support. Lower levels of API... simple audio output library using mpg123's output plugins... stuff.
+	Check out the fresh sources from the <a href="/snapshot">daily snapshot</a>
+	for the goodies!
 </p>
 
 <h2>Top News</h2>
