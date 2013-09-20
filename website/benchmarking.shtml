@@ -33,6 +33,8 @@
 </pre>
 	<p>
 		is welcome, sent to the maintainer eMail or the user/dev mailing list (see <a href="contact.shtml">contact section</a>).
+		To level the field, I tend to copy the MP3s to /dev/shm (RAM drive) first, skipping initial delay for reading from disk,
+		but this shouldn't influence the measured user time anyway.
 	</p>
 </body>
 </html>
