@@ -27,9 +27,11 @@
 		has been measured.
 		We are working on some nice presentation, for now you can have a look at the text files in the <a href="benchmark/">benchmark directory</a>.
 		If you want to add to this list, your contribution of the output of
+	</p>
 <pre>
 	perl benchmark-cpu.pl /path/to/mpg123 convergence_-_points_of_view/*.mp3
 </pre>
+	<p>
 		is welcome, sent to the maintainer eMail or the user/dev mailing list (see <a href="contact.shtml">contact section</a>).
 	</p>
 </body>
