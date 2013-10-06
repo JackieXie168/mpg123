@@ -3,7 +3,7 @@
 :title mpg123 1.16.0
 .<p>We're back! With significant performance enhancements all across the board, mpg123 is up there on the peak of MPEG audio decoding efficiency again!
 .Though, we have to admit, this is a race with outcome depending on your setup. The contender ffmp3float as used from MPlayer (for some reason, usage from ffmpeg command-line tool is slower), can be faster or slower, generally not far from mpg123. On my old Core2Duo P8800, ffmp3float wins, on more modern Core i7 machines, mpg123 wins.
-.On an vintage Athlon 64, ffmp3wins. On K10 (Athlon II), mpg123 wins. On older machines (K7, K6), we need some repeated tests, but it looked good already with old mpg123.</p>
+.On an vintage Athlon 64, ffmp3float wins. On K10 (Athlon II), mpg123 wins. On older machines (K7, K6), we need some repeated tests, but it looked good already with old mpg123.</p>
 .<p>So, here is the full goodness, if you still want to read up on this before getting the current sources from the <a href="download.shtml">download</a> section.</p>
 .<ul>
 .<li>Taihei strikes again:
