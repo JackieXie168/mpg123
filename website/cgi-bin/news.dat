@@ -1,6 +1,42 @@
+:date 2013-06-07
+:by Thomas
+:title mpg123 1.16.0
+.<p>We're back! With significant performance enhancements all across the board, mpg123 is up there on the peak of MPEG audio decoding efficiency again!
+.Though, we have to admit, this is a race with outcome depending on your setup. The contender ffmp3float as used from MPlayer (for some reason, usage from ffmpeg command-line tool is slower), can be faster or slower, generally not far from mpg123. On my old Core2Duo P8800, ffmp3float wins, on more modern Core i7 machines, mpg123 wins.
+.On an vintage Athlon 64, ffmp3wins. On K10 (Athlon II), mpg123 wins. On older machines (K7, K6), we need some repeated tests, but it looked good already with old mpg123.</p>
+.<p>So, here is the full goodness, if you still want to read up on this before getting the current sources from the <a href="download.shtml">download</a> section.</p>
+.<ul>
+.<li>Taihei strikes again:
+.<ul>
+.  <li>New Huffman decoding scheme (configurable, on by default) brings nice boost to mpg123 to make it the fastest decoder on modern CPUs again.</li>
+.  <li>new AVX decoder</li>
+.  <li>assembly-optimized DCT36 for SSE and AVX</li>
+.</ul>
+.</li>
+.<li>added configs for vintage 3DNow(ext) CPUs (AMD K6) utilizing assembly DCT36</li>
+.<li>added configs for vintage SSE CPUs (Pentium M), utilizing C DCT36</li>
+.<li>added FORMAT command to generic control</li>
+.<li>added support for ID3v2 APIC frames</li>
+.<li>added mpg123-id3dump as official companion to extract meta data
+.  (including writing of album art from APIC to files)</li>
+.<li>added mpg123-strip as official companion to strip dirt out of MPEG streams
+.  (including meta data)</li>
+.<li>not deleting ID3 data right after printing in generic control</li>
+.<li>module loader a bit more flexible with relative MPG123_MODDIR</li>
+.<li>Fix chopped-off playback with pulseaudio output: draining the output now on closing.</li>
+.<li>SDL output fixup, a) not chopping off end and b) non-fatal underrun</li>
+.<li>Fix obvious errors in win32 output ... does it now play the end of tracks? Need someone to test this.</li>
+.<li>added support for screen and iris-ansi terminals with --title (as prompted by patch from sf.net user canavan)</li>
+.<li>fixes/enhancements for sgi audio output</li>
+.<li>libmpg123: proper largefile aliases for proper systems (FreeBSD with one one-and-only off_t<br />
+.  This enables client software that insists on defining pointless _FILE_OFFSET_BITS.</li>
+.<li>wrapper script src/mpg123-with-modules to ease the pain of running mpg123 with modules without installation (setting MPG123_MODDIR)</li>
+.<li>removed ALSA 0.5 code (unused for longtime, last GPL-only bit)</li>
+.</ul>
+
 :date 2013-05-21
 :by Thomas
-:title mpg132 1.15.4
+:title mpg123 1.15.4
 .<p>May I present the latest and last mpg123 release of the 1.15 series: It fixes some illustrous bugs, upgrade highly recommened (as always;-). Here they are:
 .</p>
 .<ul>
