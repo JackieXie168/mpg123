@@ -1,2 +1,4 @@
 User-agent: *
+Crawl-delay: 500
 Disallow: /cgi-bin/
+Disallow: /download/
