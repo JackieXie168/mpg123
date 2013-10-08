@@ -25,15 +25,16 @@ svn2cl &&
 make distcheck &&
 mv $name.tar.gz $work &&
 ./configure --prefix=$work/prefix --enable-int-quality && make && make install
-( echo "compliance test for $name" &&
-echo "First decoder in this list will be tested first, then generic: " &&
-$work/prefix/bin/mpg123 --test-cpu &&
-echo &&
-echo "Testing default decoder..." &&
-perl $work/test/compliance.pl $work/prefix/bin/mpg123 &&
-echo &&
-echo "Now the generic decoder:" &&
+( echo "compliance test for $name on $(uname -sm)"
+echo "First decoder in this list will be tested first, then generic: "
+$work/prefix/bin/mpg123 --test-cpu
+echo 
+echo "Testing default decoder..."
+perl $work/test/compliance.pl $work/prefix/bin/mpg123
+echo 
+echo "Now the generic decoder:"
 perl $work/test/compliance.pl $work/prefix/bin/mpg123 --cpu generic
+true
 ) > $compliance &&
 cd $work/test/regression &&
 MPG123_PREFIX=$work/prefix make &> $regression
