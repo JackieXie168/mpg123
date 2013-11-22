@@ -16,12 +16,6 @@ It is free software licensed under LGPL 2.1 (the officially released sources, so
 Note that nowadays, the mpg123 decoder core can work with <strong>floating point or integer math</strong>, possibly using assembly optimizations for several platforms, depending on your build configuration.
 It's fast, it's high-quality. Just use it;-)
 </p>
-<h2>Upcoming features...</h2>
-<p>
-	More <strong>power</strong>: New and faster Huffman decoding, AVX support. Lower levels of API... simple audio output library using mpg123's output plugins... stuff.
-	Check out the fresh sources from the <a href="/snapshot">daily snapshot</a>
-	for the goodies!
-</p>
 
 <h2>Top News</h2>
 <!--#include virtual="cgi-bin/news.cgi?top" -->
