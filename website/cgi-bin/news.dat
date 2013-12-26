@@ -1,3 +1,15 @@
+:date 2013-12-26
+:by Thomas
+:title mpg132 1.17.0
+.<p>And here it is, the next release with some additions, as a treat before the year ends. Changes:</p>.<ul>
+.<li>mpg123-id3dump --no-scan; for speedup</li>
+.<li>hide -C parameter from mpg123 --help when it is not supported</li>
+.<li>added tinyalsa Output (by Jarno Lehtinen)</li>
+.<li>build system tweaking</li>
+.<li>some care for fixing Cygwin builds</li>
+.</ul>
+.<p>Get it from the <a href="download.shtml">download area</a>.</p>
+
 :date 2013-11-22
 :by Thomas
 :title Upcoming
