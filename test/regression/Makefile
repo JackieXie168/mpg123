@@ -40,7 +40,7 @@ info:
 	@echo "These are the tests: $(tests)"
 
 clean:
-	rm -vf $(addsuffix .bin, $(tests))
+	rm -vf helpers.o $(addsuffix .bin, $(tests))
 
 # Run specific tests.
 
