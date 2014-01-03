@@ -116,6 +116,8 @@ int feed(mpg123_handle *mh, FILE *in, void *buf)
 	return 1;
 }
 
+#if (defined MPG123_API_VERSION && MPG123_API_VERSION >= 22)
+
 int scan(mpg123_handle *mh, FILE *in, void *buf)
 {
 	int ret = mpg123_framebyframe_next(mh);
@@ -138,6 +140,8 @@ int scan(mpg123_handle *mh, FILE *in, void *buf)
 	fprintf(stderr,"Unknown return value: %d\n", ret);
 	return 0;
 }
+
+#endif
 
 off_t length(mpg123_handle *mh)
 {
@@ -205,6 +209,8 @@ int seek(mpg123_handle *mh, off_t frameNumber, off_t *newFrameNumber, off_t *new
 	return 1;
 }
 
+#if (defined MPG123_API_VERSION && MPG123_API_VERSION >= 22)
+
 int decode(mpg123_handle *mh, FILE *in, void *buf, unsigned char **out, size_t *count)
 {
 	int ret;
@@ -241,6 +247,10 @@ int decode(mpg123_handle *mh, FILE *in, void *buf, unsigned char **out, size_t *
 	return 0;
 }
 
+#endif
+
+#if (defined MPG123_API_VERSION && MPG123_API_VERSION >= 11)
+
 int copy_seek_index(mpg123_handle *source, mpg123_handle *target)
 {
 	off_t* offsets;
@@ -269,3 +279,5 @@ int copy_seek_index(mpg123_handle *source, mpg123_handle *target)
 
 	return 1;
 }
+
+#endif

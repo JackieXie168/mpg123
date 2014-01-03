@@ -11,6 +11,8 @@
 #include <mpg123.h>
 #include "helpers.h"
 
+#if (defined MPG123_API_VERSION && MPG123_API_VERSION >= 18)
+
 #define SAMPLES 1000
 /* Cannot use the const value as fixed array size:-( */
 const size_t samples = SAMPLES;
@@ -278,3 +280,13 @@ int check_seeking(size_t *errs)
 
 	return ret;
 }
+
+#else
+
+int main(int argc, char **argv)
+{
+	fprintf(stderr, "This test does not apply to this mpg123 version.\n");
+	printf("SKIP\n");
+}
+
+#endif

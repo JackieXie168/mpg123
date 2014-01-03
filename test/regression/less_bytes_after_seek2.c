@@ -29,6 +29,8 @@
 #include "mpg123.h"
 #include "helpers.h"
 
+#if (defined MPG123_API_VERSION && MPG123_API_VERSION >= 22)
+
 /*
 	With the original test file (non-public):
 	This seek sequence passes: 8719191, 8318528
@@ -172,3 +174,13 @@ int main(int argc, char **argv)
 
 	return ret;
 }
+
+#else
+
+int main(int argc, char **argv)
+{
+	fprintf(stderr, "This test does not apply to this mpg123 version.\n");
+	printf("SKIP\n");
+}
+
+#endif

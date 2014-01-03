@@ -73,6 +73,8 @@ This is the case when this program is linked to a libmpg123 where the NO_ID3V2 d
 #include "mpg123.h"
 #include "helpers.h"
 
+#if (defined MPG123_API_VERSION && MPG123_API_VERSION >= 22)
+
 #define INBUFF  16384 * 2 * 2
 
 const off_t expected = 4926328;
@@ -157,3 +159,13 @@ int main(int argc, char* argv[])
 
 	return ret;
 }
+
+#else
+
+int main(int argc, char **argv)
+{
+	fprintf(stderr, "This test does not apply to this mpg123 version.\n");
+	printf("SKIP\n");
+}
+
+#endif
