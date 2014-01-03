@@ -3,7 +3,7 @@
 use File::Basename;
 
 my $log  = 'test.log';
-my $good = 'PASS';
+my $good = 'PASS|SKIP';
 my $bad  = 'FAIL';
 
 open(LOG, ">$log") or die "Cannot open log file $log! ($!)\n";
@@ -17,6 +17,7 @@ print LOG "Beginning tests.\n";
 close(LOG);
 
 my $fail = 0;
+my $skip = 0;
 
 my $proglen = 0;
 foreach my $prog (@ARGV)
@@ -37,20 +38,30 @@ foreach my $prog (@ARGV)
 	close(LOG);
 
 	my $locfail = -1;
+	my $mode = 'FAIL';
 	if(open(PROG, "$command 2>>$log |"))
 	{
 		while(<PROG>)
 		{
-			$locfail = 1 if /$bad/o;
-			$locfail = 0 if /$good/o;
+			if(/^($bad)/o)
+			{
+				$locfail = 1;
+				$mode = $1;
+			}
+			elsif(/^($good)/o)
+			{
+				$locfail = 0;
+				$mode = $1;
+				++$skip if $mode eq 'SKIP';
+			}
 		}
 		close(PROG);
 	}
 	$fail = 1 if $locfail;
-	print ' ' x ($proglen-length($base)), ($locfail ? $bad : $good), ($locfail < 0 ? ' (execute FAIL)' : ''), "\n";
+	print ' ' x ($proglen-length($base)), $mode, ($locfail < 0 ? ' (execute FAIL)' : ''), "\n";
 }
 
-print STDOUT "\n", $fail ? "FAIL" : "PASS", "\n";
+print STDOUT "\n", $fail ? "FAIL" : "PASS", ($skip ? " ($skip skipped)" : ''), "\n";
 
 exit $fail;
 

@@ -103,6 +103,7 @@ int main(int argc, char **argv)
 	mpg123_delete(m);
 	mpg123_exit();
 
+	printf("%s\n", ret ? "FAIL" : "PASS");
 	return ret;
 }
 

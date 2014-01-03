@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#if (defined MPG123_API_VERSION && MPG123_API_VERSION >= 37)
+
 /* The first implementation of mpg123_chomp_string() has a serious bug when used
    on strings of zero length: A loop runs wild. */
 
@@ -39,3 +41,13 @@ int main(int argc, char **argv)
 	printf("%s\n", err ? "FAIL" : "PASS");
 	return err ? -1 : 0;
 }
+
+#else
+
+int main(int argc, char **argv)
+{
+	fprintf(stderr, "This test does not apply to this mpg123 version.\n");
+	printf("SKIP\n");
+}
+
+#endif
