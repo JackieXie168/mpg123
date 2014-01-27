@@ -11,6 +11,7 @@
 #define HELPERS_H
 
 #include <stdio.h>
+#include <fcntl.h>
 #include "mpg123.h"
 
 #ifndef _MSC_VER
