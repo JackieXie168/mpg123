@@ -1,6 +1,27 @@
+:date 2014-01-31
+:by Thomas
+:title mpg123 1.18.0 fixing regressions from 1.14.x
+.<p>This is an important release fixing some nasty regressions introduced in the 1.14 series.
+.Among those is indeed a buffer overflow with strange files (although not easily exploitable apart
+.from denial of service since it is decoded audio data that is written).
+.Other changes make the HTTP proxy requests send correct host headers, which matters for some
+.proxy servers.</p>
+.<ul>
+.<li>libmpg123 version 39</li>
+.<li>Big version increase for clear distinction regarding the 1.14.x regression fixes in libmpg123.</li>
+.<li>Regression fix: Ensure decoder reinitialization on combination of seek and resync (buffer overflow bug 201, introduced in 1.14.1).</li>
+.<li>Regression fix: Make parsing really end on reaching of junk limit (introduced in 1.14.4).</li>
+.<li>Add check for bad bit allocation value in layer I decoder (removes audible glitch in bug 201 test file).</li>
+.<li>Avoid wrong error message about Frankenstein streams when gapless decoding disabled.</li>
+.<li>Be verbose about big header changes (Frankenstein streams). Note that changes in samples per frame will confuse the seeking code, but decoding can get through.</li>
+.<li>Actually use the full routine to close tracks. Avoids socket leak when playing multiple HTTP streams from a playlist (bug 203).</li>
+.<li>Send correct host header when connecting through HTTP proxy (bug 202, figured out by Rajeev V. Pillai).</li>
+.<li>The console application now informs about changed major stream properties (prints out another header line).</li>
+.</ul>
+
 :date 2013-12-26
 :by Thomas
-:title mpg132 1.17.0
+:title mpg123 1.17.0
 .<p>And here it is, the next release with some additions, as a treat before the year ends. Changes:</p>.<ul>
 .<li>mpg123-id3dump --no-scan; for speedup</li>
 .<li>hide -C parameter from mpg123 --help when it is not supported</li>
