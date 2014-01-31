@@ -18,6 +18,7 @@
 .<li>Send correct host header when connecting through HTTP proxy (bug 202, figured out by Rajeev V. Pillai).</li>
 .<li>The console application now informs about changed major stream properties (prints out another header line).</li>
 .</ul>
+.<p>Get it from the <a href="download.shtml">download area</a> right now. And distributions: Please consider upgrading from any version past 1.14.0 to 1.18.0 as a security fix.</p>
 
 :date 2013-12-26
 :by Thomas
