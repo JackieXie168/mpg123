@@ -1,3 +1,23 @@
+:date 2014-02-16
+:by Thomas
+:title Some polishing with 1.18.1
+.<p>There is a number of little issues to resolve. Thanks to our relentless bug reporters, here is mpg123 1.18.1!
+.The most embarrassing one is the Frankenstein (concatenated) stream detection, which triggered all-to-easily
+.on appended meta data. The list:
+.</p>
+.</ul>
+.<li>Do not close buffer twice with mpg123 -R (delete outdated code in control_generic(), fixing bug 207.<li>
+.<li>Do not mess around with first command line argument to extract program name, use a copy instead, fixing bug 205.</li>
+.<li>Prevent premature exit on timing of failure to open a track in the playlist and the user wanting to skip over it (bug 206).</li>
+.<li>Fixup of HTTP socket mess, also avoiding unnecessary FILE objects (bug 204, patch by Rajeev V. Pillai).</li>
+.<li>Fix playlist behaviour on slow HTTP streams, jumping back ('d' key) from first track stays at first track (thanks to Rajeev again, sub-bug of bug 206).</li>
+.<li>Fix Frankenstein check not to stumble over ID3v1 tags. My apologies. As a bonus, the position of the concerned code in the parser is now far more logical.</li>
+.</ul>
+.<p>Apart from the Frankenstein one (related to the recent parser fixes), those are not freshly
+.introduced regressions but issues that managed to hide for a respectable time.
+.Get your fix from the <a href="download.shtml">download area</a>.
+.</p>
+
 :date 2014-01-31
 :by Thomas
 :title mpg123 1.18.0 fixing regressions from 1.14.x
