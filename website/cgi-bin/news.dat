@@ -1,3 +1,19 @@
+:date 2014-03-08
+:by Thomas
+:title Flexing your ARMs with mpg123 1.19.0
+.<p>This fresh release improves the situation on ARM cpus a lot. We got various changes that make the life easier, especially so for folks employing GNU/Linux on ARM. Of course, some other small fixes crept in, too.</p>
+<ul>
+.<ul>Support float and 32/24 bit integer output also with fixed-point decoders (conversion from 16 bit precision).</ul>
+.<ul>A-Law output encoding is actually implemented now (Michael introduced the encoding back in the old days without ever implementing theconversion table, apparently).</ul>
+.<ul>Added --with-cpu=arm_fpu as decoder choice for runtime switch between plain fpu code and NEON.</ul>
+.<ul>Fix ARM builds to work properly on debian systems without special CFLAGS (NEON decoder, specifically).</ul>
+.<ul>Make scripts/benchmark-cpu.pl check the return value instead of delivering crazy timings for crashed mpg123.</ul>
+.<ul>Trigger track initialization in mpg123_info() to avoid use of uninitialized variables (watch out for MPG123_NEED_MORE return value!).</ul>
+.<ul>Fix integer code to 32 bit numbers where it would waste 64 bit on modern systems.</ul>
+.<ul>Add non-executable stack marking also to ARM assembly.</ul>
+.</ul>
+.<p>Get your fix from the <a href="download.shtml">download area</a>.</p>
+
 :date 2014-02-16
 :by Thomas
 :title Some polishing with 1.18.1
