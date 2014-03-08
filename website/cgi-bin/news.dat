@@ -4,7 +4,7 @@
 .<p>This fresh release improves the situation on ARM cpus a lot. We got various changes that make the life easier, especially so for folks employing GNU/Linux on ARM. Of course, some other small fixes crept in, too.</p>
 .<ul>
 .<li>Support float and 32/24 bit integer output also with fixed-point decoders (conversion from 16 bit precision).</li>
-.<li>A-Law output encoding is actually implemented now (Michael introduced the encoding back in the old days without ever implementing theconversion table, apparently).</li>
+.<li>A-Law output encoding is actually implemented now (Michael introduced the encoding back in the old days without ever implementing the conversion table, apparently).</li>
 .<li>Added --with-cpu=arm_fpu as decoder choice for runtime switch between plain fpu code and NEON.</li>
 .<li>Fix ARM builds to work properly on debian systems without special CFLAGS (NEON decoder, specifically).</li>
 .<li>Make scripts/benchmark-cpu.pl check the return value instead of delivering crazy timings for crashed mpg123.</li>
