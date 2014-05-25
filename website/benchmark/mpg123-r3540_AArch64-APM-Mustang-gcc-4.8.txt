@@ -1,0 +1,5 @@
+#mpg123 benchmark (user CPU time in seconds for decoding)
+#decoder        t_s16/s t_f32/s
+NEON64  6.04    6.46
+generic 14.38   11.34
+generic_dither  16.19   11.36
