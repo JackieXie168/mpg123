@@ -1,3 +1,19 @@
+:date 2014-05-25
+:by Thomas
+:title And yet more optimal with mpg123 1.20.0!
+.<p>Get the fresh mpg123 1.20.0:</p>
+.<ul>
+.<li>Added NEON optimized decoder for AArch64 (ARM 64bit environment)</li>
+.<ul>
+.  <li>enabled for --with-cpu=neon64 (NEON only) or --with-cpu=aarch64 (runtime switch between neon and generic_fpu, like arm_fpu) configuration</li>
+.  <li>compatible with aarch64-linux-gnu toolchains (from Ubuntu, debian) and Xcode 5</li>
+.</ul>
+.<li>Added new binary out123 only with the audio output part of mpg123.
+.  This is a precursor to separating out said code into a simple audio output library. It also allows plugging in some processing in a pipe before feeding to output.</li>
+.<li>Prevent opendir(NULL) for unknown module directory when listing modules.</li>
+.<li>some build fixes, among those fixing mpg123-id3dump on Windows</li>
+.</ul>
+
 :date 2014-03-08
 :by Thomas
 :title Flexing your ARMs with mpg123 1.19.0
