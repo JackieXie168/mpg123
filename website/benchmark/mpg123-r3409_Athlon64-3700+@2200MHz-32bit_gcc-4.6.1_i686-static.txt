@@ -1,0 +1,14 @@
+#mpg123 benchmark (user CPU time in seconds for decoding)
+#decoder	t_s16/s	t_f32/s
+SSE	6.14	6.42
+SSE_vintage	6.18	6.41
+3DNowExt	6.28	8.25
+3DNowExt_vintage	6.83	8.77
+3DNow	8.09	8.23
+3DNow_vintage	8.66	8.76
+MMX	6.56	8.24
+i586	8.95	8.30
+i586_dither	9.67	8.22
+i386	8.91	8.26
+generic	8.90	8.27
+generic_dither	9.53	8.23
