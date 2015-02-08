@@ -4,7 +4,7 @@
 .<p>
 .I revoked my PGP key recently, as it was getting long in the tooth and short in the cryptography.
 .If you fetched the key with the fingerprint<br />
-.<strong>7236 3885 A742 B736 E0C8  9721 9B4C 52BC D446 D524<strong><br />
+.<strong>7236 3885 A742 B736 E0C8  9721 9B4C 52BC D446 D524</strong><br />
 .recently, you will get a warning when verifying signatures of mpg123 releases up to 1.21.0 .
 .I messed up the process, so the new key is not signed with the old one. You'll just have
 .to establish the trust somehow when the upcoming releases are signed with my new key
