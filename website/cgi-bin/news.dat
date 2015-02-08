@@ -1,3 +1,18 @@
+:date 2015-02-08
+:by Thomas
+:title PGP key revokation
+.<p>
+.I revoked my PGP key recently, as it was getting long in the tooth and short in the cryptography.
+.If you fetched the key with the fingerprint<br />
+.<strong>7236 3885 A742 B736 E0C8  9721 9B4C 52BC D446 D524<strong><br />
+.recently, you will get a warning when verifying signatures of mpg123 releases up to 1.21.0 .
+.I messed up the process, so the new key is not signed with the old one. You'll just have
+.to establish the trust somehow when the upcoming releases are signed with my new key
+.with the fingerprint<br />
+.<strong>D021 FF8E CF4B E097 19D6  1A27 231C 4CBC 60D5 CAFE</strong><br />
+..
+.</p>
+
 :date 2014-10-11
 :by thomas
 :title Some housekeeping with mpg123 1.21.0
