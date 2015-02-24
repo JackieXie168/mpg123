@@ -1,3 +1,19 @@
+:date 2015-02-24
+:by Thomas
+:title mpg123 1.22.0
+.<p>
+.And here it is, mpg123 version 1.22.0 with these changes:
+.</p>
+.<ul>
+.<li>Build fix: Avoid name clash on OSX SDK with "normal" being defined in an enum already.</li>
+.<li>More resilience against folks who do not check errors and rather pass NULL pointers around (see NEWS.libmpg123).</li>
+.<li>Fix WAV writing to stdout on Windows (bug 214).</li>
+.<li>Rework Xing/Info/Lame tag parsing, also detecting short ones without the TOC now.
+.In addition, the warning about file size being off is a _lot_ more accurate now.</li>
+.</ul>
+.<p>Note that the new release is signed with my new PGP key with the fingerprint
+.D021 FF8E CF4B E097 19D6  1A27 231C 4CBC 60D5 CAFE.</p>
+
 :date 2015-02-08
 :by Thomas
 :title PGP key revokation
