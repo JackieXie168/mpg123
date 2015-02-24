@@ -34,7 +34,7 @@
 :title Some housekeeping with mpg123 1.21.0
 .<ul>
 .<li>Use LL as shortcut for LOADLIST remote command, L is taken already (<a href="http://mpg123.org/bugs/210">bug 210</a>).</li>
-.<li>Less namespace pollution (MPG123_EXPORT in header instead of EXPORT, <a href="http://mpg123.org/bugs/212>bug 212</a>).</li>
+.<li>Less namespace pollution (MPG123_EXPORT in header instead of EXPORT, <a href="http://mpg123.org/bugs/212">bug 212</a>).</li>
 .</ul>
 
 :date 2014-06-17
