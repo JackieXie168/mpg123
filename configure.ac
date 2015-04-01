@@ -8,10 +8,10 @@ dnl Require autoconf version >= 2.57
 AC_PREREQ(2.57)
 
 dnl ############# Initialisation
-AC_INIT([mpg123], [1.23.0], [mpg123-devel@lists.sourceforge.net])
+AC_INIT([mpg123], [1.22.0], [mpg123-devel@lists.sourceforge.net])
 dnl Increment API_VERSION when the API gets changes (new functions).
 API_VERSION=41
-LIB_PATCHLEVEL=1
+LIB_PATCHLEVEL=0
 dnl Since we want to be backwards compatible, both sides get set to API_VERSION.
 LIBMPG123_VERSION=$API_VERSION:$LIB_PATCHLEVEL:$API_VERSION
 AC_SUBST(LIBMPG123_VERSION)
@@ -2399,8 +2399,6 @@ fi
 dnl ############## Final Output
 
 # Do that here to prevent the above tests usign -lltdl...
-LIBMPG123_LIBS=$LIBS
-AC_SUBST(LIBMPG123_LIBS)
 if test "x$modules" = xenabled; then
   LIBS="-lltdl $LIBS"
 fi
