@@ -1,3 +1,33 @@
+:date 2015-04-01
+:by Thomas
+:title mpg123 1.22.1 fixing stupid bugs and builds (stupid or not;-)
+.<p>
+.This is a heartily recommened update for anyone. The bugs are not of the
+.execute-funny-code type, but still ugly.
+.</p>
+.<ul>
+.<li>
+.Fix mpg123-id3dump when writing images with funny (manipulated) MIME type.
+.Stupid mistake in length computation of the fallback file extension caused
+.junk from memory being appended to the filename if the pointer size
+.is less than 64 bit. For 64 bit pointers (or longer) it was correct by
+.accident.
+.</li>
+.<li>
+.Fix pedantic build by cleaning up out123 source, also now really showing
+.the encoding list in --longhelp instead of possibly, again, writing junk
+.from memory in there.
+.</li>
+.<li>
+.Not linking libmpg123 against libltdl anymore (bug 215).
+.</li>
+.<li>
+.Update MSVC++ ports a bit to make them work again.
+.</li>
+.</ul>
+.<p>Also, distro maintainers ... please include the diff from 1.22.0 if it applies
+.(you employ a version providing mpg123-id3dump and out123).</p>
+
 :date 2015-02-24
 :by Thomas
 :title mpg123 1.22.0
