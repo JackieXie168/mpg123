@@ -1,0 +1,4 @@
+#mpg123 benchmark (user CPU time in seconds for decoding)
+#decoder	t_s16/s	t_f32/s
+generic	104.50	100.01
+generic_dither	119.93	98.52
