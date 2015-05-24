@@ -629,8 +629,6 @@ int open_output(audio_output_t *ao)
 		exit(110);
 	}
 
-	ao->framesize = ao->channels * mpg123_encsize(ao->format);
-
 	switch(param.outmode)
 	{
 		case DECODE_AUDIO:
