@@ -1,3 +1,11 @@
+:date 2015-05-24
+:by Thomas
+:title mpg123 1.22.2 fixing buffer for 24 bit sample format
+.<p>This release adds a bugfix for the combination of buffered playback
+.with 24 bit sample format. This simply did not work before, because
+.the buffer process was not aware of the non-trivial PCM frame size
+.(no divisor of 32768).</p>
+
 :date 2015-04-01
 :by Thomas
 :title mpg123 1.22.1 fixing stupid bugs and builds (stupid or not;-)
