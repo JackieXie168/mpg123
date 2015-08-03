@@ -1,3 +1,14 @@
+:date 2015-08-03
+:by Thomas
+:title mpg123 1.22.3 with a little UTF-16 fix
+.<p>This is a stop-gap release including the fix for
+.<a href="http://mpg123.org/bugs/216">bug 216</a>,
+.avoiding spurious surrogate detection with UTF-16 in ID3v2 data.
+.</p>
+.<p>There are some interesting changes in trunk awaiting release with the next
+.feature version, which shall include libout123 and general build system
+.fixup (non-recursive make).</p>
+
 :date 2015-05-24
 :by Thomas
 :title mpg123 1.22.2 fixing buffer for 24 bit sample format
