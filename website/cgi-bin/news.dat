@@ -1,3 +1,11 @@
+:date 2015-08-12
+:by Thomas
+:title mpg123 1.22.4, a regression fix
+.<p>
+.With mpg123 version 1.14.1, free format support got broken by a bugfix. Classic regression.
+.This release fixes that and a regression test has been added to the repository.
+.</p>
+
 :date 2015-08-03
 :by Thomas
 :title mpg123 1.22.3 with a little UTF-16 fix
