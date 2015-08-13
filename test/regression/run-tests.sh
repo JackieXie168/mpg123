@@ -2,4 +2,4 @@
 
 export MPG123_PREFIX=$1
 make clean
-make
+make $2
