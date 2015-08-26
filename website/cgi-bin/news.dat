@@ -1,3 +1,93 @@
+:date 2015-0826
+:by Thomas
+:title Do you flush after draining your buffer into the sink?
+.<p>
+.Hacking on libout123, the second coming of mpg123's output handling code
+.in form of a re-usable library, I am repeatedly annoyed by some clash of terms.
+.Mind, English is not my native tongue, but I reckon that may also be the case
+.for folks who are responsible for the terminology around audio devices.
+.</p>
+.<p>
+.My point is this: <em>drain</em> and <em>flush</em> are rather close in meaning in the real
+.world. As verbs, both relate to an outflow of liquid from something.
+.They can both mean to get rid of said liquid, it ending up in the â€¦ well â€¦
+.in the drain (not the well, where it may come from). Their meaning can be
+.rather directly opposed, too. In agriculture, to flush an area is to flood
+.it with water. To drain it is to remove the water, possibly attemping
+.to turn swamp into farmland.
+.</p>
+.<p>
+.Once you start visualizing audio data (which stems from a transcription of
+.air pressure variations) or any kind of <em>flowing</em> data  as a stream
+.(of liquid, which still would technically
+.include air), you got all that rich sanitation language ready at your
+.disposal. So, we got streaming, pipes, sinks, draining, flushing,
+.Interestingly, I never heard the term <em>spring</em> or <em>well</em> being used, just
+.the boring source. But that may be a glimpse of sanity as <em>source</em> is
+.rather well-defined in any context, unlike, well, <em>well</em>.
+.</p>
+.<p>
+.Regarding the dreaded <em>drain</em> vs. <em>flush</em> (which also is an adjective with
+.a rather weakly related meaning, in addition to a noun and a verb), there is a
+.very important difference when applied to audio APIs:
+.</p>
+.<ul>
+.<li>drain: Push all pending audio data to the device, make it heard.</li>
+.<li>flush: Get rid of the data, silently and quickly.</li>
+.</ul>
+.<p>
+.Well, that's why I see <em>drop</em> and <em>drain</em> in the ALSA API instead
+.of <em>flush</em> and <em>drain</em>. Someone figured that out long ago.
+.But in the mpg123 source, I get confused by someone (maybe even myself)
+.before me having thought of "flushing" things. In the code, the word ended
+.up being used in both the meaning of <em>drop</em> and of <em>drain</em>.
+.A mess, of course. But even when correcting
+.that, there is no escape: You can write audio data to disk, where
+.it ends up in a normal file. Using the stdio API, that means that to drain
+.the audio to your imagined speakers (the storage device), you have to call
+.fflush(). Flush to drain, here it is again!
+.</p>
+.<p>
+.One explanation for this confusion of sanitation-related words might be
+.programmers are not the most savvy people around bathrooms. They often talk
+.of plumbing, but mostly between software layers. Software, not wetware.
+.</p>
+.<p>
+.Another simple explanation is that the English language (including
+.bastardized variants around the globe, deal with being part of a minoriry,
+.dear British gentlepeople)
+.sucks for handling
+.streams of data or liquids, wich is a bit harder than only sucking air.
+.There are words with way too many meanings (yes, like using "way" this way)
+.that can lead to too many contradictions depending on context.
+.This ambiguity might be nice for easily getting some methaphors churned out,
+.but there is this tendency that in an explosion of meaning a hungry
+.thesaurus rex may appear and violently demolish your nicely designed
+.thought construct.
+.</p>
+.<p>
+.What I actually wanted to get across: There is a word that should have been
+.chosen for the audio-related use of flush as opposed to drain. While both
+.<em>flush</em> and <em>drain</em> suggest that things end up in the sink
+.(which leads down the drain), there is a word that makes it clear that things
+.do not end up where they normally would. And also, it conveys a swiftness of
+.action while emptying the erstwhile container.
+.</p>
+.<p>
+.I hereby propose to use the term <em><strong>spill</strong></em>.
+.</p>
+.<p>
+.It's nicely defined for
+.quickly getting your liquid to a place where it usually is not retrievable
+.from and definitely not where you originally intended it to be.
+.It is likely that I'll go with out123_drop() anyway, for familiarity for folks
+.knowing other APIs, but it is tempting to use out123_spill() instead to
+.stay in the picture of managing streams/buckets of liquids.
+.But I am not sure what a nice plumbing-related name would be for out123_play(),
+.out123_pour() perhaps? That's got some french ring to it, but of course in
+.meaning far removed from the french <em>pour</em>.
+.</p>
+
 :date 2015-08-12
 :by Thomas
 :title mpg123 1.22.4, a regression fix (updated)
@@ -356,7 +446,7 @@
 .<li>Now freeing meta data memory after printout.</li>
 .<li>Some documentation cleanup, including manpage fixes by quadrispro.</li>
 .<li>Re-enabled wildcard expansion on Windows (been broken by unicode file name support).</li>
-.<li>Fix MMX tabinit syntax (thanks to Marcel Müller for pointing that out).</li>
+.<li>Fix MMX tabinit syntax (thanks to Marcel MÃ¼ller for pointing that out).</li>
 .<li>Fix SGI audio output (been broken since change to modules).</li>
 .<li>Fix some fringe behaviour (mpg123_getformat() triggering needless reading of next frame, possibly hitting bogus MPG123_NEED_MORE).</li>
 .<li>Resync limit now also serves to increase amount of skipped junk on beginning.</li>
@@ -640,7 +730,7 @@
 
 :date 2010-03-31
 :by Thomas
-:title A large déjà vu: mpg123 1.12.0 fixes the future for large file support, again.
+:title A large dÃ©jÃ  vu: mpg123 1.12.0 fixes the future for large file support, again.
 .<p>Please forget the previous release, 1.11.0 . The libmpg123_64.so it introduced on largefile-sensitive systems is gone now. The interfaces for applications using system default file offsets and those using enabled large file support are unified in one libmpg123.so now.
 .Version 1.12.0 of mpg123 shall mark the first stable ABI for such systems since mpg123 1.4.x, after which libmpg123.so usually offered only the interface for large files. Please, please: Update to this one so that emerging users of libmpg123 do not get bitten by an inconsistent base of mpg123 installations with incompatible libraries.</p>
 .<p>As a side effect of dual mode hacking, replacement I/O using client-provided handles (void pointer) has been added to the API. Oh, and the introduction of AI_ADDRCONFIG has been made conditional based on the actual availability of that flag on a system (that helps OpenBSD).</p>
