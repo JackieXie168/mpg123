@@ -1,4 +1,4 @@
-:date 2015-0826
+:date 2015-08-26
 :by Thomas
 :title Do you flush after draining your buffer into the sink?
 .<p>
@@ -9,9 +9,9 @@
 .</p>
 .<p>
 .My point is this: <em>drain</em> and <em>flush</em> are rather close in meaning in the real
-.world. As verbs, both relate to an outflow of liquid from something.
+.world. As verbs, both may relate to an outflow of liquid from something.
 .They can both mean to get rid of said liquid, it ending up in the … well …
-.in the drain (not the well, where it may come from). Their meaning can be
+.in the drain (not the <em>well</em>, where it may come from). Their meaning can be
 .rather directly opposed, too. In agriculture, to flush an area is to flood
 .it with water. To drain it is to remove the water, possibly attemping
 .to turn swamp into farmland.
@@ -21,9 +21,9 @@
 .air pressure variations) or any kind of <em>flowing</em> data  as a stream
 .(of liquid, which still would technically
 .include air), you got all that rich sanitation language ready at your
-.disposal. So, we got streaming, pipes, sinks, draining, flushing,
+.disposal. So, we got streaming, pipes, sinks, draining, flushing.
 .Interestingly, I never heard the term <em>spring</em> or <em>well</em> being used, just
-.the boring source. But that may be a glimpse of sanity as <em>source</em> is
+.the boring <em>source</em>. But that may be a glimpse of sanity as <em>source</em> is
 .rather well-defined in any context, unlike, well, <em>well</em>.
 .</p>
 .<p>
@@ -39,7 +39,7 @@
 .Well, that's why I see <em>drop</em> and <em>drain</em> in the ALSA API instead
 .of <em>flush</em> and <em>drain</em>. Someone figured that out long ago.
 .But in the mpg123 source, I get confused by someone (maybe even myself)
-.before me having thought of "flushing" things. In the code, the word ended
+.before me having thought of <em>flushing</em> things. In the code, the word ended
 .up being used in both the meaning of <em>drop</em> and of <em>drain</em>.
 .A mess, of course. But even when correcting
 .that, there is no escape: You can write audio data to disk, where
@@ -58,7 +58,7 @@
 .dear British gentlepeople)
 .sucks for handling
 .streams of data or liquids, wich is a bit harder than only sucking air.
-.There are words with way too many meanings (yes, like using "way" this way)
+.There are words with way too many meanings (yes, like using <em>way</em> this way)
 .that can lead to too many contradictions depending on context.
 .This ambiguity might be nice for easily getting some methaphors churned out,
 .but there is this tendency that in an explosion of meaning a hungry
@@ -79,13 +79,17 @@
 .<p>
 .It's nicely defined for
 .quickly getting your liquid to a place where it usually is not retrievable
-.from and definitely not where you originally intended it to be.
+.from, and definitely not where you originally intended it to be.
 .It is likely that I'll go with out123_drop() anyway, for familiarity for folks
 .knowing other APIs, but it is tempting to use out123_spill() instead to
 .stay in the picture of managing streams/buckets of liquids.
-.But I am not sure what a nice plumbing-related name would be for out123_play(),
+.I am not sure what a nice plumbing-related name would be for out123_play(),
 .out123_pour() perhaps? That's got some french ring to it, but of course in
 .meaning far removed from the french <em>pour</em>.
+.</p>
+.<p>
+.Perhaps it is already a mistake trying to write down programs with clear meaning using
+.words from <em>any</em> language used and abused by humans for centuries.
 .</p>
 
 :date 2015-08-12
