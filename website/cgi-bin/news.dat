@@ -5,33 +5,33 @@
 .The most prominent ones:
 .</p>
 .<ul>
-.<li>Welcome <a href="http://mpg123.org/api/group__out123__api.shtml">libout123</a>!
+.<li>Welcome <a href="http://mpg123.org/api/group__out123__api.shtml"><strong>libout123</strong></a>!
 .The output part of the mpg123 program finally
 .got turned into a re-usable library focused on simply getting that
 .audio data out, with an <a href="http://mpg123.org/api/group__out123__api.shtml">API</a>
 .resembling writing to files with some fancy properties.
 .</li>
 .<li>
-.Along with the above, the internals regarding the buffering process and interaction
+.Along with the above, the internals regarding the <strong>buffering</strong> process and interaction
 .with it got reworked a lot. Of course I mean improvements, but that also always
 .can mean new bugs that testing should find before relase.
 .</li>
 .<li>
-.The terminal control got improved a bit, not only in relation with the buffer.
+.The <strong>terminal control</strong> got improved a bit, not only in relation with the buffer.
 .It is also active by default now if there is a terminal detected.
 .</li>
 .<li>
-.The status line printed in verbose mode now does not spill over your
+.The <strong>status line</strong> printed in verbose mode now does not spill over your
 .terminal boundary (causing annoying scrolling, rather quickly since
 .the line also got overly long with the buffer display).
 .It received a full overhaul,
 .too, packing more information more compactly and consistenly in there.
 .Feedback to these changes is particulary welcome, as that marks a rather
 .prominent departure from earlier times.
-.As a special gimmick, the line is now used as a visual progress bar, too,
+.As a special gimmick, the line is now used as a <strong>visual progress bar</strong>, too,
 .by reversing video in part of it.
 .</li>
-.<li>non-recursive build system; You always invoke make from the toplevel
+.<li><strong>non-recursive build system</strong>; You always invoke make from the toplevel
 .directory and give paths relative to that as targets. This improves
 .build reliability as we have proper dependencies in one tree.</li>
 .</ul>
