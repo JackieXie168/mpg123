@@ -1,3 +1,110 @@
+:date 2015-09-06
+:by Thomas
+:title Testers welcome for upcoming mpg123 with libout123 and lots of other goodies
+.<p>The next mpg123 release will be a big one, packing lots of changes.
+.The most prominent ones:
+.</p>
+.<ul>
+.<li>Welcome <a href="http://mpg123.org/api/group__out123__api.shtml">libout123</a>!
+.The output part of the mpg123 program finally
+.got turned into a re-usable library focused on simply getting that
+.audio data out, with an <a href="http://mpg123.org/api/group__out123__api.shtml">API</a>
+.resembling writing to files with some fancy properties.
+.</li>
+.<li>
+.Along with the above, the internals regarding the buffering process and interaction
+.with it got reworked a lot. Of course I mean improvements, but that also always
+.can mean new bugs that testing should find before relase.
+.</li>
+.<li>
+.The terminal control got improved a bit, not only in relation with the buffer.
+.It is also active by default now if there is a terminal detected.
+.</li>
+.<li>
+.The status line printed in verbose mode now does not spill over your
+.terminal boundary (causing annoying scrolling, rather quickly since
+.the line also got overly long with the buffer display).
+.It received a full overhaul,
+.too, packing more information more compactly and consistenly in there.
+.Feedback to these changes is particulary welcome, as that marks a rather
+.prominent departure from earlier times.
+.As a special gimmick, the line is now used as a visual progress bar, too,
+.by reversing video in part of it.
+.</li>
+.<li>non-recursive build system; You always invoke make from the toplevel
+.directory and give paths relative to that as targets. This improves
+.build reliability as we have proper dependencies in one tree.</li>
+.</ul>
+.<p>The need for testing is obvious, especially for those changes
+.relating to interactive use. I also did not look much at the generic
+.control interface. People with wrappers using that, please pipe up!
+.</p>
+.<p>A more complete list of changes (NEWS file):</p>
+.<ul>
+.<li>libmpg123 version 42
+.<ul>
+.<li>This adds mpg123_framelength() and makes mpg123_position() truly obsolete.</li>
+.<li>Equalizer optional now (--disable-equalizer) to save precious memory</li>
+.</ul>
+.</li>
+.<li>First incarnation of libout123, a basic library to get audio data written
+.to audio devices (or files). This collects the output modules of mpg123
+.and makes them available to the wider masses. Also, the buffer logic
+.(contained in libout123) got a lot of reworking which might be noticable
+.in the interaction with terminal control.
+.</li>
+.<li>Added mpg123 --no-infoframe.
+.</li>
+.<li>Detect terminal on input side and enable control keys automatically.
+.There is --no-control now to disable terminal control anyway.
+.</li>
+.<li>Avoid spillover of status line that caused unwanted terminal scrolling.
+.If the terminal width is smaller than the full status string, a cut is
+.made to make it fit.
+.</li>
+.<li>Draw a progress bar on the terminal by inversing colors behind status
+.line.
+.</li>
+.<li>Rework the format of the status line to be more compact and consistent.
+.</li>
+.<li>Clip decode tables for large amplification with fixed-point decoders.
+.Without that, high-pitched distortion enters really quickly when
+.trying to increase volume even if output samples would not be clipped,
+.weren't it for fixed-point math.
+.</li>
+.<li>Warning messages also start with a line break now to better fit in with
+.verbose playback.
+.</li>
+.<li>Reporting of clipped samples also includes a line break now.
+.</li>
+.<li>Default for --preload now is 0.2 instead of 1 (fill whole buffer before
+.playback). The maximum is 0.5 . This is mandated by corrected buffer
+.interaction in libout123.
+.</li>
+.<li>Improved interaction with buffer process in terminal control mode.
+.Seeking is more transparent now, taking dropped samples from buffer into
+.account to avoid unintended jumps. Direct seeks with number row do not
+.pause playback anymore.
+.</li>
+.<li>Silently skip APE tags (thanks to Hans de Goede).
+.</li>
+.<li>Some reduction in bitrot on AIX (typos in output module, build with
+.--disable-largefile --with-audio=aix, real test welcome).
+.</li>
+.<li>Added '[' and ']' keys to skip to previous/next directory in playlist.
+.</li>
+.<li>Added support for Haiku to configure script (thanks to Jerome Duval).
+.</li>
+.<li>Remove spurious Frankenstein warning when scanning files that have no
+.gapless info (the reported value of -1152 gapless sample length should be
+.a giveaway anyway).
+.</li>
+.<li>Fix a bug in the command line parser that was present from the beginning,
+.apparently, causing certain parameters (--au, --cdr) to kill off parsing
+.of following ones. Nobody complained in all these years. Astounding.
+.</li>
+.</ul>
+
 :date 2015-08-26
 :by Thomas
 :title Do you flush after draining your buffer into the sink?
