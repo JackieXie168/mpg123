@@ -39,6 +39,9 @@
 .relating to interactive use. I also did not look much at the generic
 .control interface. People with wrappers using that, please pipe up!
 .</p>
+.<div style="text-align:center; font-weight:bold">
+.Make sure you use the latest <a href="/snapshot">snapshot</a> or directly the svn trunk!
+.</div>
 .<p>A more complete list of changes (NEWS file):</p>
 .<ul>
 .<li>libmpg123 version 42
