@@ -60,4 +60,10 @@ hr { width:80%; }
 .newstitle { color: #ffffff; }
 .newsby { color: #bbbbbb; }
 
-.code { font-family: monospace; tab-size: 3; }
+.code
+{
+  font-family: monospace;
+  tab-size: 3;
+  -moz-tab-size: 3;
+  -o-tab-size: 3;
+}
