@@ -213,7 +213,7 @@
 .This regression bugs me so much that I prepared a little script to fix it
 .for any affected version you may have on your system with some reason
 .preventing you from simply upgrading. So, here it is:
-.<a href=download/mpg123-fix-freeformat-1.14.1-to-1.22.3.sh>mpg123-fix-freeformat-1.14.1-to-1.22.3.sh</a>.
+.<a href=/download/mpg123-fix-freeformat-1.14.1-to-1.22.3.sh>mpg123-fix-freeformat-1.14.1-to-1.22.3.sh</a>.
 .I hope operating system distribution maintainers will pick this up to avoid
 .having folks locked in suboptimal mpg123 functionality for whole
 .distribution release cycles.
