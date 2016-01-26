@@ -36,9 +36,11 @@ int main(int argc, char **argv)
 		out123_play(ao, inbuf, chunk);
 	}
 	out123_del(ao);
+
+	fprintf(stderr, "wrote output, comparing\n");
 	lseek(in, SEEK_SET, 0);
 	out = open(outfile, O_RDONLY);
-	fprintf(stderr, "wrote output, comparing\n");
+
 	/* Only coult output bytes that match. */
 	while(
 		read(out,outbuf,sizeof(outbuf)) == (chunk=read(in, inbuf, sizeof(inbuf)))
@@ -46,8 +48,10 @@ int main(int argc, char **argv)
 	&&	!memcmp(outbuf, inbuf, chunk)
 	)
 		outlen += chunk;
+	ret = inlen==outlen ? 0 : 1;
+
 	close(out);
 	close(in);
-	printf("%s\n", inlen==outlen ? "PASS" : "FAIL");
+	printf("%s\n", ret ? "FAIL" : "PASS");
 	return ret;
 }
