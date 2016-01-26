@@ -60,4 +60,4 @@ test-%: %.bin
 
 %.bin: %.c helpers.o
 	@echo "CC $@"
-	@$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) -lmpg123
+	@$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) -lmpg123 -lout123
