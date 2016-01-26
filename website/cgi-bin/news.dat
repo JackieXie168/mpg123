@@ -1,3 +1,23 @@
+:date 2016-01-27
+:by Thomas
+:tiyle Quick! Spot the obvious bugs in the upcomging mpg123-1.23 before I pull the trigger!
+.<p>
+.Download the <a href="test/mpg123-1.23.0-rc1.tar.bz2">mpg123-1.23 RC1 tarball</a>
+.(<a href="test/mpg123-1.23.0-rc1.tar.bz2.sig">signature</a> now and give it a spin
+.on your platform to avoid me making a fool of myself by releasing something obviously
+.broken. There is so much work that went into that release, but not so much testing
+.on platforms that the developer(s) do not use. So, please pull out your exotic rigs
+.(that includes OS X and Windows kit, from my personal perspective;-) and check if mpg123
+.builds without issues and the audio output still works.
+.</p>
+.<p>
+.I intend to make that release rather soon, so I'm thankful for quick notes about
+.success (in the history neutral sense of outcome) to the mailing list or directly
+.to <a href="mailto:maintainer@mpg123.org">me</a>. You can also drop by in IRC,
+.#mpg123 on freenode, and drop a line there. I may not respond, but I will pick it up
+.eventually.
+.</p>
+
 :date 2015-09-06
 :by Thomas
 :title Testers welcome for upcoming mpg123 with libout123 and lots of other goodies
