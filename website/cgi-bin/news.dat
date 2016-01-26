@@ -3,7 +3,7 @@
 :tiyle Quick! Spot the obvious bugs in the upcomging mpg123-1.23 before I pull the trigger!
 .<p>
 .Download the <a href="test/mpg123-1.23.0-rc1.tar.bz2">mpg123-1.23 RC1 tarball</a>
-.(<a href="test/mpg123-1.23.0-rc1.tar.bz2.sig">signature</a> now and give it a spin
+.(<a href="test/mpg123-1.23.0-rc1.tar.bz2.sig">signature</a>) now and give it a spin
 .on your platform to avoid me making a fool of myself by releasing something obviously
 .broken. There is so much work that went into that release, but not so much testing
 .on platforms that the developer(s) do not use. So, please pull out your exotic rigs
