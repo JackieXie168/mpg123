@@ -2,8 +2,8 @@
 :by Thomas
 :title Quick! Spot the obvious bugs in the upcomging mpg123-1.23 before I pull the trigger!
 .<p>
-.Download the <a href="test/mpg123-1.23.0-rc1.tar.bz2">mpg123-1.23 RC1 tarball</a>
-.(<a href="test/mpg123-1.23.0-rc1.tar.bz2.sig">signature</a>) now and give it a spin
+.Download the <a href="/test/mpg123-1.23.0-rc1.tar.bz2">mpg123-1.23 RC1 tarball</a>
+.(<a href="/test/mpg123-1.23.0-rc1.tar.bz2.sig">signature</a>) now and give it a spin
 .on your platform to avoid me making a fool of myself by releasing something obviously
 .broken. There is so much work that went into that release, but not so much testing
 .on platforms that the developer(s) do not use. So, please pull out your exotic rigs
@@ -25,10 +25,10 @@
 .The most prominent ones:
 .</p>
 .<ul>
-.<li>Welcome <a href="http://mpg123.org/api/group__out123__api.shtml"><strong>libout123</strong></a>!
+.<li>Welcome <a href="/api/group__out123__api.shtml"><strong>libout123</strong></a>!
 .The output part of the mpg123 program finally
 .got turned into a re-usable library focused on simply getting that
-.audio data out, with an <a href="http://mpg123.org/api/group__out123__api.shtml">API</a>
+.audio data out, with an <a href="/api/group__out123__api.shtml">API</a>
 .resembling writing to files with some fancy properties.
 .</li>
 .<li>
@@ -362,7 +362,7 @@
 .<li>Fix integer code to 32 bit numbers where it would waste 64 bit on modern systems.</li>
 .<li>Add non-executable stack marking also to ARM assembly.</li>
 .</ul>
-.<p>Get your fix from the <a href="download.shtml">download area</a>.</p>
+.<p>Get your fix from the <a href="/download.shtml">download area</a>.</p>
 
 :date 2014-02-16
 :by Thomas
@@ -381,7 +381,7 @@
 .</ul>
 .<p>Apart from the Frankenstein one (related to the recent parser fixes), those are not freshly
 .introduced regressions but issues that managed to hide for a respectable time.
-.Get your fix from the <a href="download.shtml">download area</a>.
+.Get your fix from the <a href="/download.shtml">download area</a>.
 .</p>
 
 :date 2014-01-31
@@ -404,7 +404,7 @@
 .<li>Send correct host header when connecting through HTTP proxy (<a href="/bugs/202">bug 202</a>, figured out by Rajeev V. Pillai).</li>
 .<li>The console application now informs about changed major stream properties (prints out another header line).</li>
 .</ul>
-.<p>Get it from the <a href="download.shtml">download area</a> right now. And distributions: Please consider upgrading from any version since 1.14.0 to 1.18.0 as a security fix.</p>
+.<p>Get it from the <a href="/download.shtml">download area</a> right now. And distributions: Please consider upgrading from any version since 1.14.0 to 1.18.0 as a security fix.</p>
 
 :date 2013-12-26
 :by Thomas
@@ -416,7 +416,7 @@
 .<li>build system tweaking</li>
 .<li>some care for fixing Cygwin builds</li>
 .</ul>
-.<p>Get it from the <a href="download.shtml">download area</a>.</p>
+.<p>Get it from the <a href="/download.shtml">download area</a>.</p>
 
 :date 2013-11-22
 :by Thomas
@@ -434,7 +434,7 @@
 .<p>We're back! With significant performance enhancements all across the board, mpg123 is up there on the peak of MPEG audio decoding efficiency again!
 .Though, we have to admit, this is a race with outcome depending on your setup. The contender ffmp3float as used from MPlayer (for some reason, usage from ffmpeg command-line tool is slower), can be faster or slower, generally not far from mpg123. On my old Core2Duo P8800, ffmp3float wins, on more modern Core i7 machines, mpg123 wins.
 .On an vintage Athlon 64, ffmp3float wins. On K10 (Athlon II), mpg123 wins. On older machines (K7, K6), we need some repeated tests, but it looked good already with old mpg123.</p>
-.<p>So, here is the full goodness, if you still want to read up on this before getting the current sources from the <a href="download.shtml">download</a> section.</p>
+.<p>So, here is the full goodness, if you still want to read up on this before getting the current sources from the <a href="/download.shtml">download</a> section.</p>
 .<ul>
 .<li>Taihei strikes again:
 .<ul>
