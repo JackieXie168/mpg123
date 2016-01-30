@@ -602,8 +602,8 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="42.3454"
-     inkscape:cy="93.272878"
+     inkscape:cx="116.81466"
+     inkscape:cy="162.99723"
      inkscape:document-units="px"
      inkscape:current-layer="g7599"
      showguides="false"
@@ -775,22 +775,28 @@
          inkscape:export-ydpi="56">
         <text
            xml:space="preserve"
-           style="font-size:55.3497963px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#204a87;fill-opacity:1;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans Condensed"
-           x="94.237831"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55.34942627px;line-height:100%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';text-align:start;letter-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#204a87;fill-opacity:1;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="91.238983"
            y="376.77039"
            id="text3907"
-           sodipodi:linespacing="125%"><tspan
+           sodipodi:linespacing="100%"><tspan
              sodipodi:role="line"
              id="tspan3909"
-             x="94.237831"
+             x="91.238983"
              y="376.77039"
-             style="stroke:#ffffff;stroke-opacity:1">mpg</tspan></text>
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55.34942627px;line-height:100%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';text-align:start;letter-spacing:-2.99885154px;writing-mode:lr-tb;text-anchor:start;stroke:#ffffff;stroke-opacity:1"><tspan
+   style="letter-spacing:-2.99885154px"
+   id="tspan4303"
+   dx="0 -6.3800011"><tspan
+   style="letter-spacing:0px"
+   id="tspan4305"
+   dx="6.3800011">m</tspan>p</tspan>g</tspan></text>
         <text
            sodipodi:linespacing="125%"
            id="text4808"
            y="376.48212"
            x="255.68808"
-           style="font-size:55.3497963px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#73d216;fill-opacity:1;stroke:#ffffff;font-family:DejaVu Sans Condensed;stroke-opacity:1;"
+           style="font-size:55.34942642px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#73d216;fill-opacity:1;stroke:#ffffff;font-family:sans-serif;stroke-opacity:1;-inkscape-font-specification:'sans-serif, Bold';"
            xml:space="preserve"><tspan
              y="376.48212"
              x="255.68808"
@@ -798,7 +804,7 @@
              sodipodi:role="line">2</tspan></text>
         <text
            xml:space="preserve"
-           style="font-size:55.3497963px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#204a87;fill-opacity:1;stroke:#ffffff;font-family:DejaVu Sans Condensed;stroke-opacity:1;"
+           style="font-size:55.34942642px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#204a87;fill-opacity:1;stroke:#ffffff;font-family:sans-serif;stroke-opacity:1;-inkscape-font-specification:'sans-serif, Bold';"
            x="221.21921"
            y="376.49161"
            id="text4812"
@@ -812,7 +818,7 @@
            id="text4816"
            y="376.53604"
            x="290.27411"
-           style="font-size:55.3497963px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ef2929;fill-opacity:1;stroke:#ffffff;font-family:DejaVu Sans Condensed;stroke-opacity:1;"
+           style="font-size:55.34942642px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#ef2929;fill-opacity:1;stroke:#ffffff;font-family:sans-serif;stroke-opacity:1;-inkscape-font-specification:'sans-serif, Bold';"
            xml:space="preserve"><tspan
              y="376.53604"
              x="290.27411"
