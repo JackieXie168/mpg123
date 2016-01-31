@@ -1,3 +1,116 @@
+:date 20160131
+:release 1.23.0
+:title Patent-free fun!
+:by Thomas
+.<p>After more than <strong>20 years<strong> of existence, the mpg123 project
+.reaches it's namesake version number a second time, after we forgot to
+.properly celebrate version 1.2.3 . All glory to mpg123 version 1.23.0!
+.Those 20 years also have another point: Those haunting <strong>software patents on
+.MP3 encoding and decoding are gone</string>, at least in Europe, according to
+.<a href="https://en.wikipedia.org/wiki/MP3">the Wikipedia article</a> (too
+.busy to do a deep investigation myself, and IANAL anyway). Seems like only you
+.poor lot in the US of A have to wait until end of 2017. But even then: technology
+.from the 1980s, patents from the early/mid (submarine) 1990s, unencumbered
+.use of MP3 player software originating from the mid 1990s finally possible in
+.the late 2010s. Quite a spread.
+.</p>
+.<p>But to the point: This is a massive release, after about a year of collecting
+.improvements and bug fixes. I took some liberty in changing behaviour regarding
+.console printouts. But the main point is the arrival of
+.<a href="/api/group__out123__api.shtml"><strong>libout123</strong></a>, which prevents
+.me from re-inventing audio output code for various platforms for my projects. Yes, I
+.got selfish motivation for working on Open Source code, and that's a good thing.
+.Anyhow, checkout the stuff at the <a href="/download.shtml">download section</a>
+.or stay around and keep reading the considerable list of changes:
+.</p>
+.<ul>
+.<li>libmpg123 version 42
+.<ul>
+.<li>This adds mpg123_framelength() and makes mpg123_position() truly obsolete.
+.</li><li>Equalizer optional now (./configure --disable-equalizer) to save precious
+.   memory
+.</li><li>Clip decode tables for large amplification with fixed-point decoders.
+.   Without that, high-pitched distortion enters really quickly when
+.   trying to increase volume even if output samples would not be clipped,
+.   weren't it for fixed-point math.
+.</ul>
+.</li><li>libout123 version 1: First incarnation of libout123, a basic library to
+.  get audio data written to audio devices (or files) in simple blocking
+.  manner as opposed to callback APIs (which it wraps over). This collects
+.  the output modules of mpg123 and makes them available to the wider
+.  masses. Also, the separate shared memory buffer process (contained
+.  in libout123) got a lot of reworking which should be noticable in the
+.  interaction with terminal control.
+.<ul>
+.<li>Some tuning of several output drivers (modules) regarding flexible
+.   buffer size, client names, supported formats.
+.</li><li>Notably the JACK output got a major overhaul and now does not swallow
+.   audio at the end anymore. Huge latency also reduced and tunable. Encoding
+.   fixed to floating point, so that libmpg123 actually chooses what is
+.   sensible.
+.</ul>
+.</li><li>Added mpg123 --no-infoframe.
+.</li><li>Detect terminal on input side and enable control keys automatically.
+.  There is --no-control now to disable terminal control anyway.
+.</li><li>Display stuff:
+.<ul>
+.</li><li>Avoid spillover of status line that caused unwanted terminal scrolling.
+.   If the terminal width is smaller than the full status string, a cut is
+.   made to make it fit.
+.</li><li>Draw a progress bar on the terminal by inversing colors behind status
+.   line.
+.</li><li>Rework the format of the status line to be more compact and consistent.
+.</li><li>Rework smart tag printout for adapting to terminal width.
+.</li><li>Warning messages also start with a line break now to better fit in with
+.   verbose playback.
+.</li><li>Doubly-verbose mode now needed for long MPEG header print out.
+.   It is a higher level of verbosity than printing the current position.
+.   The compact header is a better fit.
+.</li><li>Compact header printout also compacted, example:
+.   MPEG 1.0 L III cbr128 44100 j-s
+.</li><li>Reporting of clipped samples also includes a line break now.
+.</li><li>Keep ID3v2 data around for terminal control to be able to print on
+.   demand. That was broken for some time.
+.</ul>
+.</li><li>Default for --preload now is 0.2 instead of 1 (fill whole buffer before
+.  playback). The maximum is 0.5 . This is mandated by corrected buffer
+.  interaction in libout123.
+.</li><li>Improved interaction with buffer process in terminal control mode.
+.  Seeking is more transparent now, taking dropped samples from buffer into
+.  account to avoid unintended jumps. Direct seeks with number row do not
+.  pause playback anymore.
+.</li><li>Silently skip APE tags (thanks to Hans de Goede).
+.</li><li>Some reduction in bitrot on AIX (typos in output module, build with
+.  --disable-largefile --with-audio=aix, real test welcome).
+.</li><li>Added '[' and ']' keys to skip to previous/next directory in playlist.
+.</li><li>Added support for Haiku to configure script (thanks to Jerome Duval).
+.</li><li>Remove spurious Frankenstein warning when scanning files that have no
+.  gapless info (the reported value of -1152 gapless sample length should be
+.  a giveaway anyway).
+.</li><li>Fix a bug in the command line parser that was present from the beginning,
+.  apparently, causing certain parameters (--au, --cdr) to kill off parsing
+.  of following ones. Nobody complained in all these years. Astounding.
+.</li><li>Forget content type from HTTP redirects (relate to error pages, not the
+.  stream redirected to), fixes web radio streams that do not send any
+.  content type for the actual stream.
+.</li><li>Accept application/pls+xml for PLS playlists. It happens. Don't ask
+.  mpg123 to actually parse any XML!
+.</li><li>Ignore whitespace after HTTP MIME types (esp. before a ";").
+.</li><li>Added --name to mpg123 and out123 for providing client name p.ex. for JACK.
+.  There is no default of appending the PID to "mpg123" as client name anymore,
+.  just plain "mpg123" or "out123".
+.</li><li>Added --devbuffer to mpg123 and out123 for influencing device buffer and
+.  possible latency a bit (perhaps more so in future when drivers are adapted
+.  to pay more attention to that).
+.</li><li>Added out123 --channels <n>, --list-encodings, --test-format,
+.  --test-encodings, --query-format.
+.</li><li>Calling ./configure --enable-nagging does not include --enable-debug anymore,
+.  you specify that separately.
+.</li><li>Fix for newer glibc that wants higher POSIX feature test for getaddrinfo()
+.  stuff.
+.</ul>
+
+
 :date 2016-01-27
 :by Thomas
 :title Quick! Spot the obvious bugs in the upcomging mpg123-1.23 before I pull the trigger!
