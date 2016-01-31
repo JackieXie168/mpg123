@@ -4,7 +4,9 @@
 :by Thomas
 .<p>After more than <strong>20 years</strong> of existence, the mpg123 project
 .reaches it's namesake version number a second time, after we forgot to
-.properly celebrate version 1.2.3. All glory to mpg123 version 1.23.0!
+.properly celebrate version 1.2.3 (meaning: introducing some artificial
+.bugs to fix, reaching 1.2.3 before 1.3.0 so that there had been a version
+.1.2.3 — what a miss!). All glory to mpg123 version 1.23.0!
 .Those 20 years also have another point: The haunting <strong>software patents on
 .MP3 encoding and decoding are gone</strong>, at least in Europe, according to
 .<a href="https://en.wikipedia.org/wiki/MP3">the Wikipedia article</a> (too
