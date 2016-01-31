@@ -4,6 +4,8 @@
 <body>
 	<!--#include file="linkbar.html" -->
 	<h1>Features</h1>
+
+	<h2>mpg123 the player</h2>
 	<p>
 		We all know that mpg123 is the fast console mpeg audio decoder/player, don't we? But here are some things that go beyond simple decoding:
 	</p>
@@ -17,15 +19,47 @@
 			<li>many audio data settings: resampling, choose channel, mono, ...</li>
 			<li><em>really</em> efficient with a growing number of assembler optimizations (pentium, MMX, AltiVec, ...)</li>
 			<li>support for Relative Volume Adjustment / ReplayGain</li>
+			<li>… see the feature list of <a href="#libmpg123">libmpg123</a></li>
+			<li>several audio output options using <a href="#libout123">libout123</a></li>
 		</ul>
 	</div>
 
+	<h2 id="libmpg123">libmpg123</h2>
 	<p>
-		Also, especially for the simple decoding, the decoder part of mpg123 is usable as a library in <em>your</em> application!
+		The decoder part of mpg123 is usable as a library in <em>your</em> application.
+		Features include:
 	</p>
+	<ul>
+		<li>decoding of MPEG 1.0/2.0/2.5 layer I/II/III audio streams to interleaved PCM,
+		also free-format bitrates over 320&nbsp;kbit/s</li>
+		<li>sample-accurate seeking and gapless playback (via
+		<a href="http://lame.sourceforge.net/">LAME</a> Info frame)</li>
+		<li>choice of sample encoding (from 8 bit µlaw to 32 bit float), mono mix</li>
+		<li>build-time choice for integer or floating-point synth</li>
+		<li>assembly/SIMD optimisations for common sample encodings and decoding modes</li>
+		<li>choices between accuracy and efficiency (rounding modes, dithering)</li>
+		<li>efficient 2:1 or 4:1 downsampling, sparing decoder work to evaluate the
+		dropped samples</li>
+		<li>n:m pseudo-resampler (repeat/drop samples without interpolation)
+		as last resort to enable playback with enforced sample rate</li>
+		<li>tune frequency scale factors for zero-cost equaliser (with 32 linearly-spaced
+		bands given my MPEG; not pretty, but hey, it's free!)</li>
+		<li>tune volume via scale factors, again without extra CPU cost</li>
+		<li>parse and apply relative volume adjustment read from metadata
+		(RVA2, ReplayGain)</li>
+		<li>parse ID3v1, ID3v2 and ICY stream metadata (with configured interval),
+		silenty skip other stuff</li>
+		<li>graceful handling of stream errors (silence instead of whiny twittering)</li>
+		<li>disabling of features to enable smaller builds for embedded systems
+		(a generic 64 bit float-output binary of from mpg123-1.23.0
+		using gcc-4.9.2 with <code>-Os</code> is 118&nbsp;KiB stripped, still with
+		all the essential sample-accurate codec functionality)</li>
+	</ul>
 
+	<h2 id="libout123">libout123</h2>
 	<p>
-		mpg123 supports a wide range of audio interfaces, including:
+		The mpg123 output library (libout123)
+		supports a wide range of audio interfaces, including:
 	</p>
 	<ul>
 		<li><a href="http://www.alsa-project.org/">ALSA</a> (Advanced Linux Sound Architecture)</li>
@@ -40,4 +74,6 @@
 		<li>Sun Audio (/dev/audio)</li>
 		<li>Win32 (Windows WaveOut)</li>
 	</ul>
+	<p>It also wraps over an optional buffer process to ensure continuous playback without
+	having to deal with concurrency in the application itself.</p>
 <!--#include file="footer.html" -->

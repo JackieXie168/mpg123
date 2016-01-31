@@ -9,10 +9,12 @@
 <p>
 The mpg123 distribution contains a
 real time MPEG 1.0/2.0/2.5 audio player/decoder
-for layers 1,2 and 3 (most commonly MPEG 1.0 layer 3 aka MP3).
+for layers 1,2 and 3 (most commonly MPEG 1.0 layer 3 aka MP3),
+as well as re-usable decoding and output <a href="/api/">libraries</a>.
 Among others, it works on GNU/Linux, MacOSX, the BSDs, Solaris,
 AIX, HPUX, SGI Irix, OS/2 and Cygwin or plain MS Windows
 (not all more exotic platforms tested regularily, but patches welcome).
+You may jump to the non-exhaustive <a href="features.shtml">list of features</a>.
 </p>
 <p>
 It is free software licensed under LGPL 2.1 .
