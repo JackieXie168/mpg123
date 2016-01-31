@@ -109,7 +109,9 @@
 .</li><li>Fix for newer glibc that wants higher POSIX feature test for getaddrinfo()
 .  stuff.
 .</ul>
-
+.<p>Oh, and a little technical detail I forgot in the official NEWS: The build
+.system got reworked. No recursive Makefiles anymore!
+.</p>
 
 :date 2016-01-27
 :by Thomas
