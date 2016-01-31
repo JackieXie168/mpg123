@@ -2,11 +2,11 @@
 :release 1.23.0
 :title Patent-free fun!
 :by Thomas
-.<p>After more than <strong>20 years<strong> of existence, the mpg123 project
+.<p>After more than <strong>20 years</strong> of existence, the mpg123 project
 .reaches it's namesake version number a second time, after we forgot to
-.properly celebrate version 1.2.3 . All glory to mpg123 version 1.23.0!
-.Those 20 years also have another point: Those haunting <strong>software patents on
-.MP3 encoding and decoding are gone</string>, at least in Europe, according to
+.properly celebrate version 1.2.3. All glory to mpg123 version 1.23.0!
+.Those 20 years also have another point: The haunting <strong>software patents on
+.MP3 encoding and decoding are gone</strong>, at least in Europe, according to
 .<a href="https://en.wikipedia.org/wiki/MP3">the Wikipedia article</a> (too
 .busy to do a deep investigation myself, and IANAL anyway). Seems like only you
 .poor lot in the US of A have to wait until end of 2017. But even then: technology
