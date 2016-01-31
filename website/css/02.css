@@ -69,7 +69,7 @@ p
 {
 	text-align:justify;
 	max-width: 90ch;
-	min-width: 30ch
+	min-width: 30ch;
 	margin:auto; 
 }
 ul, ol
@@ -125,8 +125,12 @@ hr { width:80%; }
 .newstitle { color: #ffffff; }
 .newsby { color: #bbbbbb; }
 
-.num:before
+/* Draw line numbers for code blocks, magically not interfering
+   with text selection. */
+.num::before
 {
+	/* Great, does not validate because of a validator bug:
+	   https://github.com/w3c/css-validator/issues/24 */
 	content: attr(data-num);
 	color: #888888;
 }
@@ -181,6 +185,12 @@ ul.vmenu li:hover
 	background-color: #ffff33;
 }
 
+/* Fill the li block to make it clickable (mostly).
+   W3C does not like putting the a tag around li. */
+ul.vmenu a
+{
+	display:block;
+}
 ul.vmenu
 {
 	text-align: center;
@@ -250,4 +260,9 @@ div.end
 	font-size: 0.6em;
 	color: #888888;
 	text-align: center;
+}
+
+div.w3c
+{
+	text-align: right;
 }

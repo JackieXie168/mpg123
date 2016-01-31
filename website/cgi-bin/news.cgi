@@ -134,7 +134,7 @@ sub NewsHead
     my $release = defined $head->{release}
         ? "Releasing <a href=\"/download/mpg123-$head->{release}.tar.bz2\">mpg123 version $head->{release}</a>: "
         : "";
-    print "<div class=\"newshead\"><a name=\"$head->{date}\"></a><a href=\"#\"><span class=\"newsdate\">$head->{date}</span> ";
+    print "<div class=\"newshead\"><a id=\"$head->{date}\"></a><a href=\"#\"><span class=\"newsdate\">$head->{date}</span> ";
     print "<span class=\"newsby\">$head->{by}:</span> " if $head->{by};
     print "<span class=\"newstitle\">$release$head->{title}</span></a></div>\n";
 }

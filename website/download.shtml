@@ -39,14 +39,14 @@
 	<p>Development happens in the subversion repository on scm.orgis.org:</p>
 	<div style="text-align:center;font-weight:bold;">svn://scm.orgis.org/mpg123/trunk</div>
 	<p>You can also browse it via the <a href="cgi-bin/viewvc.cgi">ViewVC web interface</a>. You can get snapshots from both places. </p>
-	<p>A nightly tarball with the the autotool stuff prepared is at <a href="/snapshot">http://mpg123.org/snapshot</a>.</a>
+	<p>A nightly tarball with the the autotool stuff prepared is at <a href="/snapshot">http://mpg123.org/snapshot</a>.</p>
 
 	<h2>Archived Downloads</h2>
 
 	<p>
 		Old downloads as well as gzipped variants of the bzipped tarballs are to be found either on the
 		<a href="http://sourceforge.net/project/showfiles.php?group_id=135704">sourceforge.net files section</a>
-		or in the local <a href="download/?V=1&O=D">download directory</a>.
+		or in the local <a href="download/?V=1&amp;O=D">download directory</a>.
 	</p>
 
 	<h2>Historic downloads from Michael&acute;s site</h2>

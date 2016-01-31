@@ -19,7 +19,7 @@
 		one <a href="http://sourceforge.net/mailarchive/forum.php?thread_name=20110112114017.57cd4507%40dunkelstern&amp;forum_name=mpg123-users">thread on the users list</a>.
 	</p>
 
-	<h2><a name="textrel"></a>libmpg123 has evil TEXTRELs (on x86)</h2>
+	<h2><a id="textrel"></a>libmpg123 has evil TEXTRELs (on x86)</h2>
 	<p>
 		If you are terminally offended by those, disable the assembly optimizations.
 	</p>
@@ -37,7 +37,7 @@
 	<h2>I want to port some old code using mpglib to libmpg123.</h2>
 	<p>For that case, the feeder API has been introduced in addition to the file-based API. Have a look at the examples, specifically <a href="/api/mpglib_8c.shtml">the mpglib-like example</a>. Make also sure to read the API documentation about the feeder API ... and the stuff about output formats.
 
-	<h2><a name="alsacpu"></a>Hey, mpg123 uses way too much CPU time on Linux!</h2>
+	<h2><a id="alsacpu"></a>Hey, mpg123 uses way too much CPU time on Linux!</h2>
 	<p>
 		You just installed the fast and lean UNIX command line MPEG audio player and gaze agape at the high CPU load you see while playing a track.
 		You even have a standard GNU/Linux setup with ALSA sound, no fancy audio daemons roaming around... is mpg123 such a CPU hog?
@@ -58,7 +58,7 @@ mpg123 -a hw:0,0 myfile.mp3
 	</p>
 	<p>It may be an additional bug that on my (Thomas) machine, the CPU load with the ALSA default device increases after some time to a ridiculous number of around 30% (on a Core2Duo, clocked between 800 and 1200MHz).</p>
 
-	<h2><a name="lame">I want to use LAME in a non-GPL way and need permission for using the included mpglib</a></h2>
+	<h2><a id="lame">I want to use LAME in a non-GPL way and need permission for using the included mpglib</a></h2>
 	<p>
 		That request is coming quite often. The issue is that current mpg123 and libmpg123 is LGPL and <em>I</em> as maintainer am fine with usage of code from mpg123 under these terms, while the mpglib in LAME is older and still under GPL.
 		There may be changes to the mpglib made by people who don't want their work used under LGPL instead of GPL.
@@ -76,7 +76,7 @@ mpg123 -a hw:0,0 myfile.mp3
 		LAME and mpg123 development teams are small and not paid for that work (AFAIK that's the case for both). Your help is appreciated.
 	</p>
 
-	<h2><a name="lfs"></a>Mismatch in large file setup!</h2>
+	<h2><a id="lfs"></a>Mismatch in large file setup!</h2>
 	<p>You try to compile a program using libmpg123 on GNU/Linux or Solaris and get this:</p>
 	<pre>
 /usr/local/include/mpg123.h:37:2: error: #error &quot;Mismatch in large file setup! 
@@ -94,7 +94,7 @@ mpg123 -a hw:0,0 myfile.mp3
 	</ol>
 	<p>Note that just disabling large file support in libmpg123 may be an option, but not a smart move. Everyone should use large file support nowadays and GNU/Linux distributions use it as default.</p>
 
-	<h2><a name="asterisk">I want my music in asterisk and the mpg123 on my distro is just rubbish!</a></h2>
+	<h2><a id="asterisk">I want my music in asterisk and the mpg123 on my distro is just rubbish!</a></h2>
 	<p>
 		You are living in the past. See <a href="asterisk.shtml">my message to the asterisk community</a>.
 	</p>

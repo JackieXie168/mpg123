@@ -1,13 +1,4 @@
 <!--#include file="header.html" -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="css/02.css" rel="stylesheet" type="text/css" />
-        <meta name="author" content="Michael Hipp &amp; Thomas Orgis" />
-        <meta name="copyright" content="Michael Hipp &amp; Thomas Orgis" />
-        <meta name="publisher" content="Thomas Orgis" />
-
 	<title>mpg123: hacking</title>
 </head>
 <body>
@@ -95,6 +86,8 @@
 		but not with automatically creating bearable formatting for display only,
 		keeping logical lines as physical lines. Also line-based
 		diffs are not useful when the lines are too long.
+	</p>
+
 	<div class="listbox">
 	<ol>
 		<li><strong>Indentation with literal tab characters, one tab is

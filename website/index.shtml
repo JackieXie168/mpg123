@@ -31,7 +31,7 @@ It's fast, it's high-quality. Just use it;-)
 <h2>Top News</h2>
 <!--#include virtual="cgi-bin/news.cgi?top" -->
 
-<h2><a name="compliance"></a>ISO MPEG compliance</h2>
+<h2><a id="compliance"></a>ISO MPEG compliance</h2>
 <p>This is a rough log of an automated compliance test on the mpg123 webserver (Athlon 64, GNU/Linux), using each one test bitstream from the ISO MPEG reference set.
 At least the floating point output should really be close enough to the reference.</p>
 <p>
@@ -59,7 +59,7 @@ At least the floating point output should really be close enough to the referenc
 	Actually, my testing method follows that example, including their quoting of ISO MPEG rules.
 </p>
 
-<h2><a name="regression"></a>Regression tests</h2>
+<h2><a id="regression"></a>Regression tests</h2>
 <p>
 This is output from the rudimentary regression test suite (which should eventually merge several approaches we had on testing in the past), working on the periodic snapshot:
 </p>
