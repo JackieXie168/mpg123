@@ -261,6 +261,14 @@ ul.vmenu
 	}
 }
 
+@media screen and (max-width: 45ch)
+{
+	ul,ol
+	{
+		padding-left:0.9em;
+	}
+}
+
 div.end
 {
 	font-size: 0.6em;
