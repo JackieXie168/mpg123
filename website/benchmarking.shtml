@@ -36,5 +36,4 @@
 		To level the field, I tend to copy the MP3s to /dev/shm (RAM drive) first, skipping initial delay for reading from disk,
 		but this shouldn't influence the measured user time anyway.
 	</p>
-</body>
-</html>
+<!--#include file="footer.html" -->

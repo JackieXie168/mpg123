@@ -1,10 +1,9 @@
-html
-{
+html{
    background: #e0e0ff no-repeat top right; 
    color: #000000;
    cursor: default; 
    direction: ltr; 
-   font: 87.5%/1.5 'lucida sans unicode', 'lucida grande', sans-serif;
+   font-family: sans-serif;
 }
 
 body
@@ -15,29 +14,71 @@ body
     margin-left:10pt;
 }
 
+div.mainpart
+{
+	padding:0;
+	margin:0;
+}
+
+pre
+{
+	text-align:left;
+	border-radius: 0.5em;
+	overflow: auto;
+	padding: 0.5ch;
+	max-width: 80ch;
+	margin-left: auto;
+	margin-right: auto;
+}
 img {border: none;}
 
 .big { font-size:200%; }
 .reallybig { font-size:300%; }
 .center{ text-align:center; }
 
-/*
-a:link { color:#FFA100; text-decoration:none; font-weight:bold; }
+pre.plain
+{
+	border:solid;
+	background-color:#ffffff;
+	color:#000000;
+}
+
+/*a:link { color:#FFA100; text-decoration:none; font-weight:bold; }
 a:visited { color:#CA8000; text-decoration:none; font-weight:bold; }
 a:hover { color:#FFA100; text-decoration:underline; }
 a:active { color:#FFFFFF; text-decoration:none; }
 */
 
-h1, h2, h3 {font-family: inherit; color: #330000 }
+h1, h2, h3
+{
+	font-family: inherit; color: #330000;
+	text-shadow: 2pt 2pt 3px #999999;
+}
 
-p { width:90%; text-align:left; margin-left:5%; }
-ul { width:80%; text-align:left; margin-left:10%; }
-
-/* 
-table { width:90%; text-align:left; margin-left:5%; }
-
-pre { width:90%; text-align:left; margin-left:5%; }
-*/
+/* Overflow:auto is the trick that prevents overlapping
+   with the float object (which text flows around, the
+   background overlaps). I need that anywhere I do
+   place a float for site layout intead of an image
+   alongside a paragraph. All values except (the default
+   overflow: visible work.
+   Downside: min-width triggers scrolling on the
+   block, not floating out of the way. Once might consider
+   adding some fake minimal-width element to ensure
+   wrap before scroll. */
+p
+{
+	text-align:justify;
+	max-width: 90ch;
+	min-width: 30ch
+	margin:auto; 
+}
+ul, ol
+{
+	overflow: auto;
+	text-align:justify;
+	max-width: 80ch;
+}
+li { padding: 0.2em }
 
 hr { width:80%; }
 
@@ -45,12 +86,36 @@ hr { width:80%; }
 
 .newsblock
 {
+	overflow: auto;
    background-color: #ccdddd; 
-   margin-left:1.5cm; 
-   margin-right:1.5cm; 
-   padding-bottom: .5em;
+   margin-left: auto; 
+   margin-right: auto; 
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+   padding: 0em;
+/*   border-style: solid;
+   border-width: 2px;
+   border-color: gray; */
+   border-radius: 1em;
+   box-shadow: 2pt 2pt 3px #999999;
+	max-width: 70ch;
+/*	min-width: 30em; */
 }
-.newshead { background-color: #000055; padding: 0.5em; font-weight: bold; }
+.newshead
+{
+	background-color: #000055;
+	padding: 0.5em;
+	font-weight: bold;
+/*	border-style: solid;
+	border-width: 2px; */
+	border-top-left-radius: 1em;
+	border-top-right-radius: 1em;
+}
+.newsbody
+{
+	margin: 0em;
+	padding: 1em;
+}
 .newshead a:link { color:#FFA100; text-decoration:none; font-weight:bold; }
 .newshead a:visited { color:#CA8000; text-decoration:none; font-weight:bold; }
 .newshead a:hover { color:#FFA100; text-decoration:underline; }
@@ -60,10 +125,129 @@ hr { width:80%; }
 .newstitle { color: #ffffff; }
 .newsby { color: #bbbbbb; }
 
+.num:before
+{
+	content: attr(data-num);
+	color: #888888;
+}
+
+code
+{
+	font-family: monospace;
+	padding: 0.1em;
+/*        border: 1px solid #666666;  */
+	border-radius: 2pt;
+        background-color:#ffffff;
+        color:#000000;
+	white-space:nowrap;
+}
+
 .code
 {
-  font-family: monospace;
-  tab-size: 3;
-  -moz-tab-size: 3;
-  -o-tab-size: 3;
+	font-family: monospace;
+	tab-size: 3;
+	-moz-tab-size: 3; /* Damn, wanted to avoid browser hacks. */
+        max-width: 85ch;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid #666666; 
+        background-color:#ffffff;
+        color:#000000;
+}
+
+div.yearlinks
+{
+	text-align: center;
+	max-width: 60ch;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 1em;
+}
+
+ul.vmenu li
+{
+	list-style-type: none;
+	background-color: #ffffff;
+	border: 1pt solid #000000;
+	border-radius: 3pt;
+	box-shadow: 2pt 2pt 3px #999999;
+	margin-top: 0.2em;
+	margin-bottom: 0.2em;
+	white-space: nowrap;
+}
+
+ul.vmenu li:hover
+{
+	background-color: #ffff33;
+}
+
+ul.vmenu
+{
+	text-align: center;
+	padding: 0.5em;
+}
+
+@media screen and (min-width: 120ch)
+{
+	div.mainpart
+	{
+		margin-left:auto;
+		margin-right:auto;
+	}
+	p
+	{
+		margin:auto; 
+	}
+}
+
+@media screen and (min-width: 70ch)
+{
+	div.linkbar
+	{
+		width: 20ch;
+		margin: 1em;
+		float: left;
+		height:100%;
+		overflow: auto;
+		left: 0px;
+		top: 0px;
+		position: fixed;
+		text-align: center
+	}
+	div.mainpart
+	{
+		margin-left:22ch;
+	}
+	img.mainlogo
+	{
+		width: 100%
+	}
+}
+
+@media screen and (max-width: 70ch)
+{
+	div.linkbar
+	{
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+		line-height: 1.6em;
+	}
+	ul.vmenu li
+	{
+		display: inline;
+		list-style-type: none;
+		padding: 0.1em;
+	}
+	img.mainlogo
+	{
+		width: 20ch;
+	}
+}
+
+div.end
+{
+	font-size: 0.6em;
+	color: #888888;
+	text-align: center;
 }

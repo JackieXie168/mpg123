@@ -40,5 +40,4 @@
 		<li>Sun Audio (/dev/audio)</li>
 		<li>Win32 (Windows WaveOut)</li>
 	</ul>
-</body>
-</html>
+<!--#include file="footer.html" -->

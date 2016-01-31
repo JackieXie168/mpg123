@@ -16,5 +16,4 @@
 	<p>
 		Any questions regarding the website should be sent per eMail to the official mpg123 maintainer, <a href="mailto:maintainer@mpg123.org">Thomas Orgis</a>.
 	</p>
-</body>
-</html>
+<!--#include file="footer.html" -->

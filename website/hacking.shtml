@@ -32,7 +32,7 @@
 		past and current decades, if you prefer;-).  One simple rule
 		for that is: All mpg123 source is written in the C language
 		as specified in the ANSI C89 / ISO C90 standard. An exception
-		may be code inside <span class="code">#ifdef</span> specific
+		may be code inside <code>#ifdef</code> specific
 		for a platform that needs non-C89 code for some reason.
 	</p>
 	<p>
@@ -40,12 +40,13 @@
 		assembly files, but may be written using intrinsics or other
 		variants if the platform wants it that way.
 	</p>
+	<div class="listbox">
 	<ol>
 		<li>
 			Extensions to that standard need to be included in a
 			backwards-compatible way. <br />
 			One example is our usage of types like
-			<span class="code">off_t</span>
+			<code>off_t</code>
 			only after testing for availabilty (in an autoconf
 			macro) and defining it to a substitute type if
 			necessary.
@@ -69,17 +70,18 @@
 		<li>
 			C++ / C99 - style comments are not allowed. The
 			only comment marker is
-			<span class="code">/* Comment. */</span>,
+			<code>/* Comment. */</code>,
 			with variations of multi-linedness and doxygen fun.
 		</li>
 	</ol>
+	</div>
 
 	<p>
 		A good test for conformity is building the code with a recent
 		<a href="http://gcc.gnu.org">gcc</a> and the options
-		<span class="code">-std=c89 -pedantic</span>.
+		<code>-std=c89 -pedantic</code>.
 		There is the configure option
-		<span class="code">--enable-nagging</span>
+		<code>--enable-nagging</code>
 		to enable such a build.
 	</p>
 
@@ -93,6 +95,7 @@
 		but not with automatically creating bearable formatting for display only,
 		keeping logical lines as physical lines. Also line-based
 		diffs are not useful when the lines are too long.
+	<div class="listbox">
 	<ol>
 		<li><strong>Indentation with literal tab characters, one tab is
 			one level of indent.</strong> If you want to do alignment
@@ -148,104 +151,12 @@
 			introduced for clarity, but don't have to.
 		</li>
 	</ol>
-	<p>Well, here is some fictional example code:</p>
-<div align="center">
-<textarea readonly="readonly" class="code" cols="80" rows="60">
-/* Leading comma means no change of previous line when appending an entry,
-   comma before tab prevents uglyness because first entry would like
-   alignment with a single space otherwise. */
-enum some_enums
-{
-	SOME_CONSTANT
-,	ANOTHER_CONSTANT
-,	YET_ANOTHER_ONE /* No change here when extending the enum. */
-}
+	</div>
+	<h3>Example</h3>
 
-/*
-	This comment just has too
-	many lines for
-	me to bother aligning things with
-	three spaces to match.
-*/
+	<p>Here's some example fantasy code.</p>
+	<pre class="code"><!--#include file="examplecode.html" --></pre>
 
-switch(code)
-{
-	case SOME_CONSTANT:
-		handle_const1();
-	break;
-	ANOTHER_CONSTANT:
-	{
-		int a;
-		a = handle_const2();
-		printf("%i\n", a);
-	}
-	break;
-	case YET_ANOTHER_ONE:
-		printf("Hurray\n");
-	break;
-	default:
-		error("What to do?");
-}
-
-/* This is alignment, not indent, also using a leading
-   comma. */
-int function( int arg, char arg2
-            , int arg2, char arg3 );
-
-/* Here, things just are too long and pretty alignment is no fit. It is
-   preferred to keep function attributes/type on a line with the name. */
-funny_attribute_or_type_macro long function( some_type argument1
-,	another_type argument2, yet_another_type argument3 );
-
-if(TRUE) /* I do not like { at end of line. */
-{
-	do_something(a, b); /* Note: No space right inside parentheses. */
-	/* Here, things are spacy. */
-	do_more( first_argument_is_rather_long
-	,	(some_condition)
-		?	good_value /* two levels of indent */
-		:	bad_value
-	);
-	a = bleh( /* Again, the ( is not separated from the function name. */
-		complicated_argument
-	,	function_call( some_stuff
-		,	more_stuff, last_stuff )
-	,	dunno_something
-	); /* But the closing ) may be far away, ending the block visibly. */
-} else
-{
-	success = -1;
-	do_not_bother;
-} else if(hello_there)
-	nudge();
-
-if(yes)
-	return yay;
-else
-{
-	ask_why();
-	return no;
-}
-
-/* You might do pretty formatting if you want to. */
-struct threesome threes[] =
-{
-	{ value,  "string value",               3 }
-,	{ valued, "a long litany of tragedy", 123 }
-,	{ v,      "short",                     12 }
-};
-
-/* Things can be combined to avoid indent cascades.
-   Also, this is an example for two-character operators inside indent. */
-for(i=0; i<limit; ++i) if(
-	!strcasecmp(onething, name)
-||	!strcasecmp(atherthing, name)
-){ /* With only ) before it, the { still is at the beginning of the line */
-	do_something();
-	return something;
-}
-</textarea>
-</div>
 	<h3>Preprocessing</h3>
 	<p>
 		Well, we have C code, so we do use the C preprocessor. Although one should
@@ -259,6 +170,7 @@ for(i=0; i<limit; ++i) if(
 		gives me a pointer about preprocessors that choke on tabs there.
 	</p>
 
+
 	<h2>Documentation</h2>
 
 	<p>
@@ -269,5 +181,4 @@ for(i=0; i<limit; ++i) if(
 		use Doxygen for the rest of the code, so it is not needed to document
 		internal functions that way.
 	</p>
-</body>
-</html>
+<!--#include file="footer.html" -->

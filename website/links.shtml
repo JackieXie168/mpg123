@@ -106,5 +106,4 @@
 <li><a href="http://japhy.fnord.org/mp3sh/">mp3sh - a commandline-driven player based on Readline library.</a></li>
 <li><a href="http://www.lcws.org/plwarlock.html">PLWarlock, a text based frontend</a></li>
 </ul>
-</body>
-</html>
+<!--#include file="footer.html" -->

@@ -45,13 +45,27 @@ if(open(NEWS,"news.dat"))
     }
     else
     {
+	my %yearmark;
+	while(<NEWS>)
+	{
+		$yearmark{$2} = $1
+			if(/^:date\s+((\d+)-\d+-\d+)$/);
+	}
+	seek(NEWS, 0, SEEK_SET);
+
 	Put("../header.html");
 	print "<title>mpg123: news archive</title>\n</head>\n<body>\n";
 	Put("../linkbar.html");
 	print "<h1>News archive</h1>\n";
+	print "<div class=\"yearlinks\">\n";
+	for my $y (sort {$b <=> $a} keys %yearmark)
+	{
+		print "<a href=\"#$yearmark{$y}\">$y</a>\n";
+	}
+	print "</div>\n";
 	my %head;
 	my $data = 0;
-	print "<div class=\"newsblock\">\n";
+	my $block = 0;
 	while(<NEWS>)
 	{
 	    if($_ =~ /^([:\.])(.*)$/)
@@ -61,6 +75,10 @@ if(open(NEWS,"news.dat"))
 		    unless($data)
 		    {
 			$data = 1;
+			print "</div>\n"
+				if $block;
+			$block = 1;
+			print "<div class=\"newsblock\">\n";
 			NewsHead(\%head);
 			print "<div class=\"newsbody\">\n";
 		    }
@@ -70,7 +88,7 @@ if(open(NEWS,"news.dat"))
 		{
 		    if($data)
 		    {
-			print "</div><br />\n";
+			print "</div>\n";
 			$data = 0;
 			delete $head{title};
 			delete $head{date};
@@ -84,8 +102,8 @@ if(open(NEWS,"news.dat"))
 		}
 	    }
 	}
-	print "</div>\n";
 	print "</div>\n" if $data;
+	print "</div>\n" if $block;
 	print "</body>\n</html>\n";
     }
     close(NEWS);
@@ -116,7 +134,7 @@ sub NewsHead
     my $release = defined $head->{release}
         ? "Releasing <a href=\"/download/mpg123-$head->{release}.tar.bz2\">mpg123 version $head->{release}</a>: "
         : "";
-    print "<div class=\"newshead\"><a name=\"$head->{date}\"><span class=\"newsdate\">$head->{date}</span></a> ";
+    print "<div class=\"newshead\"><a name=\"$head->{date}\"></a><a href=\"#\"><span class=\"newsdate\">$head->{date}</span> ";
     print "<span class=\"newsby\">$head->{by}:</span> " if $head->{by};
-    print "<span class=\"newstitle\">$release$head->{title}</span></div>\n";
+    print "<span class=\"newstitle\">$release$head->{title}</span></a></div>\n";
 }

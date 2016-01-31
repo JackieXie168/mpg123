@@ -6,14 +6,25 @@
 <body>
 <!--#include file="linkbar.html" -->
 <h1>mpg123 - Fast console MPEG Audio Player and decoder library</h1>
-<p class="boxed">
-<em>mpg123</em> is a
-real time MPEG 1.0/2.0/2.5 audio player/decoder for layers 1,2 and 3 (most commonly MPEG 1.0 layer 3 aka MP3).
-Among others working with GNU/Linux, MacOSX, the BSDs, Solaris, AIX, HPUX, SGI Irix, OS/2 and Cygwin or plain MS Windows (not all more exotic platforms tested regularily, but patches welcome).<br />
+<p>
+The mpg123 distribution contains a
+real time MPEG 1.0/2.0/2.5 audio player/decoder
+for layers 1,2 and 3 (most commonly MPEG 1.0 layer 3 aka MP3).
+Among others, it works on GNU/Linux, MacOSX, the BSDs, Solaris,
+AIX, HPUX, SGI Irix, OS/2 and Cygwin or plain MS Windows
+(not all more exotic platforms tested regularily, but patches welcome).
+</p>
+<p>
 It is free software licensed under LGPL 2.1 .
 </p>
 <p>
-Note that nowadays, the mpg123 decoder core can work with <strong>floating point or integer math</strong>, possibly using assembly optimizations for several platforms, depending on your build configuration.
+Note that nowadays, the <strong>mpg123 decoder</strong> core can work with
+<strong>floating point or integer math</strong> and with some
+tuning between accuracy and performance at build-time,
+using assembly optimizations for several platforms,
+depending on your build configuration. There is detection and
+selection of assembly optimisations on x86, x86-64, and ARM at
+program runtime.
 It's fast, it's high-quality. Just use it;-)
 </p>
 
@@ -28,7 +39,7 @@ At least the floating point output should really be close enough to the referenc
 	A simple RMS error measure is employed, relative to full scale, just summing over mono or stereo data indiscriminently.
 	This is my interpretation of the rules... maximum allowed RMS=8.80967e-06, maximum signal difference 6.10352e-05.
 </p>
-<pre style="border:solid; background-color:#ffffff; color:#000000; padding:1.5em; margin-left:5%; margin-right:5%; ">
+<pre class="plain">
 <!--#include file="compliance.log" -->
 </pre>
 <p>
@@ -52,7 +63,7 @@ At least the floating point output should really be close enough to the referenc
 <p>
 This is output from the rudimentary regression test suite (which should eventually merge several approaches we had on testing in the past), working on the periodic snapshot:
 </p>
-<pre style="border:solid; background-color:#ffffff; color:#000000; padding:1.5em; margin-left:5%; margin-right:5%; ">
+<pre class="plain">
 <!--#include file="regression.log" -->
 </pre>
 
@@ -70,5 +81,4 @@ Also, we have reports from such devices as nintendo DS or Sony PSP, or various e
 	Just for info: mpg123 plays an average 128bps stream, with about 66%
 	in full quality on an AMD 486-133MHz machine.<br />
 </p>
-</body>
-</html>
+<!--#include file="footer.html" -->
