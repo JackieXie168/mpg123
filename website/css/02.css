@@ -70,6 +70,7 @@ p
 	text-align:justify;
 	max-width: 90ch;
 	min-width: 30ch;
+	padding-top:0.5em;
 	margin:auto; 
 }
 ul, ol
@@ -77,6 +78,7 @@ ul, ol
 	overflow: auto;
 	text-align:justify;
 	max-width: 80ch;
+	margin:auto;
 }
 li { padding: 0.2em }
 
@@ -177,7 +179,6 @@ ul.vmenu li
 	box-shadow: 2pt 2pt 3px #999999;
 	margin-top: 0.2em;
 	margin-bottom: 0.2em;
-	white-space: nowrap;
 }
 
 ul.vmenu li:hover
@@ -185,12 +186,6 @@ ul.vmenu li:hover
 	background-color: #ffff33;
 }
 
-/* Fill the li block to make it clickable (mostly).
-   W3C does not like putting the a tag around li. */
-ul.vmenu a
-{
-	display:block;
-}
 ul.vmenu
 {
 	text-align: center;
@@ -201,12 +196,20 @@ ul.vmenu
 {
 	div.mainpart
 	{
-		margin-left:auto;
+		margin-left: 20%;
 		margin-right:auto;
 	}
-	p
+/*	p
 	{
 		margin:auto; 
+	} */
+}
+
+@media screen and (min-width: 70ch) and (max-width: 120ch)
+{
+	div.mainpart
+	{
+		margin-left:22ch;
 	}
 }
 
@@ -224,9 +227,11 @@ ul.vmenu
 		position: fixed;
 		text-align: center
 	}
-	div.mainpart
+	/* Fill the li block to make it clickable (mostly).
+	   W3C does not like putting the a tag around li. */
+	ul.vmenu a
 	{
-		margin-left:22ch;
+		display:block;
 	}
 	img.mainlogo
 	{
@@ -248,6 +253,7 @@ ul.vmenu
 		display: inline;
 		list-style-type: none;
 		padding: 0.1em;
+		white-space: nowrap;
 	}
 	img.mainlogo
 	{
