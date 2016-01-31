@@ -132,7 +132,7 @@ sub NewsHead
 {
     my $head = shift;
     my $release = defined $head->{release}
-        ? "Releasing <a href=\"/download/mpg123-$head->{release}.tar.bz2\">mpg123 version $head->{release}</a>: "
+        ? "Releasing mpg123 version $head->{release}: "
         : "";
     print "<div class=\"newshead\"><a id=\"$head->{date}\"></a><a href=\"#\"><span class=\"newsdate\">$head->{date}</span> ";
     print "<span class=\"newsby\">$head->{by}:</span> " if $head->{by};
