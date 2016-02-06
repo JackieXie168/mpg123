@@ -52,7 +52,13 @@ a:active { color:#FFFFFF; text-decoration:none; }
 h1, h2, h3
 {
 	font-family: sans; color: #330000;
-	text-shadow: 0pt -2pt 3px #999999;
+}
+@media screen
+{
+	h1, h2, h3
+	{
+		text-shadow: 0pt -2pt 3px #999999;
+	}
 }
 
 /* Overflow:auto is the trick that prevents overlapping
@@ -85,14 +91,25 @@ li { padding: 0.2em }
 hr { width:80%; }
 
 .boxed {border: 1px solid #666666; padding: .5em;}
+.newshead
+{
+	font-weight: bold;
+	font-family: sans;
+}
 
+.newsblock
+{
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+@media screen
+{
 .newsblock
 {
 	overflow: auto;
 	margin-left: auto; 
 	margin-right: auto; 
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
 	padding: 0em;
 /*   border-style: solid;
    border-width: 2px;
@@ -106,8 +123,6 @@ hr { width:80%; }
 {
 	background-color: #000055;
 	padding: 0.5em;
-	font-weight: bold;
-	font-family: sans;
 	border-color: gray;
 	border-style: solid;
 	border-width: 1pt;
@@ -127,10 +142,29 @@ hr { width:80%; }
 	border-bottom-right-radius: 1em;
 	border-bottom-left-radius: 1em;
 }
+}
+
+@media print
+{
+	.newsblock
+	{
+		border-style: solid;
+		border-width: 1pt;
+		border-color: gray;
+		border-radius: 1em;
+		padding: 0.5em;
+	}
+}
+
+
 .newshead a:link { color:#FFA100; text-decoration:none; font-weight:bold; }
-.newshead a:visited { color:#CA8000; text-decoration:none; font-weight:bold; }
-.newshead a:hover { color:#FFA100; text-decoration:underline; }
-.newshead a:active { color:#FFFFFF; text-decoration:none; }
+
+@media screen
+{
+	.newshead a:visited { color:#CA8000; text-decoration:none; font-weight:bold; }
+	.newshead a:hover { color:#FFA100; text-decoration:underline; }
+	.newshead a:active { color:#FFFFFF; text-decoration:none; }
+}
 
 .newsdate { color: #ee4400; }
 .newstitle { color: #ffffff; }
@@ -306,6 +340,14 @@ ul.vmenu
 	.fluff
 	{
 		display:none;
+	}
+}
+
+@media print
+{
+	div.linkbar
+	{
+		display: none;
 	}
 }
 
