@@ -84,7 +84,8 @@ struct threesome threes[] =
 
 /* Things can be combined to avoid indent cascades.
    Also, this is an example for two-character operators inside indent. */
-for(i=0; i<limit; ++i) if(
+for(i=0; i<limit; ++i) if
+(
 	!strcasecmp(onething, name)
 ||	!strcasecmp(atherthing, name)
 ){ /* With only ) before it, the { still is at the beginning of the line */
