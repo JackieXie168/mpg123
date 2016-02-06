@@ -51,7 +51,7 @@
 		silenty skip other stuff</li>
 		<li>graceful handling of stream errors (silence instead of whiny twittering)</li>
 		<li>disabling of features to enable smaller builds for embedded systems
-		(a generic 64 bit float-output binary of from mpg123-1.23.0
+		(a generic x86-64 float-output binary of from mpg123-1.23.0
 		using gcc-4.9.2 with <code>-Os</code> is 118&nbsp;KiB stripped, still with
 		all the essential sample-accurate codec functionality)</li>
 	</ul>
