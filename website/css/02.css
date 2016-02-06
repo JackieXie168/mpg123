@@ -226,17 +226,17 @@ ul.vmenu
 
 @media screen and (min-width: 70ch)
 {
+	/* Looks best without specifying a margin. With margin: 1em, stuff is cut off?! */
 	div.linkbar
 	{
 		width: 20ch;
-		margin: 1em;
 		float: left;
 		height:100%;
 		overflow: auto;
 		left: 0px;
 		top: 0px;
 		position: fixed;
-		text-align: center
+		text-align: center;
 	}
 	/* Fill the li block to make it clickable (mostly).
 	   W3C does not like putting the a tag around li. */
@@ -277,6 +277,35 @@ ul.vmenu
 	ul,ol
 	{
 		padding-left:0.9em;
+	}
+}
+
+@media screen and (min-width: 70ch) and (max-height: 38em)
+{
+	div.linkbar
+	{
+		line-height: 1.7em
+	}
+	ul.vmenu li
+	{
+                display: inline;
+                list-style-type: none;
+                padding: 0.1em;
+		margin: 0.2em;
+                white-space: nowrap;
+	}
+        ul.vmenu a
+        {
+                display:inline;
+        }
+}
+
+/* Hide visual fluff if space is tight. */
+@media screen and (max-width: 70ch), screen and (max-height: 38em)
+{
+	.fluff
+	{
+		display:none;
 	}
 }
 
