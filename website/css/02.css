@@ -3,7 +3,7 @@ html{
    color: #000000;
    cursor: default; 
    direction: ltr; 
-   font-family: sans-serif;
+   font-family: serif;
 }
 
 body
@@ -51,7 +51,7 @@ a:active { color:#FFFFFF; text-decoration:none; }
 
 h1, h2, h3
 {
-	font-family: inherit; color: #330000;
+	font-family: sans; color: #330000;
 	text-shadow: 2pt 2pt 3px #999999;
 }
 
@@ -108,6 +108,7 @@ hr { width:80%; }
 	background-color: #000055;
 	padding: 0.5em;
 	font-weight: bold;
+	font-family: sans;
 /*	border-style: solid;
 	border-width: 2px; */
 	border-top-left-radius: 1em;
@@ -172,6 +173,8 @@ div.yearlinks
 
 ul.vmenu li
 {
+	font-family: sans;
+	font-weight: bold;
 	list-style-type: none;
 	background-color: #ffffff;
 	border: 1pt solid #000000;
