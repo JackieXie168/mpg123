@@ -1,3 +1,12 @@
+:date 20160212
+:by Thomas
+:title Fixes in svn that help OpenBSD with sndio
+.<p>The inevitable bugfix release 1.23.1 is in sight, with fixes in libout123 that
+.prevent closing an output device twice. This is something that many backends
+.are tolerant of, but not the sndio one. The <a href="/snapshot">current snapshot</a>
+.should fix crashes on OpenBSD when stopping playback.
+.</p>
+
 :date 20160131
 :release 1.23.0
 :title Patent-free fun!
