@@ -15,7 +15,7 @@
 .<p>
 .The JACK output got a fix for an incorrect memory allocation that,
 .in case of a specified ports list, resulted in an invalid write of
-.a NULL pointer value beyond the alloated block. Also, a memory leak
+.a NULL value beyond the allocated block. Also, a memory leak
 .for the real client name on format query and module check got fixed.
 .Upgrade highly recommened. While the invalid write only triggered if
 .the user supplied a port list on the command line and also did not
