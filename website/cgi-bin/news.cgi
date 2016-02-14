@@ -28,9 +28,9 @@ if(open(NEWS,"news.dat"))
 		{
 			if($data)
 			{
-			print "</div>\n";
-			$end = 1;
-			last;
+				close_news(\%head);
+				$end = 1;
+				last;
 			}
 			if($2  =~ /^(title|date|by|release)\s+(.*\S)$/)
 			{
@@ -39,8 +39,8 @@ if(open(NEWS,"news.dat"))
 		}
 		}
 	}
-	close_news(\%head);
-	print "</div>\n" unless $end;
+	close_news(\%head) unless $end;
+	print "</div>\n";
 	print "<p>For older news see the <a href=\"$ENV{SCRIPT_NAME}\">news archive</a></p>";
 	}
 	else
