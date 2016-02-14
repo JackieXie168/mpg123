@@ -6,7 +6,8 @@
 	<h1>Downloads</h1>
 
 	<p>
-		The sources are signed with <a href="http://thomas.orgis.org/public_key">Thomas&acute; GPG key</a>, fingerprint D021 FF8E CF4B E097 19D6  1A27 231C 4CBC 60D5 CAFE (older releases use the outdated key with fingerprint 7236 3885 A742 B736 E0C8  9721 9B4C 52BC D446 D524).
+		The sources are signed with <a href="http://thomas.orgis.org/public_key">Thomas&acute; GPG key</a>, fingerprint D021 FF8E CF4B E097 19D6  1A27 231C 4CBC 60D5 CAFE.
+	        Older releases use the outdated key with fingerprint 7236 3885 A742 B736 E0C8  9721 9B4C 52BC D446 D524.
 	</p>
 
 	<h2>Current Release</h2>
