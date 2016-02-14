@@ -1,3 +1,28 @@
+:date 20160214
+:by Thomas
+:release 1.23.1
+:title BSD knows JACK
+.<p>
+.Today's bugfix release gives BSDs with sndio (and probably others)
+.a helping hand in not attempting to close output devices twice in the
+.backend. Also, the JACK output got cleanup to properly work with
+.more than two desired output ports. If you specify ports, all of them
+.are linked to some out123 channel, and all channels are linked to some
+.port. This includes up- and downmix situations. For example, you
+.can make a mono track appear on a chosen number of JACK ports to send
+.to several monitoring buses in your multitrack setup.
+.</p>
+.<p>
+.The JACK output got a fix for an incorrect memory allocation that,
+.in case of a specified ports list, resulted in an invalid write of
+.a NULL pointer value beyond the alloated block. Also, a memory leak
+.for the real client name on format query and module check got fixed.
+.Upgrade highly recommened. While the invalid write only triggered if
+.the user supplied a port list on the command line and also did not
+.affect operation in practice on my system, it is still a nasty thing
+.to have.
+.</p>
+
 :date 20160212
 :by Thomas
 :title Fixes in svn that help OpenBSD with sndio
