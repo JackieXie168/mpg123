@@ -19,7 +19,7 @@
 .for the real client name on format query and module check got fixed.
 .Upgrade highly recommened. While the invalid write only triggered if
 .the user supplied a port list on the command line and also did not
-.affect operation in practice on my system, it is still a nasty thing
+.affect operation in practise on my system, it is still a nasty thing
 .to have.
 .</p>
 
