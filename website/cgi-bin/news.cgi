@@ -102,7 +102,7 @@ if(open(NEWS,"news.dat"))
 		}
 		}
 	}
-	print "</div>\n" if $data;
+	close_news(\%head) if $data;
 	print "</div>\n" if $block;
 	print "</body>\n</html>\n";
 	}
