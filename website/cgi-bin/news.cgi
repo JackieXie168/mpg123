@@ -88,7 +88,7 @@ if(open(NEWS,"news.dat"))
 		{
 			if($data)
 			{
-			print "</div>\n";
+				close_news(\%head);
 			$data = 0;
 			delete $head{title};
 			delete $head{date};
@@ -112,7 +112,6 @@ else
 {
 	print "<p>No news available.</p>\n";
 }
-
 
 sub Put
 {
@@ -138,3 +137,15 @@ sub NewsHead
 	print "<span class=\"newsby\">$head->{by}:</span> " if $head->{by};
 	print "<span class=\"newstitle\">$release$head->{title}</span></a></div>\n";
 }
+
+sub close_news
+{
+	my $head = shift;
+	if(defined $head->{release})
+	{
+		print '<p>Head over to the <a href="/download.shtml">download section</a>'
+		.	'for getting your hands on the release.</p>'."\n";
+	}
+	print "</div>\n";
+}
+
