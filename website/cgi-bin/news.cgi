@@ -39,7 +39,7 @@ if(open(NEWS,"news.dat"))
 		}
 		}
 	}
-	print "</div>\n";
+	close_news(\%head);
 	print "</div>\n" unless $end;
 	print "<p>For older news see the <a href=\"$ENV{SCRIPT_NAME}\">news archive</a></p>";
 	}
@@ -144,7 +144,7 @@ sub close_news
 	if(defined $head->{release})
 	{
 		print '<p>Head over to the <a href="/download.shtml">download section</a>'
-		.	'for getting your hands on the release.</p>'."\n";
+		.	' for getting your hands on the release.</p>'."\n";
 	}
 	print "</div>\n";
 }
