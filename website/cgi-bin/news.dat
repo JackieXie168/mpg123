@@ -1,3 +1,17 @@
+:date 20160223
+:by Thomas
+:release 1.23.2
+:title Fix Unicode printout (regression in 1.23.0)
+.<p>
+.Simplification of metadata printout in 1.23.0 oversimplified things so that
+.the difference between bytes and Unicode code points got forgotten again.
+.This results in skewed compact (two-column) tag data printout. Today's
+.release fixes that again to work like it did before. Please note that
+.mpg123 does not know about grapheme clusters or funny widths of characters
+.different from 1. This is a nightmare and would need linking to the ICU
+.library, I presume.
+.</p>
+
 :date 20160214
 :by Thomas
 :release 1.23.1
