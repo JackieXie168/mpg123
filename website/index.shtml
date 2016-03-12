@@ -50,7 +50,8 @@ At least the floating point output should really be close enough to the referenc
 	For the integer output, you have to give +-1 for rounding... that's what I append to any integer number read from some measurement device anyway, by default.
 	That minimum possible deviation already brings the output close (or over) the border of full compliance... that really does not mean that the output sounds bad!
 	It shall be noted that a measure to improve subjective quality, namely the dithering before rounding to integers, can also increase the theoretical decoding error.
-	<br>
+</p>
+<p>
 	In the end, RMS values in the order of 10 to the power of -5 should sound just fine.
 	To get 16bit output to PASS, you usually need to enable proper rounding using the
 	<span class="code">--enable-int-quality</span> configure flag.
