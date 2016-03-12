@@ -52,8 +52,13 @@ At least the floating point output should really be close enough to the referenc
 	It shall be noted that a measure to improve subjective quality, namely the dithering before rounding to integers, can also increase the theoretical decoding error.
 	<br>
 	In the end, RMS values in the order of 10 to the power of -5 should sound just fine.
-	To get 16bit output to PASS, you usually need to enable proper rounding using the --enable-int-quality configure flag.
-	It is not on by default because it mostly (yeah, there are odd cases) needs somewhat more CPU time and the simple truncation is fine for most people...
+	To get 16bit output to PASS, you usually need to enable proper rounding using the
+	<span class="code">--enable-int-quality</span> configure flag.
+	It is not on by default because it mostly (yeah, there are odd cases) needs somewhat more CPU time and the simple truncation is fine for most people.
+	Note that mpg123 does have a rounding method using the specific IEEE754 floating point
+	format, selected at build-time, which seems to be nearly as fast as simple truncation
+	on x86-64 hardware. So, <span class="code">--enable-int-quality</span> might be a
+	no-brainer on those systems.
 </p>
 <p>
 	For comparisong with other decoders (as well as older incarnations of the mpg123 engine), have a read of
