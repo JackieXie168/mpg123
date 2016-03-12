@@ -90,6 +90,8 @@ Also, we have reports from such devices as nintendo DS or Sony PSP, or various e
 </p>
 <p>
 	Just for info: mpg123 plays an average 128bps stream, with about 66%
-	in full quality on an AMD 486-133MHz machine.<br />
+	in full quality on an AMD 486-133MHz machine. Well, and more recently,
+	A Core2Duo P8600 core can do 500 times realtime decoding (a track
+	nearly five minutes long decoded in half a second).
 </p>
 <!--#include file="footer.html" -->
