@@ -80,6 +80,9 @@ This is output from the rudimentary regression test suite (which should eventual
 
 <h2>Needed computing power</h2>
 <p>A test (GNU/Linux OS) with 0.60-beta2 showed 3% to 4% CPU usage on decoding high quality VBR MP3 with a pentiumII laptop with 366MHz, while a pentium 100MHz can easily handle two mpg123 instances in realtime (plus the mixing daemon that works on decoded data).
+ Well, and more recently,
+	A Core2Duo P8600 core can do 500 times realtime decoding (a track
+	nearly five minutes long decoded in half a second).
 </p>
 <p>
 Also, we have reports from such devices as nintendo DS or Sony PSP, or various embedded systems... 
@@ -90,8 +93,6 @@ Also, we have reports from such devices as nintendo DS or Sony PSP, or various e
 </p>
 <p>
 	Just for info: mpg123 plays an average 128bps stream, with about 66%
-	in full quality on an AMD 486-133MHz machine. Well, and more recently,
-	A Core2Duo P8600 core can do 500 times realtime decoding (a track
-	nearly five minutes long decoded in half a second).
+	in full quality on an AMD 486-133MHz machine.
 </p>
 <!--#include file="footer.html" -->
