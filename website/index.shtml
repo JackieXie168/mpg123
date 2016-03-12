@@ -61,7 +61,7 @@ At least the floating point output should really be close enough to the referenc
 	on x86-64 hardware. So, <span class="code">--enable-int-quality</span> might be a
 	no-brainer on those systems if using the generic C decoder.
 	But then, there are the specific assembly routines (SSE, AVX), where the difference between
-	accurate and non-accurate integer conversion can still amount to 20 % runtime increase
+	accurate and non-accurate integer conversion can still amount to 20&nbsp;% runtime increase
 	(measured on a Core2Duo P8600 with GCC 5.3.0).
 </p>
 <p>
