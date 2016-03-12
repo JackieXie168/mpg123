@@ -58,7 +58,10 @@ At least the floating point output should really be close enough to the referenc
 	Note that mpg123 does have a rounding method using the specific IEEE754 floating point
 	format, selected at build-time, which seems to be nearly as fast as simple truncation
 	on x86-64 hardware. So, <span class="code">--enable-int-quality</span> might be a
-	no-brainer on those systems.
+	no-brainer on those systems if using the generic C decoder.
+	But then, there are the specific assembly routines (SSE, AVX), where the difference between
+	accurate and non-accurate integer conversion can still amount to 20 % runtime increase
+	(measured on a Core2Duo P8600 with GCC 5.3.0).
 </p>
 <p>
 	For comparisong with other decoders (as well as older incarnations of the mpg123 engine), have a read of
