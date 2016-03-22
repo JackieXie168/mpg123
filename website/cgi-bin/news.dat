@@ -1,3 +1,14 @@
+:date 20160322
+:by Thomas
+:release 1.23.3
+:title Polish
+.<p>This release fixes a bit of manpage formatting (thanks to ESR),
+.actually looks for sys/select.h in configure to help build under
+.Cygwin (at least), and always enables the fast IEEE 754 rounding
+.unless you disable it explicitly. If you are building mpg123 on a
+.VAX, you might consider <code>./configure --disable-ieeefloat</code> …
+.</p>
+
 :date 20160223
 :by Thomas
 :release 1.23.2
