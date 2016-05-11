@@ -6,7 +6,7 @@
 .There is quite a list of things that needed fixes in the 1.23 series. Focus
 .is on improvement of the live output performance and actually fixing some
 .regression in that area. I consider these fixes rather important. If you
-.use mpg123 1.23.x, you really should upgrade to 1.23.4 . But there are
+.use mpg123 1.23.x, you really should upgrade to 1.23.4 . But there also are
 .improvements over 1.22.x, especially sfifo-based output performance.
 .In the end, there is a bunch of build fixes to make your live easier.
 .</p>
