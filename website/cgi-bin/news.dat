@@ -1,3 +1,68 @@
+:date 20160511
+:by Thomas
+:release 1.23.4
+:title Fixes, Fixes
+.<p>
+.There is quite a list of things that needed fixes in the 1.23 series. Focus
+.is on improvement of the live output performance and actually fixing some
+.regression in that area. I consider these fixes rather important. If you
+.use mpg123 1.23.x, you really should upgrade to 1.23.4 . But there are
+.improvements over 1.22.x, especially sfifo-based output performance.
+.In the end, there is a bunch of build fixes to make your live easier.
+.</p>
+.<p>Here is the list:
+.</p>
+.<ul>
+.<li>mpg123: Fix logic of prebuffering small bits for glitch-free start of
+.  playback. The logic as introduced in 1.23.0 actually introduced stuttering!
+.  The fix for this is really minimal and I urge everyone to at least include
+.  that one. It is the changeset of rev. 4041.
+.</li>
+.<li>libout123:
+. <ul>
+. <li>Actually make OUT123_KEEP_PLAYING on by default, as documented.
+. </li>
+. <li>Fix buffer logic with regard to draining, use common device writing
+.   code to handle resuming from pause. This fixes sdl output with buffer,
+.   possibly other sfifo-based outputs like CoreAudio (those were poorly
+.   tested with buffer, as the combination is indeed unusual, see bug 230).
+. </li>
+. <li>Buffer pauses devices for prebuffering, to avoid underruns.
+. </li>
+. <li>More reliable playback with SDL, Portaudio and CoreAudio outputs.
+.   This includes FIFO draining on close to avoid dropping of the end.
+.   It should fix parts of bug 230.
+. </li>
+. <li>Fixed memory leaks with some outputs where a call to the deinit()
+.   function is necessary during available/working module checking.
+. </li>
+. </ul>
+.</li>
+.<li>mpg123, out123: Use the default output flags to get OUT123_KEEP_PLAYING.
+.  Without this, there is a good chance to abort on SIGSTOP/CONT while playing.
+.  This is a regression from 1.22 .
+.</li>
+.<li>Build fixes (bugs 227 and 228) and some build system hackery.
+.  Gone are libc feature test macros in compat.h . This means always
+.  using our own strdup() implementation. Simpler than being bugged by
+.  feature test macros in strict compiler mode (when _DEFAULT_SOURCE is not
+.  defined).
+.</li>
+.<li>./configure --enable-nagging does something also without --enable-debug,
+.  explictly triggers -std=c89, too (hence the above).
+.</li>
+.<li>Some fixup to make things work in pedantic C89 mode again.
+.  It really might be time to swich on some serious C99 for the next release,
+.  since there's a followup standard to _that_ which we can ignore now.
+.</li>
+.<li>Update list of renamed internal symbols to reduce conflicts during static
+.  linking of libmpg123 or libout123.
+.</li>
+.<li>Internal compatibility functions now handled via libtool convenience
+.  archives, avoiding the hackish code copies.
+.</li>
+.</ul>
+
 :date 20160322
 :by Thomas
 :release 1.23.3
