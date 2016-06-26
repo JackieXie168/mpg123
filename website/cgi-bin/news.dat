@@ -1,3 +1,37 @@
+
+:date 20160626
+:by Thomas
+:release 1.23.5
+:title Some more fixes, including regressions since 1.22
+.<p>Yet another (regression) fix release of mpg123. Also, there is a small
+.behaviour fix for libout123 error reporting where the initial release
+.was just wrong. I tax it as low-risk, only applying to hopeless situations anyway,
+.so the change squeezes into a bugfix release.
+.</p>
+.<p>The changes:</p>
+.<ul>
+.<li>libout123:
+.  <ul>
+.  <li>fix build of portaudio and SDL on win32 (too many parentheses,
+.   thanks to Sandro Cumerlato for pointing it out)
+.  </li>
+.  <li>make out123_errcode() return OUT123_BAD_HANDLE as documented
+.   (adding that value to the error enum, was documented but missing),
+.   again thanks to Sandro
+.  </li>
+.  </ul>
+.<li>fix windows-builds.sh (shell quoting in copying stage) and add some
+.  bits to shipped header to make it directly usable in MSVC (define ssize_t,
+.  bug 232)
+.</li>
+.<li>no overwriting of LIBS in Makefile (build system regression in 1.23,
+.  thanks to Peter Korsgaard for reporting that one)
+.</li>
+.<li>no printing of message in response to SIGPIPE, as that could trigger
+.  a hang if stderr itself is the piped culprit (regression from 1.22, bug 233)
+.</li>
+.</ul>
+
 :date 20160511
 :by Thomas
 :release 1.23.4
