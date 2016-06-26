@@ -22,13 +22,13 @@
 .  </ul>
 .<li>fix windows-builds.sh (shell quoting in copying stage) and add some
 .  bits to shipped header to make it directly usable in MSVC (define ssize_t,
-.  bug 232)
+.  <a href=/bugs/232>bug 232</a>)
 .</li>
 .<li>no overwriting of LIBS in Makefile (build system regression in 1.23,
 .  thanks to Peter Korsgaard for reporting that one)
 .</li>
 .<li>no printing of message in response to SIGPIPE, as that could trigger
-.  a hang if stderr itself is the piped culprit (regression from 1.22, bug 233)
+.  a hang if stderr itself is the piped culprit (regression from 1.22, <a href=/bugs/233>bug 233</a>)
 .</li>
 .</ul>
 
