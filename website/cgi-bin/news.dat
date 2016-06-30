@@ -1,3 +1,16 @@
+:date 20160630
+:by Thomas
+:release 1.23.6
+:title one more regression (remote control mode)
+.<p>With <a href=/bugs/234">bug 234</a>, another regression came to light,
+.this time in the remote control mode.</p>
+.<ul>
+.<li>call out123_pause() instead of out123_stop() in remote control STOP
+.command, fixing the regression in 1.23.x of not being able to resume
+.playback with a nother LOAD unless the new track has differing audio
+.format (<a href=/bugs/234">bug 234</a>)
+.</li>
+.</ul>
 
 :date 20160626
 :by Thomas
