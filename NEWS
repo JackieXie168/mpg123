@@ -1,27 +1,8 @@
-1.24.0
-------
-TODO: - Detect playlists from MIME type by default, finally? Or should the -@
-  always stay there as it already switches to track playback?
-- libmpg123 version 43:
--- Add flags MPG123_NO_PEEK_END and MPG123_FORCE_SEEKABLE, as suggested
-   by Bent Bisballe Nyeng.
-- Avoid repeating genre in metadata printout for specifications like
-  (144)Thrash Metal.
-
-1.23.7
-------
-- Fix the bad RPM spec file (broken since out123 addition).
-- More out123_pause() in generic control mode, working around
-  bug 236. The coreaudio output needs to be more robust, though.
-- Do not undef MPG123_EXPORT in the headers, rather be prepared for it
-  being defined already. This fixes MSVC builds, broken since 1.23.0
-  (bug 239).
-
 1.23.6
 ------
 - call out123_pause() instead of out123_stop() in remote control STOP
   command, fixing the regression in 1.23.x of not being able to resume
-  playback with another LOAD unless the new track has differing audio
+  playback with a nother LOAD unless the new track has differing audio
   format (bug 234)
 
 1.23.5
