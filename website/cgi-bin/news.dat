@@ -1,3 +1,20 @@
+:date 20160924
+:by Thomas
+:release 1.23.7
+:title fixery
+.<p>A fresh release before adding features … with these fixes:<p>
+.<ul>
+.<li>Fix the bad RPM spec file (broken since out123 addition, thanks
+. to Srikanth Rao for noticing).</li>
+.<li>More out123_pause() in generic control mode, working around
+.  <a href=/bugs/236>bug 236</a>. The coreaudio output needs to be more robust, though.
+.</li>
+.<li>Do not undef MPG123_EXPORT in the headers, rather be prepared for it
+.  being defined already. This fixes MSVC builds, broken since 1.23.0
+.  (<a href=/bugs/239>bug 239</a>).
+.</li>
+.</ul>
+
 :date 20160630
 :by Thomas
 :release 1.23.6
