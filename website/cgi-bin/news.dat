@@ -1,3 +1,19 @@
+:date 20160927
+:by Thomas
+:release 1.23.8
+:title Urgent fix for a long-standing denial of service vulnerability
+.<p>This release does one thing: Fix <a href=/bugs/240>bug 240</a>, an out-of-bounds
+.memory read in the ID3v2 parser for tags that claim an unrealistically small length.
+.This crashes mpg123 or any application using libmpg123 with activated ID3v2 parsing.</p>
+.<p>
+.Every mpg123 release with ID3v2 support is affected, so from version 0.60 on, if you
+.do not have the option to simply upgrade, this one-liner applies a hotfix:
+.</p>
+.<pre class=code>
+.perl -pi -e 's:(while\()(tagpos < length-10\)):${1}length >= 10 && $2:' $(find src -name id3.c)
+.</pre>
+.<p>Be sure to at least add that change to your distro patches …</p>
+
 :date 20160924
 :by Thomas
 :release 1.23.7
