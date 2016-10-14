@@ -14,6 +14,7 @@
 .</pre>
 .<p>Be sure to at least add that change to your distro patches …
 .Thanks to Han Lee & Jerold Hoong for the detailed report of the issue.</p>
+.<p><strong>Update:</strong> This is now listed as CVE-2016-1000247.</p>
 
 :date 20160924
 :by Thomas
