@@ -133,7 +133,8 @@ sub NewsHead
 	my $release = defined $head->{release}
 		? "Releasing mpg123 version $head->{release}: "
 		: "";
-	print "<div class=\"newshead\"><a id=\"$head->{date}\"></a><a href=\"#\"><span class=\"newsdate\">$head->{date}</span> ";
+	print "<div class=\"newshead\"><a id=\"$head->{date}\"></a><a href=\"#\"><span class=\"newsdate\">$head->{date}</span></a> ";
+	print "<a href=\"#$head->{date}\">";
 	print "<span class=\"newsby\">$head->{by}:</span> " if $head->{by};
 	print "<span class=\"newstitle\">$release$head->{title}</span></a></div>\n";
 }
