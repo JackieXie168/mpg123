@@ -2,7 +2,7 @@
 	<title>mpg123: benchmarking</title>
 </head>
 <body>
-	<!--#include file="linkbar.html" -->
+	<!--#include file="top.shtml" -->
 	<h1>The benchmarking lie?</h1>
 	<p>
 		Let's write a few notes about benchmarking the different mp3 decoders,

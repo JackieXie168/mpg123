@@ -2,7 +2,7 @@
 	<title>mpg123: features</title>
 </head>
 <body>
-	<!--#include file="linkbar.html" -->
+	<!--#include file="top.shtml" -->
 	<h1>Features</h1>
 
 	<h2>mpg123 the player</h2>

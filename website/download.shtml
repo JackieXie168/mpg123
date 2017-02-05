@@ -2,7 +2,7 @@
 	<title>mpg123: download</title>
 </head>
 <body>
-	<!--#include file="linkbar.html" -->
+	<!--#include file="top.shtml" -->
 	<h1>Downloads</h1>
 
 	<p>

@@ -2,7 +2,7 @@
 	<title>mpg123: hacking</title>
 </head>
 <body>
-	<!--#include file="linkbar.html" -->
+	<!--#include file="top.shtml" -->
 	<h1>Hacking mpg123</h1>
 
 	<p>

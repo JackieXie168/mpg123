@@ -362,3 +362,19 @@ div.w3c
 {
 	text-align: right;
 }
+
+div.httpsnotice
+{
+	text-align: center;
+	font-style: italic;
+	font-family: sans-serif;
+	color: #ff2222;
+}
+
+@media print
+{
+	div.httpsnotice
+	{
+		display: none;
+	}
+}

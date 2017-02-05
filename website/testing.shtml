@@ -2,7 +2,7 @@
 	<title>mpg123: testing</title>
 </head>
 <body>
-	<!--#include file="linkbar.html" -->
+	<!--#include file="top.shtml" -->
 	<h1>Testing</h1>
 	<p><strong>That page is a bit outdated, well, or better, incomplete. You don't get complaints when somthing works, so you can basically assume that your platform works nowadays, if it should theoretically do so. If not: Bug us;-)</strong></p>
 	<p>

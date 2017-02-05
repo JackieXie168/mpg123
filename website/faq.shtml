@@ -2,7 +2,7 @@
 	<title>mpg123: Frequently Asked Questions</title>
 </head>
 <body>
-	<!--#include file="linkbar.html" -->
+	<!--#include file="top.shtml" -->
 	<h1>Frequently Asked Questions</h1>
 
 	<p>Since several nice people are offering translations of this page into belarusian, in exchange for an innocent link, I thought it might be helpful if I point out that you can get very similar translations from your friendly all-knowing internet overlord: <a href="http://translate.google.com/translate?hl=en&amp;ie=UTF8&amp;prev=_t&amp;sl=en&amp;tl=be&amp;u=http://www.mpg123.de/faq.shtml">Google translate</a>. In fact, you even have a choice of more than one eastern european language...</p>

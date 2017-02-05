@@ -1,0 +1,8 @@
+<!--#include file="linkbar.html" -->
+<div class="mainpart">
+<!--#if expr="$HTTPS=on" -->
+<!--#else -->
+<div class="httpsnotice">
+	You could <a href="https://<!--#echo var=SERVER_NAME --><!--#echo var=REQUEST_URI -->">access this page securely</a>.
+</div>
+<!--#endif -->

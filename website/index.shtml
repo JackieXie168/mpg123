@@ -4,7 +4,7 @@
 	<meta name="robots" content="INDEX,FOLLOW" />
 </head>
 <body>
-<!--#include file="linkbar.html" -->
+<!--#include file="top.shtml" -->
 <h1>mpg123 - Fast console MPEG Audio Player and decoder library</h1>
 <p>
 The mpg123 distribution contains a
