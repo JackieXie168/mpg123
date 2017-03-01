@@ -1,4 +1,4 @@
-:date 20160927
+:date 2016-09-27
 :by Thomas
 :release 1.23.8
 :title Urgent fix for a long-standing denial of service vulnerability
@@ -16,7 +16,7 @@
 .Thanks to Han Lee & Jerold Hoong for the detailed report of the issue.</p>
 .<p><strong>Update:</strong> This is now listed as CVE-2016-1000247.</p>
 
-:date 20160924
+:date 2016-09-24
 :by Thomas
 :release 1.23.7
 :title fixery
@@ -33,7 +33,7 @@
 .</li>
 .</ul>
 
-:date 20160630
+:date 2016-06-30
 :by Thomas
 :release 1.23.6
 :title one more regression (remote control mode)
@@ -47,7 +47,7 @@
 .</li>
 .</ul>
 
-:date 20160626
+:date 2016-06-26
 :by Thomas
 :release 1.23.5
 :title Some more fixes, including regressions since 1.22
@@ -80,7 +80,7 @@
 .</li>
 .</ul>
 
-:date 20160511
+:date 2016-05-11
 :by Thomas
 :release 1.23.4
 :title Fixes, Fixes
@@ -145,7 +145,7 @@
 .</li>
 .</ul>
 
-:date 20160322
+:date 2016-03-22
 :by Thomas
 :release 1.23.3
 :title Polish
@@ -159,7 +159,7 @@
 .<p>if you are building mpg123 or a VAX or something …
 .</p>
 
-:date 20160223
+:date 2016-02-23
 :by Thomas
 :release 1.23.2
 :title Fix Unicode printout (regression in 1.23.0)
@@ -173,7 +173,7 @@
 .library, I presume.
 .</p>
 
-:date 20160214
+:date 2016-02-14
 :by Thomas
 :release 1.23.1
 :title BSD knows JACK
@@ -198,7 +198,7 @@
 .to have.
 .</p>
 
-:date 20160212
+:date 2016-02-12
 :by Thomas
 :title Fixes in svn that help OpenBSD with sndio
 .<p>The inevitable bugfix release 1.23.1 is in sight, with fixes in libout123 that
@@ -207,7 +207,7 @@
 .should fix crashes on OpenBSD when stopping playback.
 .</p>
 
-:date 20160131
+:date 2016-01-31
 :release 1.23.0
 :title Patent-free fun!
 :by Thomas
