@@ -6,6 +6,13 @@ $year += 1900;
 print sprintf(":date %04d-%02d-%02d\n", $year, $mon, $mday);
 print ":by $ENV{USER}\n";
 
+sub filter
+{
+	my $line = shift;
+	$line =~ s,\bbug (\d+),<a href="/bugs/$1">bug $1</a>,g;
+	return $line;
+}
+
 while(<STDIN>)
 {
 	if(/(^\d+\.\d+\.\d+)$/)
@@ -20,20 +27,20 @@ while(<STDIN>)
 		my $lev = length($1);
 		if($lev <= $level)
 		{
-			print ".</li></ul>\n" x ($level-$lev);
+			print ".</li>\n.</ul>\n" x ($level-$lev);
 			print ".</li>\n";
 		}
 		if($lev > $level)
 		{
-			print ".<ul>" x ($lev-$level);
+			print ".<ul>\n" x ($lev-$level);
 		}
 		$level = $lev;
-		print ".<li>\n\t$2\n";
+		print ".<li>\n.\t".filter($2)."\n";
 	}
 	elsif(/^\s+(\S.*)$/)
 	{
-		print ".\t$1\n";
+		print ".\t".filter($1)."\n";
 	}
 }
 
-print ".</li></ul>\n" x $level;
+print ".</li>\n.</ul>\n" x $level;
