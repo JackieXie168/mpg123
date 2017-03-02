@@ -1,3 +1,124 @@
+:date 2017-03-02
+:by thomas
+:release 1.24.0
+:title Further we proceed.
+.<p>This release is a mix of accumulated fixes and enhancements. Have a read of the
+.list of changes:
+.</p>
+.<ul>
+.<li>
+.	Avoid repeating genre in metadata printout for specifications like
+.	(144)Thrash Metal.
+.</li>
+.<li>
+.	In remote control mode, only enforce --quiet if no verbosity was required.
+.</li>
+.<li>
+.	Prevent --loop and --shuffle or --random from messing with the remote
+.	control LOADLIST command (printout of the list would loop without reason).
+.</li>
+.<li>
+.	Fix the mpg123 command (esp. our provided binaries on Windows) to now find
+.	modules again relative to the executable directory, not the current working
+.	directory. This was a regression in 1.23 and might be security-relevant if
+.	you called mpg123 in working directories with untrusted content.
+.	Note that mpg123 1.23 looked for modules relative to the current working
+.	directory only if the installation prefix for modules did not exist.
+.	So, usage on an intact installation (with /usr/lib/mpg123 or the like) was
+.	safe. Nevertheless this new version fixes the search to be relative to the
+.	binary path as it was with 1.22 and before.
+.</li>
+.<li>
+.	At least consistent behaviour of playlist code in the face of looping.
+.	Looping is about individual tracks, always. They are looped also in random
+.	mode. Jumping (prev/next keys) is between tracks and resets the loop counter.
+.	The display of currently playing track in the playlist is fixed for random
+.	and looped play now (<a href="/bugs/198">bug 198</a>).
+.</li>
+.<li>
+.	Looping is now mentioned for a to-be-repeated track with --verbose.
+.</li>
+.<li>
+.	Move some compiler nagging from --enable-debug to --enable-nagging, fix up
+.	some new build failures by adding some pesky feature test macros.
+.</li>
+.<li>
+.	Try not to pollute the terminal buffer with old progress bars in inverse
+.	video. Only the currently live one shall be seen. That one is pretty. The
+.	others are not.
+.</li>
+.<li>
+.	Using plain dlopen()/LoadLibrary() for opening modules instead of libltdl.
+.	This also means that --with-module-suffix is gone in configure.
+.</li>
+.<li>
+.	Windows builds only work when Unicode support is there (older than Windows
+.	2000/XP will definitely not work anymore).
+.</li>
+.<li>
+.	The out123 tool now features tone generation, with a mix of differing
+.	wave patterns. Makes sense to be able to test the audio output by itself,
+.	and it's fun. See --wave-freq and related parameters.
+.</li>
+.<li>
+.	libmpg123 version 43:
+.<ul>
+.<li>
+.	Add flags MPG123_NO_PEEK_END and MPG123_FORCE_SEEKABLE, as suggested
+.	by Bent Bisballe Nyeng.
+.</li>
+.<li>
+.	Build fix for MSVC (consistent definition of ssize_t, spotted by manx,
+.	<a href="/bugs/243">bug 243</a>).
+.</li>
+.<li>
+.	Build fix for --with-cpu=ppc_nofpu (thanks to Michael Kostylev, <a href="/bugs/244">bug 244</a>).
+.</li>
+.<li>
+.	Add asm optimized MSVC++ Win32|x64 and UWP|x64 builds
+.</li>
+.<li>
+.	Remove old, broken MSVC++ builds
+.</li>
+.</ul>
+.</li>
+.<li>
+.	libout123 version 2:
+.<ul>
+.<li>
+.	Added OUT123_BINDIR.
+.</li>
+.<li>
+.	New search order for output plugin directory: MPG123_MODDIR, or (relative
+.	to executable directory OUT123_BINDIR) ../lib/mpg123, plugins
+.	libout123/modules/.libs, libout123/modules, ../libout123/modules/.libs,
+.	../libout123/modules, and at last the installation prefix $libdir/mpg213/.
+.	This shall ensure that a build inside a source tree does not try to use old
+.	modules from the system prefix. The normal libtool wrapper deals with the
+.	shared libout123 or libmpg123 only, not modules.
+.	Note that if you set MPG123_MODDIR to a non-existing directory, no modules
+.	will be found (earlier versions fell back to other choices).
+.</li>
+.<li>
+.	The OUT123_NAME parameter is now copied by out123_param_from(), as is
+.	the newly added OUT123_BINDIR.
+.</li>
+.<li>
+.	Coreaudio: Use AudioComponents API on OSX >= 10.6 (thanks to Michael Weiser).
+.</li>
+.<li>
+.	Coreaudio: Fix behaviour of out123_drop(), not killing the output anymore
+.	without re-opening the device (<a href="/bugs/236">bug 236</a>, thanks to Taihei for the fix).
+.</li>
+.</ul>
+.</li>
+.</ul>
+.<p>Note: There was an error in the build machinery in the first upload of the tarball.
+.(uninstalling of modules was broken).
+.I really hate to do that, but I am uploading a fixed version under the same name, since
+.nobody downloaded the file from sf.net yet … it was just hours ago.
+.</p>
+
 :date 2016-09-27
 :by Thomas
 :release 1.23.8
