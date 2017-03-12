@@ -118,6 +118,11 @@
 .I really hate to do that, but I am uploading a fixed version under the same name, since
 .nobody downloaded the file from sf.net yet … it was just hours ago.
 .</p>
+.<p><strong>Update 2017-03-12:</strong> We uploaded new win32 binaries that now should not
+.depend on the libgcc DLL, like the win64 ones. There is a hack in the configure script
+.to achieve that (force <code>-static-libgcc</code> into <code>CC</code>), scheduled to
+.appear in the next normal release.
+.</p>
 
 :date 2016-09-27
 :by Thomas
