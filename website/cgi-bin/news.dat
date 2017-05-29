@@ -1,3 +1,43 @@
+:date 2017-05-29
+:by Thomas
+:release 1.25.0
+:title Free! Free! Free at last! Celebrate world-wide patent-free MPEG audio with a new version of mpg123.
+.<p>Some enhancements accumulated. Even after a decade, people notice bugs for the first time.
+.The usual. Among misguided news coverage of the demise of the MP3 patents (MP3 is dead because
+.we don't have to <em>pay</em> for the license anymore?!) it seems only appropriate to continue
+.showing the world that mpg123 is very much alive. Not so much kicking, but humming along nicely.
+.This is what you get today:
+.</p>
+.<ul>
+.<li>Silence test for artsc-config if it is not there.</li>
+.<li>Make sure -static-libgcc from LDFLAGS gets through libtool,
+.  fixing 32 bit Windows builds (depend on libgcc DLL otherwise).</li>
+.<li>Fix build with non-GNU make by using plain rm -f instead of silly $(RM)
+.  in libout123/modules makefile fragment.</li>
+.<li>Make build work on iOS, including coreaudio backend.</li>
+.<li>libmpg123:
+.<ul>
+.  <li>Finally provide position-independent code for x86 with assembly
+.   optimisations. The textrels are gone thanks to Won Kyu Park and Taihei Momma.</li>
+.  <li>Clarify some license language in files descending from the original MMX
+.   optimisation.</li>
+.  <li>Fix return value overflow check for MPG123_BUFFERFILL.</li>
+.  <li>Introduced mpg123_getformat2() to enable the FORMAT command
+.   for the generic control not stealing MPG123_NEW_FORMAT from the main
+.   playback loop. The sequence LOADPAUSED-FORMAT-PAUSE (play) is supposed
+.   to work now.</li>
+.  <li>Enable aarch64 optimisations on *BSD by default, too. You can always
+.   override that stupid OS whitelist using --with-optimization, anyway.</li>
+.  <li>Use of the i486 decoder is now discouraged more prominently, in configure
+.   output.</li>
+.</ul></li>
+.<li>out123: Fix stupid crash with verbose mode and tone generation (print
+.  the string if the pointer is non-null, not if it is null).</li>
+.<li>libout123: More consistent error messages for dynamic and legacy
+.  (built-in) modules. Namely, you get a hint how if you choose a different
+.  module than the built-in ones for a static libout123.</li>
+.</ul>
+
 :date 2017-03-02
 :by thomas
 :release 1.24.0
